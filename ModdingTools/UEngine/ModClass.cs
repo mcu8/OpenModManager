@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,15 +10,50 @@ namespace ModdingTools.UEngine
 {
     public class ModClass
     {
-        public string ClassName { get; private set; }
-        public string ExtendsClass { get; private set; }
-        public string FileName { get; private set; }
+        public string ClassName       { get; private set; }
+        public string ExtendsClass    { get; private set; }
+        public string FileName        { get; private set; }
         public ModClassType ClassType { get; private set; }
 
         public enum ModClassType
         {
-            Sticker, Weapon, Remix, Badge, Hat, Skin, DWContract, Generic
+            Sticker, Weapon, Remix, Badge, Hat, Skin, DWContract, Generic, Playable
         }
+
+        public static readonly Dictionary<ModClassType, Bitmap> ClassToIconMapping = new Dictionary<ModClassType, Bitmap>
+        {
+            { ModClassType.Badge,       Properties.Resources.badge      },
+            { ModClassType.Playable,    Properties.Resources.generic    }, // TODO: add better icon
+            { ModClassType.DWContract,  Properties.Resources.deathwish  },
+            { ModClassType.Hat,         Properties.Resources.hat        },
+            { ModClassType.Remix,       Properties.Resources.remix      },
+            { ModClassType.Sticker,     Properties.Resources.sticker    },
+            { ModClassType.Weapon,      Properties.Resources.generic    }, // TODO: add umbrella icon
+            { ModClassType.Generic,     Properties.Resources.generic    },
+            { ModClassType.Skin,        Properties.Resources.dye        } 
+        };
+
+        public static readonly Dictionary<ModClassType, string> ClassToIniPropertyMapping = new Dictionary<ModClassType, string>
+        {
+            { ModClassType.Hat,         "HasHat"        },
+            { ModClassType.Sticker,     "HasStricker"   },
+            { ModClassType.Badge,       "HasBadge"      },
+            { ModClassType.Weapon,      "HasWeapon"     },
+            { ModClassType.Skin,        "HasSkin"       }
+        };
+
+        public static readonly Dictionary<ModClassType, string> ClassToNameMapping = new Dictionary<ModClassType, string>
+        {
+            { ModClassType.Badge,       "badge"                  },
+            { ModClassType.Playable,    "playable character"     },
+            { ModClassType.DWContract,  "Death Wish contract"    },
+            { ModClassType.Hat,         "hat"                    },
+            { ModClassType.Remix,       "remix"                  },
+            { ModClassType.Sticker,     "sticker"                },
+            { ModClassType.Weapon,      "weapon"                 }, 
+            { ModClassType.Generic,     "other classes"          },
+            { ModClassType.Skin,        "dye"                    }
+        };
 
         private void DetectModClassType()
         {
@@ -71,6 +107,16 @@ namespace ModdingTools.UEngine
             else if ("Hat_SnatcherContract_DeathWish".Equals(ExtendsClass))
             {
                 ClassType = ModClassType.DWContract;
+            }
+            // Playable
+            else if ("Hat_Player".Equals(ExtendsClass) || "Hat_Player_HatKid".Equals(ExtendsClass))
+            {
+                ClassType = ModClassType.Playable;
+            }
+            // Auto equipable
+            else if ("Hat_Player".Equals(ExtendsClass) || "Hat_Player_HatKid".Equals(ExtendsClass))
+            {
+                ClassType = ModClassType.Playable;
             }
             // Generic
             else

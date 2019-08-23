@@ -76,11 +76,6 @@ namespace ModdingTools.GUI
             this.Cursor = checkBox1.Checked ? Cursors.Arrow : Cursors.Hand;
         }
 
-        public MainWindow GetParentForm()
-        {
-            return (MainWindow)this.ParentForm;
-        }
-
         public bool Checked
         {
             get => checkBox1.Checked;
@@ -89,22 +84,48 @@ namespace ModdingTools.GUI
 
         private void compileScriptsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Mod.CompileScripts(GetParentForm().Runner);
+            Mod.CompileScripts(MainWindow.Instance.Runner);
         }
 
         private void cookModToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Mod.CookMod(GetParentForm().Runner);
+            Mod.CookMod(MainWindow.Instance.Runner);
         }
 
         private void titleScreenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Mod.TestMod(GetParentForm().Runner);
+            Mod.TestMod(MainWindow.Instance.Runner);
         }
 
         private void openDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Utils.OpenInExplorer(Mod.RootPath);
+        }
+
+        private void moveoToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            var menu = moveToToolStripMenuItem;
+            menu.DropDownItems.Clear();
+
+            foreach(var modSource in MainWindow.Instance.GetModSources())
+            {
+                if (modSource.IsReadOnly || Mod.RootSource == modSource)
+                    continue;
+
+                var item = new ToolStripMenuItem(modSource.Name, null, (obj, args) => {
+                    var o = (ToolStripMenuItem)obj;
+                    var t = (ModDirectorySource)o.Tag;
+                    this.Mod.ChangeModSource(t);
+
+                    MainWindow.Instance.ReloadModList();
+                });
+
+                item.Name = modSource.Name;
+                item.Text = modSource.Name;
+                item.Tag = modSource;
+
+                menu.DropDownItems.Add(item);
+            }
         }
     }
 }

@@ -98,6 +98,12 @@ namespace ModdingTools.GUI
             RunAppAsync(info.Executable, info.Arguments, info.WorkingDirectory);
         }
 
+        public void RunApp(ExecutableArgumentsPair info)
+        {
+            Debug.WriteLine(info.ToString());
+            RunApp(info.Executable, info.Arguments, info.WorkingDirectory);
+        }
+
         public void RunAppAsync(string exe, string[] args, string cwd = ".")
         {
             Task.Factory.StartNew(() =>

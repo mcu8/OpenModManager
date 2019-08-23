@@ -17,8 +17,6 @@ namespace ModdingTools
         [STAThread]
         static void Main()
         {
-            //MessageBox.Show(new ModClass(@"C:\Program Files (x86)\Steam\steamapps\common\HatinTime\HatinTimeGame\Mods\SpaceMetro_map\Classes\SpaceMetro_DWTrains.uc").ToString());
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainWindow());

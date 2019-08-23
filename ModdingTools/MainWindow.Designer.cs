@@ -33,6 +33,7 @@
             this.modListControl1 = new ModdingTools.GUI.ModListControl();
             this.mButton1 = new ModdingTools.GUI.MButton();
             this.mButton2 = new ModdingTools.GUI.MButton();
+            this.mButton3 = new ModdingTools.GUI.MButton();
             this.SuspendLayout();
             // 
             // processRunner1
@@ -88,11 +89,28 @@
             this.mButton2.Text = "CONFIGURE";
             this.mButton2.UseVisualStyleBackColor = false;
             // 
+            // mButton3
+            // 
+            this.mButton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.mButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.mButton3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.mButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mButton3.ForeColor = System.Drawing.Color.White;
+            this.mButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mButton3.Location = new System.Drawing.Point(822, 246);
+            this.mButton3.Name = "mButton3";
+            this.mButton3.Size = new System.Drawing.Size(192, 52);
+            this.mButton3.TabIndex = 6;
+            this.mButton3.Text = "MAFIA PUNCH\r\n(KILL EDITOR)";
+            this.mButton3.UseVisualStyleBackColor = false;
+            this.mButton3.Click += new System.EventHandler(this.mButton3_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1021, 555);
+            this.Controls.Add(this.mButton3);
             this.Controls.Add(this.mButton2);
             this.Controls.Add(this.mButton1);
             this.Controls.Add(this.modListControl1);
@@ -105,6 +123,7 @@
             this.Controls.SetChildIndex(this.modListControl1, 0);
             this.Controls.SetChildIndex(this.mButton1, 0);
             this.Controls.SetChildIndex(this.mButton2, 0);
+            this.Controls.SetChildIndex(this.mButton3, 0);
             this.ResumeLayout(false);
 
         }
@@ -114,6 +133,7 @@
         private GUI.ModListControl modListControl1;
         private GUI.MButton mButton1;
         private GUI.MButton mButton2;
+        private GUI.MButton mButton3;
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ModdingTools.Modding;
 
@@ -37,6 +38,11 @@ namespace ModdingTools.GUI
             sources.Add(source);
         }
 
+        public ModDirectorySource[] GetModDirectorySources()
+        {
+            return sources.ToArray();
+        }
+
         public void RemoveModSource(ModDirectorySource source)
         {
             sources.Remove(source);
@@ -46,28 +52,51 @@ namespace ModdingTools.GUI
         {
             flowLayoutPanel1.Controls.Clear();
             flowLayoutPanel1.Visible = false;
-            foreach (var source in sources)
+            this.BackgroundImage = Properties.Resources.loading_text;
+            Task.Factory.StartNew(() =>
             {
-                var mods = source.GetMods();
 
-                if (mods.Length > 0)
+                int i1 = 0;
+                int i2 = 0;
+
+                foreach (var source in sources)
                 {
-                    var space = new CategorySpacer(source.Name, source.Root);
-                    space.ToggleState = source.Enabled;
-                    space.Width = this.Width - 20 - SystemInformation.VerticalScrollBarWidth;
-                    space.HeaderClick += Space_Click;
-                    space.Toggle += Toggle;
-                    flowLayoutPanel1.Controls.Add(space);
-                    foreach (var d in mods)
+                    var mods = source.GetMods();
+                    i1 += mods.Length;
+
+                    if (mods.Length > 0)
                     {
-                        var tile = new ModTile(d);
-                        tile.Visible = source.Enabled;
-                        tile.Tag = space;
-                        flowLayoutPanel1.Controls.Add(tile);
+                        var space = new CategorySpacer(source.Name, source.Root);
+                        this.Invoke(new MethodInvoker(() =>
+                        {
+                            space.ToggleState = source.Enabled;
+                            space.Width = this.Width - 20 - SystemInformation.VerticalScrollBarWidth;
+                            space.HeaderClick += Space_Click;
+                            space.Toggle += Toggle;
+                            flowLayoutPanel1.Controls.Add(space);
+                        }));
+                        foreach (var d in mods)
+                        {
+                            i2++;
+                            SetStatus("Loading mod " + d.Name + " [" + i2 + " of " + i1 + "]");
+                            this.Invoke(new MethodInvoker(() =>
+                            {
+                                var tile = new ModTile(d);
+                                tile.Visible = source.Enabled;
+                                tile.Tag = space;
+                                flowLayoutPanel1.Controls.Add(tile);
+
+                            }));
+                        }
                     }
-                }  
-            }
-            flowLayoutPanel1.Visible = true;
+                }
+                this.Invoke(new MethodInvoker(() => {
+                    flowLayoutPanel1.Visible = true;
+                    this.BackgroundImage = null;
+                    SetStatus("Loaded " + i1 + " elements!");
+                }));
+            });
+           
         }
 
         public ModObject[] GetSelectedMods()
@@ -138,6 +167,39 @@ namespace ModdingTools.GUI
             }
             sender.SelectionMode = !sender.SelectionMode;
             flowLayoutPanel1.Update();
+        }
+
+        private void mButtonBorderless1_Click(object sender, EventArgs e)
+        {
+            ReloadList();
+        }
+
+        public void SetStatus(string text)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(() => SetStatus(text)));
+                return;
+            }
+
+            label1.Text = text;
+        }
+
+        private void mButtonBorderless2_Click(object sender, EventArgs e)
+        {
+            var mods = GetSelectedMods();
+            Task.Factory.StartNew(() =>
+            {
+                SetStatus("Starting mod cooking...");
+                int i = 1;
+                foreach (var mod in mods)
+                {
+                    SetStatus("Cooking mod: " + mod.Name + " [" + i + "/" + mods.Length + "]");
+                    mod.CookMod(MainWindow.Instance.Runner, false);
+                    i++;
+                }
+                SetStatus("");
+            });
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,8 @@ namespace ModdingTools.Modding
                         var mod = new ModObject(path, this);
                         mods.Add(mod);
                     }
-                    catch (Exception) {        
+                    catch (Exception ex) {
+                        Debug.WriteLine(":sealnyon: Oopsie woopsie!\n" + ex.Message + "\n" + ex.ToString());
                     }
                 }
             }
@@ -38,6 +40,12 @@ namespace ModdingTools.Modding
         {
             this.Name = name;
             this.Root = path;
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
             this.Enabled = defaultEnabled;
             this.IsReadOnly = isReadOnly;
         }

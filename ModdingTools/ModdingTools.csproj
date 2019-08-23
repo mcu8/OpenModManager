@@ -154,6 +154,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hueh.ico" />
+    <None Include="Resources\loading_text.png" />
+    <None Include="Resources\sticker.png" />
+    <None Include="Resources\remix.png" />
+    <None Include="Resources\hat.png" />
+    <None Include="Resources\generic.png" />
+    <None Include="Resources\dye.png" />
+    <None Include="Resources\deathwish.png" />
+    <None Include="Resources\badge.png" />
     <None Include="Resources\icon_043.png" />
     <None Include="Resources\icon_044.png" />
     <None Include="Resources\icon_073.png" />

@@ -46,6 +46,14 @@ namespace ModdingTools.Modding
             Directory.Move(RootPath, Path.Combine(RootSource.Root, newName));
         }
 
+        public void ChangeModSource(ModDirectorySource source)
+        {
+            var newRoot = Path.Combine(source.Root, Path.GetFileName(RootPath));
+            Directory.Move(RootPath, newRoot);
+            this.RootPath = newRoot;
+            this.RootSource = source;
+        }
+
         public void UnCookMod()
         {
             var path = Path.Combine(RootPath, "CookedPC");
@@ -90,9 +98,16 @@ namespace ModdingTools.Modding
             return mc.ToArray();
         }
 
-        public void CookMod(ProcessRunner runner)
+        public void CookMod(ProcessRunner runner, bool async = true)
         {
-            runner.RunAppAsync(Program.ProcFactory.GetCookMod(this));
+            if (async)
+            {
+                runner.RunAppAsync(Program.ProcFactory.GetCookMod(this));
+            }
+            else
+            {
+                runner.RunApp(Program.ProcFactory.GetCookMod(this));
+            }
         }
 
         public void TestMod(ProcessRunner runner, string mapName = null)
@@ -100,9 +115,16 @@ namespace ModdingTools.Modding
             runner.RunWithoutWait(Program.ProcFactory.StartMap(mapName));
         }
 
-        public void CompileScripts(ProcessRunner runner)
+        public void CompileScripts(ProcessRunner runner, bool async = true)
         {
-            runner.RunAppAsync(Program.ProcFactory.GetCompileScript(this));
+            if (async)
+            {
+                runner.RunAppAsync(Program.ProcFactory.GetCompileScript(this));
+            }
+            else
+            {
+                runner.RunApp(Program.ProcFactory.GetCompileScript(this));
+            }
         }
 
         public ModObject(string rootPath, ModDirectorySource parent)

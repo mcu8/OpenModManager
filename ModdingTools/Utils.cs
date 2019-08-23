@@ -34,5 +34,10 @@ namespace ModdingTools
         {
             System.Diagnostics.Process.Start("explorer.exe", "\"" + path + "\"");
         }
+
+        public static void KillEditor()
+        {
+            System.Diagnostics.Process.Start("taskkill.exe", "/F /IM HatInTimeEditor.exe");
+        }
     }
 }
