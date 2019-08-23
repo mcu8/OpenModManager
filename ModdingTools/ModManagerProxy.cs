@@ -12,13 +12,12 @@ namespace ModdingTools
         static bool initialized = false;
 
         static ModListForm modListForm;
-        static BaseWindow host;
 
         static void Init()
         {
             if (initialized) return;
-            modListForm = new ModListForm();
-            host = new BaseWindow();
+            modListForm = new ModListForm();      
+            initialized = true;
         }
 
         public static void LaunchPropertiesWindow(ModObject ob)
@@ -36,6 +35,7 @@ namespace ModdingTools
             window.BackColor = System.Drawing.Color.Black;
             window.ForeColor = System.Drawing.Color.White;
 
+            var host = new BaseWindow();
             host.BackColor = System.Drawing.Color.Black;
             host.ForeColor = System.Drawing.Color.White;
 
