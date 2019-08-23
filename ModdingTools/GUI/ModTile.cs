@@ -64,8 +64,8 @@ namespace ModdingTools.GUI
             {
                 if (!this.Checked)
                 {
-                    var prop = new ModProperties(this.Mod);
-                    prop.Show();
+                    ModManagerProxy.LaunchPropertiesWindow(this.Mod);
+                    //prop.Show();
                 }
             }
         }
@@ -126,6 +126,16 @@ namespace ModdingTools.GUI
 
                 menu.DropDownItems.Add(item);
             }
+        }
+
+        private void mafiaTownToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Mod.TestMod(MainWindow.Instance.Runner, "mafia_town");
+        }
+
+        private void spaceshipToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Mod.TestMod(MainWindow.Instance.Runner, "hub_spaceship");
         }
     }
 }

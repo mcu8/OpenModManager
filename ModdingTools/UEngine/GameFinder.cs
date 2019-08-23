@@ -9,7 +9,7 @@ namespace ModdingTools.UEngine
 {
     public class GameFinder
     {
-        const string AppID = "253230";
+        public const string AppID = "253230";
 
         public static string GetSteamDir()
         {

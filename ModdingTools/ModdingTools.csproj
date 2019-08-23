@@ -11,6 +11,8 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,6 +39,10 @@
   <ItemGroup>
     <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
       <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
+    </Reference>
+    <Reference Include="ModManager">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="PagedControl, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedControl.2.2.0\lib\net35\PagedControl.dll</HintPath>
@@ -101,6 +107,7 @@
     </Compile>
     <Compile Include="Modding\ModDirectorySource.cs" />
     <Compile Include="Modding\ModObject.cs" />
+    <Compile Include="ModManagerProxy.cs" />
     <Compile Include="ModProperties.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +148,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

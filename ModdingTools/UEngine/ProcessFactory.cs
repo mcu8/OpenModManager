@@ -80,9 +80,15 @@ namespace ModdingTools.UEngine
 
         public ExecutableArgumentsPair StartMap(string mapName = null)
         {
-            return new ExecutableArgumentsPair(
+            /*return new ExecutableArgumentsPair(
                 GameExecutablePath,
                 mapName != null ? new string[] { mapName, "-SEEKFREELOADING" } : new string[] { "-SEEKFREELOADING" },
+                Path.GetDirectoryName(GameExecutablePath)
+            );*/
+
+            return new ExecutableArgumentsPair(
+                Path.Combine(GameFinder.GetSteamDir(), "steam.exe"),
+                mapName != null ? new string[] { "-applaunch", GameFinder.AppID, mapName, "-SEEKFREELOADING" } : new string[] { "-applaunch", GameFinder.AppID, "-SEEKFREELOADING" },
                 Path.GetDirectoryName(GameExecutablePath)
             );
         }

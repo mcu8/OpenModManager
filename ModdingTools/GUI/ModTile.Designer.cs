@@ -125,21 +125,23 @@
             // titleScreenToolStripMenuItem
             // 
             this.titleScreenToolStripMenuItem.Name = "titleScreenToolStripMenuItem";
-            this.titleScreenToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.titleScreenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.titleScreenToolStripMenuItem.Text = "Title screen";
             this.titleScreenToolStripMenuItem.Click += new System.EventHandler(this.titleScreenToolStripMenuItem_Click);
             // 
             // spaceshipToolStripMenuItem
             // 
             this.spaceshipToolStripMenuItem.Name = "spaceshipToolStripMenuItem";
-            this.spaceshipToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.spaceshipToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.spaceshipToolStripMenuItem.Text = "Spaceship";
+            this.spaceshipToolStripMenuItem.Click += new System.EventHandler(this.spaceshipToolStripMenuItem_Click);
             // 
             // mafiaTownToolStripMenuItem
             // 
             this.mafiaTownToolStripMenuItem.Name = "mafiaTownToolStripMenuItem";
-            this.mafiaTownToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.mafiaTownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.mafiaTownToolStripMenuItem.Text = "Mafia town";
+            this.mafiaTownToolStripMenuItem.Click += new System.EventHandler(this.mafiaTownToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -165,7 +167,7 @@
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.testToolStripMenuItem.Text = "test";
             // 
             // ModTile

@@ -150,7 +150,7 @@ namespace ModdingTools.Modding
 
         public bool IsReadOnly => RootSource.IsReadOnly;
 
-        public Bitmap GetIcon()
+        public Image GetIcon()
         {
             var noIconImage = Properties.Resources.close;
             if (Icon == null)
@@ -160,7 +160,12 @@ namespace ModdingTools.Modding
 
             try
             {
-                return new Bitmap(Image.FromFile(path));
+                Image img;
+                using (var bmpTemp = new Bitmap(path))
+                {
+                    img = new Bitmap(bmpTemp);
+                }
+                return img;
             }
             catch (Exception)
             {
