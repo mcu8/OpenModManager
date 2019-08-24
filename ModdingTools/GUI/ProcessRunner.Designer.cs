@@ -30,6 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.mButton3 = new ModdingTools.GUI.MButton();
             this.SuspendLayout();
             // 
             // label1
@@ -61,11 +62,28 @@
             this.label2.Text = "CONSOLE";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // mButton3
+            // 
+            this.mButton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.mButton3.BackColor = System.Drawing.Color.DimGray;
+            this.mButton3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.mButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mButton3.ForeColor = System.Drawing.Color.White;
+            this.mButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mButton3.Location = new System.Drawing.Point(511, 0);
+            this.mButton3.Name = "mButton3";
+            this.mButton3.Size = new System.Drawing.Size(177, 24);
+            this.mButton3.TabIndex = 7;
+            this.mButton3.Text = "CANCEL ALL WORKERS";
+            this.mButton3.UseVisualStyleBackColor = false;
+            this.mButton3.Click += new System.EventHandler(this.mButton3_Click);
+            // 
             // ProcessRunner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.mButton3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "ProcessRunner";
@@ -78,5 +96,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private MButton mButton3;
     }
 }

@@ -78,6 +78,11 @@ namespace ModdingTools
             list.RemoveHandler(obj, list[obj]);
         }
 
+        public static long GetUnixTimestamp(DateTime t)
+        {
+            return (long)t.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds;
+        }
+
         public static void ApplyTheme(Control c)
         {
             foreach (var control in c.Controls)

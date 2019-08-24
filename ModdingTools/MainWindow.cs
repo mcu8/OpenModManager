@@ -57,6 +57,7 @@ namespace ModdingTools
 
         private void mButton3_Click(object sender, System.EventArgs e)
         {
+            Runner.KillAllWorkers();
             Utils.KillEditor();
         }
 

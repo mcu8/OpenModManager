@@ -125,6 +125,7 @@
     <Compile Include="UEngine\GameFinder.cs" />
     <Compile Include="UEngine\ModClass.cs" />
     <Compile Include="UEngine\ProcessFactory.cs" />
+    <Compile Include="UEngine\ScriptWatcher.cs" />
     <Compile Include="Utils.cs" />
     <EmbeddedResource Include="GUI\CategorySpacer.resx">
       <DependentUpon>CategorySpacer.cs</DependentUpon>

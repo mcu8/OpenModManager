@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ModdingTools.Modding;
+using ModdingTools.UEngine;
 
 namespace ModdingTools.GUI
 {
@@ -42,6 +43,8 @@ namespace ModdingTools.GUI
             this.Click += ModTile_Click;
             this.panel1.Click += ModTile_Click;
             this.label1.Click += ModTile_Click;
+
+            scriptWatcherToolStripMenuItem2.Checked = ScriptWatcherManager.IsWatcherAttached(Mod);
         }
 
         private void ModTile_MouseLeave(object sender, EventArgs e)
@@ -106,8 +109,7 @@ namespace ModdingTools.GUI
         {
             var menu = moveToToolStripMenuItem;
             menu.DropDownItems.Clear();
-
-            foreach(var modSource in MainWindow.Instance.GetModSources())
+            foreach (var modSource in MainWindow.Instance.GetModSources())
             {
                 if (modSource.IsReadOnly || Mod.RootSource == modSource)
                     continue;
@@ -136,6 +138,27 @@ namespace ModdingTools.GUI
         private void spaceshipToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Mod.TestMod(MainWindow.Instance.Runner, "hub_spaceship");
+        }
+
+        private void scriptWatcherToolStripMenuItem2_Click(object sender, EventArgs e)
+        { 
+            if (ScriptWatcherManager.IsWatcherAttached(Mod))
+            {
+                ScriptWatcherManager.DetachWatcher(Mod);
+            }
+            else
+            {
+                ScriptWatcherManager.AttachWatcher(Mod);
+            }
+
+            scriptWatcherToolStripMenuItem2.Checked = ScriptWatcherManager.IsWatcherAttached(Mod);
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+            cookModToolStripMenuItem.Enabled = !Mod.IsReadOnly;
+            testModToolStripMenuItem.Enabled = !Mod.IsReadOnly;
+            scriptingToolStripMenuItem.Enabled = !Mod.IsReadOnly;
         }
     }
 }

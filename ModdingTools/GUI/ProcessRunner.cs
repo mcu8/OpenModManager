@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using static ModdingTools.UEngine.ProcessFactory;
+using System.Collections.Generic;
 
 namespace ModdingTools.GUI
 {
@@ -68,6 +69,11 @@ namespace ModdingTools.GUI
 
             label2.BackColor = ThemeConstants.BorderColor;
             label2.ForeColor = ThemeConstants.TitleBarForeground;
+
+            mButton3.BackColor = ThemeConstants.BorderColor;
+            mButton3.ForeColor = ThemeConstants.TitleBarForeground;
+
+            mButton3.Visible = false;
         }
 
         IntPtr hndl;
@@ -96,22 +102,22 @@ namespace ModdingTools.GUI
         {
             Debug.WriteLine(info.ToString());
             SetText(info.TaskName);
-            RunAppAsync(info.Executable, info.Arguments, info.WorkingDirectory);
+            RunAppAsync(info.Executable, info.Arguments, info.WorkingDirectory, info.TaskName);
         }
 
         public void RunApp(ExecutableArgumentsPair info)
         {
             Debug.WriteLine(info.ToString());
-            RunApp(info.Executable, info.Arguments, info.WorkingDirectory);
+            RunApp(info.Executable, info.Arguments, info.WorkingDirectory, info.TaskName);
         }
 
-        public void RunAppAsync(string exe, string[] args, string cwd = ".")
+        public void RunAppAsync(string exe, string[] args, string cwd = ".", string taskName = "")
         {
             Task.Factory.StartNew(() =>
             {
                 try
                 {
-                    RunApp(exe, args, cwd);
+                    RunApp(exe, args, cwd, taskName);
                 }
                 catch(Exception e)
                 {
@@ -160,19 +166,42 @@ namespace ModdingTools.GUI
             isCancelling = true;
         }
 
-        
-        private void RunApp(string exe, string[] args, string cwd = ".")
+        public void KillAllWorkers()
+        {
+            while (runningProcesses.Count > 0)
+            {
+                var proc = runningProcesses[0];
+                try
+                {
+                    if (!proc.HasExited)
+                    {
+                        proc.Kill();
+                    }
+                }
+                catch(Exception e)
+                {
+                }
+
+                runningProcesses.Remove(proc);
+            }
+            SetText(null);
+        } 
+
+        List<Process> runningProcesses = new List<Process>();
+        private void RunApp(string exe, string[] args, string cwd = ".", string taskName = "")
         {
             AppRun?.Invoke();
-            //SetText("Please wait...");
+            SetText(taskName);
 
             Process process = new Process();
+
             process.StartInfo.FileName = exe;
             process.StartInfo.Arguments = string.Join(" ", args);
             process.StartInfo.WorkingDirectory = cwd;
             process.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
-
+            
             process.Start();
+            runningProcesses.Add(process);
 
             while (!process.HasExited && process.MainWindowHandle == IntPtr.Zero)
             {
@@ -183,15 +212,32 @@ namespace ModdingTools.GUI
             this.Invoke(new MethodInvoker(() =>
             {
                 EatWindow(process.MainWindowHandle);
+                mButton3.Visible = true;
             }));
 
             while (!process.HasExited && !isCancelling)
             {
-                System.Threading.Thread.Sleep(100);
+                System.Threading.Thread.Sleep(300);
             }
 
+            if (runningProcesses.Contains(process))
+                runningProcesses.Remove(process);
+
+            this.Invoke(new MethodInvoker(() =>
+            {
+                if (runningProcesses.Count == 0)
+                    mButton3.Visible = false;
+            }));
+
             AppClose?.Invoke(process.ExitCode);
-            SetText(null);
+
+            if (runningProcesses.Count == 0)
+                SetText(null);
+        }
+
+        private void mButton3_Click(object sender, EventArgs e)
+        {
+            KillAllWorkers();
         }
     }
 }

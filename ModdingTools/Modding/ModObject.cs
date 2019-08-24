@@ -115,15 +115,15 @@ namespace ModdingTools.Modding
             runner.RunWithoutWait(Program.ProcFactory.StartMap(mapName));
         }
 
-        public void CompileScripts(ProcessRunner runner, bool async = true)
+        public void CompileScripts(ProcessRunner runner, bool async = true, bool watcher = false)
         {
             if (async)
             {
-                runner.RunAppAsync(Program.ProcFactory.GetCompileScript(this));
+                runner.RunAppAsync(Program.ProcFactory.GetCompileScript(this, watcher));
             }
             else
             {
-                runner.RunApp(Program.ProcFactory.GetCompileScript(this));
+                runner.RunApp(Program.ProcFactory.GetCompileScript(this, watcher));
             }
         }
 
@@ -137,15 +137,16 @@ namespace ModdingTools.Modding
 
             var i                   = info["Info"];
             // Parse "Info" section
-            this.Name               = TryGet(i, "name");
-            this.Author             = TryGet(i, "author");
-            this.Description        = TryGet(i, "description");
-            this.Version            = TryGet(i, "version");
+            this.Name               = TryGet(i, "name",         "???");
+            this.Author             = TryGet(i, "author",       "???");
+            this.Description        = TryGet(i, "description",  "???");
+            this.Version            = TryGet(i, "version",      "???");
+
             this.IsCheat            = bool.Parse(TryGet(i, "is_cheat", "false"));
             this.Icon               = TryGet(i, "icon");
-            this.ChapterInfoName    = TryGet(i, "ChapterInfoName");
+            this.ChapterInfoName    = TryGet(i, "ChapterInfoName", "???");
 
-            // Parse "Tags" section
+            // TODO: Parse "Tags" section
         }
 
         public bool IsReadOnly => RootSource.IsReadOnly;

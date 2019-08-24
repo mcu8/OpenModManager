@@ -46,10 +46,10 @@ namespace ModdingTools.UEngine
             return Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(this.GameExecutablePath)));
         }
 
-        public ExecutableArgumentsPair GetCompileScript(ModObject mod)
+        public ExecutableArgumentsPair GetCompileScript(ModObject mod, bool watcher = false)
         {
             return new ExecutableArgumentsPair(
-                "Compiling scripts...",
+                !watcher ? "Compiling scripts..." : "Changes in filesystem detected... Recompiling scripts...",
                 EditorExecutablePath,
                 new string[]
                 {
