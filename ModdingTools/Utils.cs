@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Linq.Expressions;
+using System.Drawing;
 
 namespace ModdingTools
 {
@@ -82,42 +83,64 @@ namespace ModdingTools
             foreach (var control in c.Controls)
             {
                 var ctrl = ((Control)control);
+
+
                 if (ctrl is Button)
                 {
                     ApplyButtonTheme((Button)ctrl);
+                    continue;
                 }
-                else
+
+                if (ctrl is ComboBox)
                 {
-                    if (ctrl is Panel)
-                    {
-                        ((Panel)ctrl).BorderStyle = BorderStyle.FixedSingle;
-                    }
+                    ApplyComboBoxTheme((ComboBox)ctrl);
+                    continue;
+                }
 
-                    if (ctrl is TabControl)
-                    {
-                        foreach (var tab in ((TabControl)ctrl).TabPages)
-                        {
-                            ((TabPage)tab).BackColor = ThemeConstants.BackgroundColor;
-                            ((TabPage)tab).ForeColor = ThemeConstants.ForegroundColor;
-                        }
-                    }
 
-                    try
-                    {
-                        ctrl.BackColor = ThemeConstants.BackgroundColor;
-                        ctrl.ForeColor = ThemeConstants.ForegroundColor;
-                    }
-                    catch (Exception e)
-                    {
+                if (ctrl is GroupBox)
+                {
+                    ApplyGroupBoxTheme((GroupBox)ctrl);
+                }
 
-                    }
-                    if (ctrl.Controls.Count > 0)
+                try
+                {
+                    ctrl.BackColor = ThemeConstants.BackgroundColor;
+                    ctrl.ForeColor = Color.White;
+                }
+                catch (Exception e)
+                {
+                }
+
+                if (ctrl is TextBox && !(ctrl.Parent is BorderPanel))
+                {
+                    ctrl.BackColor = ThemeConstants.BackgroundColor;
+                    ctrl.ForeColor = ThemeConstants.ForegroundColor;
+                    BorderPanel.EatControl(ctrl);
+                }
+
+                if (ctrl is Panel && !(ctrl is BorderPanel))
+                {
+                    ((Panel)ctrl).BorderStyle = BorderStyle.FixedSingle;
+                }
+
+                if (ctrl is TabControl)
+                {
+                    foreach (var tab in ((TabControl)ctrl).TabPages)
                     {
-                        ApplyTheme(ctrl);
+                        ((TabPage)tab).BackColor = ThemeConstants.BackgroundColor;
+                        ((TabPage)tab).ForeColor = ThemeConstants.ForegroundColor;
                     }
+                }
+
+                if (ctrl.Controls.Count > 0)
+                {
+                    ApplyTheme(ctrl);
                 }
             }
         }
+
+
 
         public static ModObject GetModObjectFromControl(object e)
         {
@@ -145,6 +168,28 @@ namespace ModdingTools
             b.FlatAppearance.BorderColor = ThemeConstants.BorderColor;
             b.FlatAppearance.BorderSize = 1;
             b.ForeColor = ThemeConstants.ForegroundColor;
+        }
+
+        public static void ApplyGroupBoxTheme(GroupBox b)
+        {
+            b.FlatStyle = FlatStyle.Flat;
+            b.BackColor = ThemeConstants.BackgroundColor;
+            b.ForeColor = Color.White;
+            b.Paint += PaintBorderlessGroupBox;
+        }
+
+        public static void ApplyComboBoxTheme(ComboBox b)
+        {
+            b.FlatStyle = FlatStyle.Flat;
+            b.BackColor = ThemeConstants.BorderColor;
+            b.ForeColor = ThemeConstants.ForegroundColor;
+        }
+
+        private static void PaintBorderlessGroupBox(object sender, PaintEventArgs p)
+        {
+            GroupBox box = (GroupBox)sender;
+            p.Graphics.Clear(ThemeConstants.BackgroundColor);
+            p.Graphics.DrawString(box.Text, box.Font, new SolidBrush(ThemeConstants.ForegroundColor), 0, 0);
         }
     }
 }

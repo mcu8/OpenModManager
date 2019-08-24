@@ -1,6 +1,7 @@
 ﻿using ModdingTools.GUI;
 using ModdingTools.Modding;
 using ModdingTools.UEngine;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,6 +14,17 @@ namespace ModdingTools
 
         public MainWindow()
         {
+            if (!DesignMode)
+            {
+                try
+                {
+                    ModManagerProxy.Init();
+                }
+                catch (Exception e)
+                {
+                }
+            }
+
             Instance = this;
             InitializeComponent();
 
@@ -22,6 +34,8 @@ namespace ModdingTools
             modListControl1.AddModSource(new ModDirectorySource("Downloaded mods (disabled)", Path.Combine(GameFinder.GetWorkshopDir(), "Disabled"), false, true));
 
             modListControl1.ReloadList();
+
+            SetModListState(null);
         }
 
         public ModDirectorySource[] GetModSources()
@@ -44,6 +58,14 @@ namespace ModdingTools
         private void mButton3_Click(object sender, System.EventArgs e)
         {
             Utils.KillEditor();
+        }
+
+        public void SetModListState(string value)
+        {
+            if (modListControl1 == null)
+                return;
+
+            modListControl1.SetWorker(value);
         }
     }
 }

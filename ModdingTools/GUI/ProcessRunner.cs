@@ -64,7 +64,7 @@ namespace ModdingTools.GUI
                 UpdateConsoleSize();
             };
 
-            SetText("");
+            SetText(null);
 
             label2.BackColor = ThemeConstants.BorderColor;
             label2.ForeColor = ThemeConstants.TitleBarForeground;
@@ -95,6 +95,7 @@ namespace ModdingTools.GUI
         public void RunAppAsync(ExecutableArgumentsPair info)
         {
             Debug.WriteLine(info.ToString());
+            SetText(info.TaskName);
             RunAppAsync(info.Executable, info.Arguments, info.WorkingDirectory);
         }
 
@@ -131,11 +132,15 @@ namespace ModdingTools.GUI
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new MethodInvoker(() => Text = value));
+                this.Invoke(new MethodInvoker(() => SetText(value)));
             }
             else
             {
-                Text = value;
+                if (MainWindow.Instance != null)
+                    MainWindow.Instance.SetModListState(value);
+
+                if (value == null) Text = "";
+                else Text = value;
             }
         }
 
@@ -159,7 +164,7 @@ namespace ModdingTools.GUI
         private void RunApp(string exe, string[] args, string cwd = ".")
         {
             AppRun?.Invoke();
-            SetText("Please wait...");
+            //SetText("Please wait...");
 
             Process process = new Process();
             process.StartInfo.FileName = exe;
@@ -186,7 +191,7 @@ namespace ModdingTools.GUI
             }
 
             AppClose?.Invoke(process.ExitCode);
-            SetText("");
+            SetText(null);
         }
     }
 }

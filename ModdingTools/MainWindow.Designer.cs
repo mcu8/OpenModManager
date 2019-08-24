@@ -52,6 +52,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.modListControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.modListControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.modListControl1.Location = new System.Drawing.Point(5, 37);
             this.modListControl1.Name = "modListControl1";
             this.modListControl1.Size = new System.Drawing.Size(811, 377);
@@ -92,10 +93,10 @@
             // mButton3
             // 
             this.mButton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.mButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.mButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(196)))), ((int)(((byte)(0)))));
             this.mButton3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
             this.mButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mButton3.ForeColor = System.Drawing.Color.White;
+            this.mButton3.ForeColor = System.Drawing.Color.Black;
             this.mButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.mButton3.Location = new System.Drawing.Point(822, 246);
             this.mButton3.Name = "mButton3";

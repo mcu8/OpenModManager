@@ -94,6 +94,7 @@ namespace ModdingTools.GUI
                     flowLayoutPanel1.Visible = true;
                     this.BackgroundImage = null;
                     SetStatus("Loaded " + i1 + " elements!");
+                    SetWorker(null);
                 }));
             });
            
@@ -182,7 +183,9 @@ namespace ModdingTools.GUI
                 return;
             }
 
-            label1.Text = text;
+            SetWorker(text);
+
+            label1.Text = text == null ? "" : text;
         }
 
         private void mButtonBorderless2_Click(object sender, EventArgs e)
@@ -198,8 +201,26 @@ namespace ModdingTools.GUI
                     mod.CookMod(MainWindow.Instance.Runner, false);
                     i++;
                 }
-                SetStatus("");
+                SetStatus(null);
             });
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public void SetWorker(string text = null)
+        {
+            if (text == null)
+            {
+                panel1.Visible = false;
+            }
+            else
+            {
+                panel1.Visible = true;
+                label3.Text = text;
+            }
         }
     }
 }

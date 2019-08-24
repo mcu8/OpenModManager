@@ -62,6 +62,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GUI\BorderlessTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\BorderPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GUI\CategorySpacer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -162,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hueh.ico" />
+    <None Include="Resources\compile4.gif" />
     <None Include="Resources\loading_text.png" />
     <None Include="Resources\sticker.png" />
     <None Include="Resources\remix.png" />

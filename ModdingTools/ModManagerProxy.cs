@@ -2,6 +2,10 @@
 using ModdingTools.Modding;
 using ModManager;
 using ModManager.Forms;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ModdingTools
@@ -13,7 +17,7 @@ namespace ModdingTools
 
         static ModListForm modListForm;
 
-        static void Init()
+        public static void Init()
         {
             if (initialized) return;
             modListForm = new ModListForm();      
@@ -29,7 +33,7 @@ namespace ModdingTools
             window.TopLevel = false;
             window.FormBorderStyle = FormBorderStyle.None;
             window.Visible = true;
-            window.Dock = System.Windows.Forms.DockStyle.Fill;
+            window.Dock = DockStyle.Fill;
             window.SetModFolder(ob.RootSource.Root, ob.RootPath, modListForm);
 
             window.BackColor = System.Drawing.Color.Black;
@@ -42,42 +46,68 @@ namespace ModdingTools
             window.Tag = ob;
             host.Tag = ob;
 
-            Utils.ApplyTheme(window);
-
             host.Text = window.Text;
             window.TextChanged += (e, v) => { host.Text = window.Text; };
 
+            // Correct sidebar size
+            var panel1 = Utils.GetField<Panel>("panel1", window);
+            panel1.Width += 5;
+            panel1.Padding = new Padding(0, 0, 0, 0);
+            panel1.Margin = new Padding(0, 0, 0, 0);
+            panel1.BorderStyle = BorderStyle.None;
+
+            // Disable textbox for changing mod directory name to avoid conflicts
+            var ModFolderEdit = Utils.GetField<TextBox>("ModFolderEdit", window);
+            ModFolderEdit.Enabled = false;
+
+            // Hook into save button
+            var SaveButton = Utils.GetField<Button>("SaveButton", window);
+            SaveButton.Location = new Point(panel1.Width + 3, SaveButton.Location.Y);
+
+            // Hook into GoToFolderButton button
+            var GoToFolderButton = Utils.GetField<Button>("GoToFolderButton", window);
+            GoToFolderButton.Location = new Point(SaveButton.Location.X + 3 + SaveButton.Width, GoToFolderButton.Location.Y);
+
+            // Hook into refresh button
             var RefreshButton = Utils.GetField<Button>("RefreshButton", window);
+            RefreshButton.Location = new Point(window.Width - RefreshButton.Width - 3, RefreshButton.Location.Y);
             Utils.CleanEvents(RefreshButton);
             RefreshButton.Click += (e, v) =>
             {
                 MainWindow.Instance.ReloadModList();
             };
 
-            var Header = Utils.GetField<Panel>("Header", window);
-            Header.Visible = false;
+            // ViewInWorkshopButton
+            var ViewInWorkshopButton = Utils.GetField<Button>("ViewInWorkshopButton", window);
+            ViewInWorkshopButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            ViewInWorkshopButton.Location = new Point(RefreshButton.Location.X - 3 - ViewInWorkshopButton.Width, ViewInWorkshopButton.Location.Y);
 
-            var tabControl1 = Utils.GetField<TabControl>("tabControl1", window);
-            tabControl1.Visible = true;
-            tabControl1.Margin = new Padding(0, 0, 0, 0);
-            tabControl1.Padding = new System.Drawing.Point(0,0);
-            tabControl1.Left += 10;
-            tabControl1.Width -= 10;
+            // Hook into compile scripts button
+            var CompileScriptsButton = Utils.GetField<Button>("CompileScriptsButton", window);
+            Utils.CleanEvents(CompileScriptsButton);
+            CompileScriptsButton.Click += (e, v) =>
+            {
+                var o = Utils.GetModObjectFromControl(e);
+                var p = ((Control)e).FindForm();
 
-            var panel1 = Utils.GetField<Panel>("panel1", window);
-            panel1.Width += 5;
-            panel1.Padding = new Padding(0, 0, 0, 0);
-            panel1.Margin = new Padding(0, 0, 0, 0);
+                if (Utils.InvokeFunct<bool>(p, "ConditionalValidFolder") && Utils.InvokeFunct<bool>(p, "ConditionalValidContent"))
+                {
+                    Utils.InvokeMeth(p, "SaveMod");
+                    o.UnCookMod();
+                    MainWindow.Instance.Runner.RunAppAsync(Program.ProcFactory.GetCompileScript(o));
+                }
+            };
 
+            // Hook into cook mod button
             var CookModButton = Utils.GetField<Button>("CookModButton", window);
             Utils.CleanEvents(CookModButton);
-
+            Utils.ApplyButtonTheme(CookModButton);
             CookModButton.Click += (e, v) =>
             {
                 var o = Utils.GetModObjectFromControl(e);
                 var p = ((Control)e).FindForm();
 
-                if (Utils.InvokeFunct<bool>(p, "ConditionalValidFolder")  && Utils.InvokeFunct<bool>(p, "ConditionalValidContent"))
+                if (Utils.InvokeFunct<bool>(p, "ConditionalValidFolder") && Utils.InvokeFunct<bool>(p, "ConditionalValidContent"))
                 {
                     if (!Utils.GetField<bool>("HasCompiledScripts", p) && !Utils.GetField<bool>("HasAnyMapFiles", p))
                     {
@@ -86,11 +116,180 @@ namespace ModdingTools
                     }
                     Utils.InvokeMeth(p, "SaveMod");
                     MainWindow.Instance.Runner.RunAppAsync(Program.ProcFactory.GetCookMod(o));
-                }  
+                }
             };
+
+            var WorkshopChangelogEdit = Utils.GetField<TextBox>("WorkshopChangelogEdit", window);
+
+            // SubmitToWorkshopButton_Click
+            var SubmitToWorkshopButton = Utils.GetField<Button>("SubmitToWorkshopButton", window);
+            Utils.CleanEvents(SubmitToWorkshopButton);
+            Utils.ApplyButtonTheme(SubmitToWorkshopButton);
+            SubmitToWorkshopButton.Click += (e, v) =>
+            {
+                var o = Utils.GetModObjectFromControl(e);
+                var p = ((Control)e).FindForm();
+
+                var isCuratedItem = Utils.GetField<bool>("IsCuratedItem", p);
+
+                if (!Utils.InvokeFunct<bool>(p, "ConditionalValidFolder"))
+                {
+                    return;
+                }
+                Utils.InvokeMeth(p, "SaveMod");
+                if (!SubmitToWorkshopButton.Enabled)
+                {
+                    return;
+                }
+                string text = Utils.InvokeFunct<string>(p, "DoesModNeedToBeCooked");
+                if (text != "")
+                {
+                    MessageBox.Show("Your mod cook is out of date, please cook your mod. Error: " + text);
+                }
+                else if (Utils.InvokeFunct<int>(p, "GetWorkshopID") > 0)
+                {
+                    if (WorkshopChangelogEdit.Text == "")
+                    {
+                        MessageBox.Show("Please enter a change log!");
+                        return;
+                    }
+                    string text2 = WorkshopChangelogEdit.Text;
+                    text2 = text2.Replace(Environment.NewLine, "[br]");
+                    MainWindow.Instance.Runner.RunAppAsync(Program.ProcFactory.UploadMod(o.GetDirectoryName(), isCuratedItem, text2));
+                }
+                else
+                {
+                    MainWindow.Instance.Runner.RunAppAsync(Program.ProcFactory.UploadMod(o.GetDirectoryName(), isCuratedItem, null));
+                }
+            };
+
+            // Make ModDescriptionEdit scrollable
+            var ModDescriptionEdit = Utils.GetField<TextBox>("ModDescriptionEdit", window);
+            ModDescriptionEdit.ScrollBars = ScrollBars.Vertical;
+            ModDescriptionEdit.WordWrap = true;
+
+            // Add border for modname...
+            var ModNameEdit = Utils.GetField<TextBox>("ModNameEdit", window);
+            BorderPanel.EatControl(ModNameEdit);
+
+            // Replace TabControl with borderless version
+            var tabControl1 = Utils.GetField<TabControl>("tabControl1", window);
+
+            var oldLocation = tabControl1.Location;
+            var oldSize = tabControl1.Size;
+            var oldAnchor = tabControl1.Anchor;
+            var oldParent = tabControl1.Parent;
+
+            var InfoPage        = Utils.GetField<TabPage>("InfoPage",       window);
+            var ScriptingPage   = Utils.GetField<TabPage>("ScriptingPage",  window);
+            var ContentPage     = Utils.GetField<TabPage>("ContentPage",    window);
+            var PublishPage     = Utils.GetField<TabPage>("PublishPage",    window);
+
+            var ButtonInfo      = Utils.GetField<Control>("ButtonInfo", window);
+            var ButtonScripting = Utils.GetField<Control>("ButtonScripting", window);
+            var ButtonContent   = Utils.GetField<Control>("ButtonContent", window);
+            var ButtonPublish   = Utils.GetField<Control>("ButtonPublish", window);
+
+            Utils.CleanEvents(ButtonInfo);
+            Utils.CleanEvents(ButtonScripting);
+            Utils.CleanEvents(ButtonContent);
+            Utils.CleanEvents(ButtonPublish);
+
+            ButtonInfo.Width = 42;
+            ButtonScripting.Width = 42;
+            ButtonContent.Width = 42;
+            ButtonPublish.Width = 42;
+
+            oldParent.Controls.Remove(tabControl1);
+            //tabControl1.TabPages.Clear();
+            //tabControl1.Dispose();
+
+            var tbc = new BorderlessTabControl();
+            tbc.Location = oldLocation;
+            tbc.Size = oldSize;
+            tbc.Anchor = oldAnchor;
+
+            tbc.TabPages.Add(InfoPage);
+            tbc.TabPages.Add(ScriptingPage);
+            tbc.TabPages.Add(ContentPage);
+            tbc.TabPages.Add(PublishPage);
+
+            foreach (var test in tbc.TabPages)
+            {
+                var t = (TabPage)test;
+                Debug.WriteLine("Tab " + t.ToString() + " " + tbc.TabPages.IndexOf(t));
+            }
+
+            tbc.TabIndex = 0;
+            tbc.SelectedIndexChanged += (e, v) =>
+            {
+                var p = ((Control)e).FindForm();
+                Utils.InvokeMeth(p, "UpdateButtonTab", ButtonInfo, tbc.SelectedTab == InfoPage);
+                Utils.InvokeMeth(p, "UpdateButtonTab", ButtonScripting, tbc.SelectedTab == ScriptingPage);
+                Utils.InvokeMeth(p, "UpdateButtonTab", ButtonContent, tbc.SelectedTab == ContentPage);
+                Utils.InvokeMeth(p, "UpdateButtonTab", ButtonPublish, tbc.SelectedTab == PublishPage);
+
+                tbc.Appearance = TabAppearance.FlatButtons;
+                tbc.ItemSize = new Size(0, 1);
+                tbc.SizeMode = TabSizeMode.Fixed;
+            };
+
+            oldParent.Controls.Add(tbc);
+
+            ButtonInfo.Click += (e, v) =>
+            {
+                var p = ((Control)e).FindForm();
+                tbc.SelectTab(InfoPage);
+            };
+
+            ButtonScripting.Click += (e, v) =>
+            {
+                var p = ((Control)e).FindForm();
+                tbc.SelectTab(ScriptingPage);
+            };
+
+            ButtonContent.Click += (e, v) =>
+            {
+                var p = ((Control)e).FindForm();
+                tbc.SelectTab(ContentPage);
+            };
+
+            ButtonPublish.Click += (e, v) =>
+            {
+                var p = ((Control)e).FindForm();
+                tbc.SelectTab(PublishPage);
+                ButtonPublish.BackColor = System.Drawing.Color.FromArgb(46, 139, 87);
+            };
+
+            tabControl1 = tbc;
+
+            tabControl1.Visible = true;
+            tabControl1.Margin = new Padding(0, 0, 0, 0);
+            tabControl1.Padding = new System.Drawing.Point(0, 0);
+            tabControl1.Left += 10;
+            tabControl1.Width -= 10;
+            // OMG it's very long section... Only just for removing TabControl border
+
+            // Hide uneccessary header
+            var Header = Utils.GetField<Panel>("Header", window);
+            Header.Visible = false;
+
+            // Apply OMM theme
+            Utils.ApplyTheme(window);
+
+            host.Icon = MainWindow.Instance.Icon;
 
             host.Controls.Add(window);
             host.Show();
+
+            Utils.InvokeMeth(window, "UpdateButtonTab", ButtonInfo, tbc.SelectedTab == InfoPage);
+            Utils.InvokeMeth(window, "UpdateButtonTab", ButtonScripting, tbc.SelectedTab == ScriptingPage);
+            Utils.InvokeMeth(window, "UpdateButtonTab", ButtonContent, tbc.SelectedTab == ContentPage);
+            Utils.InvokeMeth(window, "UpdateButtonTab", ButtonPublish, tbc.SelectedTab == PublishPage);
+
+            tbc.Appearance = TabAppearance.FlatButtons;
+            tbc.ItemSize = new Size(0, 1);
+            tbc.SizeMode = TabSizeMode.Fixed;
         }
     }
 }

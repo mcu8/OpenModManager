@@ -10,17 +10,19 @@ namespace ModdingTools.UEngine
             public string  Executable { get; private set; }
             public string[] Arguments { get; private set; }
             public string WorkingDirectory { get; private set; }
+            public string TaskName { get; private set; }
 
-            public ExecutableArgumentsPair(string executable, string[] arguments, string workingDir)
+            public ExecutableArgumentsPair(string taskName, string executable, string[] arguments, string workingDir)
             {
                 this.Executable = executable;
                 this.Arguments = arguments;
                 this.WorkingDirectory = workingDir;
+                this.TaskName = taskName;
             }
 
             public override string ToString()
             {
-                return "Executable=" + Executable + ", Arguments=" + string.Join(" ", Arguments) + ", WorkingDirectory=" + WorkingDirectory;
+                return TaskName + " >> Executable=" + Executable + ", Arguments=" + string.Join(" ", Arguments) + ", WorkingDirectory=" + WorkingDirectory;
             }
         }
 
@@ -47,6 +49,7 @@ namespace ModdingTools.UEngine
         public ExecutableArgumentsPair GetCompileScript(ModObject mod)
         {
             return new ExecutableArgumentsPair(
+                "Compiling scripts...",
                 EditorExecutablePath,
                 new string[]
                 {
@@ -63,6 +66,7 @@ namespace ModdingTools.UEngine
         public ExecutableArgumentsPair GetCookMod(ModObject mod)
         {
             return new ExecutableArgumentsPair(
+                "Cooking mod...",
                 EditorExecutablePath,
                 new string[]
                 {
@@ -86,7 +90,10 @@ namespace ModdingTools.UEngine
                 Path.GetDirectoryName(GameExecutablePath)
             );*/
 
+
+            // Little hacky, but works - bypass annoying Steam confirmation window
             return new ExecutableArgumentsPair(
+                "Launging game",
                 Path.Combine(GameFinder.GetSteamDir(), "steam.exe"),
                 mapName != null ? new string[] { "-applaunch", GameFinder.AppID, mapName, "-SEEKFREELOADING" } : new string[] { "-applaunch", GameFinder.AppID, "-SEEKFREELOADING" },
                 Path.GetDirectoryName(GameExecutablePath)
@@ -96,8 +103,20 @@ namespace ModdingTools.UEngine
         public ExecutableArgumentsPair LaunchEditor(string modName = null)
         {
             return new ExecutableArgumentsPair(
+                "Launching editor...",
                 EditorExecutablePath,
                 modName != null ? new string[] { "-TARGETMOD=" + modName, "-NoGADWarning" } : new string[] { "-NoGADWarning" },
+                Path.GetDirectoryName(GameExecutablePath)
+            );
+        }
+
+        public ExecutableArgumentsPair UploadMod(string modName, bool isCuratedItem, string changelog = null)
+        {
+            // TODO: better changelog filter
+            return new ExecutableArgumentsPair(
+                "Uploading mod...",
+                EditorExecutablePath,
+                changelog == null ? new string[] {"update", (isCuratedItem ? "curated" : "playable"), "\"" + modName + "\""} : new string[] { "update", (isCuratedItem ? "curated" : "playable"), "\"" + modName + "\"", "\"" + changelog + "\"" },
                 Path.GetDirectoryName(GameExecutablePath)
             );
         }
