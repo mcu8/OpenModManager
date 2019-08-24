@@ -215,6 +215,8 @@ namespace ModdingTools.GUI
                 mButton3.Visible = true;
             }));
 
+            SetText(taskName);
+
             while (!process.HasExited && !isCancelling)
             {
                 System.Threading.Thread.Sleep(300);
