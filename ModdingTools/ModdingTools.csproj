@@ -41,7 +41,8 @@
       <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
     </Reference>
     <Reference Include="ModManager">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe</HintPath>
+      <HintPath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe')">C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe</HintPath>
+	  <HintPath Condition="Exists('C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe')">C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PagedControl, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
