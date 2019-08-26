@@ -23,6 +23,8 @@ namespace ModdingTools
                 catch (Exception e)
                 {
                 }
+
+                Utils.CleanUpTrash(GameFinder.FindGameDir());
             }
 
             Instance = this;

@@ -105,7 +105,7 @@ namespace ModdingTools.UEngine
             return new ExecutableArgumentsPair(
                 "Launching editor...",
                 EditorExecutablePath,
-                modName != null ? new string[] { "-TARGETMOD=" + modName, "-NoGADWarning" } : new string[] { "-NoGADWarning" },
+                modName != null ? new string[] { "editor", "-TARGETMOD=" + modName, "-NoGADWarning" } : new string[] { "editor", "-NoGADWarning" },
                 Path.GetDirectoryName(GameExecutablePath)
             );
         }

@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Linq.Expressions;
 using System.Drawing;
+using System.IO;
 
 namespace ModdingTools
 {
@@ -37,6 +38,13 @@ namespace ModdingTools
                 }
             }
             return false;
+        }
+
+        public static void CleanUpTrash(string gamedir)
+        {
+            var path1 = Path.Combine(gamedir, "HatinTimeGame/EditorCookedPC/LocalShaderCache-PC-D3D-SM3.upk");
+            if (File.Exists(path1))
+                File.Delete(path1);
         }
 
         public static void OpenInExplorer(string path)
