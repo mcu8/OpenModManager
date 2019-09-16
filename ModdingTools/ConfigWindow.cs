@@ -23,12 +23,12 @@ namespace ModdingTools
 
         private void LoadSettings()
         {
-            checkBox1.Checked = Properties.Settings.Default.AutoScanDownloadedMods;
+            checkBox1.Checked = !Properties.Settings.Default.AutoScanDownloadedMods;
         }
 
         private void SaveSettings()
         {
-            Properties.Settings.Default.AutoScanDownloadedMods = checkBox1.Checked;
+            Properties.Settings.Default.AutoScanDownloadedMods = !checkBox1.Checked;
             Properties.Settings.Default.Save();
         }
 
