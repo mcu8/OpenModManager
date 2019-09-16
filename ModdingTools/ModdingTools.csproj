@@ -63,7 +63,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config.cs" />
     <Compile Include="ConfigWindow.cs">
       <SubType>Form</SubType>
     </Compile>
