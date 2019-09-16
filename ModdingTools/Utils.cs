@@ -62,7 +62,7 @@ namespace ModdingTools
         {
             return (T)w.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance).GetValue(w);
         }
-    
+
         public static void InvokeMeth(object o, string methodName, params object[] args)
         {
             Debug.WriteLine(o.GetType().ToString());
@@ -203,6 +203,118 @@ namespace ModdingTools
             GroupBox box = (GroupBox)sender;
             p.Graphics.Clear(ThemeConstants.BackgroundColor);
             p.Graphics.DrawString(box.Text, box.Font, new SolidBrush(ThemeConstants.ForegroundColor), 0, 0);
+        }
+
+        public static string ReadStringFromFile(string path)
+        {
+            var result = "";
+            using (var s = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None))
+            using (var tr = new StreamReader(s))
+            {
+                result = tr.ReadToEnd();
+            }
+            return result;
+        }
+
+
+
+        public static void MoveDir(string source, string target)
+        {
+            try
+            {
+                DirectoryCopy(source, target, true);
+                Directory.Delete(source, true);
+            }
+            catch(Exception e) {
+                if (Directory.Exists(target))
+                {
+                    CleanupAttrib(target);
+                    Directory.Delete(target, true);
+                }
+                throw e;
+            }
+        }
+
+        // OK, I'm peckin' gave up with Directory.Move - old DOS "move" command somehow ALWAYS works
+        public static void MoveDirDos(string source, string target)
+        {
+            Process p = new Process();
+            p.StartInfo.FileName = "cmd.exe";
+            p.StartInfo.Arguments = $"/c move \"{Path.GetFullPath(source)}\" \"{Path.GetFullPath(target)}\"";
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.CreateNoWindow = true;
+            p.Start();
+            p.WaitForExit();
+        }
+
+        public static void CleanupAttrib(string pFolderPath, bool recursive = true)
+        {
+            if (recursive)
+            {
+                try
+                {
+                    foreach (string Folder in Directory.GetDirectories(pFolderPath))
+                    {
+                        CleanupAttrib(Folder);
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+            foreach (string file in Directory.GetFiles(pFolderPath))
+            {
+                try
+                {
+                    var pPath = Path.Combine(pFolderPath, file);
+                    FileInfo fi = new FileInfo(pPath);
+
+                    File.SetAttributes(pPath, FileAttributes.Normal);
+                }
+                catch (Exception)
+                {
+                }
+            }
+        }
+
+        // https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-copy-directories
+        private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+        {
+            // Get the subdirectories for the specified directory.
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+
+            if (!dir.Exists)
+            {
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDirName);
+            }
+
+            DirectoryInfo[] dirs = dir.GetDirectories();
+            // If the destination directory doesn't exist, create it.
+            if (!Directory.Exists(destDirName))
+            {
+                Directory.CreateDirectory(destDirName);
+            }
+
+            // Get the files in the directory and copy them to the new location.
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string temppath = Path.Combine(destDirName, file.Name);
+                file.CopyTo(temppath, false);
+            }
+
+            // If copying subdirectories, copy them and their contents to new location.
+            if (copySubDirs)
+            {
+                foreach (DirectoryInfo subdir in dirs)
+                {
+                    string temppath = Path.Combine(destDirName, subdir.Name);
+                    DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+                }
+            }
         }
     }
 }

@@ -92,6 +92,8 @@ namespace ModdingTools.UEngine
 
 
             // Little hacky, but works - bypass annoying Steam confirmation window
+            // EDIT-1 - doesn't work anymore...
+
             return new ExecutableArgumentsPair(
                 "Launging game",
                 Path.Combine(GameFinder.GetSteamDir(), "steam.exe"),

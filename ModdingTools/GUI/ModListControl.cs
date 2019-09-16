@@ -48,7 +48,7 @@ namespace ModdingTools.GUI
             sources.Remove(source);
         }
 
-        public void ReloadList()
+        public void ReloadList(Action a = null)
         {
             flowLayoutPanel1.Controls.Clear();
             flowLayoutPanel1.Visible = false;
@@ -95,9 +95,26 @@ namespace ModdingTools.GUI
                     this.BackgroundImage = null;
                     SetStatus("Loaded " + i1 + " elements!");
                     SetWorker(null);
+                    a?.Invoke();
                 }));
             });
            
+        }
+
+        public ModObject GetMod(string dirName)
+        {
+            foreach (var c in flowLayoutPanel1.Controls)
+            {
+                if (c is ModTile)
+                {
+                    var tmp = (ModTile)c;
+                    if (tmp.Mod.GetDirectoryName().Equals(dirName))
+                    {
+                        return tmp.Mod;
+                    }
+                }
+            }
+            return null;
         }
 
         public ModObject[] GetSelectedMods()

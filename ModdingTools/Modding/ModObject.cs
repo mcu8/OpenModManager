@@ -4,7 +4,9 @@ using ModdingTools.UEngine;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
+using System.Threading;
 
 namespace ModdingTools.Modding
 {
@@ -43,13 +45,20 @@ namespace ModdingTools.Modding
 
         public void RenameDirectory(string newName)
         {
-            Directory.Move(RootPath, Path.Combine(RootSource.Root, newName));
+            Utils.CleanupAttrib(RootPath);
+            //Directory.Move(RootPath, Path.Combine(RootSource.Root, newName));
+            Utils.MoveDir(RootPath, Path.Combine(RootSource.Root, newName));
         }
 
         public void ChangeModSource(ModDirectorySource source)
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+
             var newRoot = Path.Combine(source.Root, Path.GetFileName(RootPath));
-            Directory.Move(RootPath, newRoot);
+            Utils.CleanupAttrib(RootPath);
+            //Directory.Move(RootPath, newRoot);
+            Utils.MoveDir(RootPath, newRoot);
             this.RootPath = newRoot;
             this.RootSource = source;
         }
@@ -133,7 +142,10 @@ namespace ModdingTools.Modding
             this.RootSource = parent;
 
             Parser = new IniParser.Parser.IniDataParser();
-            IniData info = Parser.Parse(File.ReadAllText(GetIniPath()));
+            Parser.Configuration.AllowDuplicateKeys = true;
+
+
+            IniData info = Parser.Parse(Utils.ReadStringFromFile(GetIniPath()));
 
             var i                   = info["Info"];
             // Parse "Info" section
@@ -172,6 +184,12 @@ namespace ModdingTools.Modding
             {
                 return noIconImage;
             }
+        }
+
+        public void Delete()
+        {
+            Utils.CleanupAttrib(RootPath);
+            Directory.Delete(RootPath, true);   
         }
 
         private string TryGet(KeyDataCollection context, string key, string def = null)

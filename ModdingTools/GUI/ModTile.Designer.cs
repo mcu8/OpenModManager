@@ -44,10 +44,11 @@
             this.openDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.scriptWatcherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.scriptWatcherToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.scriptingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scriptWatcherToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.scriptWatcherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scriptWatcherToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -90,9 +91,10 @@
             this.toolStripSeparator1,
             this.openDirectoryToolStripMenuItem,
             this.moveToToolStripMenuItem,
-            this.scriptingToolStripMenuItem});
+            this.scriptingToolStripMenuItem,
+            this.deleteModToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 142);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 164);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // cookModToolStripMenuItem
@@ -176,16 +178,6 @@
             this.testToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.testToolStripMenuItem.Text = "test";
             // 
-            // scriptWatcherToolStripMenuItem
-            // 
-            this.scriptWatcherToolStripMenuItem.Name = "scriptWatcherToolStripMenuItem";
-            this.scriptWatcherToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
-            // 
-            // scriptWatcherToolStripMenuItem1
-            // 
-            this.scriptWatcherToolStripMenuItem1.Name = "scriptWatcherToolStripMenuItem1";
-            this.scriptWatcherToolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
-            // 
             // scriptingToolStripMenuItem
             // 
             this.scriptingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -197,9 +189,26 @@
             // scriptWatcherToolStripMenuItem2
             // 
             this.scriptWatcherToolStripMenuItem2.Name = "scriptWatcherToolStripMenuItem2";
-            this.scriptWatcherToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.scriptWatcherToolStripMenuItem2.Size = new System.Drawing.Size(151, 22);
             this.scriptWatcherToolStripMenuItem2.Text = "Script Watcher";
             this.scriptWatcherToolStripMenuItem2.Click += new System.EventHandler(this.scriptWatcherToolStripMenuItem2_Click);
+            // 
+            // scriptWatcherToolStripMenuItem
+            // 
+            this.scriptWatcherToolStripMenuItem.Name = "scriptWatcherToolStripMenuItem";
+            this.scriptWatcherToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
+            // scriptWatcherToolStripMenuItem1
+            // 
+            this.scriptWatcherToolStripMenuItem1.Name = "scriptWatcherToolStripMenuItem1";
+            this.scriptWatcherToolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
+            // 
+            // deleteModToolStripMenuItem
+            // 
+            this.deleteModToolStripMenuItem.Name = "deleteModToolStripMenuItem";
+            this.deleteModToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteModToolStripMenuItem.Text = "Delete mod";
+            this.deleteModToolStripMenuItem.Click += new System.EventHandler(this.deleteModToolStripMenuItem_Click);
             // 
             // ModTile
             // 
@@ -238,5 +247,6 @@
         private System.Windows.Forms.ToolStripMenuItem scriptWatcherToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem scriptingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem scriptWatcherToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem deleteModToolStripMenuItem;
     }
 }

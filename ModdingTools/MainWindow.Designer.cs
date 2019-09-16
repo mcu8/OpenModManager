@@ -34,6 +34,7 @@
             this.mButton1 = new ModdingTools.GUI.MButton();
             this.mButton2 = new ModdingTools.GUI.MButton();
             this.mButton3 = new ModdingTools.GUI.MButton();
+            this.mButton4 = new ModdingTools.GUI.MButton();
             this.SuspendLayout();
             // 
             // processRunner1
@@ -89,6 +90,7 @@
             this.mButton2.TabIndex = 5;
             this.mButton2.Text = "CONFIGURE";
             this.mButton2.UseVisualStyleBackColor = false;
+            this.mButton2.Click += new System.EventHandler(this.mButton2_Click);
             // 
             // mButton3
             // 
@@ -106,11 +108,28 @@
             this.mButton3.UseVisualStyleBackColor = false;
             this.mButton3.Click += new System.EventHandler(this.mButton3_Click);
             // 
+            // mButton4
+            // 
+            this.mButton4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.mButton4.BackColor = System.Drawing.Color.DarkGreen;
+            this.mButton4.FlatAppearance.BorderColor = System.Drawing.Color.DarkGreen;
+            this.mButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mButton4.ForeColor = System.Drawing.Color.White;
+            this.mButton4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mButton4.Location = new System.Drawing.Point(822, 37);
+            this.mButton4.Name = "mButton4";
+            this.mButton4.Size = new System.Drawing.Size(192, 52);
+            this.mButton4.TabIndex = 7;
+            this.mButton4.Text = "NEW MOD";
+            this.mButton4.UseVisualStyleBackColor = false;
+            this.mButton4.Click += new System.EventHandler(this.mButton4_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1021, 555);
+            this.Controls.Add(this.mButton4);
             this.Controls.Add(this.mButton3);
             this.Controls.Add(this.mButton2);
             this.Controls.Add(this.mButton1);
@@ -125,6 +144,7 @@
             this.Controls.SetChildIndex(this.mButton1, 0);
             this.Controls.SetChildIndex(this.mButton2, 0);
             this.Controls.SetChildIndex(this.mButton3, 0);
+            this.Controls.SetChildIndex(this.mButton4, 0);
             this.ResumeLayout(false);
 
         }
@@ -135,6 +155,7 @@
         private GUI.MButton mButton1;
         private GUI.MButton mButton2;
         private GUI.MButton mButton3;
+        private GUI.MButton mButton4;
     }
 }
 

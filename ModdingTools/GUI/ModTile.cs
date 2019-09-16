@@ -160,5 +160,15 @@ namespace ModdingTools.GUI
             testModToolStripMenuItem.Enabled = !Mod.IsReadOnly;
             scriptingToolStripMenuItem.Enabled = !Mod.IsReadOnly;
         }
+
+        private void deleteModToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show(null, "Do you REALLY want to delete '" + Mod.Name + "'?\nThis CANNOT BE UNDONE!", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning );
+            if (result == DialogResult.Yes)
+            {
+                Mod.Delete();
+                MainWindow.Instance.ReloadModList();
+            }
+        }
     }
 }

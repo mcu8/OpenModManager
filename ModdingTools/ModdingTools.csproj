@@ -42,7 +42,7 @@
     </Reference>
     <Reference Include="ModManager">
       <HintPath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe')">C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe</HintPath>
-	  <HintPath Condition="Exists('C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe')">C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe</HintPath>
+      <HintPath Condition="Exists('C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe')">C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PagedControl, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -63,6 +63,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
+    <Compile Include="ConfigWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigWindow.Designer.cs">
+      <DependentUpon>ConfigWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\BorderlessTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -128,6 +135,9 @@
     <Compile Include="UEngine\ProcessFactory.cs" />
     <Compile Include="UEngine\ScriptWatcher.cs" />
     <Compile Include="Utils.cs" />
+    <EmbeddedResource Include="ConfigWindow.resx">
+      <DependentUpon>ConfigWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\CategorySpacer.resx">
       <DependentUpon>CategorySpacer.cs</DependentUpon>
     </EmbeddedResource>
