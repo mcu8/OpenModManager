@@ -180,6 +180,7 @@ namespace ModdingTools.GUI
                 }
                 catch(Exception e)
                 {
+                    Debug.WriteLine("PECK >> " + e.Message + "\n" + e.ToString());
                 }
 
                 runningProcesses.Remove(proc);

@@ -123,6 +123,7 @@ namespace ModdingTools
                 }
                 catch (Exception e)
                 {
+                    Debug.WriteLine("PECK >> " + e.Message + "\n" + e.ToString());
                 }
 
                 if (ctrl is TextBox && !(ctrl.Parent is BorderPanel))

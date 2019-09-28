@@ -118,7 +118,7 @@ namespace ModdingTools.UEngine
             return new ExecutableArgumentsPair(
                 "Uploading mod...",
                 EditorExecutablePath,
-                changelog == null ? new string[] {"update", (isCuratedItem ? "curated" : "playable"), "\"" + modName + "\""} : new string[] { "update", (isCuratedItem ? "curated" : "playable"), "\"" + modName + "\"", "\"" + changelog + "\"" },
+                changelog == null ? new string[] { "Hat_SteamWorkshopCommandlet", "update", (isCuratedItem ? "curated" : "playable"), "\"" + modName + "\""} : new string[] { "Hat_SteamWorkshopCommandlet", "update", (isCuratedItem ? "curated" : "playable"), "\"" + modName + "\"", "\"" + changelog + "\"" },
                 Path.GetDirectoryName(GameExecutablePath)
             );
         }

@@ -3,6 +3,7 @@ using ModdingTools.Modding;
 using ModdingTools.UEngine;
 using ModManager.Forms;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace ModdingTools
                 }
                 catch (Exception e)
                 {
+                    Debug.WriteLine("PECK >> " + e.Message + "\n" + e.ToString());
                 }
 
                 Utils.CleanUpTrash(GameFinder.FindGameDir());

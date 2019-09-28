@@ -22,10 +22,7 @@ namespace ModdingTools
         {
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.AssemblyResolve += new ResolveEventHandler(LoadFromSameFolder);
-
             Directory.SetCurrentDirectory(Path.GetDirectoryName(UEngine.GameFinder.FindGameDir()));
-
-           
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -39,8 +36,14 @@ namespace ModdingTools
             string folderPath = Path.GetDirectoryName(UEngine.GameFinder.FindGameDir());
             var name = new AssemblyName(args.Name).Name;
             Debug.WriteLine(name);
-            string assemblyPath = Path.Combine(folderPath, name + ".exe");
-            if (!File.Exists(assemblyPath)) return null;
+
+            string assemblyPath = Path.Combine(folderPath, name + "_original.exe");
+            if (!File.Exists(assemblyPath))
+            {
+                assemblyPath = Path.Combine(folderPath, name + ".exe");
+                if (!File.Exists(assemblyPath)) return null;
+            }
+
             Assembly assembly = Assembly.LoadFrom(assemblyPath);
             return assembly;
         }
