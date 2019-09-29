@@ -29,18 +29,28 @@ namespace ModdingTools
             Application.Run(new MainWindow());
         }
 
-        
-
         static Assembly LoadFromSameFolder(object sender, ResolveEventArgs args)
         {
             string folderPath = Path.GetDirectoryName(UEngine.GameFinder.FindGameDir());
             var name = new AssemblyName(args.Name).Name;
             Debug.WriteLine(name);
 
-            string assemblyPath = Path.Combine(folderPath, name + "_original.exe");
+            Debug.WriteLine("test: " + folderPath);
+
+            string ext = name.EndsWith(".resources") ? ".resources" : name.EndsWith(".dll") ? ".dll" : name.EndsWith(".exe") ? ".exe" : "";
+
+            if (name == "ModManager")
+            {
+                ext = ".dll";
+            }
+
+            string assemblyPath = Path.Combine(folderPath, name + ext);
+
+            Debug.WriteLine("test: " + assemblyPath);
+
             if (!File.Exists(assemblyPath))
             {
-                assemblyPath = Path.Combine(folderPath, name + ".exe");
+                assemblyPath = Path.Combine(folderPath, name + ext);
                 if (!File.Exists(assemblyPath)) return null;
             }
 

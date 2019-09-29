@@ -13,5 +13,5 @@ Only tested with Steam release of the game.
 
 **IF YOU WANT TO UPLOAD MODS INTO WORKSHOP USING OMM**
 
-You need to go into *[Game directory]\Binaries*, copy all files from build directory *Bin/[Debug|Release]*, rename ***ModManager.exe*** to ***ModManager_original.exe*** and ***ModdingTools.exe*** to ***ModManager.exe***
+You need to go into *[Game directory]\Binaries*, copy all files from build directory *Bin/[Debug|Release]*, rename ***ModManager.exe*** to ***ModManager.dll*** and ***ModdingTools.exe*** to ***ModManager.exe***
 You probably need to do it after every editor update and/or modding tools integrity check.
