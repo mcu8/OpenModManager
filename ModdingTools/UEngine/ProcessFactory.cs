@@ -16,13 +16,15 @@ namespace ModdingTools.UEngine
             public string[] Arguments { get; private set; }
             public string WorkingDirectory { get; private set; }
             public string TaskName { get; private set; }
+            public Action OnFinish { get; set; }
 
-            public ExecutableArgumentsPair(string taskName, string executable, string[] arguments, string workingDir)
+            public ExecutableArgumentsPair(string taskName, string executable, string[] arguments, string workingDir, Action onFinish = null)
             {
                 this.Executable = executable;
                 this.Arguments = arguments;
                 this.WorkingDirectory = workingDir;
                 this.TaskName = taskName;
+                this.OnFinish = onFinish;
             }
 
             public override string ToString()

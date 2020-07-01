@@ -35,6 +35,8 @@
             this.mButton2 = new ModdingTools.GUI.MButton();
             this.mButton3 = new ModdingTools.GUI.MButton();
             this.mButton4 = new ModdingTools.GUI.MButton();
+            this.mTextBox1 = new ModdingTools.GUI.MTextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // processRunner1
@@ -42,9 +44,9 @@
             this.processRunner1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.processRunner1.BackColor = System.Drawing.Color.Black;
-            this.processRunner1.Location = new System.Drawing.Point(5, 361);
+            this.processRunner1.Location = new System.Drawing.Point(5, 385);
             this.processRunner1.Name = "processRunner1";
-            this.processRunner1.Size = new System.Drawing.Size(1011, 189);
+            this.processRunner1.Size = new System.Drawing.Size(1011, 165);
             this.processRunner1.TabIndex = 2;
             // 
             // modListControl1
@@ -54,9 +56,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.modListControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
             this.modListControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.modListControl1.Location = new System.Drawing.Point(5, 37);
+            this.modListControl1.Location = new System.Drawing.Point(5, 64);
             this.modListControl1.Name = "modListControl1";
-            this.modListControl1.Size = new System.Drawing.Size(811, 319);
+            this.modListControl1.Size = new System.Drawing.Size(811, 315);
             this.modListControl1.TabIndex = 3;
             // 
             // mButton1
@@ -124,11 +126,35 @@
             this.mButton4.UseVisualStyleBackColor = false;
             this.mButton4.Click += new System.EventHandler(this.mButton4_Click);
             // 
+            // mTextBox1
+            // 
+            this.mTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
+            this.mTextBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.mTextBox1.ForeColor = System.Drawing.Color.White;
+            this.mTextBox1.Location = new System.Drawing.Point(506, 38);
+            this.mTextBox1.Name = "mTextBox1";
+            this.mTextBox1.Size = new System.Drawing.Size(310, 20);
+            this.mTextBox1.TabIndex = 8;
+            this.mTextBox1.TextChanged += new System.EventHandler(this.mTextBox1_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.ForeColor = System.Drawing.Color.DarkGray;
+            this.label5.Location = new System.Drawing.Point(452, 42);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(51, 13);
+            this.label5.TabIndex = 30;
+            this.label5.Text = "SEARCH";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1021, 555);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.mTextBox1);
             this.Controls.Add(this.mButton4);
             this.Controls.Add(this.mButton3);
             this.Controls.Add(this.mButton2);
@@ -138,14 +164,17 @@
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
-            this.Text = "OPEN MOD MANAGER - FOR A HAT IN TIME (#SaveTheModding edition)";
+            this.Text = "OPEN MOD MANAGER - FOR A HAT IN TIME (#SAVETHEMODDING EDITION)";
             this.Controls.SetChildIndex(this.processRunner1, 0);
             this.Controls.SetChildIndex(this.modListControl1, 0);
             this.Controls.SetChildIndex(this.mButton1, 0);
             this.Controls.SetChildIndex(this.mButton2, 0);
             this.Controls.SetChildIndex(this.mButton3, 0);
             this.Controls.SetChildIndex(this.mButton4, 0);
+            this.Controls.SetChildIndex(this.mTextBox1, 0);
+            this.Controls.SetChildIndex(this.label5, 0);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -156,6 +185,8 @@
         private GUI.MButton mButton2;
         private GUI.MButton mButton3;
         private GUI.MButton mButton4;
+        private GUI.MTextBox mTextBox1;
+        private System.Windows.Forms.Label label5;
     }
 }
 

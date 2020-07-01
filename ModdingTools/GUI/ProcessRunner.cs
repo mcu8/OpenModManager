@@ -102,22 +102,23 @@ namespace ModdingTools.GUI
         {
             Debug.WriteLine(info.ToString());
             SetText(info.TaskName);
-            RunAppAsync(info.Executable, info.Arguments, info.WorkingDirectory, info.TaskName);
+            RunAppAsync(info.Executable, info.Arguments, info.WorkingDirectory, info.TaskName, info.OnFinish);
         }
 
         public void RunApp(ExecutableArgumentsPair info)
         {
             Debug.WriteLine(info.ToString());
-            RunApp(info.Executable, info.Arguments, info.WorkingDirectory, info.TaskName);
+            RunApp(info.Executable, info.Arguments, info.WorkingDirectory, info.TaskName, info.OnFinish);
         }
 
-        public void RunAppAsync(string exe, string[] args, string cwd = ".", string taskName = "")
+        public void RunAppAsync(string exe, string[] args, string cwd = ".", string taskName = "", Action o = null)
         {
             Task.Factory.StartNew(() =>
             {
                 try
                 {
                     RunApp(exe, args, cwd, taskName);
+                    o?.Invoke();
                 }
                 catch(Exception e)
                 {
@@ -143,7 +144,18 @@ namespace ModdingTools.GUI
             else
             {
                 if (MainWindow.Instance != null)
+                {
                     MainWindow.Instance.SetModListState(value);
+                }
+                   
+                if (value == null)
+                {
+                    ModManagerProxy.UnhideForms();
+                }
+                else
+                {
+                    ModManagerProxy.TmpHideForms();
+                }
 
                 if (value == null) Text = "";
                 else Text = value;
@@ -189,7 +201,7 @@ namespace ModdingTools.GUI
         } 
 
         List<Process> runningProcesses = new List<Process>();
-        private void RunApp(string exe, string[] args, string cwd = ".", string taskName = "")
+        private void RunApp(string exe, string[] args, string cwd = ".", string taskName = "", Action o = null)
         {
             AppRun?.Invoke();
             SetText(taskName);
@@ -206,8 +218,8 @@ namespace ModdingTools.GUI
 
             while (!process.HasExited && process.MainWindowHandle == IntPtr.Zero)
             {
-                System.Threading.Thread.Sleep(100); // Don't hog the CPU
-                process.Refresh(); // You need this since `MainWindowHandle` is cached
+                System.Threading.Thread.Sleep(100);
+                process.Refresh();
             }
 
             this.Invoke(new MethodInvoker(() =>

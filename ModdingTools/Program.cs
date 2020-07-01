@@ -20,13 +20,37 @@ namespace ModdingTools
         public static readonly ProcessFactory ProcFactory = new ProcessFactory();
         public static ModUploader Uploader { get; set; }
 
+        public static string GetAppRoot()
+        {
+            return Path.GetDirectoryName(Application.ExecutablePath);
+        }
+
         [STAThread]
         static void Main()
         {
             bool steam = SteamAPI.Init();
             if (!steam)
             {
-                MessageBox.Show("SteamAPI init failed...");
+                MessageBox.Show("SteamAPI init failed! (is Steam running/installed?)");
+                Environment.Exit(0);
+            }
+
+            if (!Environment.Is64BitOperatingSystem || !Environment.Is64BitProcess)
+            {
+                MessageBox.Show("This app needs 64-bit operating environment and operating system!");
+                Environment.Exit(0);
+            }
+
+            var modManagerOriginal = Path.Combine(Path.GetDirectoryName(UEngine.GameFinder.FindGameDir()), "ModManager.exe");
+            var localDll = Path.Combine(GetAppRoot(), "ModManager.dll");
+            if (File.Exists(modManagerOriginal))
+            {
+                File.Delete(localDll);
+                File.Copy(modManagerOriginal, localDll);
+            }
+            else
+            {
+                MessageBox.Show("ModManager.exe not found...");
                 Environment.Exit(0);
             }
 

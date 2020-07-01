@@ -47,9 +47,10 @@ namespace ModdingTools.UEngine
 
                 mod.Refresh();
                 SetStatus("Preparing the uploader...");
-                if (Directory.Exists("uploader_tmp"))
-                    Directory.Delete("uploader_tmp", true);
-                Directory.CreateDirectory("uploader_tmp");
+                var tmpDir = Path.Combine(Program.GetAppRoot(), "uploader_tmp");
+                if (Directory.Exists(tmpDir))
+                    Directory.Delete(tmpDir, true);
+                Directory.CreateDirectory(tmpDir);
 
                 Utils.DirectoryCopy(mod.RootPath, "uploader_tmp", true);
                 if (!keepScripts)
@@ -148,7 +149,11 @@ namespace ModdingTools.UEngine
                 }));
 
                 SetStatus("Item uploaded successfully!");
-                Thread.Sleep(5000);
+                Thread.Sleep(1000);
+                SetStatus("Cleanup");
+                if (Directory.Exists(tmpDir))
+                    Directory.Delete(tmpDir, true);
+
                 SetStatus(null);
             }
             catch (Exception e)

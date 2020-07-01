@@ -102,7 +102,7 @@
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.checkBox1, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.checkBox2, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.checkBox2, 0, 4);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(7, 52);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 5;
@@ -116,11 +116,12 @@
             // 
             // checkBox2
             // 
-            this.checkBox2.Location = new System.Drawing.Point(3, 48);
+            this.checkBox2.Location = new System.Drawing.Point(3, 183);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(229, 39);
+            this.checkBox2.Size = new System.Drawing.Size(229, 63);
             this.checkBox2.TabIndex = 4;
-            this.checkBox2.Text = "Enable memes";
+            this.checkBox2.Text = "Enable meme - needs some elevator music placed in the program directory - it must" +
+    " be named \"lol.wav\"";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // ConfigWindow

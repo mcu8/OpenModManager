@@ -19,6 +19,8 @@ namespace ModdingTools.UEngine
         public static void PlayElevatorMusic()
         {
             if (!Properties.Settings.Default.Memes) return;
+            var ph = Path.Combine(Program.GetAppRoot(), @"lol.wav");
+            if (!File.Exists(ph)) return;
             Debug.WriteLine("MemeStart()");
             IsPlaying = false;
             Task.Factory.StartNew(() =>
@@ -29,7 +31,7 @@ namespace ModdingTools.UEngine
                     pl.Dispose();
                     pl = null;
                 }
-                var ph = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), @"lol.wav");
+                
                 pl = new SoundPlayer(ph);
                 pl.Play(); // can also use soundPlayer.PlaySync()
                 IsPlaying = true;

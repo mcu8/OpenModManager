@@ -19,17 +19,36 @@ namespace ModdingTools.GUI
             TriggerUpdate();
         }
 
-        private void TriggerUpdate()
+        public void TriggerUpdate()
         {
+            flowLayoutPanel1.SuspendLayout();
             foreach (var ctrl in flowLayoutPanel1.Controls)
             {
                 if (ctrl is CategorySpacer)
                 {
-                    ((CategorySpacer)ctrl).Width = this.Width - 20 - SystemInformation.VerticalScrollBarWidth;
+                    ((CategorySpacer)ctrl).Width = this.Width - 10 - SystemInformation.VerticalScrollBarWidth;
+                }
+
+                if (ctrl is ModTile)
+                {
+                    RevalidateTile((ModTile)ctrl);
                 }
 
             }
+
+            flowLayoutPanel1.ResumeLayout();
             flowLayoutPanel1.Update();
+        }
+
+        public void RevalidateTile(ModTile tile)
+        {
+            int offset = 6;
+            int xa = 150;
+            int width = this.Width - 10 - SystemInformation.VerticalScrollBarWidth;
+            int cols = width / (xa + offset);
+            int extra = (width - ((xa + offset) * cols));
+            int extraAdd = extra / cols;
+            tile.Width = xa + extraAdd;
         }
 
         List<ModDirectorySource> sources = new List<ModDirectorySource>();
@@ -84,8 +103,8 @@ namespace ModdingTools.GUI
                                 var tile = new ModTile(d);
                                 tile.Visible = source.Enabled;
                                 tile.Tag = space;
+                                RevalidateTile(tile);
                                 flowLayoutPanel1.Controls.Add(tile);
-
                             }));
                         }
                     }
@@ -99,6 +118,23 @@ namespace ModdingTools.GUI
                 }));
             });
            
+        }
+
+        public void Filter(string text)
+        {
+            flowLayoutPanel1.SuspendLayout();
+            Task.Factory.StartNew(() =>
+            {
+                foreach (var ctrl in flowLayoutPanel1.Controls)
+                {
+                    if (ctrl is ModTile)
+                    {
+                        var vis = String.IsNullOrEmpty(text.Trim()) ? true : ((ModTile)ctrl).Mod.Name.ToLower().Replace(" ", "").Replace("-", "").Contains(text.ToLower().Replace(" ", "").Replace("-", ""));
+                        this.Invoke(new MethodInvoker(() => ((ModTile)ctrl).Visible = vis));
+                    }
+                }
+                this.Invoke(new MethodInvoker(() => flowLayoutPanel1.ResumeLayout()));
+            });
         }
 
         public ModObject GetMod(string dirName)
@@ -200,6 +236,8 @@ namespace ModdingTools.GUI
                 return;
             }
 
+            
+
             SetWorker(text);
 
             label1.Text = text == null ? "" : text;
@@ -232,9 +270,11 @@ namespace ModdingTools.GUI
             if (text == null)
             {
                 panel1.Visible = false;
+                MainWindow.Instance.ToggleSearchBar(true);
             }
             else
             {
+                MainWindow.Instance.ToggleSearchBar(false);
                 panel1.Visible = true;
                 label3.Text = text;
             }

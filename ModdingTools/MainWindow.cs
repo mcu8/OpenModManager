@@ -64,6 +64,15 @@ namespace ModdingTools
             return modListControl1.GetModDirectorySources();
         }
 
+        public void ToggleSearchBar(bool v)
+        {
+            mTextBox1.Enabled = v;
+            if (!v)
+            {
+                mTextBox1.Text = "";
+            }
+        }
+
         public ProcessRunner Runner => processRunner1;
 
         private void mButton1_Click(object sender, System.EventArgs e)
@@ -145,6 +154,12 @@ namespace ModdingTools
         private void mButton2_Click(object sender, EventArgs e)
         {
             new ConfigWindow().ShowDialog();
+        }
+
+        private void mTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (mTextBox1.Enabled)
+                modListControl1.Filter(mTextBox1.Text);
         }
     }
 }

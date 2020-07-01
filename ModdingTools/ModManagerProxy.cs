@@ -16,6 +16,7 @@ namespace ModdingTools
     class ModManagerProxy
     {
         static bool initialized = false;
+        static List<Form> openedForms = new List<Form>();
 
         static ModListForm modListForm;
 
@@ -76,7 +77,8 @@ namespace ModdingTools
             Utils.CleanEvents(RefreshButton);
             RefreshButton.Click += (e, v) =>
             {
-                MainWindow.Instance.ReloadModList();
+                window.DoRefresh();
+                MainWindow.Instance.ReloadModList();    
             };
 
             // ViewInWorkshopButton
@@ -117,7 +119,16 @@ namespace ModdingTools
                         return;
                     }
                     Utils.InvokeMeth(p, "SaveMod");
-                    MainWindow.Instance.Runner.RunAppAsync(Program.ProcFactory.GetCookMod(o));
+                    var c = Program.ProcFactory.GetCookMod(o);
+                    c.OnFinish = () =>
+                    {
+                        window.Invoke(new MethodInvoker(() =>
+                        {
+                            o.Refresh();
+                            window.DoRefresh();
+                        }));
+                    };
+                    MainWindow.Instance.Runner.RunAppAsync(c);
                 }
             };
 
@@ -248,6 +259,9 @@ namespace ModdingTools
             ButtonPublish.Click += (e, v) =>
             {
                 var p = ((Control)e).FindForm();
+                var o = Utils.GetModObjectFromControl(e);
+                o.Refresh();
+                window.DoRefresh();
                 tbc.SelectTab(PublishPage);
                 ButtonPublish.BackColor = System.Drawing.Color.FromArgb(46, 139, 87);
             };
@@ -270,8 +284,12 @@ namespace ModdingTools
 
             host.Icon = MainWindow.Instance.Icon;
 
+            host.FormClosed += Host_FormClosed;
+
             host.Controls.Add(window);
             host.Show();
+
+            openedForms.Add(host);
 
             Utils.InvokeMeth(window, "UpdateButtonTab", ButtonInfo, tbc.SelectedTab == InfoPage);
             Utils.InvokeMeth(window, "UpdateButtonTab", ButtonScripting, tbc.SelectedTab == ScriptingPage);
@@ -281,6 +299,38 @@ namespace ModdingTools
             tbc.Appearance = TabAppearance.FlatButtons;
             tbc.ItemSize = new Size(0, 1);
             tbc.SizeMode = TabSizeMode.Fixed;
+        }
+
+        static bool hidden = false;
+        public static void TmpHideForms()
+        {
+            if (hidden) return;
+            foreach (var f in openedForms)
+            {
+                f.Hide();
+            }
+            hidden = true;
+        }
+
+        public static void UnhideForms()
+        {
+            foreach (var f in openedForms)
+            {
+                f.Show();
+            }
+            hidden = false;
+        }
+
+        private static void Host_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                openedForms.Remove((Form)sender);
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine(ex.Message + "\n" + ex.ToString());
+            }
         }
     }
 }
