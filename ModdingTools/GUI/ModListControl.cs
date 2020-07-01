@@ -47,7 +47,7 @@ namespace ModdingTools.GUI
             int width = this.Width - 10 - SystemInformation.VerticalScrollBarWidth;
             int cols = width / (xa + offset);
             int extra = (width - ((xa + offset) * cols));
-            int extraAdd = extra / cols;
+            int extraAdd = cols > 0 ? extra / cols : 0;
             tile.Width = xa + extraAdd;
         }
 

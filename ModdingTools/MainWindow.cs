@@ -35,6 +35,8 @@ namespace ModdingTools
             Instance = this;
             InitializeComponent();
 
+            ToggleConsole(false);
+
             modListControl1.AddModSource(new ModDirectorySource("Mods directory", Path.Combine(Program.ProcFactory.GetGamePath(), @"HatinTimeGame\Mods"), true));
             modListControl1.AddModSource(new ModDirectorySource("Mods directory (disabled)", Path.Combine(Program.ProcFactory.GetGamePath(), @"HatinTimeGame\Mods\Disabled"), true));
 
@@ -71,6 +73,12 @@ namespace ModdingTools
             {
                 mTextBox1.Text = "";
             }
+        }
+
+        public void ToggleConsole(bool v)
+        {
+            processRunner1.Visible = v;
+            modListControl1.Visible = !v;
         }
 
         public ProcessRunner Runner => processRunner1;
@@ -160,6 +168,20 @@ namespace ModdingTools
         {
             if (mTextBox1.Enabled)
                 modListControl1.Filter(mTextBox1.Text);
+        }
+
+        private void MainWindow_ResizeBegin(object sender, EventArgs e)
+        {
+            modListControl1.SuspendLayout();
+        }
+
+        private void MainWindow_ResizeEnd(object sender, EventArgs e)
+        {
+
+            modListControl1.Width += 1;
+            modListControl1.Width -= 1;
+            modListControl1.TriggerUpdate();
+            modListControl1.ResumeLayout();
         }
     }
 }

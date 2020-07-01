@@ -168,7 +168,7 @@ namespace ModdingTools.Modding
 
         public Image GetIcon()
         {
-            var noIconImage = Properties.Resources.close;
+            var noIconImage = Properties.Resources.noimage;
             if (Icon == null)
                 return noIconImage;
 

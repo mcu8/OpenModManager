@@ -225,6 +225,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hueh.ico" />
+    <None Include="Resources\noimage.png" />
+    <None Include="Resources\settings-icon.png" />
     <EmbeddedResource Include="steam_api64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

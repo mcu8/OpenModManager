@@ -77,7 +77,7 @@ namespace ModdingTools.GUI
         }
 
         IntPtr hndl;
-        const int offset = 5;
+        const int offset = 1;
         public void EatWindow(IntPtr handle)
         {
             hndl = handle;
@@ -93,7 +93,7 @@ namespace ModdingTools.GUI
         public void UpdateConsoleSize()
         {
             if (hndl != IntPtr.Zero && IsWindow(hndl))
-                MoveWindow(hndl, -1 * (offset), -1 * (offset) + 25, this.Width + (offset * 2) - 2, (this.Height + (offset * 2)) - 24, true);
+                MoveWindow(hndl, -1 * (offset), -1 * (offset) + 25, this.Width + (offset * 2) - 2, (this.Height + (offset * 2)) - 24, false);
             else
                 hndl = IntPtr.Zero;
         }
@@ -204,6 +204,7 @@ namespace ModdingTools.GUI
         private void RunApp(string exe, string[] args, string cwd = ".", string taskName = "", Action o = null)
         {
             AppRun?.Invoke();
+
             SetText(taskName);
 
             Process process = new Process();
@@ -224,6 +225,7 @@ namespace ModdingTools.GUI
 
             this.Invoke(new MethodInvoker(() =>
             {
+                MainWindow.Instance.ToggleConsole(true);
                 EatWindow(process.MainWindowHandle);
                 mButton3.Visible = true;
             }));
@@ -248,6 +250,11 @@ namespace ModdingTools.GUI
 
             if (runningProcesses.Count == 0)
                 SetText(null);
+
+            this.Invoke(new MethodInvoker(() =>
+            {
+                MainWindow.Instance.ToggleConsole(false);
+            }));
         }
 
         private void mButton3_Click(object sender, EventArgs e)
