@@ -1,6 +1,8 @@
 ## OPEN MOD MANAGER
 For A Hat in Time
 
+![Screenshot](https://hat.ovh/omm.png)
+
 What is this?
 ---
 That's the Mod Manager but rewritten from scratch with new features:
@@ -15,8 +17,6 @@ That's the Mod Manager but rewritten from scratch with new features:
  - Script watcher (it auto compile scripts when you modify something in it) - disabled by default
  - Mod list context menu
  ... and more!
-
-![Screenshot](https://hat.ovh/omm.png)
 
 Ready to run version you can found in the [Releases](https://github.com/mcu8/OpenModManager/releases/latest) tab
 ---
