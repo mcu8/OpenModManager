@@ -67,6 +67,7 @@ namespace ModdingTools.GUI
             {
                 if (!this.Checked)
                 {
+                    this.Mod.Refresh();
                     ModManagerProxy.LaunchPropertiesWindow(this.Mod);
                     //prop.Show();
                 }

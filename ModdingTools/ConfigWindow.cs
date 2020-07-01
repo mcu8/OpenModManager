@@ -24,11 +24,13 @@ namespace ModdingTools
         private void LoadSettings()
         {
             checkBox1.Checked = !Properties.Settings.Default.AutoScanDownloadedMods;
+            checkBox2.Checked = Properties.Settings.Default.Memes;
         }
 
         private void SaveSettings()
         {
             Properties.Settings.Default.AutoScanDownloadedMods = !checkBox1.Checked;
+            Properties.Settings.Default.Memes = checkBox2.Checked;
             Properties.Settings.Default.Save();
         }
 

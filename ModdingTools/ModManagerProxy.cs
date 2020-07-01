@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ModdingTools
@@ -120,6 +122,7 @@ namespace ModdingTools
             };
 
             var WorkshopChangelogEdit = Utils.GetField<TextBox>("WorkshopChangelogEdit", window);
+            WorkshopChangelogEdit.Visible = false;
 
             // SubmitToWorkshopButton_Click
             var SubmitToWorkshopButton = Utils.GetField<Button>("SubmitToWorkshopButton", window);
@@ -145,22 +148,10 @@ namespace ModdingTools
                 if (text != "")
                 {
                     MessageBox.Show("Your mod cook is out of date, please cook your mod. Error: " + text);
+                    return;
                 }
-                else if (Utils.InvokeFunct<int>(p, "GetWorkshopID") > 0)
-                {
-                    if (WorkshopChangelogEdit.Text == "")
-                    {
-                        MessageBox.Show("Please enter a change log!");
-                        return;
-                    }
-                    string text2 = WorkshopChangelogEdit.Text;
-                    text2 = text2.Replace(Environment.NewLine, "[br]");
-                    MainWindow.Instance.Runner.RunAppAsync(Program.ProcFactory.UploadMod(o.GetDirectoryName(), isCuratedItem, text2));
-                }
-                else
-                {
-                    MainWindow.Instance.Runner.RunAppAsync(Program.ProcFactory.UploadMod(o.GetDirectoryName(), isCuratedItem, null));
-                }
+                host.Close();
+                new UploadOptions(o).ShowDialog(MainWindow.Instance);
             };
 
             // Make ModDescriptionEdit scrollable

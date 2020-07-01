@@ -138,7 +138,7 @@
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
-            this.Text = "OPEN MOD MANAGER - FOR A HAT IN TIME";
+            this.Text = "OPEN MOD MANAGER - FOR A HAT IN TIME (#SaveTheModding edition)";
             this.Controls.SetChildIndex(this.processRunner1, 0);
             this.Controls.SetChildIndex(this.modListControl1, 0);
             this.Controls.SetChildIndex(this.mButton1, 0);

@@ -263,3 +263,9 @@ __pycache__/
 # Ignore ModManager executables
 ModManager.exe
 ModdingTools/ModManager.exe
+/ModdingTools/.vshistory
+/ModdingTools/GUI/.vshistory
+/ModdingTools/Modding/.vshistory/ModObject.cs
+/ModdingTools/Properties/.vshistory/Settings.settings
+/ModdingTools/UEngine/.vshistory
+*.vshistory

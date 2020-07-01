@@ -1,5 +1,10 @@
 ﻿using ModdingTools.Modding;
+using Steamworks;
+using System;
+using System.Diagnostics;
 using System.IO;
+using System.Media;
+using System.Threading.Tasks;
 
 namespace ModdingTools.UEngine
 {
@@ -84,20 +89,10 @@ namespace ModdingTools.UEngine
 
         public ExecutableArgumentsPair StartMap(string mapName = null)
         {
-            /*return new ExecutableArgumentsPair(
+            return new ExecutableArgumentsPair(
+                "Launching game...",
                 GameExecutablePath,
                 mapName != null ? new string[] { mapName, "-SEEKFREELOADING" } : new string[] { "-SEEKFREELOADING" },
-                Path.GetDirectoryName(GameExecutablePath)
-            );*/
-
-
-            // Little hacky, but works - bypass annoying Steam confirmation window
-            // EDIT-1 - doesn't work anymore...
-
-            return new ExecutableArgumentsPair(
-                "Launging game",
-                Path.Combine(GameFinder.GetSteamDir(), "steam.exe"),
-                mapName != null ? new string[] { "-applaunch", GameFinder.AppID, mapName, "-SEEKFREELOADING" } : new string[] { "-applaunch", GameFinder.AppID, "-SEEKFREELOADING" },
                 Path.GetDirectoryName(GameExecutablePath)
             );
         }
@@ -111,17 +106,5 @@ namespace ModdingTools.UEngine
                 Path.GetDirectoryName(GameExecutablePath)
             );
         }
-
-        public ExecutableArgumentsPair UploadMod(string modName, bool isCuratedItem, string changelog = null)
-        {
-            // TODO: better changelog filter
-            return new ExecutableArgumentsPair(
-                "Uploading mod...",
-                EditorExecutablePath,
-                changelog == null ? new string[] { "Hat_SteamWorkshopCommandlet", "update", (isCuratedItem ? "curated" : "playable"), "\"" + modName + "\""} : new string[] { "Hat_SteamWorkshopCommandlet", "update", (isCuratedItem ? "curated" : "playable"), "\"" + modName + "\"", "\"" + changelog + "\"" },
-                Path.GetDirectoryName(GameExecutablePath)
-            );
-        }
-
     }
 }

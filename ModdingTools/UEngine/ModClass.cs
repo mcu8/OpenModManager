@@ -44,15 +44,15 @@ namespace ModdingTools.UEngine
 
         public static readonly Dictionary<ModClassType, string> ClassToNameMapping = new Dictionary<ModClassType, string>
         {
-            { ModClassType.Badge,       "badge"                  },
-            { ModClassType.Playable,    "playable character"     },
+            { ModClassType.Badge,       "Badge"                  },
+            { ModClassType.Playable,    "Playable Character"     },
             { ModClassType.DWContract,  "Death Wish contract"    },
-            { ModClassType.Hat,         "hat"                    },
-            { ModClassType.Remix,       "remix"                  },
-            { ModClassType.Sticker,     "sticker"                },
-            { ModClassType.Weapon,      "weapon"                 }, 
+            { ModClassType.Hat,         "Hat"                    },
+            { ModClassType.Remix,       "Remix"                  },
+            { ModClassType.Sticker,     "Sticker"                },
+            { ModClassType.Weapon,      "Weapon"                 }, 
             { ModClassType.Generic,     "other classes"          },
-            { ModClassType.Skin,        "dye"                    }
+            { ModClassType.Skin,        "Dye"                    }
         };
 
         private void DetectModClassType()

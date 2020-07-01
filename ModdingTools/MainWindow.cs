@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Automation;
 using System.Windows.Forms;
 
 namespace ModdingTools
@@ -46,7 +47,16 @@ namespace ModdingTools
 
             SetModListState(null);
 
+            Automation.AddAutomationEventHandler(
+            WindowPattern.WindowOpenedEvent,
+            AutomationElement.RootElement,
+            TreeScope.Children,
+            (sender, e) =>
+            {
+                var element = sender as AutomationElement;
 
+                Console.WriteLine("new window opened");
+            });
         }
 
         public ModDirectorySource[] GetModSources()
@@ -78,6 +88,14 @@ namespace ModdingTools
                 return;
 
             modListControl1.SetWorker(value);
+        }
+
+        public void SetModListStatus(string value)
+        {
+            if (modListControl1 == null)
+                return;
+
+            modListControl1.SetStatus(value);
         }
 
         private void mButton4_Click(object sender, EventArgs e)

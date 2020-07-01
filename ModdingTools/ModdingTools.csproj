@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -41,16 +42,20 @@
       <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
     </Reference>
     <Reference Include="ModManager">
-	  <!-- <HintPath Condition="Exists('..\ModManager.exe')">..\ModManager.exe</HintPath> -->
-	  <!-- <HintPath Condition="Exists('.\ModManager.exe')">.\ModManager.exe</HintPath> -->
-	  <HintPath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll')">C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll</HintPath>
+      <!-- <HintPath Condition="Exists('..\ModManager.exe')">..\ModManager.exe</HintPath> -->
+      <!-- <HintPath Condition="Exists('.\ModManager.exe')">.\ModManager.exe</HintPath> -->
+      <HintPath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll')">C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll</HintPath>
       <HintPath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe') And !Exists('C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll')">C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe</HintPath>
-	  <HintPath Condition="Exists('C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll')">C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll</HintPath>
-	  <HintPath Condition="Exists('C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe') And !Exists('C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll')">C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe</HintPath>
-	  <Private>True</Private>
+      <HintPath Condition="Exists('C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll')">C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll</HintPath>
+      <HintPath Condition="Exists('C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe') And !Exists('C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll')">C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="PagedControl, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedControl.2.2.0\lib\net35\PagedControl.dll</HintPath>
+    </Reference>
+    <Reference Include="Steamworks.NET, Version=14.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Steamworks.NET.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -65,8 +70,16 @@
     <Reference Include="TabControl, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TabControl.2.0.1\lib\net35\TabControl.dll</HintPath>
     </Reference>
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationTypes" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UploadOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UploadOptions.Designer.cs">
+      <DependentUpon>UploadOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfigWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,10 +147,15 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UEngine\GameFinder.cs" />
+    <Compile Include="UEngine\Lol.cs" />
     <Compile Include="UEngine\ModClass.cs" />
+    <Compile Include="UEngine\ModUploader.cs" />
     <Compile Include="UEngine\ProcessFactory.cs" />
     <Compile Include="UEngine\ScriptWatcher.cs" />
     <Compile Include="Utils.cs" />
+    <EmbeddedResource Include="UploadOptions.resx">
+      <DependentUpon>UploadOptions.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConfigWindow.resx">
       <DependentUpon>ConfigWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -183,6 +201,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hueh.ico" />
+    <EmbeddedResource Include="steam_api64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="steam_appid.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="Resources\compile4.gif" />
     <None Include="Resources\loading_text.png" />
     <None Include="Resources\sticker.png" />

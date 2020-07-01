@@ -3,6 +3,7 @@ using ModdingTools.GUI;
 using ModdingTools.UEngine;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -30,7 +31,7 @@ namespace ModdingTools.Modding
 
         public string GetDescription()
         {
-            return this.Description.Replace("[br]", Environment.NewLine).Trim('"');
+            return this.Description.Replace("[br][br]", "[br]").Trim().Replace("[br]", "\n").Trim('"');
         }
 
         public string GetIniPath()
@@ -140,23 +141,25 @@ namespace ModdingTools.Modding
         {
             this.RootPath = rootPath;
             this.RootSource = parent;
-
             Parser = new IniParser.Parser.IniDataParser();
             Parser.Configuration.AllowDuplicateKeys = true;
+            Refresh();
+        }
 
-
+        public void Refresh()
+        {
             IniData info = Parser.Parse(Utils.ReadStringFromFile(GetIniPath()));
 
-            var i                   = info["Info"];
+            var i = info["Info"];
             // Parse "Info" section
-            this.Name               = TryGet(i, "name",         "???");
-            this.Author             = TryGet(i, "author",       "???");
-            this.Description        = TryGet(i, "description",  "???");
-            this.Version            = TryGet(i, "version",      "???");
+            this.Name = TryGet(i, "name", "???");
+            this.Author = TryGet(i, "author", "???");
+            this.Description = TryGet(i, "description", "???");
+            this.Version = TryGet(i, "version", "???");
 
-            this.IsCheat            = bool.Parse(TryGet(i, "is_cheat", "false"));
-            this.Icon               = TryGet(i, "icon");
-            this.ChapterInfoName    = TryGet(i, "ChapterInfoName", "???");
+            this.IsCheat = bool.Parse(TryGet(i, "is_cheat", "false"));
+            this.Icon = TryGet(i, "icon");
+            this.ChapterInfoName = TryGet(i, "ChapterInfoName", "???");
 
             // TODO: Parse "Tags" section
         }
@@ -197,6 +200,49 @@ namespace ModdingTools.Modding
             if (context.ContainsKey(key))
                 return context[key];
             return def;
+        }
+
+        public ulong GetUploadedId()
+        {
+            string checkPath = Path.Combine(RootPath, "..\\SteamWorkshop.ini");
+            Debug.WriteLine(checkPath);
+            if (File.Exists(checkPath))
+            {
+                IniData info = Parser.Parse(File.ReadAllText(checkPath));
+                var i = info[GetDirectoryName()];
+                return ulong.Parse(TryGet(i, "WorkshopIdLong", TryGet(i, "WorkshopId", "0")));
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public void SetUploadedId(ulong id)
+        {
+            string checkPath = Path.Combine(RootPath, "..\\SteamWorkshop.ini");
+            Debug.WriteLine(checkPath);
+            if (File.Exists(checkPath))
+            {
+                if (GetUploadedId() == 0)
+                {
+                    IniData info = Parser.Parse(File.ReadAllText(checkPath));
+                    if (!info.Sections.ContainsSection(GetDirectoryName()))
+                        info.Sections.Add(new SectionData(GetDirectoryName()));
+                    var old = TryGet(info[GetDirectoryName()], "WorkshopIdLong", "fail");
+                    if ("fail".Equals(old))
+                    {
+                        info[GetDirectoryName()].AddKey(new KeyData("WorkshopIdLong"));
+                        info[GetDirectoryName()]["WorkshopIdLong"] = "" + id;
+                    }
+                    else
+                    {
+                        info[GetDirectoryName()].AddKey(new KeyData("WorkshopId"));
+                        info[GetDirectoryName()]["WorkshopId"] = "" + id;
+                    }          
+                    System.IO.File.WriteAllText(checkPath, info.ToString());
+                }
+            }
         }
 
         public void Save()
