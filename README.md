@@ -3,7 +3,7 @@ For A Hat in Time
 
 ![Screenshot](https://hat.ovh/omm.png)
 
-What is this?
+What is this? Flying boat?
 ---
 That's the Mod Manager but rewritten from scratch with new features:
 
@@ -18,19 +18,19 @@ That's the Mod Manager but rewritten from scratch with new features:
  - Mod list context menu
  ... and more!
 
-Ready to run version you can found in the [Releases](https://github.com/mcu8/OpenModManager/releases/latest) tab
+You can find a ready to run version on the [Releases](https://github.com/mcu8/OpenModManager/releases/latest) tab
 ---
-Now supports mod uploading via Steamworks API (no more int32 issue!)
+Now supports mod uploading via Steamworks API (no more int32 issue)!
 Works only with the Steam release of the game and 64-bit operating systems.
-Requires .NET Framework v4.0
+Requires .NET Framework v4.0 (you probably have it already installed if you are used official Modding Tools before)
 
 Installation
 ---
-Download latest release from the [Releases](https://github.com/mcu8/OpenModManager/releases/latest) tab, extract it to some folder and run "ModdingTools.exe"
+Download latest release from the [Releases](https://github.com/mcu8/OpenModManager/releases/latest) tab, extract it to some folder and run the "ModdingTools.exe" executable.
 
 Building
 ---
-Clone the repository and open it in the Visual Studio 2019 (or newer). You need to add original ModManager.exe as a dependency (it should be automatically detected if you’ve game installed on the drive C:)
+Clone the repository and open it in the Visual Studio 2019 (or newer). You need to add original ModManager.exe as a dependency (it should be automatically detected if you’ve game installed on the drive C:).
 
 Disclaimer
 ---
