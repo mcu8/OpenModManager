@@ -96,7 +96,7 @@ namespace ModdingTools
             foreach (var control in c.Controls)
             {
                 var ctrl = ((Control)control);
-
+                if (ctrl.Tag is string && (string)ctrl.Tag == "notheme") continue;
 
                 if (ctrl is Button)
                 {

@@ -55,6 +55,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.mButton1 = new ModdingTools.GUI.MButton();
+            this.mButton4 = new ModdingTools.GUI.MButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.borderPanel1.SuspendLayout();
             this.borderPanel2.SuspendLayout();
@@ -102,7 +104,7 @@
             this.tableLayoutPanel1.Controls.Add(this.mButton2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.mButton3, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 347);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 358);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -112,7 +114,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(11, 75);
+            this.checkBox1.Location = new System.Drawing.Point(11, 89);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(150, 17);
             this.checkBox1.TabIndex = 10;
@@ -122,7 +124,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(11, 98);
+            this.checkBox2.Location = new System.Drawing.Point(11, 112);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(93, 17);
             this.checkBox2.TabIndex = 11;
@@ -149,7 +151,7 @@
             this.borderPanel1.Controls.Add(this.checkBox4);
             this.borderPanel1.Controls.Add(this.checkBox3);
             this.borderPanel1.ForeColor = System.Drawing.Color.White;
-            this.borderPanel1.Location = new System.Drawing.Point(253, 50);
+            this.borderPanel1.Location = new System.Drawing.Point(253, 64);
             this.borderPanel1.Name = "borderPanel1";
             this.borderPanel1.Size = new System.Drawing.Size(240, 291);
             this.borderPanel1.TabIndex = 12;
@@ -346,7 +348,7 @@
             this.borderPanel2.BorderThickness = 2;
             this.borderPanel2.Controls.Add(this.textBox1);
             this.borderPanel2.ForeColor = System.Drawing.Color.White;
-            this.borderPanel2.Location = new System.Drawing.Point(7, 209);
+            this.borderPanel2.Location = new System.Drawing.Point(7, 223);
             this.borderPanel2.Name = "borderPanel2";
             this.borderPanel2.Padding = new System.Windows.Forms.Padding(5);
             this.borderPanel2.Size = new System.Drawing.Size(240, 132);
@@ -357,7 +359,7 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.ForeColor = System.Drawing.Color.DarkGray;
-            this.label4.Location = new System.Drawing.Point(8, 191);
+            this.label4.Location = new System.Drawing.Point(8, 205);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 13);
             this.label4.TabIndex = 28;
@@ -368,7 +370,7 @@
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.ForeColor = System.Drawing.Color.DarkGray;
-            this.label5.Location = new System.Drawing.Point(8, 131);
+            this.label5.Location = new System.Drawing.Point(8, 145);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(60, 13);
             this.label5.TabIndex = 29;
@@ -383,7 +385,7 @@
             "Friends-only",
             "Hidden",
             "Unlisted"});
-            this.comboBox3.Location = new System.Drawing.Point(11, 152);
+            this.comboBox3.Location = new System.Drawing.Point(11, 166);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(230, 21);
             this.comboBox3.TabIndex = 28;
@@ -393,16 +395,52 @@
             this.label6.AutoSize = true;
             this.label6.BackColor = System.Drawing.Color.Transparent;
             this.label6.ForeColor = System.Drawing.Color.DarkGray;
-            this.label6.Location = new System.Drawing.Point(9, 53);
+            this.label6.Location = new System.Drawing.Point(9, 72);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(0, 13);
             this.label6.TabIndex = 30;
+            // 
+            // mButton1
+            // 
+            this.mButton1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(196)))), ((int)(((byte)(0)))));
+            this.mButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.mButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mButton1.ForeColor = System.Drawing.Color.Black;
+            this.mButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mButton1.Location = new System.Drawing.Point(253, 35);
+            this.mButton1.Name = "mButton1";
+            this.mButton1.Size = new System.Drawing.Size(240, 27);
+            this.mButton1.TabIndex = 31;
+            this.mButton1.Text = "AUTOFILL";
+            this.mButton1.UseVisualStyleBackColor = false;
+            this.mButton1.Click += new System.EventHandler(this.mButton1_Click);
+            // 
+            // mButton4
+            // 
+            this.mButton4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(196)))), ((int)(((byte)(0)))));
+            this.mButton4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.mButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mButton4.ForeColor = System.Drawing.Color.Black;
+            this.mButton4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mButton4.Location = new System.Drawing.Point(11, 35);
+            this.mButton4.Name = "mButton4";
+            this.mButton4.Size = new System.Drawing.Size(240, 48);
+            this.mButton4.TabIndex = 32;
+            this.mButton4.Text = "ALREADY RELEASED?\r\nCLICK HERE!";
+            this.mButton4.UseVisualStyleBackColor = false;
+            this.mButton4.Click += new System.EventHandler(this.mButton4_Click);
             // 
             // UploadOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 389);
+            this.ClientSize = new System.Drawing.Size(500, 400);
+            this.Controls.Add(this.mButton4);
+            this.Controls.Add(this.mButton1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.label5);
@@ -412,8 +450,8 @@
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.MaximumSize = new System.Drawing.Size(500, 389);
-            this.MinimumSize = new System.Drawing.Size(500, 389);
+            this.MaximumSize = new System.Drawing.Size(500, 400);
+            this.MinimumSize = new System.Drawing.Size(500, 400);
             this.Name = "UploadOptions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "UPLOAD OPTIONS";
@@ -426,6 +464,8 @@
             this.Controls.SetChildIndex(this.label5, 0);
             this.Controls.SetChildIndex(this.comboBox3, 0);
             this.Controls.SetChildIndex(this.label6, 0);
+            this.Controls.SetChildIndex(this.mButton1, 0);
+            this.Controls.SetChildIndex(this.mButton4, 0);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.borderPanel1.ResumeLayout(false);
             this.borderPanel1.PerformLayout();
@@ -464,5 +504,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Label label6;
+        private GUI.MButton mButton1;
+        private GUI.MButton mButton4;
     }
 }

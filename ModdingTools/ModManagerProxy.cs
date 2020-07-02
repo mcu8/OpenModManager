@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace ModdingTools
 {
@@ -54,10 +55,14 @@ namespace ModdingTools
 
             // Correct sidebar size
             var panel1 = Utils.GetField<Panel>("panel1", window);
-            panel1.Width += 5;
+            //panel1.Width += 5;
+            panel1.Location = new Point(panel1.Location.X + 3, panel1.Location.Y);
             panel1.Padding = new Padding(0, 0, 0, 0);
             panel1.Margin = new Padding(0, 0, 0, 0);
             panel1.BorderStyle = BorderStyle.None;
+            panel1.BackColor = Color.Black;
+            panel1.Tag = "notheme";
+            panel1.Refresh();
 
             // Disable textbox for changing mod directory name to avoid conflicts
             var ModFolderEdit = Utils.GetField<TextBox>("ModFolderEdit", window);
@@ -85,6 +90,13 @@ namespace ModdingTools
             var ViewInWorkshopButton = Utils.GetField<Button>("ViewInWorkshopButton", window);
             ViewInWorkshopButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             ViewInWorkshopButton.Location = new Point(RefreshButton.Location.X - 3 - ViewInWorkshopButton.Width, ViewInWorkshopButton.Location.Y);
+
+            Utils.CleanEvents(ViewInWorkshopButton);
+            ViewInWorkshopButton.Click += (e, v) =>
+            {
+                var o = Utils.GetModObjectFromControl(e);
+                Process.Start("http://steamcommunity.com/sharedfiles/filedetails/?id=" + o.GetUploadedId());
+            };
 
             // Hook into compile scripts button
             var CompileScriptsButton = Utils.GetField<Button>("CompileScriptsButton", window);
@@ -133,7 +145,9 @@ namespace ModdingTools
             };
 
             var WorkshopChangelogEdit = Utils.GetField<TextBox>("WorkshopChangelogEdit", window);
-            WorkshopChangelogEdit.Visible = false;
+            var AlreadyReleasedButton = Utils.GetField<Control>("AlreadyReleasedButton", window);
+            var ChangeLogLabel = Utils.GetField<Control>("ChangeLogLabel", window);
+            WorkshopChangelogEdit.Tag = "notheme";
 
             // SubmitToWorkshopButton_Click
             var SubmitToWorkshopButton = Utils.GetField<Button>("SubmitToWorkshopButton", window);
@@ -264,6 +278,10 @@ namespace ModdingTools
                 window.DoRefresh();
                 tbc.SelectTab(PublishPage);
                 ButtonPublish.BackColor = System.Drawing.Color.FromArgb(46, 139, 87);
+                SubmitToWorkshopButton.Text = "SUBMIT/UPDATE MOD\nTO THE STEAM WORKSHOP";
+                ChangeLogLabel.Visible = false;
+                AlreadyReleasedButton.Visible = false;
+                WorkshopChangelogEdit.Visible = false;
             };
 
             tabControl1 = tbc;
@@ -286,6 +304,11 @@ namespace ModdingTools
 
             host.FormClosed += Host_FormClosed;
 
+            host.Shown += (obx, e) => {
+                var o = (ModObject)((BaseWindow)obx).Tag;
+                ViewInWorkshopButton.Enabled = o.GetUploadedId() > 0;
+            };
+
             host.Controls.Add(window);
             host.Show();
 
@@ -299,6 +322,11 @@ namespace ModdingTools
             tbc.Appearance = TabAppearance.FlatButtons;
             tbc.ItemSize = new Size(0, 1);
             tbc.SizeMode = TabSizeMode.Fixed;
+        }
+
+        private static void Host_Shown(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         static bool hidden = false;

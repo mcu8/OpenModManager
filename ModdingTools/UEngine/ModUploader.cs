@@ -134,7 +134,7 @@ namespace ModdingTools.UEngine
 
                     EItemUpdateStatus status = SteamUGC.GetItemUpdateProgress(ugcUpdateHandle, out bytesDone, out bytesTotal);
 
-                    SetStatus(string.Format("[{3}%] Status: {0} Done: {1}b Total: {2}b", status, bytesDone, bytesTotal, bytesTotal > 0 ? Math.Floor(((double)bytesDone / (double)bytesTotal) * (double)100) : 100));
+                    SetStatus(string.Format("[{3}%] Status: {0}\n{1}/{2}", TranslateStatus(status), BytesToString(bytesDone), BytesToString(bytesTotal), bytesTotal > 0 ? Math.Floor(((double)bytesDone / (double)bytesTotal) * (double)100) : 100));
                 }
 
                 DialogResult res = DialogResult.No;
@@ -165,9 +165,48 @@ namespace ModdingTools.UEngine
             }
         }
 
+        static string BytesToString(ulong byteCount)
+        {
+            try
+            {
+                string[] suf = { "B", "KB", "MB", "GB", "TB", "PB", "EB" }; //Longs run out around EB
+                if (byteCount == 0)
+                    return "0" + suf[0];
+                long bytes = Math.Abs((long)byteCount);
+                int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
+                double num = Math.Round(bytes / Math.Pow(1024, place), 1);
+                return (Math.Sign((long)byteCount) * num).ToString() + suf[place];
+            }
+            catch (Exception e)
+            {
+                return byteCount + "B";
+            }
+        }
+
         private static void SetStatus(string v)
         {
             MainWindow.Instance.SetModListStatus(v);
+        }
+
+        private static string TranslateStatus(EItemUpdateStatus s)
+        {
+            switch (s)
+            {
+                case EItemUpdateStatus.k_EItemUpdateStatusInvalid:
+                    return "...";
+                case EItemUpdateStatus.k_EItemUpdateStatusCommittingChanges:
+                    return "Committing changes...";
+                case EItemUpdateStatus.k_EItemUpdateStatusPreparingConfig:
+                    return "Preparing config...";
+                case EItemUpdateStatus.k_EItemUpdateStatusPreparingContent:
+                    return "Preparing content...";
+                case EItemUpdateStatus.k_EItemUpdateStatusUploadingContent:
+                    return "Uploading content...";
+                case EItemUpdateStatus.k_EItemUpdateStatusUploadingPreviewFile:
+                    return "Uploading preview file...";
+                default:
+                    return s.ToString();
+            }
         }
 
         private static void OnItemSubmitted(SubmitItemUpdateResult_t param, bool bIOFailure)

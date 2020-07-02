@@ -1,6 +1,7 @@
 ﻿using ModdingTools.GUI;
 using ModdingTools.Modding;
 using ModdingTools.UEngine;
+using ModManager.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +11,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
@@ -32,16 +34,21 @@ namespace ModdingTools
                 comboBox3.SelectedIndex = 0;
                 this.mod = mod;
                 this.store = ModStore.LoadForMod(mod);
-                LoadGUITags(store.Tags);
+                LoadGUITags((store.Tags != null && store.Tags.Count() > 0) ? store.Tags : null);
                 textBox1.Text = store.Changelog;
                 comboBox3.SelectedIndex = store.Visibility;
-                checkBox1.Checked = store.UploadCookedContent;
+                checkBox1.Checked = store.UploadUnCookedContent;
                 checkBox2.Checked = store.UploadScripts;
 
                 var wsid = mod.GetUploadedId();
                 if (wsid > 0)
                 {
                     label6.Text = "WorkshopId: " + wsid;
+                    mButton4.Visible = false;
+                }
+                else
+                {
+                    mButton4.Visible = true;
                 }
             } 
         }
@@ -57,6 +64,13 @@ namespace ModdingTools
                 {
                     tmp.Add(ModClass.ClassToNameMapping[tag]);
                 }
+
+                foreach (var tag in mod.GetIniTags())
+                {
+                    if (!tmp.Contains(tag))
+                        tmp.Add(tag);
+                }
+
                 tags = tmp.ToArray();
             }
 
@@ -125,9 +139,22 @@ namespace ModdingTools
 
         private void mButton2_Click(object sender, EventArgs e)
         {
-            store.UploadCookedContent = checkBox1.Checked;
+            var tags = GetTags();
+            if (tags.Count() == 0)
+            {
+                MessageBox.Show("You should choose at least one tag!");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(textBox1.Text))
+            {
+                MessageBox.Show("Please, enter the changelog!");
+                return;
+            }
+
+            store.UploadUnCookedContent = checkBox1.Checked;
             store.UploadScripts = checkBox2.Checked;
-            store.Tags = GetTags();
+            store.Tags = tags;
             store.Visibility = comboBox3.SelectedIndex;
             store.Changelog = textBox1.Text;
             store.SaveForMod(mod);
@@ -155,13 +182,46 @@ namespace ModdingTools
         {
 
         }
+
+        private void mButton1_Click(object sender, EventArgs e)
+        {
+            LoadGUITags(null);
+        }
+
+        private void mButton4_Click(object sender, EventArgs e)
+        {
+            var input = new TextInputForm("Steam Workshop URL", "Insert the URL to the Steam Workshop item");
+            input.StartPosition = FormStartPosition.CenterParent;
+            if (input.ShowDialog(this) != DialogResult.OK) return;
+
+            try
+            {
+                var parsed = HttpUtility.ParseQueryString(new Uri(input.Result).Query).Get("id");
+                var lg = ulong.Parse(parsed);
+                if (lg > 100000)
+                {
+                    mod.SetUploadedId(lg);
+                    mod.Refresh();
+                    var wsid = mod.GetUploadedId();
+                    if (wsid > 0)
+                    {
+                        label6.Text = "WorkshopId: " + wsid;
+                        mButton4.Visible = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Invalid input: " + input.Result + "\n" + ex.Message + "\n\n" + ex.ToString());
+            }
+        }
     }
 
     public class ModStore
     {
         public string[] Tags = null;
         public bool UploadScripts = true;
-        public bool UploadCookedContent = true;
+        public bool UploadUnCookedContent = false;
         public int Visibility = 0;
         public string Changelog = "Initial release!";
 

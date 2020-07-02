@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading;
 
 namespace ModdingTools.Modding
@@ -24,10 +25,55 @@ namespace ModdingTools.Modding
         public int CuratedSteamId       { get; set; }
         public int PlayableSteamId      { get; set; }
 
+        public bool IsOnlineParty       { get; set; }
+        public bool HasSkin             { get; set; }
+        public bool HasHatFlair         { get; set; }
+        public bool AutoGiveItems       { get; set; }
+        public bool HasPlayableCharacter { get; set; }
+        public bool IsLanguagePack      { get; set; }
+        public bool HasWeapon           { get; set; }
+        public string MapType           { get; set; }
+
+        public string[] AllowedMapTypes = new[] {
+            "TimeRift", 
+            "SingleTimePiece", 
+            "MultiTimePiece"
+        };
+
+        public static readonly Dictionary<string, string> IniTagToSteamMapping = new Dictionary<string, string>
+        {
+            { "TimeRift",                "Time Rift"                 },
+            { "SingleTimePiece",         "Single TimePiece Level"    },
+            { "MultiTimePiece",          "Mulit TimePiece Level"     }
+        };
+
         IniParser.Parser.IniDataParser Parser;
 
         public string RootPath { get; private set; }
         public ModDirectorySource RootSource { get; private set; }
+
+        public string[] GetIniTags()
+        {
+            List<string> tmp = new List<string>();
+            if (IsOnlineParty)
+                tmp.Add("Online Party");
+            if (HasSkin)
+                tmp.Add("Dye");
+            if (HasHatFlair)
+                tmp.Add("Hat Flair");
+            if (AutoGiveItems)
+                tmp.Add("Available Instantly");
+            if (HasPlayableCharacter)
+                tmp.Add("Playable Character");
+            if (IsLanguagePack)
+                tmp.Add("Language Pack");
+            if (HasWeapon)
+                tmp.Add("Weapon");
+            if (AllowedMapTypes.Contains(MapType))
+                tmp.Add(IniTagToSteamMapping[MapType]);
+
+            return tmp.ToArray();
+        }
 
         public string GetDescription()
         {
@@ -161,7 +207,15 @@ namespace ModdingTools.Modding
             this.Icon = TryGet(i, "icon");
             this.ChapterInfoName = TryGet(i, "ChapterInfoName", "???");
 
-            // TODO: Parse "Tags" section
+            // Parse "Tags" section
+            var t = info["Tags"];
+            this.MapType              = TryGet(t, "MapType"); // TimeRift, SingleTimePiece, MultiTimePiece
+            this.IsOnlineParty        = TryGet(t, "OnlineParty", "0").Equals("1");
+            this.HasSkin              = TryGet(t, "HasSkin", "0").Equals("1");
+            this.HasHatFlair          = TryGet(t, "HasHatFlair", "0").Equals("1");
+            this.AutoGiveItems        = TryGet(t, "AutoGiveItems", "0").Equals("1");
+            this.HasPlayableCharacter = TryGet(t, "HasPlayableCharacter", "0").Equals("1");
+            this.IsLanguagePack       = TryGet(t, "IsLanguagePack", "0").Equals("1");
         }
 
         public bool IsReadOnly => RootSource.IsReadOnly;
