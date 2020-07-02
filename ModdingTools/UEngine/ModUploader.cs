@@ -52,17 +52,17 @@ namespace ModdingTools.UEngine
                     Directory.Delete(tmpDir, true);
                 Directory.CreateDirectory(tmpDir);
 
-                Utils.DirectoryCopy(mod.RootPath, Program.GetAppRoot(), true);
+                Utils.DirectoryCopy(mod.RootPath, tmpDir, true);
                 if (!keepScripts)
                 {
-                    Directory.Delete(Path.Combine(Program.GetAppRoot(), "CompiledScripts"), true);
-                    Directory.Delete(Path.Combine(Program.GetAppRoot(), "Classes"), true);
+                    Directory.Delete(Path.Combine(tmpDir, "CompiledScripts"), true);
+                    Directory.Delete(Path.Combine(tmpDir, "Classes"), true);
                 }
 
                 if (!keepUnCooked)
                 {
-                    Directory.Delete(Path.Combine(Program.GetAppRoot(), "Maps"), true);
-                    Directory.Delete(Path.Combine(Program.GetAppRoot(), "Localization"), true);
+                    Directory.Delete(Path.Combine(tmpDir, "Maps"), true);
+                    Directory.Delete(Path.Combine(tmpDir, "Localization"), true);
                 }
 
                 var description = mod.GetDescription();
@@ -112,8 +112,8 @@ namespace ModdingTools.UEngine
                 {
                     SteamUGC.SetItemTags(ugcUpdateHandle, tags);
                 }
-                SteamUGC.SetItemPreview(ugcUpdateHandle, Path.Combine(mod.RootPath, mod.Icon));
-                SteamUGC.SetItemContent(ugcUpdateHandle, Program.GetAppRoot());
+                SteamUGC.SetItemPreview(ugcUpdateHandle, Path.Combine(tmpDir, mod.Icon));
+                SteamUGC.SetItemContent(ugcUpdateHandle, tmpDir);
 
                 SteamAPICall_t t = SteamUGC.SubmitItemUpdate(ugcUpdateHandle, changelog);
                 m_itemSubmitted = CallResult<SubmitItemUpdateResult_t>.Create(OnItemSubmitted);
@@ -162,6 +162,7 @@ namespace ModdingTools.UEngine
                     MessageBox.Show(MainWindow.Instance, e.Message + "\n" + e.ToString());
                 }));
                 isRunning = false;
+                SetStatus(null);
             }
         }
 
