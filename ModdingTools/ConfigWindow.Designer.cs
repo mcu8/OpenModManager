@@ -28,25 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.mButton3 = new ModdingTools.GUI.MButton();
             this.mButton2 = new ModdingTools.GUI.MButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox1.Location = new System.Drawing.Point(3, 3);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(229, 39);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.Text = "Don\'t load workshop mods on list\r\n(faster) // requires restart";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // mButton3
             // 
@@ -97,59 +87,74 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(241, 38);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.checkBox1, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.checkBox2, 0, 4);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(7, 52);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 5;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(235, 282);
-            this.tableLayoutPanel2.TabIndex = 10;
-            // 
             // checkBox2
             // 
-            this.checkBox2.Location = new System.Drawing.Point(3, 183);
+            this.checkBox2.Location = new System.Drawing.Point(12, 132);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(229, 63);
+            this.checkBox2.Size = new System.Drawing.Size(226, 39);
             this.checkBox2.TabIndex = 4;
             this.checkBox2.Text = "Enable meme - needs some elevator music placed in the program directory - it must" +
     " be named \"lol.wav\"";
             this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.Location = new System.Drawing.Point(12, 47);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(226, 39);
+            this.checkBox1.TabIndex = 1;
+            this.checkBox1.Text = "Don\'t load workshop mods on list\r\n(faster) // requires restart";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.Location = new System.Drawing.Point(12, 92);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(216, 34);
+            this.checkBox3.TabIndex = 6;
+            this.checkBox3.Text = "Keep the console window open after finishing the task";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.Location = new System.Drawing.Point(12, 174);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(216, 34);
+            this.checkBox4.TabIndex = 10;
+            this.checkBox4.Text = "Enable multilanguage cooking support (experimental)";
+            this.checkBox4.UseVisualStyleBackColor = true;
             // 
             // ConfigWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(249, 389);
-            this.Controls.Add(this.tableLayoutPanel2);
+            this.Controls.Add(this.checkBox4);
+            this.Controls.Add(this.checkBox3);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.tableLayoutPanel1);
             this.MaximumSize = new System.Drawing.Size(249, 389);
             this.MinimumSize = new System.Drawing.Size(249, 389);
             this.Name = "ConfigWindow";
             this.Text = "OMM Configuration";
             this.Controls.SetChildIndex(this.tableLayoutPanel1, 0);
-            this.Controls.SetChildIndex(this.tableLayoutPanel2, 0);
+            this.Controls.SetChildIndex(this.checkBox2, 0);
+            this.Controls.SetChildIndex(this.checkBox1, 0);
+            this.Controls.SetChildIndex(this.checkBox3, 0);
+            this.Controls.SetChildIndex(this.checkBox4, 0);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox checkBox1;
         private GUI.MButton mButton3;
         private GUI.MButton mButton2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox4;
     }
 }

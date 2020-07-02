@@ -46,5 +46,29 @@ namespace ModdingTools.Properties {
                 this["Memes"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool KeepConsoleOpen {
+            get {
+                return ((bool)(this["KeepConsoleOpen"]));
+            }
+            set {
+                this["KeepConsoleOpen"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MultilangCook {
+            get {
+                return ((bool)(this["MultilangCook"]));
+            }
+            set {
+                this["MultilangCook"] = value;
+            }
+        }
     }
 }

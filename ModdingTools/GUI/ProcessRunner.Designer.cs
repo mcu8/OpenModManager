@@ -70,11 +70,11 @@
             this.mButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton3.ForeColor = System.Drawing.Color.White;
             this.mButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton3.Location = new System.Drawing.Point(511, 0);
+            this.mButton3.Location = new System.Drawing.Point(529, 0);
             this.mButton3.Name = "mButton3";
-            this.mButton3.Size = new System.Drawing.Size(177, 24);
+            this.mButton3.Size = new System.Drawing.Size(159, 24);
             this.mButton3.TabIndex = 7;
-            this.mButton3.Text = "CANCEL ALL WORKERS";
+            this.mButton3.Text = "CANCEL OR CLOSE";
             this.mButton3.UseVisualStyleBackColor = false;
             this.mButton3.Click += new System.EventHandler(this.mButton3_Click);
             // 

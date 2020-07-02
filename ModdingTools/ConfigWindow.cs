@@ -25,12 +25,16 @@ namespace ModdingTools
         {
             checkBox1.Checked = !Properties.Settings.Default.AutoScanDownloadedMods;
             checkBox2.Checked = Properties.Settings.Default.Memes;
+            checkBox3.Checked = Properties.Settings.Default.KeepConsoleOpen;
+            checkBox4.Checked = Properties.Settings.Default.MultilangCook;
         }
 
         private void SaveSettings()
         {
             Properties.Settings.Default.AutoScanDownloadedMods = !checkBox1.Checked;
             Properties.Settings.Default.Memes = checkBox2.Checked;
+            Properties.Settings.Default.KeepConsoleOpen = checkBox3.Checked;
+            Properties.Settings.Default.MultilangCook = checkBox4.Checked;
             Properties.Settings.Default.Save();
         }
 

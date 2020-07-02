@@ -19,7 +19,7 @@ namespace ModdingTools.UEngine
         protected static ulong publishID = 0;
         protected static string Message;
 
-        protected bool isRunning = false;
+        public bool isRunning { get; protected set; } = false;
 
         public void UploadModAsync(ModObject mod, string changelog, string[] tags, bool keepCooked, bool keepScripts, int visibility)
         {
@@ -55,14 +55,18 @@ namespace ModdingTools.UEngine
                 Utils.DirectoryCopy(mod.RootPath, tmpDir, true);
                 if (!keepScripts)
                 {
-                    Directory.Delete(Path.Combine(tmpDir, "CompiledScripts"), true);
-                    Directory.Delete(Path.Combine(tmpDir, "Classes"), true);
+                    if (Directory.Exists(Path.Combine(tmpDir, "CompiledScripts")))
+                        Directory.Delete(Path.Combine(tmpDir, "CompiledScripts"), true);
+                    if (Directory.Exists(Path.Combine(tmpDir, "Classes")))
+                        Directory.Delete(Path.Combine(tmpDir, "Classes"), true);
                 }
 
                 if (!keepUnCooked)
                 {
-                    Directory.Delete(Path.Combine(tmpDir, "Maps"), true);
-                    Directory.Delete(Path.Combine(tmpDir, "Localization"), true);
+                    if (Directory.Exists(Path.Combine(tmpDir, "Maps")))
+                        Directory.Delete(Path.Combine(tmpDir, "Maps"), true);
+                    if (Directory.Exists(Path.Combine(tmpDir, "Localization")))
+                        Directory.Delete(Path.Combine(tmpDir, "Localization"), true);
                 }
 
                 var description = mod.GetDescription();

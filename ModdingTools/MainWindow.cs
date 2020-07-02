@@ -97,6 +97,8 @@ namespace ModdingTools
         {
             Runner.KillAllWorkers();
             Utils.KillEditor();
+            if (!Program.Uploader.isRunning)
+                ToggleConsole(false);
         }
 
         public void SetModListState(string value)
