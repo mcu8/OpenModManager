@@ -52,17 +52,17 @@ namespace ModdingTools.UEngine
                     Directory.Delete(tmpDir, true);
                 Directory.CreateDirectory(tmpDir);
 
-                Utils.DirectoryCopy(mod.RootPath, "uploader_tmp", true);
+                Utils.DirectoryCopy(mod.RootPath, Program.GetAppRoot(), true);
                 if (!keepScripts)
                 {
-                    Directory.Delete(Path.Combine("uploader_tmp", "CompiledScripts"), true);
-                    Directory.Delete(Path.Combine("uploader_tmp", "Classes"), true);
+                    Directory.Delete(Path.Combine(Program.GetAppRoot(), "CompiledScripts"), true);
+                    Directory.Delete(Path.Combine(Program.GetAppRoot(), "Classes"), true);
                 }
 
                 if (!keepUnCooked)
                 {
-                    Directory.Delete(Path.Combine("uploader_tmp", "Maps"), true);
-                    Directory.Delete(Path.Combine("uploader_tmp", "Localization"), true);
+                    Directory.Delete(Path.Combine(Program.GetAppRoot(), "Maps"), true);
+                    Directory.Delete(Path.Combine(Program.GetAppRoot(), "Localization"), true);
                 }
 
                 var description = mod.GetDescription();
@@ -113,7 +113,7 @@ namespace ModdingTools.UEngine
                     SteamUGC.SetItemTags(ugcUpdateHandle, tags);
                 }
                 SteamUGC.SetItemPreview(ugcUpdateHandle, Path.Combine(mod.RootPath, mod.Icon));
-                SteamUGC.SetItemContent(ugcUpdateHandle, Path.GetFullPath("uploader_tmp"));
+                SteamUGC.SetItemContent(ugcUpdateHandle, Program.GetAppRoot());
 
                 SteamAPICall_t t = SteamUGC.SubmitItemUpdate(ugcUpdateHandle, changelog);
                 m_itemSubmitted = CallResult<SubmitItemUpdateResult_t>.Create(OnItemSubmitted);
