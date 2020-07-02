@@ -78,13 +78,6 @@ namespace ModdingTools
 
             // Hook into refresh button
             var RefreshButton = Utils.GetField<Button>("RefreshButton", window);
-            RefreshButton.Location = new Point(window.Width - RefreshButton.Width - 3, RefreshButton.Location.Y);
-            Utils.CleanEvents(RefreshButton);
-            RefreshButton.Click += (e, v) =>
-            {
-                window.DoRefresh();
-                MainWindow.Instance.ReloadModList();    
-            };
 
             // ViewInWorkshopButton
             var ViewInWorkshopButton = Utils.GetField<Button>("ViewInWorkshopButton", window);
@@ -282,6 +275,22 @@ namespace ModdingTools
                 ChangeLogLabel.Visible = false;
                 AlreadyReleasedButton.Visible = false;
                 WorkshopChangelogEdit.Visible = false;
+                ViewInWorkshopButton.Enabled = o.GetUploadedId() > 0;
+            };
+
+
+            RefreshButton.Location = new Point(window.Width - RefreshButton.Width - 3, RefreshButton.Location.Y);
+            Utils.CleanEvents(RefreshButton);
+            RefreshButton.Click += (e, v) =>
+            {
+                var o = Utils.GetModObjectFromControl(e);
+                window.DoRefresh();
+                MainWindow.Instance.ReloadModList();
+                SubmitToWorkshopButton.Text = "SUBMIT/UPDATE MOD\nTO THE STEAM WORKSHOP";
+                ChangeLogLabel.Visible = false;
+                AlreadyReleasedButton.Visible = false;
+                WorkshopChangelogEdit.Visible = false;
+                ViewInWorkshopButton.Enabled = o.GetUploadedId() > 0;
             };
 
             tabControl1 = tbc;
