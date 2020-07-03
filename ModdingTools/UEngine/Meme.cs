@@ -11,13 +11,14 @@ using System.Threading.Tasks;
 namespace ModdingTools.UEngine
 {
     // Don't ask...
-    class Lol
+    class Meme
     {
         static SoundPlayer pl;
         static bool IsPlaying = false;
 
         public static void PlayElevatorMusic()
         {
+            if (IsPlaying) return; // prevent the ear-rape
             if (!Properties.Settings.Default.Memes) return;
             var ph = Path.Combine(Program.GetAppRoot(), @"lol.wav");
             if (!File.Exists(ph)) return;
@@ -33,13 +34,14 @@ namespace ModdingTools.UEngine
                 }
                 
                 pl = new SoundPlayer(ph);
-                pl.Play(); // can also use soundPlayer.PlaySync()
+                pl.PlayLooping(); // loop the music
                 IsPlaying = true;
                 while (IsPlaying)
                 {
                     Thread.Sleep(100);
                 }
                 pl.Stop();
+                IsPlaying = false;
             });
         }
 

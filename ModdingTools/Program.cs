@@ -79,11 +79,11 @@ namespace ModdingTools
                 {
                     if (element.Current.Name.Trim() == "Editor for A Hat in Time (64-bit, DX9, Cooked Editor, PMT)")
                     {
-                        Lol.StopElevatorMusic();
+                        Meme.StopElevatorMusic();
                     }
                     else if (element.Current.Name.Trim() == "Editor for A Hat in Time (64-bit, DX9)")
                     {
-                        Lol.PlayElevatorMusic();
+                        Meme.PlayElevatorMusic();
                     }
                 }
                

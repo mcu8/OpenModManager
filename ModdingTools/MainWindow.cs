@@ -97,6 +97,7 @@ namespace ModdingTools
         {
             Runner.KillAllWorkers();
             Utils.KillEditor();
+            Meme.StopElevatorMusic();
             if (!Program.Uploader.isRunning)
                 ToggleConsole(false);
         }

@@ -172,7 +172,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UEngine\GameFinder.cs" />
-    <Compile Include="UEngine\Lol.cs" />
+    <Compile Include="UEngine\Meme.cs" />
     <Compile Include="UEngine\ModClass.cs" />
     <Compile Include="UEngine\ModUploader.cs" />
     <Compile Include="UEngine\ProcessFactory.cs" />

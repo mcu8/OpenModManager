@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using static ModdingTools.UEngine.ProcessFactory;
 using System.Collections.Generic;
+using ModdingTools.UEngine;
 
 namespace ModdingTools.GUI
 {
@@ -237,6 +238,8 @@ namespace ModdingTools.GUI
                 System.Threading.Thread.Sleep(300);
             }
 
+            Meme.StopElevatorMusic();
+
             if (runningProcesses.Contains(process))
                 runningProcesses.Remove(process);
 
@@ -254,6 +257,7 @@ namespace ModdingTools.GUI
             this.Invoke(new MethodInvoker(() =>
             {
                 MainWindow.Instance.ToggleConsole(false);
+                
             }));
         }
 

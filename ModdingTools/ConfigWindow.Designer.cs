@@ -91,7 +91,7 @@
             // 
             this.checkBox2.Location = new System.Drawing.Point(12, 132);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(226, 39);
+            this.checkBox2.Size = new System.Drawing.Size(226, 44);
             this.checkBox2.TabIndex = 4;
             this.checkBox2.Text = "Enable meme - needs some elevator music placed in the program directory - it must" +
     " be named \"lol.wav\"";
@@ -117,7 +117,7 @@
             // 
             // checkBox4
             // 
-            this.checkBox4.Location = new System.Drawing.Point(12, 174);
+            this.checkBox4.Location = new System.Drawing.Point(12, 182);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(216, 34);
             this.checkBox4.TabIndex = 10;
