@@ -22,6 +22,7 @@ namespace ModdingTools.Engine
 
         public void CheckForUpdatesAsync()
         {
+            if (!Properties.Settings.Default.UpdateCheck) return;
             Task.Factory.StartNew(() =>
             {
                 try

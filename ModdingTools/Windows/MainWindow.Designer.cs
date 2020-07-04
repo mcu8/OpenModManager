@@ -180,6 +180,7 @@
             this.MinimumSize = new System.Drawing.Size(830, 480);
             this.Name = "MainWindow";
             this.Text = "OPEN MOD MANAGER - FOR A HAT IN TIME (#SAVETHEMODDING EDITION)";
+            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.ResizeBegin += new System.EventHandler(this.MainWindow_ResizeBegin);
             this.ResizeEnd += new System.EventHandler(this.MainWindow_ResizeEnd);
             this.Controls.SetChildIndex(this.mButton1, 0);

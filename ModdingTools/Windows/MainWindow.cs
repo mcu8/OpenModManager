@@ -15,6 +15,7 @@ namespace ModdingTools.Windows
     public partial class MainWindow : BaseWindow
     {
         public static MainWindow Instance { get; private set; }
+        private UpdateChecker UpdateChk;
 
         public MainWindow()
         {
@@ -60,12 +61,15 @@ namespace ModdingTools.Windows
                 Console.WriteLine("new window opened");
             });
 
-            UpdateChecker chk = new UpdateChecker(BuildData.CurrentVersion, BuildData.UpdateUrl, new Action(() => {
-                var dialog = MessageBox.Show("New version of OpenModManager is avaiable? Do you want to download it?");
-                if (dialog == DialogResult.Yes)
+            UpdateChk = new UpdateChecker(BuildData.CurrentVersion, BuildData.UpdateUrl, new Action(() => {
+                this.Invoke(new MethodInvoker(() =>
                 {
-                    Process.Start(BuildData.ReleasesPage);
-                }
+                    var dialog = MessageBox.Show(this, "New version of OpenModManager is avaiable!\nDo you want to download it?", "Update checker", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (dialog == DialogResult.Yes)
+                    {
+                        Process.Start(BuildData.ReleasesPage);
+                    }
+                }));
             }));
         }
 
@@ -193,6 +197,11 @@ namespace ModdingTools.Windows
             modListControl1.Width -= 1;
             modListControl1.TriggerUpdate();
             modListControl1.ResumeLayout();
+        }
+
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+            UpdateChk.CheckForUpdatesAsync();
         }
     }
 }

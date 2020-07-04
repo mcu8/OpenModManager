@@ -27,6 +27,7 @@ namespace ModdingTools.Windows
             checkBox2.Checked = Properties.Settings.Default.Memes;
             checkBox3.Checked = Properties.Settings.Default.KeepConsoleOpen;
             checkBox4.Checked = Properties.Settings.Default.MultilangCook;
+            checkBox5.Checked = Properties.Settings.Default.UpdateCheck;
         }
 
         private void SaveSettings()
@@ -35,6 +36,7 @@ namespace ModdingTools.Windows
             Properties.Settings.Default.Memes = checkBox2.Checked;
             Properties.Settings.Default.KeepConsoleOpen = checkBox3.Checked;
             Properties.Settings.Default.MultilangCook = checkBox4.Checked;
+            Properties.Settings.Default.UpdateCheck = checkBox5.Checked;
             Properties.Settings.Default.Save();
         }
 
