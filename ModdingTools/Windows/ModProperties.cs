@@ -1,6 +1,6 @@
 ﻿using ModdingTools.GUI;
 using ModdingTools.Modding;
-using ModdingTools.UEngine;
+using ModdingTools.Engine;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ModdingTools
+namespace ModdingTools.Windows
 {
     public partial class ModProperties : BaseWindow
     {

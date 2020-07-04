@@ -14,7 +14,7 @@ using System.Linq.Expressions;
 using System.Drawing;
 using System.IO;
 
-namespace ModdingTools
+namespace ModdingTools.Engine
 {
     public class Utils
     {

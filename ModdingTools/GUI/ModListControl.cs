@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ModdingTools.Modding;
+using ModdingTools.Windows;
 
 namespace ModdingTools.GUI
 {

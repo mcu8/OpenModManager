@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ModdingTools.UEngine
+namespace ModdingTools.Engine
 {
     // Don't ask...
     class Meme

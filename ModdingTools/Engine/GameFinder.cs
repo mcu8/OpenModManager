@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace ModdingTools.UEngine
+namespace ModdingTools.Engine
 {
     public class GameFinder
     {

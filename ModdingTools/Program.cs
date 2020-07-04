@@ -1,4 +1,5 @@
-﻿using ModdingTools.UEngine;
+﻿using ModdingTools.Engine;
+using ModdingTools.Windows;
 using Steamworks;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace ModdingTools
                 Environment.Exit(0);
             }
 
-            var modManagerOriginal = Path.Combine(Path.GetDirectoryName(UEngine.GameFinder.FindGameDir()), "ModManager.exe");
+            var modManagerOriginal = Path.Combine(Path.GetDirectoryName(Engine.GameFinder.FindGameDir()), "ModManager.exe");
             var localDll = Path.Combine(GetAppRoot(), "ModManager.dll");
             if (File.Exists(modManagerOriginal))
             {
@@ -62,7 +63,7 @@ namespace ModdingTools
 
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.AssemblyResolve += new ResolveEventHandler(LoadFromSameFolder);
-            Directory.SetCurrentDirectory(Path.GetDirectoryName(UEngine.GameFinder.FindGameDir()));
+            Directory.SetCurrentDirectory(Path.GetDirectoryName(Engine.GameFinder.FindGameDir()));
             Uploader = new ModUploader();
 
             Application.EnableVisualStyles();
@@ -95,7 +96,7 @@ namespace ModdingTools
 
         static Assembly LoadFromSameFolder(object sender, ResolveEventArgs args)
         {
-            string folderPath = Path.GetDirectoryName(UEngine.GameFinder.FindGameDir());
+            string folderPath = Path.GetDirectoryName(Engine.GameFinder.FindGameDir());
             var name = new AssemblyName(args.Name).Name;
             Debug.WriteLine(name);
 

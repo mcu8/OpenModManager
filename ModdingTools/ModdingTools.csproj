@@ -96,19 +96,21 @@
     <Reference Include="UIAutomationTypes" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildData.cs" />
+    <Compile Include="Engine\UpdateChecker.cs" />
     <Compile Include="GUI\MTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UploadOptions.cs">
+    <Compile Include="Windows\UploadOptions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UploadOptions.Designer.cs">
+    <Compile Include="Windows\UploadOptions.Designer.cs">
       <DependentUpon>UploadOptions.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConfigWindow.cs">
+    <Compile Include="Windows\ConfigWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConfigWindow.Designer.cs">
+    <Compile Include="Windows\ConfigWindow.Designer.cs">
       <DependentUpon>ConfigWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\BorderlessTabControl.cs">
@@ -142,10 +144,10 @@
       <DependentUpon>ProcessRunner.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\ThemeConstants.cs" />
-    <Compile Include="MainWindow.cs">
+    <Compile Include="Windows\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWindow.Designer.cs">
+    <Compile Include="Windows\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\BaseWindow.cs">
@@ -162,26 +164,26 @@
     </Compile>
     <Compile Include="Modding\ModDirectorySource.cs" />
     <Compile Include="Modding\ModObject.cs" />
-    <Compile Include="ModManagerProxy.cs" />
-    <Compile Include="ModProperties.cs">
+    <Compile Include="Engine\ModManagerProxy.cs" />
+    <Compile Include="Windows\ModProperties.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ModProperties.Designer.cs">
+    <Compile Include="Windows\ModProperties.Designer.cs">
       <DependentUpon>ModProperties.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UEngine\GameFinder.cs" />
-    <Compile Include="UEngine\Meme.cs" />
-    <Compile Include="UEngine\ModClass.cs" />
-    <Compile Include="UEngine\ModUploader.cs" />
-    <Compile Include="UEngine\ProcessFactory.cs" />
-    <Compile Include="UEngine\ScriptWatcher.cs" />
-    <Compile Include="Utils.cs" />
-    <EmbeddedResource Include="UploadOptions.resx">
+    <Compile Include="Engine\GameFinder.cs" />
+    <Compile Include="Engine\Meme.cs" />
+    <Compile Include="Engine\ModClass.cs" />
+    <Compile Include="Engine\ModUploader.cs" />
+    <Compile Include="Engine\ProcessFactory.cs" />
+    <Compile Include="Engine\ScriptWatcher.cs" />
+    <Compile Include="Engine\Utils.cs" />
+    <EmbeddedResource Include="Windows\UploadOptions.resx">
       <DependentUpon>UploadOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConfigWindow.resx">
+    <EmbeddedResource Include="Windows\ConfigWindow.resx">
       <DependentUpon>ConfigWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\CategorySpacer.resx">
@@ -196,10 +198,10 @@
     <EmbeddedResource Include="GUI\ProcessRunner.resx">
       <DependentUpon>ProcessRunner.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow.resx">
+    <EmbeddedResource Include="Windows\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ModProperties.resx">
+    <EmbeddedResource Include="Windows\ModProperties.resx">
       <DependentUpon>ModProperties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

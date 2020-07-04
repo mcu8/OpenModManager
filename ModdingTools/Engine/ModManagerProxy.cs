@@ -1,5 +1,7 @@
-﻿using ModdingTools.GUI;
+﻿using ModdingTools.Engine;
+using ModdingTools.GUI;
 using ModdingTools.Modding;
+using ModdingTools.Windows;
 using ModManager;
 using ModManager.Forms;
 using System;
@@ -11,7 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
-namespace ModdingTools
+namespace ModdingTools.Engine
 {
     // Temporary solution for mod properties window - I'll rewrite it by my own later...
     class ModManagerProxy

@@ -1,4 +1,4 @@
-﻿namespace ModdingTools
+﻿namespace ModdingTools.Windows
 {
     partial class ConfigWindow
     {

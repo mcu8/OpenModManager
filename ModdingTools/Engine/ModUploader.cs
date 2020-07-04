@@ -1,4 +1,5 @@
 ﻿using ModdingTools.Modding;
+using ModdingTools.Windows;
 using Steamworks;
 using System;
 using System.Diagnostics;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 // partially based on https://github.com/Doreamonsky/workshop-uploader
-namespace ModdingTools.UEngine
+namespace ModdingTools.Engine
 {
     public class ModUploader
     {
@@ -65,8 +66,8 @@ namespace ModdingTools.UEngine
                 {
                     if (Directory.Exists(Path.Combine(tmpDir, "Maps")))
                         Directory.Delete(Path.Combine(tmpDir, "Maps"), true);
-                    if (Directory.Exists(Path.Combine(tmpDir, "Localization")))
-                        Directory.Delete(Path.Combine(tmpDir, "Localization"), true);
+                    //if (Directory.Exists(Path.Combine(tmpDir, "Localization")))
+                    //    Directory.Delete(Path.Combine(tmpDir, "Localization"), true);
                 }
 
                 var description = mod.GetDescription();

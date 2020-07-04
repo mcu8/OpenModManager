@@ -1,6 +1,6 @@
 ﻿using ModdingTools.GUI;
 using ModdingTools.Modding;
-using ModdingTools.UEngine;
+using ModdingTools.Engine;
 using ModManager.Forms;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace ModdingTools
+namespace ModdingTools.Windows
 {
     public partial class UploadOptions : BaseWindow
     {

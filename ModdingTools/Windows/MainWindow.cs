@@ -1,6 +1,6 @@
 ﻿using ModdingTools.GUI;
 using ModdingTools.Modding;
-using ModdingTools.UEngine;
+using ModdingTools.Engine;
 using ModManager.Forms;
 using System;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Automation;
 using System.Windows.Forms;
 
-namespace ModdingTools
+namespace ModdingTools.Windows
 {
     public partial class MainWindow : BaseWindow
     {
@@ -59,6 +59,14 @@ namespace ModdingTools
 
                 Console.WriteLine("new window opened");
             });
+
+            UpdateChecker chk = new UpdateChecker(BuildData.CurrentVersion, BuildData.UpdateUrl, new Action(() => {
+                var dialog = MessageBox.Show("New version of OpenModManager is avaiable? Do you want to download it?");
+                if (dialog == DialogResult.Yes)
+                {
+                    Process.Start(BuildData.ReleasesPage);
+                }
+            }));
         }
 
         public ModDirectorySource[] GetModSources()
