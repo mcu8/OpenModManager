@@ -10,15 +10,26 @@ namespace ModdingTools.Engine
 {
     public class ModClass
     {
-        public string ClassName       { get; private set; }
-        public string ExtendsClass    { get; private set; }
-        public string FileName        { get; private set; }
+        public string ClassName { get; private set; }
+        public string ExtendsClass { get; private set; }
+        public string FileName { get; private set; }
         public ModClassType ClassType { get; private set; }
 
         public enum ModClassType
         {
-            Sticker, Weapon, Remix, Badge, Hat, Skin, DWContract, Generic, Playable
+            Sticker, Weapon, Remix, Badge, Hat, Skin, DWContract, Generic, Playable, GameMod
         }
+
+        public static ModClassType[] VisibleTypes = new[]
+        {
+            ModClassType.Sticker,
+            ModClassType.Weapon,
+            ModClassType.Remix,
+            ModClassType.Badge,
+            ModClassType.Hat,
+            ModClassType.Skin,
+            ModClassType.Playable
+        };
 
         public static readonly Dictionary<ModClassType, Bitmap> ClassToIconMapping = new Dictionary<ModClassType, Bitmap>
         {
@@ -30,7 +41,8 @@ namespace ModdingTools.Engine
             { ModClassType.Sticker,     Properties.Resources.sticker    },
             { ModClassType.Weapon,      Properties.Resources.generic    }, // TODO: add umbrella icon
             { ModClassType.Generic,     Properties.Resources.generic    },
-            { ModClassType.Skin,        Properties.Resources.dye        } 
+            { ModClassType.Skin,        Properties.Resources.dye        },
+            { ModClassType.GameMod,     Properties.Resources.generic    }
         };
 
         public static readonly Dictionary<ModClassType, string> ClassToIniPropertyMapping = new Dictionary<ModClassType, string>
@@ -50,15 +62,25 @@ namespace ModdingTools.Engine
             { ModClassType.Hat,         "Hat"                    },
             { ModClassType.Remix,       "Remix"                  },
             { ModClassType.Sticker,     "Sticker"                },
-            { ModClassType.Weapon,      "Weapon"                 }, 
+            { ModClassType.Weapon,      "Weapon"                 },
             { ModClassType.Generic,     "other classes"          },
-            { ModClassType.Skin,        "Dye"                    }
+            { ModClassType.Skin,        "Dye"                    },
+            { ModClassType.GameMod,     "GameMod class"          }
         };
+
+        public bool IsIniAccessible => ClassToIniPropertyMapping.ContainsKey(ClassType);
+        public string IniKey => ClassToIniPropertyMapping[ClassType];
+        public bool IsGameModClass => ClassType == ModClassType.GameMod;
 
         private void DetectModClassType()
         {
+            // Sticker
+            if ("GameMod".Equals(ExtendsClass))
+            {
+                ClassType = ModClassType.GameMod;
+            }
             // Skin
-            if ("Hat_Collectible_Skin".Equals(ExtendsClass))
+            else if ("Hat_Collectible_Skin".Equals(ExtendsClass))
             {
                 ClassType = ModClassType.Skin;
             }
@@ -113,11 +135,7 @@ namespace ModdingTools.Engine
             {
                 ClassType = ModClassType.Playable;
             }
-            // Auto equipable
-            else if ("Hat_Player".Equals(ExtendsClass) || "Hat_Player_HatKid".Equals(ExtendsClass))
-            {
-                ClassType = ModClassType.Playable;
-            }
+            // Todo: Auto equipable
             // Generic
             else
             {

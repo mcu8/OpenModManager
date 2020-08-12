@@ -20,7 +20,7 @@ namespace ModdingTools.Engine
         protected static ulong publishID = 0;
         protected static string Message;
 
-        public bool isRunning { get; protected set; } = false;
+        public bool IsUploaderRunning { get; protected set; } = false;
 
         public void UploadModAsync(ModObject mod, string changelog, string[] tags, bool keepCooked, bool keepScripts, int visibility)
         {
@@ -32,7 +32,7 @@ namespace ModdingTools.Engine
 
         public void UploadMod(ModObject mod, string changelog, string[] tags, bool keepUnCooked, bool keepScripts, int visibility)
         {
-            if (isRunning)
+            if (IsUploaderRunning)
             {
                 MainWindow.Instance.Invoke(new MethodInvoker(() => {
                     MessageBox.Show(MainWindow.Instance, "Only one uploader instance can run at once!");
@@ -40,7 +40,7 @@ namespace ModdingTools.Engine
                 return;
             }
 
-            isRunning = true;
+            IsUploaderRunning = true;
             try
             {
                 ERemoteStoragePublishedFileVisibility fileVisibility 
@@ -166,7 +166,7 @@ namespace ModdingTools.Engine
                 MainWindow.Instance.Invoke(new MethodInvoker(() => {
                     MessageBox.Show(MainWindow.Instance, e.Message + "\n" + e.ToString());
                 }));
-                isRunning = false;
+                IsUploaderRunning = false;
                 SetStatus(null);
             }
         }

@@ -23,7 +23,7 @@ namespace ModdingTools.Windows
             {
                 try
                 {
-                    ModManagerProxy.Init();
+                    ModManagerPropertiesWrapper.Init();
                 }
                 catch (Exception e)
                 {
@@ -64,7 +64,7 @@ namespace ModdingTools.Windows
             UpdateChk = new UpdateChecker(BuildData.CurrentVersion, BuildData.UpdateUrl, new Action(() => {
                 this.Invoke(new MethodInvoker(() =>
                 {
-                    var dialog = MessageBox.Show(this, "New version of OpenModManager is avaiable!\nDo you want to download it?", "Update checker", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    var dialog = GUI.MessageBox.Show(this, "New version of OpenModManager is avaiable!\nDo you want to download it?", "Update checker", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (dialog == DialogResult.Yes)
                     {
                         Process.Start(BuildData.ReleasesPage);
@@ -110,7 +110,7 @@ namespace ModdingTools.Windows
             Runner.KillAllWorkers();
             Utils.KillEditor();
             Meme.StopElevatorMusic();
-            if (!Program.Uploader.isRunning)
+            if (!Program.Uploader.IsUploaderRunning)
                 ToggleConsole(false);
         }
 
@@ -133,28 +133,13 @@ namespace ModdingTools.Windows
         private void mButton4_Click(object sender, EventArgs e)
         {
             string modsRoot = Path.Combine(Program.ProcFactory.GetGamePath(), @"HatinTimeGame\Mods");
-            var modPrompt = new TextInputForm("New mod", "Please enter mod folder name");
+            var modName = InputWindow.Ask("New mod", "Please enter mod folder name", new InputWindow.ModNameValidator());
 
-            modPrompt.StartPosition = FormStartPosition.CenterParent;
-
-            if (modPrompt.ShowDialog() != DialogResult.OK)
+            if (modName == null)
                 return;
 
-            if (!Regex.IsMatch(modPrompt.Result, @"^[a-zA-Z0-9_]+$"))
-            {
-                MessageBox.Show("Invalid characters in mod folder name - you can only use numbers and letters and _");
-                return;
-            }
-
-            string modName = modPrompt.Result;
             string modPath = Path.Combine(modsRoot, modName);
             string modInfoPath = Path.Combine(modPath, "modinfo.ini");
-
-            if (File.Exists(modInfoPath))
-            {
-                MessageBox.Show("There's already a mod with name \"" + modName + "\". Please delete it or set it up.");
-                return;
-            }
 
             Directory.CreateDirectory(modPath);
 
@@ -170,7 +155,7 @@ namespace ModdingTools.Windows
             }
 
             modListControl1.ReloadList(() => {
-                ModManagerProxy.LaunchPropertiesWindow(modListControl1.GetMod(modName));
+                ModManagerPropertiesWrapper.LaunchPropertiesWindow(modListControl1.GetMod(modName));
             });
         }
 

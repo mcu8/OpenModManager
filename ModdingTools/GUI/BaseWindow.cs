@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -38,11 +39,46 @@ namespace ModdingTools.GUI
             this.ForeColor = ThemeConstants.ForegroundColor;
             this.BackColor = ThemeConstants.BackgroundColor;
 
+           
             this.box = new ControlBox();
 
+            if (!p_IsControlBoxVisible)
+            {
+                this.box.Visible = false;
+            }
+
             InitTitleBar();
+        }
 
+        private bool p_IsControlBoxVisible = true;
+        [Browsable(true)]
+        [Category("OMM")]
+        public bool ControlBoxVisible
+        {
+            get
+            {
+                return p_IsControlBoxVisible;
+            }
+            set
+            {
+                p_IsControlBoxVisible = value;
+                this.box.Visible = p_IsControlBoxVisible;
+            }
+        }
 
+        private bool p_IsResizable = true;
+        [Browsable(true)]
+        [Category("OMM")]
+        public bool IsResizable
+        {
+            get
+            {
+                return p_IsResizable;
+            }
+            set
+            {
+                p_IsResizable = value;
+            }
         }
 
         public void InitTitleBar()
@@ -120,6 +156,12 @@ namespace ModdingTools.GUI
 
         protected override void WndProc(ref Message m)
         {
+            if (!p_IsResizable)
+            {
+                base.WndProc(ref m);
+                return;
+            }
+
             const int RESIZE_HANDLE_SIZE = 10;
 
             switch (m.Msg)

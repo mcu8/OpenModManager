@@ -9,6 +9,12 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Windows.Forms;
+using System.Text;
+using System.Text.RegularExpressions;
+using UELib;
+using UELib.Core;
+using UELib.Engine;
 
 namespace ModdingTools.Modding
 {
@@ -33,6 +39,9 @@ namespace ModdingTools.Modding
         public bool IsLanguagePack      { get; set; }
         public bool HasWeapon           { get; set; }
         public string MapType           { get; set; }
+        public string GameMod           { get; set; }
+
+        public Dictionary<string, string> AssetReplacements;
 
         public string[] AllowedMapTypes = new[] {
             "TimeRift", 
@@ -80,6 +89,11 @@ namespace ModdingTools.Modding
             return this.Description.Replace("[br][br]", "[br]").Trim().Replace("[br]", "\n").Trim('"');
         }
 
+        public void SetDescription(string desc)
+        {
+            this.Description = desc.Replace(Environment.NewLine, "[br]");
+        }
+
         public string GetIniPath()
         {
             return Path.Combine(RootPath, "modinfo.ini");
@@ -93,8 +107,8 @@ namespace ModdingTools.Modding
         public void RenameDirectory(string newName)
         {
             Utils.CleanupAttrib(RootPath);
-            //Directory.Move(RootPath, Path.Combine(RootSource.Root, newName));
-            Utils.MoveDir(RootPath, Path.Combine(RootSource.Root, newName));
+            Utils.MoveDirDos(RootPath, Path.Combine(RootSource.Root, newName));
+            this.RootPath = Path.Combine(RootSource.Root, newName);
         }
 
         public void ChangeModSource(ModDirectorySource source)
@@ -104,7 +118,6 @@ namespace ModdingTools.Modding
 
             var newRoot = Path.Combine(source.Root, Path.GetFileName(RootPath));
             Utils.CleanupAttrib(RootPath);
-            //Directory.Move(RootPath, newRoot);
             Utils.MoveDir(RootPath, newRoot);
             this.RootPath = newRoot;
             this.RootSource = source;
@@ -139,10 +152,25 @@ namespace ModdingTools.Modding
             return mc.ToArray();
         }
 
+        public string GetClassesDir()
+        {
+            return Path.Combine(RootPath, "Classes");
+        }
+
+        public string GetMapsDir()
+        {
+            return Path.Combine(RootPath, "Maps");
+        }
+
+        public string GetContentDir()
+        {
+            return Path.Combine(RootPath, "Content");
+        }
+
         public ModClass[] GetModClasses()
         {
             List<ModClass> mc = new List<ModClass>();
-            var path = Path.Combine(RootPath, "Classes");
+            var path = GetClassesDir();
 
             if (Directory.Exists(path))
             {
@@ -194,18 +222,21 @@ namespace ModdingTools.Modding
 
         public void Refresh()
         {
-            IniData info = Parser.Parse(Utils.ReadStringFromFile(GetIniPath()));
+            var ini = Utils.ReadStringFromFile(GetIniPath());
+            IniData info = Parser.Parse(ini);
+
+            AssetReplacements = new Dictionary<string, string>();
 
             var i = info["Info"];
             // Parse "Info" section
-            this.Name = TryGet(i, "name", "???");
-            this.Author = TryGet(i, "author", "???");
-            this.Description = TryGet(i, "description", "???");
-            this.Version = TryGet(i, "version", "???");
+            this.Name = TryGet(i, "name", "New mod");
+            this.Author = TryGet(i, "author", "Me");
+            this.Description = TryGet(i, "description", "Hello this is my all new mod!");
+            this.Version = TryGet(i, "version", "1.0.0");
 
             this.IsCheat = bool.Parse(TryGet(i, "is_cheat", "false"));
             this.Icon = TryGet(i, "icon");
-            this.ChapterInfoName = TryGet(i, "ChapterInfoName", "???");
+            this.ChapterInfoName = TryGet(i, "ChapterInfoName", "");
 
             // Parse "Tags" section
             var t = info["Tags"];
@@ -216,6 +247,121 @@ namespace ModdingTools.Modding
             this.AutoGiveItems        = TryGet(t, "AutoGiveItems", "0").Equals("1");
             this.HasPlayableCharacter = TryGet(t, "HasPlayableCharacter", "0").Equals("1");
             this.IsLanguagePack       = TryGet(t, "IsLanguagePack", "0").Equals("1");
+
+
+            // ok, let's the fun begin... I hate this
+            bool parse = false;
+            int lastMode = -1;
+            string lastArVal = null;
+            foreach (var ln in ini.Split('\n'))
+            {
+                if (!parse && ln.Contains("[AssetReplace]"))
+                {
+                    parse = true;
+                    continue;
+                }
+
+                if (parse)
+                {
+                    var lns = ln.Trim(); // remove extra characters
+                    if (string.IsNullOrEmpty(lns)) continue; // skip empty lines
+                    if (lns[0] == '#' || lns[0] == ';') continue; // skip comments
+
+                    var kv = lns.Split('=');
+                    if (kv.Count() == 2)
+                    {
+                        var key = kv[0].Trim();
+                        var val = kv[1].Trim();
+
+                        int mode = (key == "+Asset") ? 0 : (key == "NewAsset") ? 1 : 2;
+                        // 0 - Asset, 1 - NewAsset, 2 - Invalid, -1 - None
+
+                        if (mode == 1 && lastMode == 0)
+                        {
+                            if (lastArVal == null)
+                            {
+                                throw new Exception("Invalid AssetReplacement section [code: 2]! Did you edited it by hand?");
+                            }
+                            AssetReplacements.Add(lastArVal, val);
+                        }
+                        else if (mode == 0)
+                        {
+                            lastArVal = val;
+                        }
+                        else if (mode == 2)
+                        {
+                            throw new Exception("Invalid AssetReplacement section [code: 1]! Did you edited it by hand?");
+                        }
+                        lastMode = mode;
+                    }
+                    else
+                    {
+                        throw new Exception("AssetReplacement parse error!");
+                    }
+                }
+            }
+        }
+
+        public bool HasAnyMaps()
+        {
+            if (!Directory.Exists(GetMapsDir())) return false;
+            return Directory.GetFiles(GetMapsDir(), "*.umap").Length > 0;
+        }
+
+        public string TryDetectCIInContent()
+        {
+            foreach (var c in Directory.GetFiles(GetContentDir(), "*.upk"))
+            {
+                var d = TryDetectCI(Path.GetFileNameWithoutExtension(c));
+                if (d != null) return d;
+            }
+            return null;
+        }
+
+        public string TryDetectCI(string packageName)
+        {
+            try
+            {
+                using (var pkg = UnrealLoader.LoadFullPackage(Path.Combine(GetContentDir(), packageName + ".upk"), FileAccess.Read))
+                {
+                    foreach (var obj in pkg.Objects)
+                    {
+                        if (obj.Class.Name == "Hat_ChapterInfo")
+                        {
+                            return $"{obj.Package.PackageName}.{obj.Outer.Name}.{obj.Name}";
+                        }
+                    }
+                }            
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message + Environment.NewLine + e.ToString());
+            }
+            return null;
+        }
+
+        public void MakeOrDeleteARClass(bool make = true)
+        {
+            var classDir = GetClassesDir();
+            var className = $"{classDir}_AutoGenGameModClass";
+            var classContent = $"class {className} extends GameMod;";
+
+            var cp = Path.Combine(classDir, $"{className}.uc");
+            if (!make)
+            {
+                if (File.Exists(cp))
+                    File.Delete(cp);
+                return;
+            }
+            
+            if (File.Exists(cp)) return; // don't edit exists class
+
+            if (!Directory.Exists(classDir))
+            {
+                Directory.CreateDirectory(classDir);
+            }
+
+            File.WriteAllText(cp, classContent);
         }
 
         public bool IsReadOnly => RootSource.IsReadOnly;
@@ -256,6 +402,42 @@ namespace ModdingTools.Modding
             return def;
         }
 
+        private void AppendIni(KeyDataCollection context, string key, string value)
+        {
+            if (string.IsNullOrEmpty(value)) return;
+            var data = new KeyData(key);
+            data.Value = value;
+            context.AddKey(data);
+        }
+
+        // migrate from int32 to ulong
+        public void Migrate()
+        {
+            string checkPath = Path.Combine(RootPath, "..\\SteamWorkshop.ini");
+            Debug.WriteLine(checkPath);
+            if (File.Exists(checkPath))
+            {
+                IniData info = Parser.Parse(File.ReadAllText(checkPath));
+                var i = info[GetDirectoryName()];
+                var a = TryGet(i, "WorkshopIdLong", "-1");
+                if (a == "-1") return;
+
+                ulong result;
+                if (ulong.TryParse(a, out result))
+                {
+                    i.AddKey(new KeyData("WorkshopId"));
+
+                    if (!i.ContainsKey("WorkshopId"))
+                        i.AddKey(new KeyData("WorkshopId"));
+
+                    i["WorkshopId"] = "" + a;
+                    i.RemoveKey("WorkshopIdLong");
+
+                    File.WriteAllText(checkPath, info.ToString());
+                }
+            }
+        }
+
         public ulong GetUploadedId()
         {
             string checkPath = Path.Combine(RootPath, "..\\SteamWorkshop.ini");
@@ -283,25 +465,83 @@ namespace ModdingTools.Modding
                     IniData info = Parser.Parse(File.ReadAllText(checkPath));
                     if (!info.Sections.ContainsSection(GetDirectoryName()))
                         info.Sections.Add(new SectionData(GetDirectoryName()));
-                    var old = TryGet(info[GetDirectoryName()], "WorkshopIdLong", "fail");
-                    if ("fail".Equals(old))
-                    {
-                        info[GetDirectoryName()].AddKey(new KeyData("WorkshopIdLong"));
-                        info[GetDirectoryName()]["WorkshopIdLong"] = "" + id;
-                    }
-                    else
-                    {
+
+                    // int32 no more in official tools :crabrave:
+                    if (!info[GetDirectoryName()].ContainsKey("WorkshopId"))
                         info[GetDirectoryName()].AddKey(new KeyData("WorkshopId"));
-                        info[GetDirectoryName()]["WorkshopId"] = "" + id;
-                    }          
+
+                    info[GetDirectoryName()]["WorkshopId"] = "" + id;
+
                     System.IO.File.WriteAllText(checkPath, info.ToString());
                 }
             }
         }
 
+
+        // here we PECKIN GO!
         public void Save()
         {
-            //TODO
+            try
+            {
+                // migrate from int32 to ulong
+                Migrate();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message + "\n" + e.ToString());
+            }
+
+            IniData info = new IniData();
+            var i = info["Info"];
+   
+            // Store "Info" section
+            AppendIni(i, "name", this.Name);
+            AppendIni(i, "author", this.Author);
+            AppendIni(i, "description", this.Description);
+            AppendIni(i, "version", this.Version);
+
+            AppendIni(i, "is_cheat", this.IsCheat ? "true" : "false");
+            AppendIni(i, "icon", this.Icon);
+            AppendIni(i, "ChapterInfoName", this.ChapterInfoName);
+
+            KeyDataCollection t = null;
+
+            foreach (var c in GetModClasses())
+            {
+                if (!c.IsIniAccessible)
+                {
+                    if (c.IsGameModClass)
+                    {
+                        AppendIni(i, "modclass", c.ClassName);
+                    }
+                    continue;
+                }
+                if (t == null) t = info["Tags"];
+                t.AddKey(c.IniKey, "1");
+            }
+
+            // asset replacement storage
+
+            var builder = new StringBuilder();
+            if (AssetReplacements.Count > 0)
+            {
+                builder.AppendLine("[AssetReplace]");
+
+                foreach (var a in AssetReplacements)
+                {
+                    builder.AppendLine($"+Asset   = {a.Key}");
+                    builder.AppendLine($"NewAsset = {a.Value}");
+                }
+            }
+
+            var iniContent = $"{info}{Environment.NewLine}{builder}";
+
+            // Test
+            var test = GUI.MessageBox.Show(iniContent, "test", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+            if (test == DialogResult.Yes)
+            {
+                File.WriteAllText(Path.Combine(RootPath, "modinfo.ini"), iniContent);
+            }
         }
         
     }

@@ -16,9 +16,11 @@ using System.Windows.Forms.VisualStyles;
 namespace ModdingTools.Engine
 {
     // Temporary solution for mod properties window - I'll rewrite it by my own later...
-    class ModManagerProxy
+    class ModManagerPropertiesWrapper
     {
         static bool initialized = false;
+        static bool UseWrapper = false;
+
         static List<Form> openedForms = new List<Form>();
 
         static ModListForm modListForm;
@@ -32,6 +34,12 @@ namespace ModdingTools.Engine
 
         public static void LaunchPropertiesWindow(ModObject ob)
         {
+            if (!UseWrapper)
+            {
+                new ModProperties(ob).Show();
+                return;
+            }
+
             Init();
 
             var window = new EditMod();
@@ -122,7 +130,7 @@ namespace ModdingTools.Engine
                 {
                     if (!Utils.GetField<bool>("HasCompiledScripts", p) && !Utils.GetField<bool>("HasAnyMapFiles", p))
                     {
-                        MessageBox.Show("Please compile scripts first!");
+                        GUI.MessageBox.Show("Please compile scripts first!");
                         return;
                     }
                     Utils.InvokeMeth(p, "SaveMod");
@@ -167,7 +175,7 @@ namespace ModdingTools.Engine
                 string text = Utils.InvokeFunct<string>(p, "DoesModNeedToBeCooked");
                 if (text != "")
                 {
-                    MessageBox.Show("Your mod cook is out of date, please cook your mod. Error: " + text);
+                    GUI.MessageBox.Show("Your mod cook is out of date, please cook your mod. Error: " + text);
                     return;
                 }
                 host.Close();

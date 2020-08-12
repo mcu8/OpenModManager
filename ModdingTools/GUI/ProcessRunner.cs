@@ -152,11 +152,11 @@ namespace ModdingTools.GUI
                    
                 if (value == null)
                 {
-                    ModManagerProxy.UnhideForms();
+                    ModManagerPropertiesWrapper.UnhideForms();
                 }
                 else
                 {
-                    ModManagerProxy.TmpHideForms();
+                    ModManagerPropertiesWrapper.TmpHideForms();
                 }
 
                 if (value == null) Text = "";

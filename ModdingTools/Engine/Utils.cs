@@ -221,19 +221,8 @@ namespace ModdingTools.Engine
 
         public static void MoveDir(string source, string target)
         {
-            try
-            {
-                DirectoryCopy(source, target, true);
-                Directory.Delete(source, true);
-            }
-            catch(Exception e) {
-                if (Directory.Exists(target))
-                {
-                    CleanupAttrib(target);
-                    Directory.Delete(target, true);
-                }
-                throw e;
-            }
+            DirectoryCopy(source, target, true);
+            Directory.Delete(source, true);
         }
 
         // OK, I'm peckin' gave up with Directory.Move - old DOS "move" command somehow ALWAYS works
