@@ -86,7 +86,7 @@ namespace ModdingTools.Modding
 
         public string GetDescription()
         {
-            return this.Description.Replace("[br][br]", "[br]").Trim().Replace("[br]", "\n").Trim('"');
+            return this.Description.Replace("[br]", Environment.NewLine).Trim('"');
         }
 
         public void SetDescription(string desc)
@@ -310,6 +310,7 @@ namespace ModdingTools.Modding
 
         public string TryDetectCIInContent()
         {
+            if (!Directory.Exists(GetContentDir())) return null;
             foreach (var c in Directory.GetFiles(GetContentDir(), "*.upk"))
             {
                 var d = TryDetectCI(Path.GetFileNameWithoutExtension(c));
@@ -398,8 +399,8 @@ namespace ModdingTools.Modding
         private string TryGet(KeyDataCollection context, string key, string def = null)
         {
             if (context.ContainsKey(key))
-                return context[key];
-            return def;
+                return context[key].Trim('"');
+            return def?.Trim('"');
         }
 
         private void AppendIni(KeyDataCollection context, string key, string value)
@@ -492,13 +493,15 @@ namespace ModdingTools.Modding
             }
 
             IniData info = new IniData();
+            info.Configuration.AssigmentSpacer = "";
+
             var i = info["Info"];
    
             // Store "Info" section
-            AppendIni(i, "name", this.Name);
-            AppendIni(i, "author", this.Author);
-            AppendIni(i, "description", this.Description);
-            AppendIni(i, "version", this.Version);
+            AppendIni(i, "name", IniQuote(this.Name));
+            AppendIni(i, "author", IniQuote(this.Author));
+            AppendIni(i, "description", IniQuote(this.Description));
+            AppendIni(i, "version", IniQuote(this.Version));
 
             AppendIni(i, "is_cheat", this.IsCheat ? "true" : "false");
             AppendIni(i, "icon", this.Icon);
@@ -542,6 +545,11 @@ namespace ModdingTools.Modding
             {
                 File.WriteAllText(Path.Combine(RootPath, "modinfo.ini"), iniContent);
             }
+        }
+
+        public string IniQuote(string data)
+        {
+            return $"\"{data.Replace("\"", "\\\"")}\"";
         }
         
     }

@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildData.cs" />
+    <Compile Include="Engine\NamedPipe.cs" />
     <Compile Include="Engine\UpdateChecker.cs" />
     <Compile Include="GUI\ARItem.cs">
       <SubType>UserControl</SubType>
@@ -259,6 +260,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hueh.ico" />
+    <None Include="Resources\console1.png" />
+    <None Include="Resources\console.png" />
     <None Include="Resources\ok.png" />
     <None Include="Resources\delete.png" />
     <None Include="Resources\save.png" />

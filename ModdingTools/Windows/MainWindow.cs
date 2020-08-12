@@ -89,7 +89,6 @@ namespace ModdingTools.Windows
 
         public void ToggleConsole(bool v)
         {
-            processRunner1.Visible = v;
             modListControl1.Visible = !v;
         }
 
@@ -187,6 +186,11 @@ namespace ModdingTools.Windows
         private void MainWindow_Load(object sender, EventArgs e)
         {
             UpdateChk.CheckForUpdatesAsync();
+        }
+
+        private void mButton5_Click(object sender, EventArgs e)
+        {
+            borderlessTabControl1.SelectedIndex = borderlessTabControl1.SelectedIndex == 0 ? 1 : 0;
         }
     }
 }

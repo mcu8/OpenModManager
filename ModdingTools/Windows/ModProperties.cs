@@ -55,8 +55,8 @@ namespace ModdingTools.Windows
                 imageList.Images.Add(img.Key.ToString(), img.Value);
             }
 
-            this.Text = Mod.Name.ToUpper();
-            this.ModDescriptionEdit.Text = Mod.GetDescription().Replace("\n", Environment.NewLine);
+            this.Text = $"{Mod.Name.ToUpper()} (V. {Mod.Version})";
+            this.ModDescriptionEdit.Text = Mod.GetDescription();
             this.modFolderName.Text = Mod.GetDirectoryName();
             this.modName.Text = Mod.Name;
             this.cbOnlineParty.Checked = Mod.IsOnlineParty;
@@ -195,6 +195,16 @@ namespace ModdingTools.Windows
             {
                 modFolderName.Text = iw;
             }
+        }
+
+        private void mButton5_Click(object sender, EventArgs e)
+        {
+            Mod.CompileScripts(this.processRunner1, true, false);
+        }
+
+        private void mButton6_Click(object sender, EventArgs e)
+        {
+            Mod.CookMod(this.processRunner1, true);
         }
     }
 }
