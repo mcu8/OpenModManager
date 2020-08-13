@@ -27,6 +27,7 @@ namespace ModdingTools.Engine
 
         public static void Init()
         {
+            if (!UseWrapper) return;
             if (initialized) return;
             modListForm = new ModListForm();      
             initialized = true;

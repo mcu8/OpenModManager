@@ -50,7 +50,7 @@ namespace ModdingTools.Windows
                 var val = Validator.Validate(InputBox.Text);
                 if (val != null)
                 {
-                    GUI.MessageBox.Show(val);
+                    GUI.MessageBox.Show(val, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
@@ -72,9 +72,19 @@ namespace ModdingTools.Windows
         {
             public string Validate(string inputText)
             {
+                if (inputText.Length < 3)
+                {
+                    return "Mod name should have at least 3 characters";
+                }
+
                 if (!Regex.IsMatch(inputText, @"^[a-zA-Z0-9_]+$"))
                 {
                     return "Invalid characters in mod folder name - you can only use numbers and letters and _";
+                }
+
+                if (inputText.ToLower().Trim() == "newmod" || inputText.ToLower().Trim() == "mymod")
+                {
+                    return "Seriously? Give it some more unique name...";
                 }
 
                 string modName = inputText;
@@ -91,12 +101,16 @@ namespace ModdingTools.Windows
             }
         }
 
-        public class ARValidator : NonEmptyValidator
+        public class ARValidator : InputValidator
         {
-            public new string Validate(string inputText)
+            public string Validate(string inputText)
             {
-                // todo
-                return base.Validate(inputText); 
+                
+                if (!Regex.IsMatch(inputText, @"[A-Za-z0-9]{1,255}\'[A-Za-z_0-9\.]{1,255}\'$"))
+                {
+                    return "Invalid asset name!\nIt should look something like this: StaticMesh'MyPackage.MyMesh'";
+                }
+                return null;
             } 
         }
 

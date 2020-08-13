@@ -114,6 +114,12 @@
     <Compile Include="GUI\ARList.Designer.cs">
       <DependentUpon>ARList.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\ContentBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ContentBrowser.Designer.cs">
+      <DependentUpon>ContentBrowser.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\MessageBox.cs" />
     <Compile Include="GUI\MTextBox.cs">
       <SubType>Component</SubType>
@@ -209,6 +215,9 @@
     <EmbeddedResource Include="GUI\ARList.resx">
       <DependentUpon>ARList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ContentBrowser.resx">
+      <DependentUpon>ContentBrowser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Windows\InputWindow.resx">
       <DependentUpon>InputWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -260,6 +269,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hueh.ico" />
+    <None Include="Resources\delete1.png" />
     <None Include="Resources\console1.png" />
     <None Include="Resources\console.png" />
     <None Include="Resources\ok.png" />

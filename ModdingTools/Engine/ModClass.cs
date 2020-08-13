@@ -13,15 +13,28 @@ namespace ModdingTools.Engine
         public string ClassName { get; private set; }
         public string ExtendsClass { get; private set; }
         public string FileName { get; private set; }
+        public bool IsAutoAwardItem { get; private set; }
         public ModClassType ClassType { get; private set; }
 
         public enum ModClassType
         {
-            Sticker, Weapon, Remix, Badge, Hat, Skin, DWContract, Generic, Playable, GameMod
+            Sticker, Weapon, Remix, Badge, Hat, Skin, DWContract, Generic, Playable, GameMod, Map
         }
 
         public static ModClassType[] VisibleTypes = new[]
         {
+            ModClassType.Sticker,
+            ModClassType.Weapon,
+            ModClassType.Remix,
+            ModClassType.Badge,
+            ModClassType.Hat,
+            ModClassType.Skin,
+            ModClassType.Playable,
+            ModClassType.Map
+        };
+
+        public static ModClassType[] SerializableTypes = new[]
+       {
             ModClassType.Sticker,
             ModClassType.Weapon,
             ModClassType.Remix,
@@ -42,7 +55,8 @@ namespace ModdingTools.Engine
             { ModClassType.Weapon,      Properties.Resources.generic    }, // TODO: add umbrella icon
             { ModClassType.Generic,     Properties.Resources.generic    },
             { ModClassType.Skin,        Properties.Resources.dye        },
-            { ModClassType.GameMod,     Properties.Resources.generic    }
+            { ModClassType.GameMod,     Properties.Resources.generic    },
+            { ModClassType.Map,         Properties.Resources.msg_app    }
         };
 
         public static readonly Dictionary<ModClassType, string> ClassToIniPropertyMapping = new Dictionary<ModClassType, string>
@@ -69,7 +83,7 @@ namespace ModdingTools.Engine
         };
 
         public bool IsIniAccessible => ClassToIniPropertyMapping.ContainsKey(ClassType);
-        public string IniKey => ClassToIniPropertyMapping[ClassType];
+        public string IniKey => ClassToIniPropertyMapping.ContainsKey(ClassType) ? ClassToIniPropertyMapping[ClassType] : null;
         public bool IsGameModClass => ClassType == ModClassType.GameMod;
 
         private void DetectModClassType()
@@ -237,6 +251,18 @@ namespace ModdingTools.Engine
             }
 
             DetectModClassType();
+
+            if (ClassType == ModClassType.Skin || ClassType == ModClassType.Remix)
+            {
+                if (DefaultProperties.ContainsKey("AlwaysInPlayerBackpack"))
+                {
+                    IsAutoAwardItem = DefaultProperties["AlwaysInPlayerBackpack"].ToLowerInvariant() == "true";
+                }
+            }
+            else
+            {
+                if (content.Contains("GetLoadout().AddBackpack(class'Hat_Loadout'.static.MakeLoadoutItem(")) IsAutoAwardItem = true;
+            }
         }
 
         public override string ToString()

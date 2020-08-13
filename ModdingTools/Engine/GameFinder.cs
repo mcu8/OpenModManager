@@ -26,6 +26,11 @@ namespace ModdingTools.Engine
             return Path.Combine(GetSteamDir(), @"steamapps\workshop\content", AppID);
         }
 
+        public static string GetCookedPcDir()
+        {
+            return Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(FindGameDir())), "HatInTimeGame", "CookedPC");
+        }
+
         public static string FindGameDir()
         {
             var strSteamInstallPath = GetSteamDir();

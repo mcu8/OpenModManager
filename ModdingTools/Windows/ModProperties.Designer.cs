@@ -54,28 +54,31 @@
             this.mButton5 = new ModdingTools.GUI.MButton();
             this.label4 = new System.Windows.Forms.Label();
             this.arList1 = new ModdingTools.GUI.ARList();
-            this.mButton8 = new ModdingTools.GUI.MButton();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.tabControl2 = new Manina.Windows.Forms.TabControl();
             this.tab5 = new Manina.Windows.Forms.Tab();
             this.tab6 = new Manina.Windows.Forms.Tab();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tab7 = new Manina.Windows.Forms.Tab();
             this.tab8 = new Manina.Windows.Forms.Tab();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.contentBrowser1 = new ModdingTools.GUI.ContentBrowser();
+            this.tab1 = new Manina.Windows.Forms.Tab();
+            this.mButton8 = new ModdingTools.GUI.MButton();
+            this.label10 = new System.Windows.Forms.Label();
+            this.flagDesc = new System.Windows.Forms.Label();
+            this.flagIcon = new System.Windows.Forms.Label();
+            this.flagCook = new System.Windows.Forms.Label();
+            this.flagTitle = new System.Windows.Forms.Label();
+            this.flagTags = new System.Windows.Forms.Label();
             this.panel7.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tab5.SuspendLayout();
             this.tab6.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.tab7.SuspendLayout();
             this.tab8.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.tab1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnEditor
@@ -436,92 +439,6 @@
             this.arList1.Size = new System.Drawing.Size(706, 418);
             this.arList1.TabIndex = 0;
             // 
-            // mButton8
-            // 
-            this.mButton8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
-            this.mButton8.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
-            this.mButton8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mButton8.ForeColor = System.Drawing.Color.White;
-            this.mButton8.Image = global::ModdingTools.Properties.Resources.steam1;
-            this.mButton8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton8.Location = new System.Drawing.Point(176, 305);
-            this.mButton8.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
-            this.mButton8.Name = "mButton8";
-            this.mButton8.Size = new System.Drawing.Size(368, 46);
-            this.mButton8.TabIndex = 12;
-            this.mButton8.Text = "UPLOAD / UPDATE THE MOD";
-            this.mButton8.UseVisualStyleBackColor = false;
-            // 
-            // label10
-            // 
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 13.25F);
-            this.label10.Location = new System.Drawing.Point(176, 32);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(368, 50);
-            this.label10.TabIndex = 5;
-            this.label10.Text = "ARE YOU READY TO UPLOAD?";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label9
-            // 
-            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.label9.Image = global::ModdingTools.Properties.Resources.ok;
-            this.label9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label9.Location = new System.Drawing.Point(176, 242);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(368, 38);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "Mod Tags";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label8
-            // 
-            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.label8.Image = global::ModdingTools.Properties.Resources.ok;
-            this.label8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label8.Location = new System.Drawing.Point(176, 202);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(368, 38);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "Square Mod Icon";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label7
-            // 
-            this.label7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.label7.Image = global::ModdingTools.Properties.Resources.ok;
-            this.label7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label7.Location = new System.Drawing.Point(176, 162);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(368, 38);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "Mod Description";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label6
-            // 
-            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.label6.Image = global::ModdingTools.Properties.Resources.ok;
-            this.label6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label6.Location = new System.Drawing.Point(176, 122);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(368, 38);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "Mod Title";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.label5.Image = global::ModdingTools.Properties.Resources.ok;
-            this.label5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label5.Location = new System.Drawing.Point(176, 82);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(368, 38);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Cooked Mod";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // tabControl2
             // 
             this.tabControl2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
@@ -531,6 +448,7 @@
             this.tabControl2.Controls.Add(this.tab6);
             this.tabControl2.Controls.Add(this.tab7);
             this.tabControl2.Controls.Add(this.tab8);
+            this.tabControl2.Controls.Add(this.tab1);
             this.tabControl2.Location = new System.Drawing.Point(10, 107);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.Size = new System.Drawing.Size(805, 418);
@@ -539,6 +457,7 @@
             this.tabControl2.TabPadding = new System.Windows.Forms.Padding(10);
             this.tabControl2.TabSize = new System.Drawing.Size(100, 50);
             this.tabControl2.TabSizing = Manina.Windows.Forms.TabSizing.Fixed;
+            this.tabControl2.PageChanging += new System.EventHandler<Manina.Windows.Forms.PageChangingEventArgs>(this.tabControl2_PageChanging);
             // 
             // tab5
             // 
@@ -560,30 +479,6 @@
             this.tab6.Size = new System.Drawing.Size(706, 418);
             this.tab6.Text = "Building";
             // 
-            // tab7
-            // 
-            this.tab7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.tab7.Controls.Add(this.arList1);
-            this.tab7.Location = new System.Drawing.Point(100, 0);
-            this.tab7.Name = "tab7";
-            this.tab7.Size = new System.Drawing.Size(706, 418);
-            this.tab7.Text = "Asset replace.";
-            // 
-            // tab8
-            // 
-            this.tab8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.tab8.Controls.Add(this.mButton8);
-            this.tab8.Controls.Add(this.label10);
-            this.tab8.Controls.Add(this.label5);
-            this.tab8.Controls.Add(this.label9);
-            this.tab8.Controls.Add(this.label6);
-            this.tab8.Controls.Add(this.label8);
-            this.tab8.Controls.Add(this.label7);
-            this.tab8.Location = new System.Drawing.Point(100, 0);
-            this.tab8.Name = "tab8";
-            this.tab8.Size = new System.Drawing.Size(706, 418);
-            this.tab8.Text = "Uploading";
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
@@ -597,6 +492,136 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(693, 88);
             this.panel1.TabIndex = 17;
+            // 
+            // tab7
+            // 
+            this.tab7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tab7.Controls.Add(this.arList1);
+            this.tab7.Location = new System.Drawing.Point(100, 0);
+            this.tab7.Name = "tab7";
+            this.tab7.Size = new System.Drawing.Size(706, 418);
+            this.tab7.Text = "Asset replace.";
+            // 
+            // tab8
+            // 
+            this.tab8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tab8.Controls.Add(this.contentBrowser1);
+            this.tab8.Location = new System.Drawing.Point(100, 0);
+            this.tab8.Name = "tab8";
+            this.tab8.Size = new System.Drawing.Size(706, 418);
+            this.tab8.Text = "Content";
+            // 
+            // contentBrowser1
+            // 
+            this.contentBrowser1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.contentBrowser1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.contentBrowser1.ForeColor = System.Drawing.Color.White;
+            this.contentBrowser1.Location = new System.Drawing.Point(3, 3);
+            this.contentBrowser1.Name = "contentBrowser1";
+            this.contentBrowser1.Size = new System.Drawing.Size(700, 412);
+            this.contentBrowser1.TabIndex = 0;
+            // 
+            // tab1
+            // 
+            this.tab1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tab1.Controls.Add(this.mButton8);
+            this.tab1.Controls.Add(this.label10);
+            this.tab1.Controls.Add(this.flagDesc);
+            this.tab1.Controls.Add(this.flagIcon);
+            this.tab1.Controls.Add(this.flagCook);
+            this.tab1.Controls.Add(this.flagTitle);
+            this.tab1.Controls.Add(this.flagTags);
+            this.tab1.Location = new System.Drawing.Point(100, 0);
+            this.tab1.Name = "tab1";
+            this.tab1.Size = new System.Drawing.Size(706, 418);
+            this.tab1.Text = "Uploading";
+            // 
+            // mButton8
+            // 
+            this.mButton8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.mButton8.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.mButton8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mButton8.ForeColor = System.Drawing.Color.White;
+            this.mButton8.Image = global::ModdingTools.Properties.Resources.steam1;
+            this.mButton8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mButton8.Location = new System.Drawing.Point(155, 317);
+            this.mButton8.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
+            this.mButton8.Name = "mButton8";
+            this.mButton8.Size = new System.Drawing.Size(368, 46);
+            this.mButton8.TabIndex = 19;
+            this.mButton8.Text = "UPLOAD / UPDATE THE MOD";
+            this.mButton8.UseVisualStyleBackColor = false;
+            this.mButton8.Click += new System.EventHandler(this.mButton8_Click_1);
+            // 
+            // label10
+            // 
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 13.25F);
+            this.label10.Location = new System.Drawing.Point(155, 44);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(368, 50);
+            this.label10.TabIndex = 18;
+            this.label10.Text = "ARE YOU READY TO UPLOAD?";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // flagDesc
+            // 
+            this.flagDesc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.flagDesc.Image = global::ModdingTools.Properties.Resources.ok;
+            this.flagDesc.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.flagDesc.Location = new System.Drawing.Point(155, 174);
+            this.flagDesc.Name = "flagDesc";
+            this.flagDesc.Size = new System.Drawing.Size(368, 38);
+            this.flagDesc.TabIndex = 15;
+            this.flagDesc.Text = "Mod Description";
+            this.flagDesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // flagIcon
+            // 
+            this.flagIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.flagIcon.Image = global::ModdingTools.Properties.Resources.ok;
+            this.flagIcon.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.flagIcon.Location = new System.Drawing.Point(155, 214);
+            this.flagIcon.Name = "flagIcon";
+            this.flagIcon.Size = new System.Drawing.Size(368, 38);
+            this.flagIcon.TabIndex = 16;
+            this.flagIcon.Text = "Square Mod Icon";
+            this.flagIcon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // flagCook
+            // 
+            this.flagCook.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.flagCook.Image = global::ModdingTools.Properties.Resources.delete;
+            this.flagCook.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.flagCook.Location = new System.Drawing.Point(155, 94);
+            this.flagCook.Name = "flagCook";
+            this.flagCook.Size = new System.Drawing.Size(368, 38);
+            this.flagCook.TabIndex = 13;
+            this.flagCook.Text = "Cooked Mod";
+            this.flagCook.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // flagTitle
+            // 
+            this.flagTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.flagTitle.Image = global::ModdingTools.Properties.Resources.ok;
+            this.flagTitle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.flagTitle.Location = new System.Drawing.Point(155, 134);
+            this.flagTitle.Name = "flagTitle";
+            this.flagTitle.Size = new System.Drawing.Size(368, 38);
+            this.flagTitle.TabIndex = 14;
+            this.flagTitle.Text = "Mod Title";
+            this.flagTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // flagTags
+            // 
+            this.flagTags.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.flagTags.Image = global::ModdingTools.Properties.Resources.ok;
+            this.flagTags.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.flagTags.Location = new System.Drawing.Point(155, 254);
+            this.flagTags.Name = "flagTags";
+            this.flagTags.Size = new System.Drawing.Size(368, 38);
+            this.flagTags.TabIndex = 17;
+            this.flagTags.Text = "Mod Tags";
+            this.flagTags.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ModProperties
             // 
@@ -634,10 +659,11 @@
             this.tabControl2.ResumeLayout(false);
             this.tab5.ResumeLayout(false);
             this.tab6.ResumeLayout(false);
-            this.tab7.ResumeLayout(false);
-            this.tab8.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.tab7.ResumeLayout(false);
+            this.tab8.ResumeLayout(false);
+            this.tab1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -669,13 +695,6 @@
         private GUI.MButton mButton5;
         private GUI.MButton mButton7;
         private GUI.MTextBox chapterInfoInput;
-        private System.Windows.Forms.Label label5;
-        private GUI.MButton mButton8;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
         private GUI.ProcessRunner processRunner1;
         private Manina.Windows.Forms.TabControl tabControl2;
         private Manina.Windows.Forms.Tab tab5;
@@ -683,5 +702,14 @@
         private Manina.Windows.Forms.Tab tab7;
         private Manina.Windows.Forms.Tab tab8;
         private System.Windows.Forms.Panel panel1;
+        private Manina.Windows.Forms.Tab tab1;
+        private GUI.MButton mButton8;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label flagDesc;
+        private System.Windows.Forms.Label flagIcon;
+        private System.Windows.Forms.Label flagCook;
+        private System.Windows.Forms.Label flagTitle;
+        private System.Windows.Forms.Label flagTags;
+        private GUI.ContentBrowser contentBrowser1;
     }
 }

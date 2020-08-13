@@ -154,7 +154,11 @@ namespace ModdingTools.Engine
             }
         }
 
-
+        public static bool FileExists(string PathToLook, string Filename, string FileToIgnore = "")
+        {
+            if (!Directory.Exists(PathToLook)) return false;
+            return Directory.GetFiles(PathToLook, Filename, SearchOption.AllDirectories).Length != 0;
+        }
 
         public static ModObject GetModObjectFromControl(object e)
         {
@@ -217,7 +221,33 @@ namespace ModdingTools.Engine
             return result;
         }
 
+        public static DateTime? YoungestInDir(string PathToFolder, string[] FileFilters)
+        {
+            if (!Directory.Exists(PathToFolder))
+            {
+                return null;
+            }
+            DateTime? result = null;
+            foreach (string searchPattern in FileFilters)
+            {
+                var files = Directory.GetFiles(PathToFolder, searchPattern, SearchOption.AllDirectories);
+                foreach (var file in files)
+                {
+                    var lastWriteTime = File.GetLastWriteTime(file);
+                    if (!result.HasValue || DateTime.Compare(lastWriteTime, result.Value) < 0)
+                    {
+                        result = lastWriteTime;
+                    }
+                }
+            }
+            return result;
+        }
 
+        public static bool DirContainsKey(string folder, string keyword)
+        {
+            if (!Directory.Exists(folder)) return false;
+            return Directory.GetFiles(folder, keyword, SearchOption.AllDirectories).Length > 0;
+        }
 
         public static void MoveDir(string source, string target)
         {

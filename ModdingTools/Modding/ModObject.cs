@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using UELib;
 using UELib.Core;
 using UELib.Engine;
+using static ModdingTools.Engine.ModClass;
 
 namespace ModdingTools.Modding
 {
@@ -40,6 +41,7 @@ namespace ModdingTools.Modding
         public bool HasWeapon           { get; set; }
         public string MapType           { get; set; }
         public string GameMod           { get; set; }
+        public string Coop              { get; set; }
 
         public Dictionary<string, string> AssetReplacements;
 
@@ -111,6 +113,32 @@ namespace ModdingTools.Modding
             this.RootPath = Path.Combine(RootSource.Root, newName);
         }
 
+        // returns null if not
+        public string DoesModNeedToBeCooked()
+        {
+            var ex = new Dictionary<DateTime?, string>
+            {
+                { Utils.YoungestInDir(GetCookedDir(),  new[] { "*.u", "*.umap" }),   "No cook"                       },
+                { Utils.YoungestInDir(GetClassesDir(), new[] { "*.uc"          }),   "Scripts need to be recooked"   },
+                { Utils.YoungestInDir(GetContentDir(), new[] { "*.upk"         }),   "Content needs to be recooked"  },
+                { Utils.YoungestInDir(GetMapsDir(),    new[] { "*.umap"        }),   "Maps need to be recooked"      }
+            };
+
+            foreach (var k in ex)
+            {
+                if (ex.First().Value == k.Value)
+                {
+                    if (!k.Key.HasValue) return k.Value;
+                }
+                else
+                {
+                    if (k.Key.HasValue && DateTime.Compare(ex.First().Key.Value, k.Key.Value) < 0)
+                        return k.Value;
+                }
+            }
+            return null;
+        }
+
         public void ChangeModSource(ModDirectorySource source)
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
@@ -125,7 +153,7 @@ namespace ModdingTools.Modding
 
         public void UnCookMod()
         {
-            var path = Path.Combine(RootPath, "CookedPC");
+            var path = GetCookedDir();
             if (Directory.Exists(path))
             {
                 foreach (var file in Directory.GetFiles(path, "*.u"))
@@ -167,19 +195,41 @@ namespace ModdingTools.Modding
             return Path.Combine(RootPath, "Content");
         }
 
-        public ModClass[] GetModClasses()
+        public string GetCookedDir()
         {
-            List<ModClass> mc = new List<ModClass>();
+            return Path.Combine(RootPath, "CookedPC");
+        }
+
+        public string GetCompiledScriptsDir()
+        {
+            return Path.Combine(RootPath, "CompiledScripts");
+        }
+
+        public string GetLocsDir()
+        {
+            return Path.Combine(RootPath, "Localization");
+        }
+
+        ModClass[] ModClassCache = null;
+        public ModClass[] GetModClasses(bool skipCache = false)
+        {
+            List<ModClass> mlc = new List<ModClass>();
+            if (ModClassCache != null && !skipCache)
+            {
+                return ModClassCache;
+            }
+
             var path = GetClassesDir();
 
             if (Directory.Exists(path))
             {
                 foreach (var file in Directory.GetFiles(path, "*.uc", SearchOption.AllDirectories))
                 {
-                    mc.Add(new ModClass(file));
+                    mlc.Add(new ModClass(file));
                 }
             }
-            return mc.ToArray();
+            ModClassCache = mlc.ToArray();
+            return ModClassCache;
         }
 
         public void CookMod(ProcessRunner runner, bool async = true)
@@ -247,7 +297,10 @@ namespace ModdingTools.Modding
             this.AutoGiveItems        = TryGet(t, "AutoGiveItems", "0").Equals("1");
             this.HasPlayableCharacter = TryGet(t, "HasPlayableCharacter", "0").Equals("1");
             this.IsLanguagePack       = TryGet(t, "IsLanguagePack", "0").Equals("1");
+            this.Coop                 = TryGet(t, "Coop", "");
 
+            if (!this.IsReadOnly)
+                GetModClasses(true);
 
             // ok, let's the fun begin... I hate this
             bool parse = false;
@@ -302,6 +355,11 @@ namespace ModdingTools.Modding
             }
         }
 
+        public bool HasClass(ModClassType @type)
+        {
+            return GetModClasses().Where(x => x.ClassType == @type).Count() > 0;
+        }
+
         public bool HasAnyMaps()
         {
             if (!Directory.Exists(GetMapsDir())) return false;
@@ -317,6 +375,16 @@ namespace ModdingTools.Modding
                 if (d != null) return d;
             }
             return null;
+        }
+
+        public bool HasCompiledScripts()
+        {
+            return Utils.DirContainsKey(GetCompiledScriptsDir(), "*.u");
+        }
+
+        public bool HasAnyScripts()
+        {
+            return Utils.DirContainsKey(GetClassesDir(), "*.uc");
         }
 
         public string TryDetectCI(string packageName)
@@ -341,22 +409,15 @@ namespace ModdingTools.Modding
             return null;
         }
 
-        public void MakeOrDeleteARClass(bool make = true)
+        public void MakeARClass()
         {
             var classDir = GetClassesDir();
             var className = $"{classDir}_AutoGenGameModClass";
             var classContent = $"class {className} extends GameMod;";
 
             var cp = Path.Combine(classDir, $"{className}.uc");
-            if (!make)
-            {
-                if (File.Exists(cp))
-                    File.Delete(cp);
-                return;
-            }
             
             if (File.Exists(cp)) return; // don't edit exists class
-
             if (!Directory.Exists(classDir))
             {
                 Directory.CreateDirectory(classDir);
@@ -479,6 +540,20 @@ namespace ModdingTools.Modding
         }
 
 
+        public bool DetectIsLanguagePack()
+        {
+            if (!Directory.Exists(GetLocsDir())) return false;
+            if (HasAnyMaps() || HasAnyScripts()) return false;
+
+            return true;
+        }
+
+        public bool TagsCompleted()
+        {
+            if (HasAnyMaps() && string.IsNullOrEmpty(MapType)) return false;
+            return true;
+        }
+
         // here we PECKIN GO!
         public void Save()
         {
@@ -502,13 +577,23 @@ namespace ModdingTools.Modding
             AppendIni(i, "author", IniQuote(this.Author));
             AppendIni(i, "description", IniQuote(this.Description));
             AppendIni(i, "version", IniQuote(this.Version));
+            AppendIni(i, "version", IniQuote(this.Version));
 
             AppendIni(i, "is_cheat", this.IsCheat ? "true" : "false");
             AppendIni(i, "icon", this.Icon);
             AppendIni(i, "ChapterInfoName", this.ChapterInfoName);
 
-            KeyDataCollection t = null;
+            ApplyTag(info, "isLanguagePack", DetectIsLanguagePack() ? "1" : "");
 
+            if (HasAnyMaps())
+            {
+                ApplyTag(info, "MapType", MapType);
+            }
+
+            ApplyTag(info, "OnlineParty", IsOnlineParty ? "1" : "");
+            ApplyTag(info, "Coop", Coop);
+
+            bool autoEquip = false;
             foreach (var c in GetModClasses())
             {
                 if (!c.IsIniAccessible)
@@ -517,10 +602,18 @@ namespace ModdingTools.Modding
                     {
                         AppendIni(i, "modclass", c.ClassName);
                     }
+                    if (c.IsAutoAwardItem)
+                    {
+                        autoEquip = true;
+                    }
                     continue;
                 }
-                if (t == null) t = info["Tags"];
-                t.AddKey(c.IniKey, "1");
+                ApplyTag(info, c.IniKey, "1");
+            }
+
+            if (autoEquip)
+            {
+                ApplyTag(info, "AutoGiveItems", "1");
             }
 
             // asset replacement storage
@@ -528,12 +621,14 @@ namespace ModdingTools.Modding
             var builder = new StringBuilder();
             if (AssetReplacements.Count > 0)
             {
+                ApplyTag(info, "AssetReplace", "1");
+
                 builder.AppendLine("[AssetReplace]");
 
                 foreach (var a in AssetReplacements)
                 {
-                    builder.AppendLine($"+Asset   = {a.Key}");
-                    builder.AppendLine($"NewAsset = {a.Value}");
+                    builder.AppendLine($"+Asset={a.Key}");
+                    builder.AppendLine($"NewAsset={a.Value}");
                 }
             }
 
@@ -544,6 +639,15 @@ namespace ModdingTools.Modding
             if (test == DialogResult.Yes)
             {
                 File.WriteAllText(Path.Combine(RootPath, "modinfo.ini"), iniContent);
+            }
+        }
+
+        private void ApplyTag(IniData ini, string key, string value)
+        {
+            if (string.IsNullOrEmpty(key)) return;
+            if (!string.IsNullOrEmpty(value))
+            {
+                ini["Tags"].AddKey(key, value);
             }
         }
 

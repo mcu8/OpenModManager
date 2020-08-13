@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace ModdingTools.Windows
 {
@@ -25,6 +27,7 @@ namespace ModdingTools.Windows
         public void Reload()
         {
             Mod.Refresh();
+            contentBrowser1.LoadMod(Mod);
 
             levelType.Items.Clear();
             if (Mod.HasAnyMaps())
@@ -63,6 +66,9 @@ namespace ModdingTools.Windows
             this.iconView.BackgroundImage = Mod.GetIcon();
             this.chapterInfoInput.Text = Mod.ChapterInfoName;
 
+            this.cbCoOp.Checked = Mod.Coop.ToLower() == "cooponly";
+            this.cbOnlineParty.Checked = Mod.IsOnlineParty;
+
             var tags = ModObject.CombineTags(Mod.GetModClasses());
 
             this.tagsList.Clear();
@@ -72,11 +78,83 @@ namespace ModdingTools.Windows
             {
                 if (ModClass.VisibleTypes.Contains(tag))
                     this.tagsList.Items.Add("Contains " + ModClass.ClassToNameMapping[tag], tag.ToString());
-                //textBox1.Text += tag.ToString() + Environment.NewLine;
+            }
 
+            if (Mod.HasAnyMaps())
+            {
+                this.tagsList.Items.Add("Contains map", "Map");
+            }
+
+            if (Mod.AssetReplacements.Count > 0)
+            {
+                this.tagsList.Items.Add("Asset Replace", "AssetReplace");
+            }
+
+            if (Mod.AutoGiveItems)
+            {
+                this.tagsList.Items.Add("Items are available immediately", "AutoGiveItems");
             }
 
             arList1.Fill(Mod.AssetReplacements);
+
+            ReloadFlags();
+
+            if (Mod.IsReadOnly)
+            {
+                mButton4.Enabled = false;
+                mButton5.Enabled = false;
+                mButton6.Enabled = false;
+                mButton7.Enabled = false;
+                mButton8.Enabled = false;
+                arList1.Enabled = false;
+                chapterInfoInput.Enabled = false;
+                cbOnlineParty.Enabled = false;
+                cbCoOp.Enabled = false;
+                levelType.Enabled = false;
+                iconView.Enabled = false;
+                modName.Enabled = false;
+                modFolderName.Enabled = false;
+            }
+        }
+
+        public void ToggleUnlock(bool v)
+        {
+            foreach (var tab in tabControl2.Tabs)
+            {
+                if (tab == tab6) continue;
+                ((Control)tab).Enabled = v;
+            }
+
+            panel1.Enabled = v;
+            mButton4.Enabled = v;
+            iconView.Enabled = v;
+            modName.Enabled = v;
+            modFolderName.Enabled = v;
+        }
+
+        private void ReloadFlags()
+        {
+            var good = ModdingTools.Properties.Resources.ok;
+            var bad = ModdingTools.Properties.Resources.delete;
+
+            bool flag =  !string.IsNullOrEmpty(Mod.Name);
+            bool flag2 = !string.IsNullOrEmpty(Mod.GetDescription());
+            bool flag3 = Utils.DirContainsKey(Mod.GetContentDir(), "*.upk");
+            bool flag4 = Utils.DirContainsKey(Mod.GetLocsDir(), "*.int");
+            bool flag5 = Utils.DirContainsKey(Mod.GetCookedDir(), "*.u") || Utils.DirContainsKey(Mod.GetCookedDir(), "*.umap");
+            bool flag6 = (Mod.HasCompiledScripts() | flag3 | flag4) || Mod.HasAnyMaps();
+            bool flag7 = Mod.GetIcon() != null;
+            bool flag8 = Mod.TagsCompleted(); //todo: tags
+
+            mButton6.Enabled = (flag6 && !contentBrowser1.HasContentError && !Mod.IsLanguagePack);
+
+            flagCook.Image = (flag5 || Mod.IsLanguagePack) && !contentBrowser1.HasContentError ? good : bad;
+            flagTitle.Image = flag ? good : bad;
+            flagDesc.Image = flag2 ? good : bad;
+            flagIcon.Image = flag7 ? good : bad;
+            flagTags.Image = flag8 ? good : bad;
+
+            mButton8.Enabled = (((flag5 || Mod.IsLanguagePack) && !contentBrowser1.HasContentError) && flag && flag2 && flag7 && flag8);
         }
 
         private void btnEditor_Click(object sender, EventArgs e)
@@ -101,8 +179,23 @@ namespace ModdingTools.Windows
                     }
                     else
                     {
-                        iconView.BackgroundImage = Image.FromFile(f.FullName);
-                        _newIcon = f.FullName;
+                        var img = Image.FromFile(f.FullName);
+                        if (img.Width / img.Height == 1)
+                        {
+                            if (img.Width < 100)
+                            {
+                                GUI.MessageBox.Show("Icon must have at least 100x100px size!");
+                            }
+                            else
+                            {
+                                iconView.BackgroundImage = img;
+                                _newIcon = f.FullName;
+                            }
+                        }
+                        else
+                        {
+                            GUI.MessageBox.Show("Icon must be square shaped!");
+                        }            
                     }
                 }
                 else
@@ -119,18 +212,25 @@ namespace ModdingTools.Windows
 
         private void mButton4_Click(object sender, EventArgs e)
         {
+            SaveMod();
+        }
+
+        public void SaveMod()
+        {
             Mod.AssetReplacements = arList1.Collect();
             Mod.Name = modName.Text;
             Mod.SetDescription(ModDescriptionEdit.Text);
             Mod.ChapterInfoName = chapterInfoInput.Text;
+            Mod.IsOnlineParty = cbOnlineParty.Checked;
+            Mod.Coop = cbCoOp.Checked ? "CoopOnly" : "";
             if (Mod.GetDirectoryName() != modFolderName.Text)
             {
                 Mod.RenameDirectory(modFolderName.Text);
             }
-            if (levelType.SelectedIndex >= 0 && levelType.SelectedIndex < Mod.AllowedMapTypes.Count() && levelType.Visible)
+            if (levelType.SelectedIndex >= 0 && levelType.SelectedIndex < Mod.AllowedMapTypes.Count())
             {
                 Mod.MapType = Mod.AllowedMapTypes[levelType.SelectedIndex];
-            } 
+            }
             else
             {
                 Mod.MapType = "";
@@ -145,7 +245,7 @@ namespace ModdingTools.Windows
                 }
                 File.Copy(_newIcon, icon);
             }
-            
+
             Mod.Save();
             Reload();
         }
@@ -185,7 +285,7 @@ namespace ModdingTools.Windows
 
         private void mButton1_Click(object sender, EventArgs e)
         {
-            
+            Process.Start("http://steamcommunity.com/sharedfiles/filedetails/?id=" + Mod.GetUploadedId());
         }
 
         private void modFolderName_Click(object sender, EventArgs e)
@@ -199,12 +299,56 @@ namespace ModdingTools.Windows
 
         private void mButton5_Click(object sender, EventArgs e)
         {
-            Mod.CompileScripts(this.processRunner1, true, false);
+            if(!contentBrowser1.HasContentError)
+            {
+                ToggleUnlock(false);
+                SaveMod();
+                Mod.UnCookMod();
+                Task.Factory.StartNew(() =>
+                {
+                    Mod.CompileScripts(this.processRunner1, false, false);
+                    this.Invoke(new MethodInvoker(() => ToggleUnlock(true)));
+                    this.Invoke(new MethodInvoker(() => Reload()));
+                });
+            }
         }
 
         private void mButton6_Click(object sender, EventArgs e)
         {
-            Mod.CookMod(this.processRunner1, true);
+            if (!contentBrowser1.HasContentError)
+            {
+                if (!Mod.HasCompiledScripts() && Mod.HasAnyScripts())
+                {
+                    GUI.MessageBox.Show("Please compile scripts first!");
+                    return;
+                }
+                ToggleUnlock(false);
+                SaveMod();
+                Mod.UnCookMod();
+                Task.Factory.StartNew(() =>
+                {
+                    Mod.CookMod(this.processRunner1, false);
+                    this.Invoke(new MethodInvoker(() => ToggleUnlock(true)));
+                    this.Invoke(new MethodInvoker(() => Reload()));
+                });
+            }      
+        }
+
+        private void mButton8_Click_1(object sender, EventArgs e)
+        {
+            new UploadOptions(Mod).ShowDialog(this);
+        }
+
+        private void tabControl2_PageChanging(object sender, Manina.Windows.Forms.PageChangingEventArgs e)
+        {
+            if (!((Control)tab1).Enabled)
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            e.NewPage.BackColor = Color.FromArgb(32, 32, 32);
+            e.CurrentPage.BackColor = Color.FromArgb(80,80,80);
         }
     }
 }
