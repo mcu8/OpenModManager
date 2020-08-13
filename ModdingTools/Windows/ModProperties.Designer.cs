@@ -69,6 +69,7 @@
             this.flagCook = new System.Windows.Forms.Label();
             this.flagTitle = new System.Windows.Forms.Label();
             this.flagTags = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel7.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -121,23 +122,27 @@
             // modName
             // 
             this.modName.AutoSize = true;
+            this.modName.Cursor = System.Windows.Forms.Cursors.Hand;
             this.modName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.modName.Location = new System.Drawing.Point(79, 44);
+            this.modName.Location = new System.Drawing.Point(79, 41);
             this.modName.Name = "modName";
             this.modName.Size = new System.Drawing.Size(110, 25);
             this.modName.TabIndex = 13;
             this.modName.Text = "ModName";
+            this.modName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.modName.Click += new System.EventHandler(this.modName_Click);
             // 
             // modFolderName
             // 
             this.modFolderName.AutoSize = true;
+            this.modFolderName.Cursor = System.Windows.Forms.Cursors.Hand;
             this.modFolderName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.modFolderName.Location = new System.Drawing.Point(82, 75);
+            this.modFolderName.Location = new System.Drawing.Point(82, 65);
             this.modFolderName.Name = "modFolderName";
             this.modFolderName.Size = new System.Drawing.Size(120, 18);
             this.modFolderName.TabIndex = 14;
             this.modFolderName.Text = "ModFolderName";
+            this.modFolderName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.modFolderName.Click += new System.EventHandler(this.modFolderName_Click);
             // 
             // mButton1
@@ -623,6 +628,18 @@
             this.flagTags.Text = "Mod Tags";
             this.flagTags.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label5
+            // 
+            this.label5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F);
+            this.label5.Location = new System.Drawing.Point(83, 82);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(219, 18);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "ModVersion";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
             // ModProperties
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -637,11 +654,13 @@
             this.Controls.Add(this.modName);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.btnEditor);
+            this.Controls.Add(this.label5);
             this.Font = new System.Drawing.Font("Segoe UI Semilight", 9F);
             this.IsResizable = false;
             this.MinimumSize = new System.Drawing.Size(824, 532);
             this.Name = "ModProperties";
             this.Text = "-";
+            this.Controls.SetChildIndex(this.label5, 0);
             this.Controls.SetChildIndex(this.btnEditor, 0);
             this.Controls.SetChildIndex(this.panel7, 0);
             this.Controls.SetChildIndex(this.modName, 0);
@@ -711,5 +730,6 @@
         private System.Windows.Forms.Label flagTitle;
         private System.Windows.Forms.Label flagTags;
         private GUI.ContentBrowser contentBrowser1;
+        private System.Windows.Forms.Label label5;
     }
 }

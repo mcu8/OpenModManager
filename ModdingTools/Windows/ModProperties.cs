@@ -81,6 +81,7 @@ namespace ModdingTools.Windows
 
             this.cbCoOp.Checked = Mod.Coop.ToLower() == "cooponly";
             this.cbOnlineParty.Checked = Mod.IsOnlineParty;
+            this.label5.Text = Mod.Version;
 
             var tags = ModObject.CombineTags(Mod.GetModClasses());
 
@@ -119,6 +120,7 @@ namespace ModdingTools.Windows
                 mButton6.Enabled = false;
                 mButton7.Enabled = false;
                 mButton8.Enabled = false;
+                label5.Enabled = false;
                 arList1.Enabled = false;
                 chapterInfoInput.Enabled = false;
                 cbOnlineParty.Enabled = false;
@@ -143,6 +145,7 @@ namespace ModdingTools.Windows
             iconView.Enabled = v;
             modName.Enabled = v;
             modFolderName.Enabled = v;
+            label5.Enabled = v;
         }
 
         private void ReloadFlags()
@@ -236,6 +239,7 @@ namespace ModdingTools.Windows
             Mod.ChapterInfoName = chapterInfoInput.Text;
             Mod.IsOnlineParty = cbOnlineParty.Checked;
             Mod.Coop = cbCoOp.Checked ? "CoopOnly" : "";
+            Mod.Version = label5.Text;
             if (Mod.GetDirectoryName() != modFolderName.Text)
             {
                 Mod.RenameDirectory(modFolderName.Text);
@@ -257,6 +261,8 @@ namespace ModdingTools.Windows
                     File.Delete(icon);
                 }
                 File.Copy(_newIcon, icon);
+                _newIcon = null;
+                Mod.Icon = "icon.png";
             }
 
             Mod.Save();
@@ -303,7 +309,7 @@ namespace ModdingTools.Windows
 
         private void modFolderName_Click(object sender, EventArgs e)
         {
-            var iw = InputWindow.Ask("Mod name", "Enter the mod name", new InputWindow.ModNameValidator(), modFolderName.Text);
+            var iw = InputWindow.Ask("Mod folder name", "Enter the mod folder name", new InputWindow.ModNameValidator(), modFolderName.Text);
             if (iw != null)
             {
                 modFolderName.Text = iw;
@@ -362,6 +368,15 @@ namespace ModdingTools.Windows
 
             e.NewPage.BackColor = Color.FromArgb(32, 32, 32);
             e.CurrentPage.BackColor = Color.FromArgb(80,80,80);
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+            var iw = InputWindow.Ask("Version", "Enter the mod version", new InputWindow.NonEmptyValidator(), label5.Text);
+            if (iw != null)
+            {
+                label5.Text = iw;
+            }
         }
     }
 }
