@@ -20,6 +20,19 @@ namespace ModdingTools.Windows
         {
             InitializeComponent();
 
+            foreach (var tab in tabControl2.Pages)
+            {
+                if (tab == tabControl2.SelectedTab)
+                {
+                    tab.BackColor = Color.FromArgb(32, 32, 32);
+                    
+                }
+                else
+                {
+                    tab.BackColor = Color.FromArgb(80, 80, 80);
+                }
+            }
+
             this.Mod = mod;
             Reload();
         }
@@ -143,7 +156,7 @@ namespace ModdingTools.Windows
             bool flag4 = Utils.DirContainsKey(Mod.GetLocsDir(), "*.int");
             bool flag5 = Utils.DirContainsKey(Mod.GetCookedDir(), "*.u") || Utils.DirContainsKey(Mod.GetCookedDir(), "*.umap");
             bool flag6 = (Mod.HasCompiledScripts() | flag3 | flag4) || Mod.HasAnyMaps();
-            bool flag7 = Mod.GetIcon() != null;
+            bool flag7 = Mod.ValidateIcon();
             bool flag8 = Mod.TagsCompleted(); //todo: tags
 
             mButton6.Enabled = (flag6 && !contentBrowser1.HasContentError && !Mod.IsLanguagePack);

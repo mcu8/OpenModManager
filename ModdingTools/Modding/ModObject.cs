@@ -428,6 +428,38 @@ namespace ModdingTools.Modding
 
         public bool IsReadOnly => RootSource.IsReadOnly;
 
+        public bool ValidateIcon()
+        {
+            FileInfo f = new FileInfo(Path.Combine(RootPath, Icon));
+            if (f.Exists)
+            {
+                if (f.Length > 2000000)
+                {
+                    return false;
+                }
+                else
+                {
+                    var img = Image.FromFile(f.FullName);
+                    if (img.Width / img.Height == 1)
+                    {
+                        if (img.Width < 100)
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                return false;
+            }
+            return true;
+        }
+
         public Image GetIcon()
         {
             var noIconImage = Properties.Resources.noimage;
