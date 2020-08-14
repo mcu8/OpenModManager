@@ -131,6 +131,7 @@ namespace ModdingTools.Windows
                 iconView.Enabled = false;
                 modName.Enabled = false;
                 modFolderName.Enabled = false;
+                ModDescriptionEdit.ReadOnly = true;
             }
         }
 
@@ -148,6 +149,7 @@ namespace ModdingTools.Windows
             modName.Enabled = v;
             modFolderName.Enabled = v;
             label5.Enabled = v;
+            ModDescriptionEdit.ReadOnly = !v;
         }
 
         private void ReloadFlags()

@@ -189,6 +189,7 @@ namespace ModdingTools.GUI
                     {
                     }
                     Debug.WriteLine("Pipe close");
+                    Log("Process exited with exit code: " + process.ExitCode);
                 });
                 mOutputThread.Start();
             }

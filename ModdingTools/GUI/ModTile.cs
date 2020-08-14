@@ -21,6 +21,10 @@ namespace ModdingTools.GUI
         {
             InitializeComponent();
 
+            contextMenuStrip1.Renderer = new ToolStripProfessionalRenderer(new MenuColorTable());
+            contextMenuStrip1.BackColor = ThemeConstants.BackgroundColor;
+            contextMenuStrip1.ForeColor = ThemeConstants.ForegroundColor; 
+
             OriginalColor = this.BackColor;
 
             this.Mod = mod;
@@ -46,6 +50,27 @@ namespace ModdingTools.GUI
             this.label1.Click += ModTile_Click;
 
             scriptWatcherToolStripMenuItem2.Checked = ScriptWatcherManager.IsWatcherAttached(Mod);
+        }
+
+        private void RevalidateBG(ToolStripItemCollection col = null)
+        {
+            if (col == null)
+                col = contextMenuStrip1.Items;
+            foreach (var item in col)
+            {
+                if (item is ToolStripMenuItem)
+                {
+                    var it = ((ToolStripMenuItem)item);
+                    it.DisplayStyle = ToolStripItemDisplayStyle.Text;
+                    it.BackColor = ThemeConstants.BackgroundColor;
+                    it.ForeColor = ThemeConstants.ForegroundColor;
+
+                    if (it.HasDropDownItems)
+                    {
+                        RevalidateBG(it.DropDownItems);
+                    }
+                }
+            }
         }
 
         private void ModTile_MouseLeave(object sender, EventArgs e)
@@ -113,7 +138,7 @@ namespace ModdingTools.GUI
             menu.DropDownItems.Clear();
             foreach (var modSource in MainWindow.Instance.GetModSources())
             {
-                if (modSource.IsReadOnly || Mod.RootSource == modSource)
+                if ((modSource.IsReadOnly && modSource.Name != "Mods directory (disabled)") || Mod.RootSource == modSource)
                     continue;
 
                 var item = new ToolStripMenuItem(modSource.Name, null, (obj, args) => {
@@ -130,6 +155,7 @@ namespace ModdingTools.GUI
 
                 menu.DropDownItems.Add(item);
             }
+            RevalidateBG();
         }
 
         private void mafiaTownToolStripMenuItem_Click(object sender, EventArgs e)
