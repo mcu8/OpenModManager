@@ -9,6 +9,16 @@ namespace ModdingTools.Engine
 {
     public class UModelFacade
     {
+
+        public UModelFacade()
+        {
+           if (!File.Exists(GetUModelEXE()))
+            {
+                throw new Exception("Please, place the umodel.exe and SDL2.dll into the program root directory and try again!\nYou can download it from https://www.gildor.org/en/projects/umodel");
+            }
+        }
+
+
         public enum ExportType
         {
             SoundNodeWave, Texture2D

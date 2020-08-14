@@ -65,7 +65,6 @@ namespace ModdingTools.Windows.Tools
                             dlg.DefaultExt = ext.TrimStart('.');
                             dlg.FileName = objName;
                             dlg.Filter = $"{parserType} (*{ext})|*{ext}";
-                            dlg.CheckFileExists = true;
                             if (dlg.ShowDialog() == DialogResult.OK)
                             {
                                 var facade = new UModelFacade();
