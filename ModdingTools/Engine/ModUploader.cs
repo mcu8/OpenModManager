@@ -160,6 +160,8 @@ namespace ModdingTools.Engine
                     Directory.Delete(tmpDir, true);
 
                 SetStatus(null);
+
+                IsUploaderRunning = false;
             }
             catch (Exception e)
             {

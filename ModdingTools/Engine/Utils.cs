@@ -160,6 +160,11 @@ namespace ModdingTools.Engine
             return Directory.GetFiles(PathToLook, Filename, SearchOption.AllDirectories).Length != 0;
         }
 
+        public static string FindPackage(string name)
+        {
+            return Directory.GetFiles(GameFinder.GetEditorCookedPcDir(), name + ".upk", SearchOption.AllDirectories).First();
+        }
+
         public static ModObject GetModObjectFromControl(object e)
         {
             var c = (Control)e;

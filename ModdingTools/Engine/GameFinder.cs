@@ -31,6 +31,11 @@ namespace ModdingTools.Engine
             return Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(FindGameDir())), "HatInTimeGame", "CookedPC");
         }
 
+        public static string GetEditorCookedPcDir()
+        {
+            return Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(FindGameDir())), "HatInTimeGame", "EditorCookedPC");
+        }
+
         public static string FindGameDir()
         {
             var strSteamInstallPath = GetSteamDir();

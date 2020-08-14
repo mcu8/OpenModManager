@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Automation;
 using System.Windows.Forms;
+using ModdingTools.Windows.Tools;
 
 namespace ModdingTools.Windows
 {
@@ -191,6 +192,16 @@ namespace ModdingTools.Windows
         private void mButton5_Click(object sender, EventArgs e)
         {
             borderlessTabControl1.SelectedIndex = borderlessTabControl1.SelectedIndex == 0 ? 1 : 0;
+        }
+
+        private void mButton6_Click(object sender, EventArgs e)
+        {
+            contextMenuStrip1.Show(System.Windows.Forms.Cursor.Position);
+        }
+
+        private void assetExporterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new AssetRipper().ShowDialog(this);
         }
     }
 }

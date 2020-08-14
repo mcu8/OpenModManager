@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="BuildData.cs" />
     <Compile Include="Engine\NamedPipe.cs" />
+    <Compile Include="Engine\UModelFacade.cs" />
     <Compile Include="Engine\UpdateChecker.cs" />
     <Compile Include="GUI\ARItem.cs">
       <SubType>UserControl</SubType>
@@ -129,6 +130,12 @@
     </Compile>
     <Compile Include="Windows\InputWindow.Designer.cs">
       <DependentUpon>InputWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Tools\AssetRipper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\Tools\AssetRipper.Designer.cs">
+      <DependentUpon>AssetRipper.cs</DependentUpon>
     </Compile>
     <Compile Include="Windows\UploadOptions.cs">
       <SubType>Form</SubType>
@@ -220,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\InputWindow.resx">
       <DependentUpon>InputWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\Tools\AssetRipper.resx">
+      <DependentUpon>AssetRipper.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\UploadOptions.resx">
       <DependentUpon>UploadOptions.cs</DependentUpon>

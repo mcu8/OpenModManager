@@ -109,6 +109,8 @@ namespace ModdingTools.Windows
                 this.tagsList.Items.Add("Items are available immediately", "AutoGiveItems");
             }
 
+            mButton1.Enabled = Mod.GetUploadedId() > 0;
+
             arList1.Fill(Mod.AssetReplacements);
 
             ReloadFlags();
@@ -150,8 +152,8 @@ namespace ModdingTools.Windows
 
         private void ReloadFlags()
         {
-            var good = ModdingTools.Properties.Resources.ok;
-            var bad = ModdingTools.Properties.Resources.delete;
+            var good = Properties.Resources.ok;
+            var bad =  Properties.Resources.delete;
 
             bool flag =  !string.IsNullOrEmpty(Mod.Name);
             bool flag2 = !string.IsNullOrEmpty(Mod.GetDescription());
@@ -304,7 +306,10 @@ namespace ModdingTools.Windows
 
         private void mButton1_Click(object sender, EventArgs e)
         {
-            Process.Start("http://steamcommunity.com/sharedfiles/filedetails/?id=" + Mod.GetUploadedId());
+            if (Mod.GetUploadedId() > 0)
+            {
+                Process.Start("http://steamcommunity.com/sharedfiles/filedetails/?id=" + Mod.GetUploadedId());
+            }
         }
 
         private void modFolderName_Click(object sender, EventArgs e)

@@ -17,6 +17,11 @@ namespace ModdingTools.GUI
             return Show(null, message, "Information", MessageBoxButtons.OK, MessageBoxIcon.None);
         }
 
+        public static DialogResult Show(Form parent, string message)
+        {
+            return Show(parent, message, "Information", MessageBoxButtons.OK, MessageBoxIcon.None);
+        }
+
         public static DialogResult Show(string message, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
         {
             return Show(null, message, title, buttons, icon);
