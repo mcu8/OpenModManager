@@ -41,11 +41,12 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.processRunner1 = new ModdingTools.GUI.ProcessRunner();
-            this.mButton5 = new ModdingTools.GUI.MButton();
-            this.mButton2 = new ModdingTools.GUI.MButton();
-            this.mButton6 = new ModdingTools.GUI.MButton();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.assetExporterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flipbookGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mButton6 = new ModdingTools.GUI.MButton();
+            this.mButton5 = new ModdingTools.GUI.MButton();
+            this.mButton2 = new ModdingTools.GUI.MButton();
             this.panel1.SuspendLayout();
             this.borderlessTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -177,7 +178,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(816, 411);
+            this.tabPage2.Size = new System.Drawing.Size(944, 411);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -189,8 +190,58 @@
             this.processRunner1.Location = new System.Drawing.Point(0, 0);
             this.processRunner1.Margin = new System.Windows.Forms.Padding(0);
             this.processRunner1.Name = "processRunner1";
-            this.processRunner1.Size = new System.Drawing.Size(816, 411);
+            this.processRunner1.Size = new System.Drawing.Size(944, 411);
             this.processRunner1.TabIndex = 12;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.BackColor = System.Drawing.Color.Black;
+            this.contextMenuStrip1.DropShadowEnabled = false;
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.assetExporterToolStripMenuItem,
+            this.flipbookGeneratorToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.contextMenuStrip1.ShowImageMargin = false;
+            this.contextMenuStrip1.Size = new System.Drawing.Size(171, 48);
+            this.contextMenuStrip1.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.contextMenuStrip1_Closed);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            // 
+            // assetExporterToolStripMenuItem
+            // 
+            this.assetExporterToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.assetExporterToolStripMenuItem.Name = "assetExporterToolStripMenuItem";
+            this.assetExporterToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.assetExporterToolStripMenuItem.Text = "ASSET EXPORTER";
+            this.assetExporterToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.assetExporterToolStripMenuItem.Click += new System.EventHandler(this.assetExporterToolStripMenuItem_Click);
+            // 
+            // flipbookGeneratorToolStripMenuItem
+            // 
+            this.flipbookGeneratorToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.flipbookGeneratorToolStripMenuItem.Name = "flipbookGeneratorToolStripMenuItem";
+            this.flipbookGeneratorToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.flipbookGeneratorToolStripMenuItem.Text = "FLIPBOOK GENERATOR";
+            this.flipbookGeneratorToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.flipbookGeneratorToolStripMenuItem.Click += new System.EventHandler(this.flipbookGeneratorToolStripMenuItem_Click);
+            // 
+            // mButton6
+            // 
+            this.mButton6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.mButton6.BackColor = System.Drawing.Color.Black;
+            this.mButton6.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.mButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mButton6.ForeColor = System.Drawing.Color.White;
+            this.mButton6.Image = global::ModdingTools.Properties.Resources.tools;
+            this.mButton6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mButton6.Location = new System.Drawing.Point(563, 2);
+            this.mButton6.Name = "mButton6";
+            this.mButton6.Size = new System.Drawing.Size(82, 32);
+            this.mButton6.TabIndex = 35;
+            this.mButton6.Text = "TOOLS";
+            this.mButton6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.mButton6.UseVisualStyleBackColor = false;
+            this.mButton6.Click += new System.EventHandler(this.mButton6_Click);
             // 
             // mButton5
             // 
@@ -201,9 +252,9 @@
             this.mButton5.ForeColor = System.Drawing.Color.White;
             this.mButton5.Image = global::ModdingTools.Properties.Resources.console1;
             this.mButton5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton5.Location = new System.Drawing.Point(584, 2);
+            this.mButton5.Location = new System.Drawing.Point(660, 3);
             this.mButton5.Name = "mButton5";
-            this.mButton5.Size = new System.Drawing.Size(35, 32);
+            this.mButton5.Size = new System.Drawing.Size(35, 31);
             this.mButton5.TabIndex = 34;
             this.mButton5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.mButton5.UseVisualStyleBackColor = false;
@@ -217,47 +268,13 @@
             this.mButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton2.ForeColor = System.Drawing.Color.White;
             this.mButton2.Image = global::ModdingTools.Properties.Resources.settings_icon;
-            this.mButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton2.Location = new System.Drawing.Point(623, 2);
+            this.mButton2.Location = new System.Drawing.Point(699, 4);
             this.mButton2.Name = "mButton2";
-            this.mButton2.Size = new System.Drawing.Size(112, 32);
+            this.mButton2.Size = new System.Drawing.Size(37, 30);
             this.mButton2.TabIndex = 5;
-            this.mButton2.Text = "CONFIGURE";
             this.mButton2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.mButton2.UseVisualStyleBackColor = false;
             this.mButton2.Click += new System.EventHandler(this.mButton2_Click);
-            // 
-            // mButton6
-            // 
-            this.mButton6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.mButton6.BackColor = System.Drawing.Color.Black;
-            this.mButton6.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.mButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mButton6.ForeColor = System.Drawing.Color.White;
-            this.mButton6.Image = global::ModdingTools.Properties.Resources.settings_icon;
-            this.mButton6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton6.Location = new System.Drawing.Point(496, 3);
-            this.mButton6.Name = "mButton6";
-            this.mButton6.Size = new System.Drawing.Size(82, 32);
-            this.mButton6.TabIndex = 35;
-            this.mButton6.Text = "TOOLS";
-            this.mButton6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.mButton6.UseVisualStyleBackColor = false;
-            this.mButton6.Click += new System.EventHandler(this.mButton6_Click);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.assetExporterToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 48);
-            // 
-            // assetExporterToolStripMenuItem
-            // 
-            this.assetExporterToolStripMenuItem.Name = "assetExporterToolStripMenuItem";
-            this.assetExporterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.assetExporterToolStripMenuItem.Text = "Asset exporter";
-            this.assetExporterToolStripMenuItem.Click += new System.EventHandler(this.assetExporterToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -317,6 +334,7 @@
         private GUI.MButton mButton6;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem assetExporterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem flipbookGeneratorToolStripMenuItem;
     }
 }
 

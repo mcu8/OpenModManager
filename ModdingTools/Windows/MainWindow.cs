@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Automation;
 using System.Windows.Forms;
 using ModdingTools.Windows.Tools;
+using System.Drawing;
 
 namespace ModdingTools.Windows
 {
@@ -34,8 +35,12 @@ namespace ModdingTools.Windows
                 Utils.CleanUpTrash(GameFinder.FindGameDir());
             }
 
+            
+
             Instance = this;
             InitializeComponent();
+
+            contextMenuStrip1.Renderer = new ToolStripProfessionalRenderer(new MenuColorTable());
 
             ToggleConsole(false);
 
@@ -192,16 +197,34 @@ namespace ModdingTools.Windows
         private void mButton5_Click(object sender, EventArgs e)
         {
             borderlessTabControl1.SelectedIndex = borderlessTabControl1.SelectedIndex == 0 ? 1 : 0;
+            mButton5.BackColor = borderlessTabControl1.SelectedIndex == 0 ? Color.Black : ThemeConstants.BorderColor;
         }
 
         private void mButton6_Click(object sender, EventArgs e)
         {
-            contextMenuStrip1.Show(System.Windows.Forms.Cursor.Position);
+            contextMenuStrip1.ForeColor = Color.White;
+            mButton6.BackColor = ThemeConstants.BorderColor;
+            contextMenuStrip1.Show(new Point(Location.X + mButton6.Location.X, Location.Y + mButton6.Location.Y + mButton6.Height));
         }
 
         private void assetExporterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new AssetRipper().ShowDialog(this);
+        }
+
+        private void flipbookGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FlipbookGenerator().ShowDialog(this);
+        }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void contextMenuStrip1_Closed(object sender, ToolStripDropDownClosedEventArgs e)
+        {
+            mButton6.BackColor = Color.Black;
         }
     }
 }

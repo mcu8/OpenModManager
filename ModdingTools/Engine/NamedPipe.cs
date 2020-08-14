@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 namespace ModdingTools.Engine 
 {
 	// adapted from UnrealFrontend, for handling cooking&compiling output
-	public class NamedPipe
+	public class NamedPipe : IDisposable
 	{
 		[StructLayout(LayoutKind.Sequential)]
 		public class Overlapped

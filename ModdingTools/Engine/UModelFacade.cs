@@ -21,7 +21,7 @@ namespace ModdingTools.Engine
 
         public enum ExportType
         {
-            SoundNodeWave, Texture2D
+            SoundNodeWave, Texture2D, StaticMesh, AnimSet, Font
         }
 
         private string GetUModelEXE()
@@ -36,7 +36,7 @@ namespace ModdingTools.Engine
 
         public static string GetExtensionForType(ExportType exportType)
         {
-            var extension = ".bin";
+            string extension = null;
             switch (exportType)
             {
                 case ExportType.SoundNodeWave:
@@ -44,21 +44,6 @@ namespace ModdingTools.Engine
                     break;
                 case ExportType.Texture2D:
                     extension = ".tga";
-                    break;
-            }
-            return extension;
-        }
-
-        public static string GetDirForType(ExportType exportType)
-        {
-            var extension = "";
-            switch (exportType)
-            {
-                case ExportType.SoundNodeWave:
-                    extension = "SoundWaves";
-                    break;
-                case ExportType.Texture2D:
-                    extension = "Textures";
                     break;
             }
             return extension;
@@ -87,7 +72,7 @@ namespace ModdingTools.Engine
             Directory.CreateDirectory(tmpDir);
 
             // .\umodel.exe -game=ue3 -path="C:\Program Files (x86)\Steam\steamapps\common\HatinTime\HatinTimeGame\EditorCookedPC" -export HatinTime_Music_Metro4 Act_4_Pink_Paw_Station -sounds -out=".\test"
-            var res = Run($"-game=ue3 -path=\"{GameFinder.GetEditorCookedPcDir()}\" -export {package} {assetName}{(exportType == ExportType.SoundNodeWave ? " -sounds" : "")} -out=\"{tmpDir}\"");
+            var res = Run($"-game=ue3 -path=\"{GameFinder.GetEditorCookedPcDir()}\" -3rdparty -export {package} {assetName}{(exportType == ExportType.SoundNodeWave ? " -sounds" : "")} -out=\"{tmpDir}\"");
             if (!res)
             {
                 return false;

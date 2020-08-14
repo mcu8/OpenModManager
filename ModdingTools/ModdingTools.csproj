@@ -115,6 +115,7 @@
     <Compile Include="GUI\ARList.Designer.cs">
       <DependentUpon>ARList.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\ColoredMenus.cs" />
     <Compile Include="GUI\ContentBrowser.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -136,6 +137,12 @@
     </Compile>
     <Compile Include="Windows\Tools\AssetRipper.Designer.cs">
       <DependentUpon>AssetRipper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Tools\FlipbookGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\Tools\FlipbookGenerator.Designer.cs">
+      <DependentUpon>FlipbookGenerator.cs</DependentUpon>
     </Compile>
     <Compile Include="Windows\UploadOptions.cs">
       <SubType>Form</SubType>
@@ -231,6 +238,9 @@
     <EmbeddedResource Include="Windows\Tools\AssetRipper.resx">
       <DependentUpon>AssetRipper.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Windows\Tools\FlipbookGenerator.resx">
+      <DependentUpon>FlipbookGenerator.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Windows\UploadOptions.resx">
       <DependentUpon>UploadOptions.cs</DependentUpon>
     </EmbeddedResource>
@@ -279,6 +289,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hueh.ico" />
+    <None Include="Resources\tools.png" />
+    <None Include="Resources\editorcrashedhueh4.png" />
     <None Include="Resources\delete1.png" />
     <None Include="Resources\console1.png" />
     <None Include="Resources\console.png" />

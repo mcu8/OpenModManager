@@ -42,7 +42,6 @@
             this.mTextBox1.Name = "mTextBox1";
             this.mTextBox1.Size = new System.Drawing.Size(601, 20);
             this.mTextBox1.TabIndex = 1;
-            this.mTextBox1.Text = "SoundNodeWave\'HatinTime_Music_Metro4.SoundWaves.Act_4_Pink_Paw_Station\'";
             // 
             // mButton1
             // 
@@ -79,7 +78,7 @@
             this.IsResizable = false;
             this.MinimumSize = new System.Drawing.Size(10, 10);
             this.Name = "AssetRipper";
-            this.Text = "Asset exporter";
+            this.Text = "ASSET EXPORTER";
             this.Load += new System.EventHandler(this.AssetRipper_Load);
             this.Controls.SetChildIndex(this.mTextBox1, 0);
             this.Controls.SetChildIndex(this.mButton1, 0);

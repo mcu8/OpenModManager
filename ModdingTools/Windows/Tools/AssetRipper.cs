@@ -1,19 +1,12 @@
 ﻿using ModdingTools.Engine;
 using ModdingTools.GUI;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using UELib;
 using UELib.Core;
-using UELib.Engine;
 
 namespace ModdingTools.Windows.Tools
 {
@@ -62,6 +55,13 @@ namespace ModdingTools.Windows.Tools
 
                             SaveFileDialog dlg = new SaveFileDialog();
                             var ext = UModelFacade.GetExtensionForType(parserType);
+                            if (ext == null)
+                            {
+                                GUI.MessageBox.Show(this, "Unsupported type: " + parserType);
+                                return;
+                            }
+
+
                             dlg.DefaultExt = ext.TrimStart('.');
                             dlg.FileName = objName;
                             dlg.Filter = $"{parserType} (*{ext})|*{ext}";
