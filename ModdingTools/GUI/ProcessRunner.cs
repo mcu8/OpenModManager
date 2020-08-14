@@ -86,15 +86,6 @@ namespace ModdingTools.GUI
                 {
                     MainWindow.Instance.SetModListState(value);
                 }
-                   
-                if (value == null)
-                {
-                    ModManagerPropertiesWrapper.UnhideForms();
-                }
-                else
-                {
-                    ModManagerPropertiesWrapper.TmpHideForms();
-                }
 
                 if (value == null) Text = "";
                 else Text = value;

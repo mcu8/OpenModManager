@@ -1,7 +1,6 @@
 ﻿using ModdingTools.GUI;
 using ModdingTools.Modding;
 using ModdingTools.Engine;
-using ModManager.Forms;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -23,19 +22,8 @@ namespace ModdingTools.Windows
         {
             if (!DesignMode)
             {
-                try
-                {
-                    ModManagerPropertiesWrapper.Init();
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("PECK >> " + e.Message + "\n" + e.ToString());
-                }
-
                 Utils.CleanUpTrash(GameFinder.FindGameDir());
-            }
-
-            
+            }  
 
             Instance = this;
             InitializeComponent();
@@ -160,7 +148,7 @@ namespace ModdingTools.Windows
             }
 
             modListControl1.ReloadList(() => {
-                ModManagerPropertiesWrapper.LaunchPropertiesWindow(modListControl1.GetMod(modName));
+                new ModProperties(modListControl1.GetMod(modName)).Show();
             });
         }
 

@@ -1,6 +1,5 @@
 ﻿using ModdingTools.GUI;
 using ModdingTools.Modding;
-using ModManager.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -163,13 +162,6 @@ namespace ModdingTools.Engine
         public static string FindPackage(string name)
         {
             return Directory.GetFiles(GameFinder.GetEditorCookedPcDir(), name + ".upk", SearchOption.AllDirectories).First();
-        }
-
-        public static ModObject GetModObjectFromControl(object e)
-        {
-            var c = (Control)e;
-            EditMod obj = (EditMod)c.FindForm();
-            return (ModObject)obj.Tag;
         }
 
         public static Control GetFirstControlForm(object e)

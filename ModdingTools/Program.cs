@@ -43,27 +43,12 @@ namespace ModdingTools
                 Environment.Exit(0);
             }
 
-            var modManagerOriginal = Path.Combine(Path.GetDirectoryName(Engine.GameFinder.FindGameDir()), "ModManager.exe");
-            var localDll = Path.Combine(GetAppRoot(), "ModManager.dll");
-            if (File.Exists(modManagerOriginal))
-            {
-                File.Delete(localDll);
-                File.Copy(modManagerOriginal, localDll);
-            }
-            else
-            {
-                MessageBox.Show("ModManager.exe not found...");
-                Environment.Exit(0);
-            }
-
-            System.Windows.Automation.Automation.AddAutomationEventHandler(
+            Automation.AddAutomationEventHandler(
                 eventId: WindowPattern.WindowOpenedEvent,
                 element: AutomationElement.RootElement,
                 scope: TreeScope.Children,
                 eventHandler: OnWindowOpened);
 
-            AppDomain currentDomain = AppDomain.CurrentDomain;
-            currentDomain.AssemblyResolve += new ResolveEventHandler(LoadFromSameFolder);
             Directory.SetCurrentDirectory(Path.GetDirectoryName(Engine.GameFinder.FindGameDir()));
             Uploader = new ModUploader();
 
@@ -93,35 +78,6 @@ namespace ModdingTools
             catch (ElementNotAvailableException)
             {
             }
-        }
-
-        static Assembly LoadFromSameFolder(object sender, ResolveEventArgs args)
-        {
-            string folderPath = Path.GetDirectoryName(Engine.GameFinder.FindGameDir());
-            var name = new AssemblyName(args.Name).Name;
-            Debug.WriteLine(name);
-
-            Debug.WriteLine("test: " + folderPath);
-
-            string ext = name.EndsWith(".resources") ? ".resources" : name.EndsWith(".dll") ? ".dll" : name.EndsWith(".exe") ? ".exe" : "";
-
-            if (name == "ModManager")
-            {
-                ext = ".dll";
-            }
-
-            string assemblyPath = Path.Combine(folderPath, name + ext);
-
-            Debug.WriteLine("test: " + assemblyPath);
-
-            if (!File.Exists(assemblyPath))
-            {
-                assemblyPath = Path.Combine(folderPath, name + ext);
-                if (!File.Exists(assemblyPath)) return null;
-            }
-
-            Assembly assembly = Assembly.LoadFrom(assemblyPath);
-            return assembly;
         }
     }
 }

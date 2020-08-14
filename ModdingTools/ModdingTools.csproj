@@ -65,15 +65,6 @@
     <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
       <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
     </Reference>
-    <Reference Include="ModManager">
-      <!-- <HintPath Condition="Exists('..\ModManager.exe')">..\ModManager.exe</HintPath> -->
-      <!-- <HintPath Condition="Exists('.\ModManager.exe')">.\ModManager.exe</HintPath> -->
-      <HintPath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll')">C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll</HintPath>
-      <HintPath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe') And !Exists('C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll')">C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe</HintPath>
-      <HintPath Condition="Exists('C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll')">C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll</HintPath>
-      <HintPath Condition="Exists('C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe') And !Exists('C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll')">C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="PagedControl, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedControl.2.2.0\lib\net35\PagedControl.dll</HintPath>
     </Reference>
@@ -207,7 +198,6 @@
     </Compile>
     <Compile Include="Modding\ModDirectorySource.cs" />
     <Compile Include="Modding\ModObject.cs" />
-    <Compile Include="Engine\ModManagerPropertiesWrapper.cs" />
     <Compile Include="Windows\ModProperties.cs">
       <SubType>Form</SubType>
     </Compile>
