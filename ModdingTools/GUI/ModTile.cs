@@ -50,6 +50,8 @@ namespace ModdingTools.GUI
             this.label1.Click += ModTile_Click;
 
             scriptWatcherToolStripMenuItem2.Checked = ScriptWatcherManager.IsWatcherAttached(Mod);
+
+            RevalidateBG();
         }
 
         private void RevalidateBG(ToolStripItemCollection col = null)
@@ -184,9 +186,57 @@ namespace ModdingTools.GUI
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
+            CleanupTests();
+
             cookModToolStripMenuItem.Enabled = !Mod.IsReadOnly;
             testModToolStripMenuItem.Enabled = !Mod.IsReadOnly;
             scriptingToolStripMenuItem.Enabled = !Mod.IsReadOnly;
+
+            var test = new ContentBrowser();
+            test.LoadMod(Mod);
+
+            var result = test.HasContentError;
+            test.Dispose();
+
+            bool flag5 = Utils.DirContainsKey(Mod.GetCookedDir(), "*.u") || Utils.DirContainsKey(Mod.GetCookedDir(), "*.umap");
+            var cooked = (flag5 || Mod.IsLanguagePack) && !result;
+
+            compileScriptsToolStripMenuItem.Enabled = !Mod.IsReadOnly && !result && Mod.HasAnyScripts();
+            cookModToolStripMenuItem1.Enabled = !Mod.IsReadOnly && !result && !(!Mod.HasCompiledScripts() && Mod.HasAnyScripts());
+            testModToolStripMenuItem.Enabled = cooked && !Mod.IsReadOnly;
+
+            if (Mod.HasAnyMaps() && testModToolStripMenuItem.Enabled)
+            {
+                testModToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator() {Tag = "toDelete", BackColor = ThemeConstants.BackgroundColor });
+                foreach (var map in Mod.GetCookedMaps())
+                {
+                    var item = new ToolStripMenuItem() { Tag = "toDelete", Text = map };
+                    item.Click += (s, a) =>
+                    {
+                        var y = (ToolStripMenuItem)s;
+                        Mod.TestMod(MainWindow.Instance.Runner, y.Text);
+                    };
+                    testModToolStripMenuItem.DropDownItems.Add(item);
+                }
+            }
+            RevalidateBG();
+        }
+
+        private void CleanupTests()
+        {
+            List<object> pendingRemoval = new List<object>();
+            foreach (var i in testModToolStripMenuItem.DropDownItems)
+            {
+                if (((ToolStripItem)i).Tag == null) continue;
+                if (((ToolStripItem)i).Tag.ToString().Equals("toDelete"))
+                {
+                    pendingRemoval.Add(i);
+                }
+            }
+            foreach (var i in pendingRemoval)
+            {
+                testModToolStripMenuItem.DropDownItems.Remove((ToolStripItem)i);
+            }
         }
 
         private void deleteModToolStripMenuItem_Click(object sender, EventArgs e)

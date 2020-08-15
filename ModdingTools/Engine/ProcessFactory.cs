@@ -58,14 +58,7 @@ namespace ModdingTools.Engine
             return new ExecutableArgumentsPair(
                 !watcher ? "Compiling scripts..." : "Changes in filesystem detected... Recompiling scripts...",
                 EditorExecutablePath,
-                Properties.Settings.Default.KeepConsoleOpen ? 
-                new string[]
-                {
-                    "make",
-                    "-FULL",
-                    "-SHORTPATHS",
-                    "-MODSONLY=" + mod.GetDirectoryName()
-                } : new string[]{
+                new string[]{
                     "make",
                     "-FULL",
                     "-SHORTPATHS",
@@ -81,16 +74,7 @@ namespace ModdingTools.Engine
             return new ExecutableArgumentsPair(
                 "Cooking mod...",
                 EditorExecutablePath,
-                Properties.Settings.Default.KeepConsoleOpen ?
                 new string[]
-                {
-                    "CookPackages",
-                    "-PLATFORM=PC",
-                    "-FULL",
-                    "-FASTCOOK",
-                    "-MULTILANGUAGECOOK=" + (Properties.Settings.Default.MultilangCook ? "INT+CHN+DEU+ESN+FRA+ITA+JPN+KOR+PTB" : "INT"),
-                    "-MODSONLY=" + mod.GetDirectoryName()
-                } : new string[]
                 {
                     "CookPackages",
                     "-PLATFORM=PC",

@@ -113,7 +113,7 @@ namespace ModdingTools.Windows
 
             arList1.Fill(Mod.AssetReplacements);
 
-            ReloadFlags();
+            var cooked = ReloadFlags();
 
             if (Mod.IsReadOnly)
             {
@@ -133,6 +133,27 @@ namespace ModdingTools.Windows
                 modFolderName.Enabled = false;
                 ModDescriptionEdit.ReadOnly = true;
             }
+
+            comboBox1.Items.Clear();
+            panel2.Enabled = false;
+            if (cooked)
+            {
+                //Mod.TestMod(MainWindow.Instance.Runner, "mafia_town");
+                comboBox1.Items.Add(new MapItem("hub_spaceship", "Spaceship"));
+                comboBox1.Items.Add(new MapItem("mafia_town", "Mafia Town"));
+                comboBox1.Items.Add(new MapItem("??menu", "Main Menu"));
+
+                if (Mod.HasAnyCookedMaps())
+                {
+                    foreach (var a in Mod.GetCookedMaps())
+                    {
+                        comboBox1.Items.Add(new MapItem(a));
+                    }
+                }
+
+                comboBox1.SelectedIndex = comboBox1.Items.Count - 1;
+                panel2.Enabled = true;
+            }
         }
 
         public void ToggleUnlock(bool v)
@@ -150,9 +171,10 @@ namespace ModdingTools.Windows
             modFolderName.Enabled = v;
             label5.Enabled = v;
             ModDescriptionEdit.ReadOnly = !v;
+            panel2.Enabled = v;
         }
 
-        private void ReloadFlags()
+        private bool ReloadFlags()
         {
             var good = Properties.Resources.ok;
             var bad =  Properties.Resources.delete;
@@ -168,13 +190,16 @@ namespace ModdingTools.Windows
 
             mButton6.Enabled = (flag6 && !contentBrowser1.HasContentError && !Mod.IsLanguagePack);
 
-            flagCook.Image = (flag5 || Mod.IsLanguagePack) && !contentBrowser1.HasContentError ? good : bad;
+            var cooked = (flag5 || Mod.IsLanguagePack) && !contentBrowser1.HasContentError;
+            flagCook.Image = cooked ? good : bad;
             flagTitle.Image = flag ? good : bad;
             flagDesc.Image = flag2 ? good : bad;
             flagIcon.Image = flag7 ? good : bad;
             flagTags.Image = flag8 ? good : bad;
 
             mButton8.Enabled = (((flag5 || Mod.IsLanguagePack) && !contentBrowser1.HasContentError) && flag && flag2 && flag7 && flag8);
+
+            return cooked;
         }
 
         private void btnEditor_Click(object sender, EventArgs e)
@@ -384,6 +409,29 @@ namespace ModdingTools.Windows
             {
                 label5.Text = iw;
             }
+        }
+
+        class MapItem
+        {
+            public string Name;
+            public string DisplayName;
+
+            public MapItem(string name, string displayName = null)
+            {
+                Name = name;
+                DisplayName = displayName;
+            }
+
+            public override string ToString()
+            {
+                return DisplayName ?? Name;
+            }
+        }
+
+        private void mButton9_Click(object sender, EventArgs e)
+        {
+            var item = (MapItem)comboBox1.SelectedItem;
+            Mod.TestMod(MainWindow.Instance.Runner, item.Name == "??menu" ? null : item.Name);
         }
     }
 }

@@ -70,6 +70,10 @@
             this.flagTitle = new System.Windows.Forms.Label();
             this.flagTags = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.mButton9 = new ModdingTools.GUI.MButton();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel7.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -80,6 +84,7 @@
             this.tab7.SuspendLayout();
             this.tab8.SuspendLayout();
             this.tab1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnEditor
@@ -640,11 +645,57 @@
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(198, 7);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(191, 23);
+            this.comboBox1.TabIndex = 18;
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(87, 6);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(105, 24);
+            this.label6.TabIndex = 19;
+            this.label6.Text = "TEST MOD";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // mButton9
+            // 
+            this.mButton9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.mButton9.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(64)))));
+            this.mButton9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mButton9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mButton9.ForeColor = System.Drawing.Color.White;
+            this.mButton9.Location = new System.Drawing.Point(394, 4);
+            this.mButton9.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
+            this.mButton9.Name = "mButton9";
+            this.mButton9.Size = new System.Drawing.Size(146, 30);
+            this.mButton9.TabIndex = 20;
+            this.mButton9.Text = "LAUNCH GAME";
+            this.mButton9.UseVisualStyleBackColor = false;
+            this.mButton9.Click += new System.EventHandler(this.mButton9_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.mButton9);
+            this.panel2.Controls.Add(this.comboBox1);
+            this.panel2.Location = new System.Drawing.Point(271, 531);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(545, 36);
+            this.panel2.TabIndex = 21;
+            // 
             // ModProperties
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(0)))), ((int)(((byte)(49)))));
-            this.ClientSize = new System.Drawing.Size(824, 532);
+            this.ClientSize = new System.Drawing.Size(824, 573);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.mButton1);
             this.Controls.Add(this.mButton3);
@@ -670,6 +721,7 @@
             this.Controls.SetChildIndex(this.mButton3, 0);
             this.Controls.SetChildIndex(this.mButton1, 0);
             this.Controls.SetChildIndex(this.tabControl2, 0);
+            this.Controls.SetChildIndex(this.panel2, 0);
             this.panel7.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
@@ -683,6 +735,7 @@
             this.tab7.ResumeLayout(false);
             this.tab8.ResumeLayout(false);
             this.tab1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -731,5 +784,9 @@
         private System.Windows.Forms.Label flagTags;
         private GUI.ContentBrowser contentBrowser1;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label6;
+        private GUI.MButton mButton9;
+        private System.Windows.Forms.Panel panel2;
     }
 }

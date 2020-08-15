@@ -366,6 +366,23 @@ namespace ModdingTools.Modding
             return Directory.GetFiles(GetMapsDir(), "*.umap").Length > 0;
         }
 
+        public bool HasAnyCookedMaps()
+        {
+            if (!Directory.Exists(GetCookedDir())) return false;
+            return Directory.GetFiles(GetCookedDir(), "*.umap").Length > 0;
+        }
+
+        public string[] GetCookedMaps()
+        {
+            if (!Directory.Exists(GetCookedDir())) return null;
+            List<string> maps = new List<string>();
+            foreach (var x in Directory.GetFiles(GetCookedDir(), "*.umap"))
+            {
+                maps.Add(Path.GetFileNameWithoutExtension(x));
+            }
+            return maps.ToArray();
+        }
+
         public string TryDetectCIInContent()
         {
             if (!Directory.Exists(GetContentDir())) return null;

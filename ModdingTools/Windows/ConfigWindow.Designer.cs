@@ -33,7 +33,6 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
@@ -90,7 +89,7 @@
             // 
             // checkBox2
             // 
-            this.checkBox2.Location = new System.Drawing.Point(12, 132);
+            this.checkBox2.Location = new System.Drawing.Point(12, 91);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(226, 44);
             this.checkBox2.TabIndex = 4;
@@ -107,18 +106,9 @@
             this.checkBox1.Text = "Don\'t load workshop mods on list\r\n(faster) // requires restart";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
-            // 
-            this.checkBox3.Location = new System.Drawing.Point(12, 92);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(216, 34);
-            this.checkBox3.TabIndex = 6;
-            this.checkBox3.Text = "Keep the console window open after finishing the task";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
             // checkBox4
             // 
-            this.checkBox4.Location = new System.Drawing.Point(12, 182);
+            this.checkBox4.Location = new System.Drawing.Point(12, 141);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(216, 34);
             this.checkBox4.TabIndex = 10;
@@ -127,7 +117,7 @@
             // 
             // checkBox5
             // 
-            this.checkBox5.Location = new System.Drawing.Point(12, 222);
+            this.checkBox5.Location = new System.Drawing.Point(12, 181);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(216, 34);
             this.checkBox5.TabIndex = 11;
@@ -142,7 +132,6 @@
             this.ControlBoxVisible = false;
             this.Controls.Add(this.checkBox5);
             this.Controls.Add(this.checkBox4);
-            this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -153,7 +142,6 @@
             this.Controls.SetChildIndex(this.tableLayoutPanel1, 0);
             this.Controls.SetChildIndex(this.checkBox2, 0);
             this.Controls.SetChildIndex(this.checkBox1, 0);
-            this.Controls.SetChildIndex(this.checkBox3, 0);
             this.Controls.SetChildIndex(this.checkBox4, 0);
             this.Controls.SetChildIndex(this.checkBox5, 0);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -167,7 +155,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.CheckBox checkBox5;
     }
