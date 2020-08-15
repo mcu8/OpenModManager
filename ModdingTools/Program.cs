@@ -21,6 +21,7 @@ namespace ModdingTools
         /// 
         public static readonly ProcessFactory ProcFactory = new ProcessFactory();
         public static ModUploader Uploader { get; set; }
+        public static Benchmark Benchmark { get; set; } = null;
 
         public static string GetAppRoot()
         {
@@ -66,11 +67,16 @@ namespace ModdingTools
                 {
                     if (element.Current.Name.Trim() == "Editor for A Hat in Time (64-bit, DX9, Cooked Editor, PMT)")
                     {
+                        if (Benchmark != null)
+                        {
+                            Benchmark.Stop();
+                        }
                         Meme.StopElevatorMusic();
                     }
                     else if (element.Current.Name.Trim() == "Editor for A Hat in Time (64-bit, DX9)")
                     {
                         Meme.PlayElevatorMusic();
+                       
                     }
                 }
                

@@ -10,6 +10,7 @@ using ModdingTools.Windows;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Threading;
+using System.Windows.Input;
 
 namespace ModdingTools.GUI
 {
@@ -94,12 +95,36 @@ namespace ModdingTools.GUI
 
         private void RunWithoutWait(string exe, string[] args, string cwd = ".")
         {
+            bool poggersMode = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
+            if (poggersMode)
+            {
+                if (args.Length > 0 && args[0] == "editor")
+                {
+                    this.Invoke(new MethodInvoker(() =>
+                    {
+                        Program.Benchmark = new Windows.Tools.Benchmark();
+                        Program.Benchmark.StartPosition = FormStartPosition.CenterScreen;
+                        Program.Benchmark.TopMost = true;
+                        Program.Benchmark.Show();
+                    }));
+                }
+            }
+             
+
             Process process = new Process();
             process.StartInfo.FileName = exe;
             process.StartInfo.Arguments = string.Join(" ", args);
             process.StartInfo.WorkingDirectory = cwd;
 
             process.Start();
+
+            if (poggersMode)
+            {
+                if (Program.Benchmark != null)
+                {
+                    Program.Benchmark.Start();
+                }
+            }
         }
 
         bool isCancelling = false;

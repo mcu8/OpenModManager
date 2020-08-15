@@ -68,6 +68,7 @@
     <Reference Include="PagedControl, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedControl.2.2.0\lib\net35\PagedControl.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="Steamworks.NET, Version=14.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\Steamworks.NET.dll</HintPath>
@@ -88,6 +89,7 @@
     </Reference>
     <Reference Include="UIAutomationClient" />
     <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildData.cs" />
@@ -128,6 +130,12 @@
     </Compile>
     <Compile Include="Windows\Tools\AssetRipper.Designer.cs">
       <DependentUpon>AssetRipper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Tools\Benchmark.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\Tools\Benchmark.Designer.cs">
+      <DependentUpon>Benchmark.cs</DependentUpon>
     </Compile>
     <Compile Include="Windows\Tools\FlipbookGenerator.cs">
       <SubType>Form</SubType>
@@ -227,6 +235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\Tools\AssetRipper.resx">
       <DependentUpon>AssetRipper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\Tools\Benchmark.resx">
+      <DependentUpon>Benchmark.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\Tools\FlipbookGenerator.resx">
       <DependentUpon>FlipbookGenerator.cs</DependentUpon>
