@@ -107,7 +107,7 @@
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
             this.panel7.Controls.Add(this.iconView);
-            this.panel7.Location = new System.Drawing.Point(9, 37);
+            this.panel7.Location = new System.Drawing.Point(11, 37);
             this.panel7.Name = "panel7";
             this.panel7.Padding = new System.Windows.Forms.Padding(1);
             this.panel7.Size = new System.Drawing.Size(64, 64);
@@ -126,12 +126,11 @@
             // 
             // modName
             // 
-            this.modName.AutoSize = true;
             this.modName.Cursor = System.Windows.Forms.Cursors.Hand;
             this.modName.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.modName.Location = new System.Drawing.Point(79, 41);
             this.modName.Name = "modName";
-            this.modName.Size = new System.Drawing.Size(110, 25);
+            this.modName.Size = new System.Drawing.Size(336, 25);
             this.modName.TabIndex = 13;
             this.modName.Text = "ModName";
             this.modName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -139,12 +138,11 @@
             // 
             // modFolderName
             // 
-            this.modFolderName.AutoSize = true;
             this.modFolderName.Cursor = System.Windows.Forms.Cursors.Hand;
             this.modFolderName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.modFolderName.Location = new System.Drawing.Point(82, 65);
             this.modFolderName.Name = "modFolderName";
-            this.modFolderName.Size = new System.Drawing.Size(120, 18);
+            this.modFolderName.Size = new System.Drawing.Size(333, 18);
             this.modFolderName.TabIndex = 14;
             this.modFolderName.Text = "ModFolderName";
             this.modFolderName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -152,8 +150,8 @@
             // 
             // mButton1
             // 
-            this.mButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(0)))), ((int)(((byte)(49)))));
-            this.mButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.mButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(64)))));
+            this.mButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(64)))));
             this.mButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton1.ForeColor = System.Drawing.Color.White;
             this.mButton1.Image = global::ModdingTools.Properties.Resources.steam1;
@@ -170,8 +168,8 @@
             // 
             // mButton3
             // 
-            this.mButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(0)))), ((int)(((byte)(49)))));
-            this.mButton3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.mButton3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(64)))));
+            this.mButton3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(64)))));
             this.mButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton3.ForeColor = System.Drawing.Color.White;
             this.mButton3.Image = global::ModdingTools.Properties.Resources.folder;
@@ -188,8 +186,8 @@
             // 
             // mButton4
             // 
-            this.mButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(0)))), ((int)(((byte)(49)))));
-            this.mButton4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.mButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(64)))));
+            this.mButton4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(64)))));
             this.mButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton4.ForeColor = System.Drawing.Color.White;
             this.mButton4.Image = global::ModdingTools.Properties.Resources.save;
@@ -639,7 +637,7 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.25F);
             this.label5.Location = new System.Drawing.Point(83, 82);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(219, 18);
+            this.label5.Size = new System.Drawing.Size(332, 18);
             this.label5.TabIndex = 17;
             this.label5.Text = "ModVersion";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -650,14 +648,14 @@
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(198, 7);
+            this.comboBox1.Location = new System.Drawing.Point(200, 7);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(191, 23);
             this.comboBox1.TabIndex = 18;
             // 
             // label6
             // 
-            this.label6.Location = new System.Drawing.Point(87, 6);
+            this.label6.Location = new System.Drawing.Point(89, 6);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(105, 24);
             this.label6.TabIndex = 19;
@@ -671,7 +669,7 @@
             this.mButton9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mButton9.ForeColor = System.Drawing.Color.White;
-            this.mButton9.Location = new System.Drawing.Point(394, 4);
+            this.mButton9.Location = new System.Drawing.Point(396, 4);
             this.mButton9.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton9.Name = "mButton9";
             this.mButton9.Size = new System.Drawing.Size(146, 30);
@@ -737,7 +735,6 @@
             this.tab1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
     }
 
