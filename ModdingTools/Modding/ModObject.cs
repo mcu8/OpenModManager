@@ -426,21 +426,22 @@ namespace ModdingTools.Modding
             return null;
         }
 
-        public void MakeARClass()
+        public string MakeARClass()
         {
             var classDir = GetClassesDir();
-            var className = $"{classDir}_AutoGenGameModClass";
+            var className = $"{GetDirectoryName()}_AutoGenGameModClass";
             var classContent = $"class {className} extends GameMod;";
 
             var cp = Path.Combine(classDir, $"{className}.uc");
             
-            if (File.Exists(cp)) return; // don't edit exists class
+            if (File.Exists(cp)) return className; // don't edit exists class
             if (!Directory.Exists(classDir))
             {
                 Directory.CreateDirectory(classDir);
             }
 
             File.WriteAllText(cp, classContent);
+            return className;
         }
 
         public bool IsReadOnly => RootSource.IsReadOnly;
@@ -643,6 +644,7 @@ namespace ModdingTools.Modding
             ApplyTag(info, "Coop", Coop);
 
             bool autoEquip = false;
+            bool hasModClass = false;
             foreach (var c in GetModClasses())
             {
                 if (!c.IsIniAccessible)
@@ -650,6 +652,7 @@ namespace ModdingTools.Modding
                     if (c.IsGameModClass)
                     {
                         AppendIni(i, "modclass", c.ClassName);
+                        hasModClass = true;
                     }
                     if (c.IsAutoAwardItem)
                     {
@@ -658,6 +661,11 @@ namespace ModdingTools.Modding
                     continue;
                 }
                 ApplyTag(info, c.IniKey, "1");
+            }
+
+            if (!hasModClass && AssetReplacements.Count() > 0)
+            {
+                AppendIni(i, "modclass", MakeARClass());
             }
 
             if (autoEquip)

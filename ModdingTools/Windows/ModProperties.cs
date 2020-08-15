@@ -141,6 +141,7 @@ namespace ModdingTools.Windows
                 //Mod.TestMod(MainWindow.Instance.Runner, "mafia_town");
                 comboBox1.Items.Add(new MapItem("hub_spaceship", "Spaceship"));
                 comboBox1.Items.Add(new MapItem("mafia_town", "Mafia Town"));
+                comboBox1.Items.Add(new MapItem("hatintimeentry", "HatInTimeEntry"));
                 comboBox1.Items.Add(new MapItem("??menu", "Main Menu"));
 
                 if (Mod.HasAnyCookedMaps())
