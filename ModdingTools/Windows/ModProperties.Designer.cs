@@ -69,6 +69,8 @@
             this.flagCook = new System.Windows.Forms.Label();
             this.flagTitle = new System.Windows.Forms.Label();
             this.flagTags = new System.Windows.Forms.Label();
+            this.tab2 = new Manina.Windows.Forms.Tab();
+            this.configList1 = new ModdingTools.GUI.ConfigList();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -84,6 +86,7 @@
             this.tab7.SuspendLayout();
             this.tab8.SuspendLayout();
             this.tab1.SuspendLayout();
+            this.tab2.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -457,6 +460,7 @@
             this.tabControl2.Controls.Add(this.tab7);
             this.tabControl2.Controls.Add(this.tab8);
             this.tabControl2.Controls.Add(this.tab1);
+            this.tabControl2.Controls.Add(this.tab2);
             this.tabControl2.Location = new System.Drawing.Point(10, 107);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.Size = new System.Drawing.Size(805, 418);
@@ -631,6 +635,26 @@
             this.flagTags.Text = "Mod Tags";
             this.flagTags.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // tab2
+            // 
+            this.tab2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tab2.Controls.Add(this.configList1);
+            this.tab2.Location = new System.Drawing.Point(100, 0);
+            this.tab2.Name = "tab2";
+            this.tab2.Size = new System.Drawing.Size(706, 418);
+            this.tab2.Text = "Mod config";
+            // 
+            // configList1
+            // 
+            this.configList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.configList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.configList1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.configList1.Location = new System.Drawing.Point(0, 0);
+            this.configList1.Margin = new System.Windows.Forms.Padding(0);
+            this.configList1.Name = "configList1";
+            this.configList1.Size = new System.Drawing.Size(706, 418);
+            this.configList1.TabIndex = 0;
+            // 
             // label5
             // 
             this.label5.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -733,6 +757,7 @@
             this.tab7.ResumeLayout(false);
             this.tab8.ResumeLayout(false);
             this.tab1.ResumeLayout(false);
+            this.tab2.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -785,5 +810,7 @@
         private System.Windows.Forms.Label label6;
         private GUI.MButton mButton9;
         private System.Windows.Forms.Panel panel2;
+        private Manina.Windows.Forms.Tab tab2;
+        private GUI.ConfigList configList1;
     }
 }

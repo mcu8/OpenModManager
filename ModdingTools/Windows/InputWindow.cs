@@ -16,7 +16,7 @@ namespace ModdingTools.Windows
             InitializeComponent();
         }
 
-        public static string Ask(string title, string text, InputValidator validator = null, string def = "")
+        public static string Ask(string title, string text, InputValidator validator = null, string def = "", bool multiline = false)
         {
             if (MainWindow.Instance.InvokeRequired)
             {
@@ -34,6 +34,16 @@ namespace ModdingTools.Windows
             t.Text = title;
             t.InputBox.Text = def;
             t.StartPosition = FormStartPosition.CenterParent;
+
+            if (multiline)
+            {
+                t.InputBox.Location = new System.Drawing.Point(t.InputBox.Location.X, t.InputBox.Location.Y - t.InputBox.Height);
+                t.InputBox.Multiline = true;
+                t.label1.Height -= t.InputBox.Height;
+                t.InputBox.ScrollBars = ScrollBars.Vertical;
+                t.InputBox.WordWrap = true;
+                t.InputBox.Height *= 2;
+            }
 
             if (t.ShowDialog() == DialogResult.OK)
             {

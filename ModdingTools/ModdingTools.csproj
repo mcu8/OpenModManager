@@ -96,11 +96,23 @@
     <Compile Include="Engine\NamedPipe.cs" />
     <Compile Include="Engine\UModelFacade.cs" />
     <Compile Include="Engine\UpdateChecker.cs" />
+    <Compile Include="GUI\ConfigItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ConfigItem.Designer.cs">
+      <DependentUpon>ConfigItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ARItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\ARItem.Designer.cs">
       <DependentUpon>ARItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ConfigList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ConfigList.Designer.cs">
+      <DependentUpon>ConfigList.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\ARList.cs">
       <SubType>UserControl</SubType>
@@ -221,8 +233,14 @@
     <Compile Include="Engine\ProcessFactory.cs" />
     <Compile Include="Engine\ScriptWatcher.cs" />
     <Compile Include="Engine\Utils.cs" />
+    <EmbeddedResource Include="GUI\ConfigItem.resx">
+      <DependentUpon>ConfigItem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\ARItem.resx">
       <DependentUpon>ARItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ConfigList.resx">
+      <DependentUpon>ConfigList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\ARList.resx">
       <DependentUpon>ARList.cs</DependentUpon>

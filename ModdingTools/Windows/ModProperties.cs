@@ -113,6 +113,9 @@ namespace ModdingTools.Windows
 
             arList1.Fill(Mod.AssetReplacements);
 
+            this.configList1.Fill(Mod);
+            Debug.WriteLine("ConfigCount: " + Mod.Config.Count);
+
             var cooked = ReloadFlags();
 
             if (Mod.IsReadOnly)

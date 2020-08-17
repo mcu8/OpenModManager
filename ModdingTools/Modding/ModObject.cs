@@ -43,6 +43,8 @@ namespace ModdingTools.Modding
         public string GameMod           { get; set; }
         public string Coop              { get; set; }
 
+        public List<ModConfigItem> Config  { get; set; }
+
         public Dictionary<string, string> AssetReplacements;
 
         public string[] AllowedMapTypes = new[] {
@@ -276,6 +278,7 @@ namespace ModdingTools.Modding
             IniData info = Parser.Parse(ini);
 
             AssetReplacements = new Dictionary<string, string>();
+            Config = new List<ModConfigItem>();
 
             var i = info["Info"];
             // Parse "Info" section
@@ -306,12 +309,19 @@ namespace ModdingTools.Modding
             bool parse = false;
             int lastMode = -1;
             string lastArVal = null;
+
+            // parse ARs
             foreach (var ln in ini.Split('\n'))
             {
                 if (!parse && ln.Contains("[AssetReplace]"))
                 {
                     parse = true;
                     continue;
+                }
+                else if (parse && ln.Trim().StartsWith("[") && ln.Trim().EndsWith("]"))
+                {
+                    parse = false;
+                    break;
                 }
 
                 if (parse)
@@ -352,6 +362,97 @@ namespace ModdingTools.Modding
                         throw new Exception("AssetReplacement parse error!");
                     }
                 }
+            }
+
+            parse = false;
+            lastMode = -1;
+            bool configStart = false;
+            ModConfigItem tmp = null;
+            // parse Config
+            foreach (var ln in ini.Split('\n'))
+            {
+                if (!parse && ln.Contains("[Configs]"))
+                {
+                    parse = true;
+                    configStart = false;
+                    continue;
+                }
+                else if (parse && ln.Trim().StartsWith("[") && ln.Trim().EndsWith("]"))
+                {
+                    parse = false;
+                    configStart = false;
+                    if (tmp != null)
+                    {
+                        Config.Add(tmp);
+                    }
+                    tmp = null;
+                    break;
+                }
+
+                if (parse)
+                {
+                    var lns = ln.Trim(); // remove extra characters
+                    if (string.IsNullOrEmpty(lns)) continue; // skip empty lines
+                    if (lns[0] == '#' || lns[0] == ';') continue; // skip comments
+
+                    var kv = lns.Split('=');
+                    if (kv.Count() == 2)
+                    {
+                        var key = kv[0].Trim().ToLower();
+                        var val = IniUnQuote(kv[1].Trim()).TrimStart('"').TrimEnd('"');
+
+                        Debug.WriteLine($" KEY: {key}, VALUE: {val}");
+
+                        int mode = (key == "+config") ? 0 : 1;
+                        // 0 - Asset, 1 - NewAsset, 2 - Invalid, -1 - None
+
+                        if (mode == 0)
+                        {
+                            configStart = true;
+                            if (tmp != null)
+                            {
+                                Config.Add(tmp);
+                            }
+                            tmp = new ModConfigItem();
+                            tmp.PropertyName = val;
+                        }
+                        if (configStart)
+                        {
+                            if (tmp == null)
+                            {
+                                throw new Exception("Invalid Config section [code: 2]! Did you edited it by hand?");
+                            }
+                            if (key.StartsWith("option[") && key.EndsWith("]"))
+                            {
+                                tmp.Options.Add(int.Parse(key.Split('[')[1].Split(']')[0]), val);
+                            }
+                            else
+                            {
+                                switch (key)
+                                {
+                                    case "name":
+                                        tmp.Name = val;
+                                        break;
+                                    case "description":
+                                        tmp.Description = val;
+                                        break;
+                                    case "default":
+                                        tmp.DefaultIndex = int.Parse(val);
+                                        break;
+                                }
+                            }
+                        }
+                        lastMode = mode;
+                    }
+                    else
+                    {
+                        throw new Exception("Config parse error!");
+                    }
+                }
+            }
+            if (tmp != null)
+            {
+                Config.Add(tmp);
             }
         }
 
@@ -674,7 +775,6 @@ namespace ModdingTools.Modding
             }
 
             // asset replacement storage
-
             var builder = new StringBuilder();
             if (AssetReplacements.Count > 0)
             {
@@ -686,6 +786,17 @@ namespace ModdingTools.Modding
                 {
                     builder.AppendLine($"+Asset={a.Key}");
                     builder.AppendLine($"NewAsset={a.Value}");
+                }
+            }
+
+            // configs replacement storage
+            if (Config.Count > 0)
+            {
+                builder.AppendLine("[Configs]");
+
+                foreach (var a in Config)
+                {
+                    builder.AppendLine(a.ToString());
                 }
             }
 
@@ -704,10 +815,47 @@ namespace ModdingTools.Modding
             }
         }
 
-        public string IniQuote(string data)
+        public static string IniQuote(string data)
         {
             return $"\"{data.Replace("\"", "\\\"")}\"";
         }
-        
+
+        public static string IniUnQuote(string data)
+        {
+            return $"\"{data.Replace("\\\"", "\"")}\"";
+        }
+
+
+        public class ModConfigItem
+        {
+            public string PropertyName;
+            public string Name;
+            public string Description;
+            public int DefaultIndex;
+            public SortedDictionary<int, string> Options;
+
+            public ModConfigItem()
+            {
+                PropertyName = "";
+                Name = "";
+                Description = "";
+                DefaultIndex = 0;
+                Options = new SortedDictionary<int, string>();
+            }
+
+            public override string ToString()
+            {
+                var build = new StringBuilder();
+                build.AppendLine($"+Config={PropertyName}");
+                build.AppendLine($"Name={IniQuote(Name)}");
+                build.AppendLine($"Description={IniQuote(Description)}");
+                build.AppendLine($"Default={DefaultIndex}");
+                foreach (var opt in Options)
+                {
+                    build.AppendLine($"Option[{opt.Key}]={IniQuote(opt.Value)}");
+                }
+                return build.ToString();
+            }
+        }
     }
 }
