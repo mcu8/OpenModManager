@@ -8,17 +8,82 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace ModdingTools.Windows
 {
     public partial class ModProperties : BaseWindow
     {
-        private ModObject Mod;
+       
+
+        public ModObject Mod { get; private set; }
         private string _newIcon = null;
+        bool _unsaved;
+        bool _saveFeatureHold = true;
+
+        public FormWindowState BackupWindowState { get; set; }
+        public bool HasBeenFocused { get; set; }
+
+        private bool HasUnsavedChanges {
+            get {
+                return _unsaved;
+            }
+            set
+            {
+                if (_saveFeatureHold) return;
+                _unsaved = value;
+                label7.Visible = value;
+            }
+        }
+
+        public static ModProperties TemporaryHideAllPropertiesWindows()
+        {
+            foreach (Form frm in Application.OpenForms)
+            {
+                if (frm is ModProperties)
+                {
+                    var form = (ModProperties)frm;
+                    form.BackupWindowState = form.WindowState;
+                    form.HasBeenFocused = form == Form.ActiveForm;
+                    form.Hide();
+                }
+            }
+            return null;
+        }
+
+        public static ModProperties RestoreTemporaryHiddenPropertiesWindows()
+        {
+            foreach (Form frm in Application.OpenForms)
+            {
+                if (frm is ModProperties)
+                {
+                    var form = (ModProperties)frm;
+                    form.WindowState = form.BackupWindowState;
+                    form.Show();
+                    if (form.HasBeenFocused) form.Focus();
+                }
+            }
+            return null;
+        }
+
+        public static ModProperties GetPropertiesWindowForMod(ModObject mod)
+        {
+            foreach (Form frm in Application.OpenForms)
+            {
+                if (frm is ModProperties)
+                {
+                    var form = (ModProperties)frm;
+                    if (form.Mod.Equals(mod)) return form;
+                }
+            }
+            return null;
+        }
 
         public ModProperties(ModObject mod)
         {
             InitializeComponent();
+
+            HasUnsavedChanges = false;
 
             foreach (var tab in tabControl2.Pages)
             {
@@ -34,11 +99,20 @@ namespace ModdingTools.Windows
             }
 
             this.Mod = mod;
+            this.configList1.OnUpdate += ConfigList1_OnUpdate;
+            this.arList1.OnUpdate += ConfigList1_OnUpdate;
+
             Reload();
+        }
+
+        private void ConfigList1_OnUpdate(object sender, EventArgs e)
+        {
+            HasUnsavedChanges = true;
         }
 
         public void Reload()
         {
+            _saveFeatureHold = true;
             Mod.Refresh();
             contentBrowser1.LoadMod(Mod);
 
@@ -158,6 +232,8 @@ namespace ModdingTools.Windows
                 comboBox1.SelectedIndex = comboBox1.Items.Count - 1;
                 panel2.Enabled = true;
             }
+            _saveFeatureHold = false;
+            HasUnsavedChanges = false;
         }
 
         public void ToggleUnlock(bool v)
@@ -176,6 +252,35 @@ namespace ModdingTools.Windows
             label5.Enabled = v;
             ModDescriptionEdit.ReadOnly = !v;
             panel2.Enabled = v;
+        }
+
+        private bool ConditionalReload()
+        {
+            if (HasUnsavedChanges)
+            {
+                var result = GUI.MessageBox.Show("You have unsaved changes... Do you want to save them?\n\nClicking \"NO\" will undo any changes to the last saved state!", "Unsaved changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    SaveMod();
+                    return true;
+                }
+                else if (result == DialogResult.No)
+                {
+                    Reload();
+                    return true;
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    return false;
+                }
+
+                throw new NotImplementedException("WTF?");
+            }
+            else
+            {
+                Reload();
+                return true;
+            }
         }
 
         private bool ReloadFlags()
@@ -222,9 +327,9 @@ namespace ModdingTools.Windows
                 FileInfo f = new FileInfo(dlg.FileName);
                 if (f.Exists)
                 {
-                    if (f.Length > 2000000)
+                    if (f.Length > 1000000)
                     {
-                        GUI.MessageBox.Show("Icon must have less than 2MB of size!");
+                        GUI.MessageBox.Show("Icon must have less than 1MB of size!");
                     }
                     else
                     {
@@ -239,6 +344,7 @@ namespace ModdingTools.Windows
                             {
                                 iconView.BackgroundImage = img;
                                 _newIcon = f.FullName;
+                                HasUnsavedChanges = true;
                             }
                         }
                         else
@@ -266,40 +372,49 @@ namespace ModdingTools.Windows
 
         public void SaveMod()
         {
-            Mod.AssetReplacements = arList1.Collect();
-            Mod.Name = modName.Text;
-            Mod.SetDescription(ModDescriptionEdit.Text);
-            Mod.ChapterInfoName = chapterInfoInput.Text;
-            Mod.IsOnlineParty = cbOnlineParty.Checked;
-            Mod.Coop = cbCoOp.Checked ? "CoopOnly" : "";
-            Mod.Version = label5.Text;
-            if (Mod.GetDirectoryName() != modFolderName.Text)
+            try
             {
-                Mod.RenameDirectory(modFolderName.Text);
-            }
-            if (levelType.SelectedIndex >= 0 && levelType.SelectedIndex < Mod.AllowedMapTypes.Count())
-            {
-                Mod.MapType = Mod.AllowedMapTypes[levelType.SelectedIndex];
-            }
-            else
-            {
-                Mod.MapType = "";
-            }
-
-            if (_newIcon != null)
-            {
-                var icon = Path.Combine(Mod.RootPath, "icon.png");
-                if (File.Exists(icon))
+                Mod.AssetReplacements = arList1.Collect();
+                Mod.Name = modName.Text;
+                Mod.SetDescription(ModDescriptionEdit.Text);
+                Mod.ChapterInfoName = chapterInfoInput.Text;
+                Mod.IsOnlineParty = cbOnlineParty.Checked;
+                Mod.Coop = cbCoOp.Checked ? "CoopOnly" : "";
+                Mod.Version = label5.Text;
+                if (Mod.GetDirectoryName() != modFolderName.Text)
                 {
-                    File.Delete(icon);
+                    Mod.RenameDirectory(modFolderName.Text);
                 }
-                File.Copy(_newIcon, icon);
-                _newIcon = null;
-                Mod.Icon = "icon.png";
-            }
+                if (levelType.SelectedIndex >= 0 && levelType.SelectedIndex < Mod.AllowedMapTypes.Count())
+                {
+                    Mod.MapType = Mod.AllowedMapTypes[levelType.SelectedIndex];
+                }
+                else
+                {
+                    Mod.MapType = "";
+                }
 
-            Mod.Save();
-            Reload();
+                if (_newIcon != null)
+                {
+                    var icon = Path.Combine(Mod.RootPath, "icon.png");
+                    if (File.Exists(icon))
+                    {
+                        File.Delete(icon);
+                    }
+                    File.Copy(_newIcon, icon);
+                    _newIcon = null;
+                    Mod.Icon = "icon.png";
+                }
+
+                Mod.Save();
+                HasUnsavedChanges = false;
+
+                Reload();
+            }
+            catch (Exception e)
+            {
+                GUI.MessageBox.Show(this, e.Message + "\n\n" + e.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void mButton3_Click(object sender, EventArgs e)
@@ -309,16 +424,24 @@ namespace ModdingTools.Windows
 
         private void modName_Click(object sender, EventArgs e)
         {
-            var iw = InputWindow.Ask("Mod name", "Enter the mod name", new InputWindow.NonEmptyValidator(), modName.Text);
+            var iw = InputWindow.Ask(this, "Mod name", "Enter the mod name", new InputWindow.NonEmptyValidator(), modName.Text);
             if (iw != null)
             {
-                modName.Text = iw;
+                if (modName.Text != iw)
+                {
+                    modName.Text = iw;
+                    HasUnsavedChanges = true;
+                }         
             }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Mod.MapType = levelType.SelectedItem.ToString();
+            if (Mod.MapType != levelType.SelectedItem.ToString())
+            {
+                Mod.MapType = levelType.SelectedItem.ToString();
+                HasUnsavedChanges = true;
+            }     
         }
 
         private void mButton7_Click(object sender, EventArgs e)
@@ -326,13 +449,18 @@ namespace ModdingTools.Windows
             var d = Mod.TryDetectCIInContent();
             if (d != null)
             {
-                chapterInfoInput.Text = d;
+                if (chapterInfoInput.Text != d)
+                {
+                    chapterInfoInput.Text = d;
+                    HasUnsavedChanges = true;
+                }
             }
         }
 
         private void mButton2_Click(object sender, EventArgs e)
         {
-            Reload();
+            //Reload();
+            ConditionalReload();
         }
 
         private void mButton1_Click(object sender, EventArgs e)
@@ -345,10 +473,14 @@ namespace ModdingTools.Windows
 
         private void modFolderName_Click(object sender, EventArgs e)
         {
-            var iw = InputWindow.Ask("Mod folder name", "Enter the mod folder name", new InputWindow.ModNameValidator(), modFolderName.Text);
+            var iw = InputWindow.Ask(this, "Mod folder name", "Enter the mod folder name", new InputWindow.ModNameValidator(), modFolderName.Text);
             if (iw != null)
             {
-                modFolderName.Text = iw;
+                if (modFolderName.Text != iw)
+                {
+                    modFolderName.Text = iw;
+                    HasUnsavedChanges = true;
+                }
             }
         }
 
@@ -356,8 +488,9 @@ namespace ModdingTools.Windows
         {
             if(!contentBrowser1.HasContentError)
             {
+                if (!ConditionalReload()) return;
                 ToggleUnlock(false);
-                SaveMod();
+
                 Mod.UnCookMod();
                 Task.Factory.StartNew(() =>
                 {
@@ -372,6 +505,8 @@ namespace ModdingTools.Windows
         {
             if (!contentBrowser1.HasContentError)
             {
+                if (!ConditionalReload()) return;
+
                 if (!Mod.HasCompiledScripts() && Mod.HasAnyScripts())
                 {
                     GUI.MessageBox.Show("Please compile scripts first!");
@@ -391,7 +526,10 @@ namespace ModdingTools.Windows
 
         private void mButton8_Click_1(object sender, EventArgs e)
         {
-            new UploadOptions(Mod).ShowDialog(this);
+            if (ConditionalReload())
+            {
+                new UploadOptions(Mod).ShowDialog(this);
+            }
         }
 
         private void tabControl2_PageChanging(object sender, Manina.Windows.Forms.PageChangingEventArgs e)
@@ -408,10 +546,14 @@ namespace ModdingTools.Windows
 
         private void label5_Click(object sender, EventArgs e)
         {
-            var iw = InputWindow.Ask("Version", "Enter the mod version", new InputWindow.NonEmptyValidator(), label5.Text);
+            var iw = InputWindow.Ask(this, "Version", "Enter the mod version", new InputWindow.NonEmptyValidator(), label5.Text);
             if (iw != null)
             {
-                label5.Text = iw;
+                if (label5.Text != iw)
+                {
+                    label5.Text = iw;
+                    HasUnsavedChanges = true;
+                }
             }
         }
 
@@ -436,6 +578,61 @@ namespace ModdingTools.Windows
         {
             var item = (MapItem)comboBox1.SelectedItem;
             Mod.TestMod(MainWindow.Instance.Runner, item.Name == "??menu" ? null : item.Name);
+        }
+
+        private void cbOnlineParty_CheckedChanged(object sender, EventArgs e)
+        {
+            HasUnsavedChanges = true;
+        }
+
+        private void cbCoOp_CheckedChanged(object sender, EventArgs e)
+        {
+            HasUnsavedChanges = true;
+        }
+
+        private void chapterInfoInput_TextChanged(object sender, EventArgs e)
+        {
+            HasUnsavedChanges = true;
+        }
+
+        private void ModProperties_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!ConditionalReload())
+            {
+                e.Cancel = true;
+                return;
+            }
+            MainWindow.Instance.FocusMe();
+        }
+
+        private void ModDescriptionEdit_TextChanged(object sender, EventArgs e)
+        {
+            HasUnsavedChanges = true;
+        }
+
+        private void flagTitle_Click(object sender, EventArgs e)
+        {
+            modName_Click(sender, e);
+        }
+
+        private void flagCook_Click(object sender, EventArgs e)
+        {
+            tabControl2.SelectedTab = tab6;
+        }
+
+        private void flagDesc_Click(object sender, EventArgs e)
+        {
+            tabControl2.SelectedTab = tab5;
+        }
+
+        private void flagIcon_Click(object sender, EventArgs e)
+        {
+            iconView_Click(sender, e);
+        }
+
+        private void flagTags_Click(object sender, EventArgs e)
+        {
+            tabControl2.SelectedTab = tab5;
         }
     }
 }

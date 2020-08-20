@@ -31,6 +31,7 @@ namespace ModdingTools.GUI
 
         private void mButtonBorderless1_Click(object sender, EventArgs e)
         {
+            CallUpdateEvent();
             if (this.Parent is FlowLayoutPanel)
             {
                 this.Parent.Controls.Remove(this);
@@ -38,23 +39,31 @@ namespace ModdingTools.GUI
             Obj.Config.Remove(Conf);
         }
 
+        private void CallUpdateEvent()
+        {
+            if (this.Parent.Parent is ConfigList)
+                ((ConfigList)this.Parent.Parent).CallOnUpdateEvent();
+        }
+
         private void label4_Click(object sender, EventArgs e)
         {
-            var a = InputWindow.Ask("Config Editor", "Please, enter config property name (var config int <name>)", new InputWindow.NonEmptyValidator(), label4.Text);
+            var a = InputWindow.Ask(this, "Config Editor", "Please, enter config property name (var config int <name>)", new InputWindow.NonEmptyValidator(), label4.Text);
             if (a != null)
             {
                 label4.Text = a;
                 Conf.PropertyName = a;
+                CallUpdateEvent();
             }
         }
 
         private void label3_Click(object sender, EventArgs e)
         {
-            var a = InputWindow.Ask("Config Editor", "Please, enter the description", new InputWindow.NonEmptyValidator(), label3.Text, true);
+            var a = InputWindow.Ask(this, "Config Editor", "Please, enter the description", new InputWindow.NonEmptyValidator(), label3.Text, true);
             if (a != null)
             {
                 label3.Text = a;
                 Conf.Description = a.Replace(Environment.NewLine, "[br]");
+                CallUpdateEvent();
             }
         }
 
@@ -65,11 +74,12 @@ namespace ModdingTools.GUI
 
         private void label5_Click(object sender, EventArgs e)
         {
-            var a = InputWindow.Ask("Config Editor", "Please, enter config display name", new InputWindow.NonEmptyValidator(), label5.Text);
+            var a = InputWindow.Ask(this, "Config Editor", "Please, enter config display name", new InputWindow.NonEmptyValidator(), label5.Text);
             if (a != null)
             {
                 label5.Text = a;
                 Conf.Name = a;
+                CallUpdateEvent();
             }
         }
 
@@ -109,11 +119,12 @@ namespace ModdingTools.GUI
 
         private void mButtonBorderless3_Click(object sender, EventArgs e)
         {
-            var a = InputWindow.Ask("Config Editor", "Please, enter a new value name", new InputWindow.NonEmptyValidator());
+            var a = InputWindow.Ask(this, "Config Editor", "Please, enter a new value name", new InputWindow.NonEmptyValidator());
             if (a != null)
             {
                 listBox1.Items.Add(a);
                 RepopulateOptionsDict();
+                CallUpdateEvent();
             }
         }
 
@@ -121,10 +132,14 @@ namespace ModdingTools.GUI
         {
             listBox1.Items.Remove(listBox1.SelectedItem);
             RepopulateOptionsDict();
+            CallUpdateEvent();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (Conf.DefaultIndex != comboBox1.SelectedIndex)
+                CallUpdateEvent();
+
             Conf.DefaultIndex = comboBox1.SelectedIndex;
         }
     }

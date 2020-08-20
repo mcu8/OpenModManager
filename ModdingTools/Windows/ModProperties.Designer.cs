@@ -61,6 +61,8 @@
             this.tab7 = new Manina.Windows.Forms.Tab();
             this.tab8 = new Manina.Windows.Forms.Tab();
             this.contentBrowser1 = new ModdingTools.GUI.ContentBrowser();
+            this.tab2 = new Manina.Windows.Forms.Tab();
+            this.configList1 = new ModdingTools.GUI.ConfigList();
             this.tab1 = new Manina.Windows.Forms.Tab();
             this.mButton8 = new ModdingTools.GUI.MButton();
             this.label10 = new System.Windows.Forms.Label();
@@ -69,13 +71,12 @@
             this.flagCook = new System.Windows.Forms.Label();
             this.flagTitle = new System.Windows.Forms.Label();
             this.flagTags = new System.Windows.Forms.Label();
-            this.tab2 = new Manina.Windows.Forms.Tab();
-            this.configList1 = new ModdingTools.GUI.ConfigList();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.mButton9 = new ModdingTools.GUI.MButton();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
             this.panel7.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -85,8 +86,8 @@
             this.panel1.SuspendLayout();
             this.tab7.SuspendLayout();
             this.tab8.SuspendLayout();
-            this.tab1.SuspendLayout();
             this.tab2.SuspendLayout();
+            this.tab1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -288,6 +289,7 @@
             this.cbCoOp.TabIndex = 11;
             this.cbCoOp.Text = "Co-Op only";
             this.cbCoOp.UseVisualStyleBackColor = true;
+            this.cbCoOp.CheckedChanged += new System.EventHandler(this.cbCoOp_CheckedChanged);
             // 
             // cbOnlineParty
             // 
@@ -299,6 +301,7 @@
             this.cbOnlineParty.TabIndex = 10;
             this.cbOnlineParty.Text = "Online Party";
             this.cbOnlineParty.UseVisualStyleBackColor = true;
+            this.cbOnlineParty.CheckedChanged += new System.EventHandler(this.cbOnlineParty_CheckedChanged);
             // 
             // label3
             // 
@@ -354,6 +357,7 @@
             this.ModDescriptionEdit.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.ModDescriptionEdit.Size = new System.Drawing.Size(393, 367);
             this.ModDescriptionEdit.TabIndex = 8;
+            this.ModDescriptionEdit.TextChanged += new System.EventHandler(this.ModDescriptionEdit_TextChanged);
             // 
             // processRunner1
             // 
@@ -374,6 +378,7 @@
             this.chapterInfoInput.Name = "chapterInfoInput";
             this.chapterInfoInput.Size = new System.Drawing.Size(514, 23);
             this.chapterInfoInput.TabIndex = 16;
+            this.chapterInfoInput.TextChanged += new System.EventHandler(this.chapterInfoInput_TextChanged);
             // 
             // mButton7
             // 
@@ -459,8 +464,8 @@
             this.tabControl2.Controls.Add(this.tab6);
             this.tabControl2.Controls.Add(this.tab7);
             this.tabControl2.Controls.Add(this.tab8);
-            this.tabControl2.Controls.Add(this.tab1);
             this.tabControl2.Controls.Add(this.tab2);
+            this.tabControl2.Controls.Add(this.tab1);
             this.tabControl2.Location = new System.Drawing.Point(10, 107);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.Size = new System.Drawing.Size(805, 418);
@@ -533,6 +538,26 @@
             this.contentBrowser1.Size = new System.Drawing.Size(700, 412);
             this.contentBrowser1.TabIndex = 0;
             // 
+            // tab2
+            // 
+            this.tab2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tab2.Controls.Add(this.configList1);
+            this.tab2.Location = new System.Drawing.Point(100, 0);
+            this.tab2.Name = "tab2";
+            this.tab2.Size = new System.Drawing.Size(706, 418);
+            this.tab2.Text = "Mod config";
+            // 
+            // configList1
+            // 
+            this.configList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.configList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.configList1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.configList1.Location = new System.Drawing.Point(0, 0);
+            this.configList1.Margin = new System.Windows.Forms.Padding(0);
+            this.configList1.Name = "configList1";
+            this.configList1.Size = new System.Drawing.Size(706, 418);
+            this.configList1.TabIndex = 0;
+            // 
             // tab1
             // 
             this.tab1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
@@ -578,6 +603,7 @@
             // flagDesc
             // 
             this.flagDesc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.flagDesc.Cursor = System.Windows.Forms.Cursors.Hand;
             this.flagDesc.Image = global::ModdingTools.Properties.Resources.ok;
             this.flagDesc.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.flagDesc.Location = new System.Drawing.Point(155, 174);
@@ -586,10 +612,12 @@
             this.flagDesc.TabIndex = 15;
             this.flagDesc.Text = "Mod Description";
             this.flagDesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.flagDesc.Click += new System.EventHandler(this.flagDesc_Click);
             // 
             // flagIcon
             // 
             this.flagIcon.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.flagIcon.Cursor = System.Windows.Forms.Cursors.Hand;
             this.flagIcon.Image = global::ModdingTools.Properties.Resources.ok;
             this.flagIcon.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.flagIcon.Location = new System.Drawing.Point(155, 214);
@@ -598,10 +626,12 @@
             this.flagIcon.TabIndex = 16;
             this.flagIcon.Text = "Square Mod Icon";
             this.flagIcon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.flagIcon.Click += new System.EventHandler(this.flagIcon_Click);
             // 
             // flagCook
             // 
             this.flagCook.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.flagCook.Cursor = System.Windows.Forms.Cursors.Hand;
             this.flagCook.Image = global::ModdingTools.Properties.Resources.delete;
             this.flagCook.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.flagCook.Location = new System.Drawing.Point(155, 94);
@@ -610,10 +640,12 @@
             this.flagCook.TabIndex = 13;
             this.flagCook.Text = "Cooked Mod";
             this.flagCook.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.flagCook.Click += new System.EventHandler(this.flagCook_Click);
             // 
             // flagTitle
             // 
             this.flagTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.flagTitle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.flagTitle.Image = global::ModdingTools.Properties.Resources.ok;
             this.flagTitle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.flagTitle.Location = new System.Drawing.Point(155, 134);
@@ -622,10 +654,12 @@
             this.flagTitle.TabIndex = 14;
             this.flagTitle.Text = "Mod Title";
             this.flagTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.flagTitle.Click += new System.EventHandler(this.flagTitle_Click);
             // 
             // flagTags
             // 
             this.flagTags.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.flagTags.Cursor = System.Windows.Forms.Cursors.Hand;
             this.flagTags.Image = global::ModdingTools.Properties.Resources.ok;
             this.flagTags.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.flagTags.Location = new System.Drawing.Point(155, 254);
@@ -634,26 +668,7 @@
             this.flagTags.TabIndex = 17;
             this.flagTags.Text = "Mod Tags";
             this.flagTags.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // tab2
-            // 
-            this.tab2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.tab2.Controls.Add(this.configList1);
-            this.tab2.Location = new System.Drawing.Point(100, 0);
-            this.tab2.Name = "tab2";
-            this.tab2.Size = new System.Drawing.Size(706, 418);
-            this.tab2.Text = "Mod config";
-            // 
-            // configList1
-            // 
-            this.configList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.configList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.configList1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.configList1.Location = new System.Drawing.Point(0, 0);
-            this.configList1.Margin = new System.Windows.Forms.Padding(0);
-            this.configList1.Name = "configList1";
-            this.configList1.Size = new System.Drawing.Size(706, 418);
-            this.configList1.TabIndex = 0;
+            this.flagTags.Click += new System.EventHandler(this.flagTags_Click);
             // 
             // label5
             // 
@@ -712,11 +727,21 @@
             this.panel2.Size = new System.Drawing.Size(545, 36);
             this.panel2.TabIndex = 21;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(4, 9);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(12, 15);
+            this.label7.TabIndex = 22;
+            this.label7.Text = "*";
+            // 
             // ModProperties
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(0)))), ((int)(((byte)(49)))));
             this.ClientSize = new System.Drawing.Size(824, 573);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.mButton1);
@@ -733,6 +758,7 @@
             this.MinimumSize = new System.Drawing.Size(824, 532);
             this.Name = "ModProperties";
             this.Text = "-";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModProperties_FormClosing);
             this.Controls.SetChildIndex(this.label5, 0);
             this.Controls.SetChildIndex(this.btnEditor, 0);
             this.Controls.SetChildIndex(this.panel7, 0);
@@ -744,6 +770,7 @@
             this.Controls.SetChildIndex(this.mButton1, 0);
             this.Controls.SetChildIndex(this.tabControl2, 0);
             this.Controls.SetChildIndex(this.panel2, 0);
+            this.Controls.SetChildIndex(this.label7, 0);
             this.panel7.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
@@ -756,10 +783,11 @@
             this.panel1.PerformLayout();
             this.tab7.ResumeLayout(false);
             this.tab8.ResumeLayout(false);
-            this.tab1.ResumeLayout(false);
             this.tab2.ResumeLayout(false);
+            this.tab1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
     }
 
@@ -812,5 +840,6 @@
         private System.Windows.Forms.Panel panel2;
         private Manina.Windows.Forms.Tab tab2;
         private GUI.ConfigList configList1;
+        private System.Windows.Forms.Label label7;
     }
 }

@@ -26,26 +26,41 @@ namespace ModdingTools.GUI
         {
             if (this.Parent is FlowLayoutPanel)
             {
-                this.Parent.Controls.Remove(this);
+                CallUpdateEvent();
+                this.Parent.Controls.Remove(this);    
             }
         }
 
         private void label4_Click(object sender, EventArgs e)
         {
-            var a = InputWindow.Ask("AR Editor", "Please, enter the original asset name", new InputWindow.ARValidator(), label4.Text);
+            var a = InputWindow.Ask(this, "AR Editor", "Please, enter the original asset name", new InputWindow.ARValidator(), label4.Text);
             if (a != null)
             {
-                label4.Text = a;
+                if (label4.Text != a)
+                {
+                    label4.Text = a;
+                    CallUpdateEvent();
+                }     
             }
         }
 
         private void label3_Click(object sender, EventArgs e)
         {
-            var a = InputWindow.Ask("AR Editor", "Please, enter the replacement asset name", new InputWindow.ARValidator(), label3.Text);
+            var a = InputWindow.Ask(this, "AR Editor", "Please, enter the replacement asset name", new InputWindow.ARValidator(), label3.Text);
             if (a != null)
             {
-                label3.Text = a;
+                if (label3.Text != a)
+                {
+                    label3.Text = a;
+                    CallUpdateEvent();
+                }             
             }
+        }
+
+        private void CallUpdateEvent()
+        {
+            if (this.Parent.Parent is ARList)
+                ((ARList)this.Parent.Parent).CallOnUpdateEvent();
         }
     }
 }

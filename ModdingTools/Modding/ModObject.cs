@@ -16,6 +16,7 @@ using UELib;
 using UELib.Core;
 using UELib.Engine;
 using static ModdingTools.Engine.ModClass;
+using ModdingTools.Windows.Tools;
 
 namespace ModdingTools.Modding
 {
@@ -234,6 +235,13 @@ namespace ModdingTools.Modding
             return ModClassCache;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is ModObject)) return false;
+            var c = (ModObject)obj;
+            return (c.GetDirectoryName().ToLower() == this.GetDirectoryName().ToLower());
+        }
+
         public void CookMod(ProcessRunner runner, bool async = true)
         {
             if (async)
@@ -274,6 +282,7 @@ namespace ModdingTools.Modding
 
         public void Refresh()
         {
+            Debug.WriteLine("Refreshing mod...");
             var ini = Utils.ReadStringFromFile(GetIniPath());
             IniData info = Parser.Parse(ini);
 
@@ -552,7 +561,7 @@ namespace ModdingTools.Modding
             FileInfo f = new FileInfo(Path.Combine(RootPath, Icon));
             if (f.Exists)
             {
-                if (f.Length > 2000000)
+                if (f.Length > 1000000)
                 {
                     return false;
                 }
@@ -589,10 +598,11 @@ namespace ModdingTools.Modding
 
             try
             {
+                if (!ValidateIcon()) return noIconImage;
                 Image img;
                 using (var bmpTemp = new Bitmap(path))
                 {
-                    img = new Bitmap(bmpTemp);
+                    img = FlipbookGenerator.ResizeImage(new Bitmap(bmpTemp), 128, 128);
                 }
                 return img;
             }

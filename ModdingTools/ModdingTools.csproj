@@ -131,6 +131,9 @@
     <Compile Include="GUI\MTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="GUI\CardController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Windows\InputWindow.cs">
       <SubType>Form</SubType>
     </Compile>

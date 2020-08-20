@@ -34,7 +34,7 @@ namespace ModdingTools
             bool steam = SteamAPI.Init();
             if (!steam)
             {
-                MessageBox.Show("SteamAPI init failed! (is Steam running/installed?)");
+                MessageBox.Show("SteamAPI initialization failed! (is Steam running/installed?)");
                 Environment.Exit(0);
             }
 

@@ -29,10 +29,8 @@ namespace ModdingTools.GUI
 
         public static DialogResult Show(Form parent, string message, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
         {
-            if (MainWindow.Instance is MainWindow)
-            {
-                parent = MainWindow.Instance;
-            }
+            if (parent == null) parent = Form.ActiveForm;
+            if (parent == null && MainWindow.Instance is MainWindow) parent = MainWindow.Instance;
 
             DialogResult dl = DialogResult.None;
 
@@ -108,7 +106,7 @@ namespace ModdingTools.GUI.Dialogs
             this.MinimumSize = new Size(10, 10);
             this.ControlBoxVisible = false;
 
- 
+            this.FormClosing += MsgBox_FormClosing;
 
             _lblMessage = new Label();
             _lblMessage.ForeColor = Color.White;
@@ -144,6 +142,14 @@ namespace ModdingTools.GUI.Dialogs
             this.Controls.Add(_plHeader);
             this.Controls.Add(_plIcon);
             this.Controls.Add(_plFooter);
+        }
+
+        private void MsgBox_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (null != Owner)
+            {
+                Owner.Activate();
+            }
         }
 
         public static void Show(string message)
@@ -516,11 +522,11 @@ namespace ModdingTools.GUI.Dialogs
         private void InitYesNoCancelButtons()
         {
             Button btnYes = new MButton();
-            btnYes.Text = "INTERRUPT";
+            btnYes.Text = "YES";
             btnYes.Click += ButtonClick;
 
             Button btnNo = new MButton();
-            btnNo.Text = "RETRY";
+            btnNo.Text = "NO";
             btnNo.Click += ButtonClick;
 
             Button btnCancel = new MButton();
@@ -561,8 +567,11 @@ namespace ModdingTools.GUI.Dialogs
                     _buttonResult = DialogResult.No;
                     break;
             }
-
-            _msgBox.Dispose();
+            if (null != _msgBox.Owner)
+            {
+                _msgBox.Owner.Activate();
+            }
+            _msgBox.Close();
         }
 
         private static Size MessageSize()

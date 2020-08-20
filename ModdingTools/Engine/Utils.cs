@@ -39,6 +39,11 @@ namespace ModdingTools.Engine
             return false;
         }
 
+        public static bool IsVSDesignMode()
+        {
+            return (System.Diagnostics.Process.GetCurrentProcess().ProcessName == "devenv");
+        }
+
         public static void CleanUpTrash(string gamedir)
         {
             var path1 = Path.Combine(gamedir, "HatinTimeGame/EditorCookedPC/LocalShaderCache-PC-D3D-SM3.upk");

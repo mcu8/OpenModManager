@@ -85,13 +85,14 @@ namespace ModdingTools.GUI
 
         private void mButtonBorderless1_Click(object sender, EventArgs e)
         {
-            string source = InputWindow.Ask("Asset Replacement: from", "Enter the asset name which you want to replace", new InputWindow.ARValidator());
+            string source = InputWindow.Ask(this, "Asset Replacement: from", "Enter the asset name which you want to replace", new InputWindow.ARValidator());
             if (source != null)
             {
-                string target = InputWindow.Ask("Asset Replacement: to", $"Replacement: {source}{Environment.NewLine}Enter the target asset name", new InputWindow.ARValidator());
+                string target = InputWindow.Ask(this, "Asset Replacement: to", $"Replacement: {source}{Environment.NewLine}Enter the target asset name", new InputWindow.ARValidator());
                 if (target != null)
                 {
                     Append(source, target);
+                    CallOnUpdateEvent();
                 }
             }
         }
@@ -99,6 +100,12 @@ namespace ModdingTools.GUI
         private void flowLayoutPanel1_SizeChanged(object sender, EventArgs e)
         {
             UpdateWidths(false);
+        }
+
+        public event EventHandler<EventArgs> OnUpdate;
+        public virtual void CallOnUpdateEvent()
+        {
+            OnUpdate?.Invoke(this, new EventArgs());
         }
     }
 }

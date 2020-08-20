@@ -96,7 +96,16 @@ namespace ModdingTools.GUI
                 if (!this.Checked)
                 {
                     this.Mod.Refresh();
-                    new ModProperties(this.Mod).Show();
+                    var mp = ModProperties.GetPropertiesWindowForMod(this.Mod);
+                    if (mp != null) {  
+                        mp.Show();
+                        mp.WindowState = FormWindowState.Normal;
+                        mp.Focus();
+                    }
+                    else
+                    {
+                        new ModProperties(this.Mod).Show();
+                    }
                     //prop.Show();
                 }
             }

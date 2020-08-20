@@ -30,39 +30,20 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.modListControl1 = new ModdingTools.GUI.ModListControl();
             this.mButton3 = new ModdingTools.GUI.MButton();
             this.mButton4 = new ModdingTools.GUI.MButton();
             this.mTextBox1 = new ModdingTools.GUI.MTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.mButton1 = new ModdingTools.GUI.MButton();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.borderlessTabControl1 = new ModdingTools.GUI.BorderlessTabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.processRunner1 = new ModdingTools.GUI.ProcessRunner();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.assetExporterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flipbookGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mButton6 = new ModdingTools.GUI.MButton();
             this.mButton5 = new ModdingTools.GUI.MButton();
             this.mButton2 = new ModdingTools.GUI.MButton();
-            this.panel1.SuspendLayout();
-            this.borderlessTabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.cardController1 = new ModdingTools.GUI.CardController();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // modListControl1
-            // 
-            this.modListControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.modListControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.modListControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.modListControl1.Location = new System.Drawing.Point(0, 0);
-            this.modListControl1.Name = "modListControl1";
-            this.modListControl1.Size = new System.Drawing.Size(944, 411);
-            this.modListControl1.TabIndex = 3;
             // 
             // mButton3
             // 
@@ -133,65 +114,6 @@
             this.mButton1.Text = "LAUNCH EDITOR";
             this.mButton1.UseVisualStyleBackColor = false;
             this.mButton1.Click += new System.EventHandler(this.mButton1_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.modListControl1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(944, 411);
-            this.panel1.TabIndex = 32;
-            // 
-            // borderlessTabControl1
-            // 
-            this.borderlessTabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.borderlessTabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
-            this.borderlessTabControl1.Controls.Add(this.tabPage1);
-            this.borderlessTabControl1.Controls.Add(this.tabPage2);
-            this.borderlessTabControl1.ItemSize = new System.Drawing.Size(58, 0);
-            this.borderlessTabControl1.Location = new System.Drawing.Point(4, 72);
-            this.borderlessTabControl1.Multiline = true;
-            this.borderlessTabControl1.Name = "borderlessTabControl1";
-            this.borderlessTabControl1.Padding = new System.Drawing.Point(0, 0);
-            this.borderlessTabControl1.SelectedIndex = 0;
-            this.borderlessTabControl1.Size = new System.Drawing.Size(952, 440);
-            this.borderlessTabControl1.TabIndex = 33;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.panel1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(0);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(944, 411);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.processRunner1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(0);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(944, 411);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // processRunner1
-            // 
-            this.processRunner1.BackColor = System.Drawing.Color.Black;
-            this.processRunner1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.processRunner1.Location = new System.Drawing.Point(0, 0);
-            this.processRunner1.Margin = new System.Windows.Forms.Padding(0);
-            this.processRunner1.Name = "processRunner1";
-            this.processRunner1.Size = new System.Drawing.Size(944, 411);
-            this.processRunner1.TabIndex = 12;
             // 
             // contextMenuStrip1
             // 
@@ -276,14 +198,26 @@
             this.mButton2.UseVisualStyleBackColor = false;
             this.mButton2.Click += new System.EventHandler(this.mButton2_Click);
             // 
+            // cardController1
+            // 
+            this.cardController1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cardController1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(42)))), ((int)(((byte)(42)))));
+            this.cardController1.Location = new System.Drawing.Point(4, 71);
+            this.cardController1.Margin = new System.Windows.Forms.Padding(0);
+            this.cardController1.Name = "cardController1";
+            this.cardController1.Size = new System.Drawing.Size(950, 440);
+            this.cardController1.TabIndex = 36;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(958, 515);
+            this.Controls.Add(this.cardController1);
             this.Controls.Add(this.mButton6);
             this.Controls.Add(this.mButton5);
-            this.Controls.Add(this.borderlessTabControl1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.mTextBox1);
             this.Controls.Add(this.mButton4);
@@ -304,13 +238,9 @@
             this.Controls.SetChildIndex(this.mButton4, 0);
             this.Controls.SetChildIndex(this.mTextBox1, 0);
             this.Controls.SetChildIndex(this.label5, 0);
-            this.Controls.SetChildIndex(this.borderlessTabControl1, 0);
             this.Controls.SetChildIndex(this.mButton5, 0);
             this.Controls.SetChildIndex(this.mButton6, 0);
-            this.panel1.ResumeLayout(false);
-            this.borderlessTabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
+            this.Controls.SetChildIndex(this.cardController1, 0);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -318,23 +248,18 @@
         }
 
         #endregion
-        private GUI.ModListControl modListControl1;
         private GUI.MButton mButton1;
         private GUI.MButton mButton2;
         private GUI.MButton mButton3;
         private GUI.MButton mButton4;
         private GUI.MTextBox mTextBox1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Panel panel1;
-        private GUI.BorderlessTabControl borderlessTabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private GUI.ProcessRunner processRunner1;
         private GUI.MButton mButton5;
         private GUI.MButton mButton6;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem assetExporterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem flipbookGeneratorToolStripMenuItem;
+        private GUI.CardController cardController1;
     }
 }
 

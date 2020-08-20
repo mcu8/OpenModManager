@@ -78,11 +78,18 @@ namespace ModdingTools.GUI
             var cfg = new ModObject.ModConfigItem();
             ModObj.Config.Add(cfg);
             Append(cfg, ModObj);
+            CallOnUpdateEvent();
         }
 
         private void flowLayoutPanel1_SizeChanged(object sender, EventArgs e)
         {
             UpdateWidths(false);
+        }
+
+        public event EventHandler<EventArgs> OnUpdate;
+        public virtual void CallOnUpdateEvent()
+        {
+            OnUpdate?.Invoke(this, new EventArgs());
         }
     }
 }

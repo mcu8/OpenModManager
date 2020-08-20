@@ -16,19 +16,22 @@ namespace ModdingTools.Windows
             InitializeComponent();
         }
 
-        public static string Ask(string title, string text, InputValidator validator = null, string def = "", bool multiline = false)
+        public static string Ask(Control parent, string title, string text, InputValidator validator = null, string def = "", bool multiline = false)
         {
             if (MainWindow.Instance.InvokeRequired)
             {
                 var output = "";
                 MainWindow.Instance.Invoke(new MethodInvoker(() =>
                 {
-                    output = InputWindow.Ask(title, text, validator);
+                    output = InputWindow.Ask(parent, title, text, validator);
                 }));
                 return output;
             }
 
             var t = new InputWindow();
+            if (parent == null) parent = Form.ActiveForm;
+            if (parent == null && MainWindow.Instance is MainWindow) parent = MainWindow.Instance;
+
             t.Validator = validator;
             t.label1.Text = text;
             t.Text = title;
@@ -45,7 +48,7 @@ namespace ModdingTools.Windows
                 t.InputBox.Height *= 2;
             }
 
-            if (t.ShowDialog() == DialogResult.OK)
+            if (t.ShowDialog(parent.FindForm()) == DialogResult.OK)
             {
                 return t.InputBox.Text;
             }
@@ -60,7 +63,7 @@ namespace ModdingTools.Windows
                 var val = Validator.Validate(InputBox.Text);
                 if (val != null)
                 {
-                    GUI.MessageBox.Show(val, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    GUI.MessageBox.Show(this, val, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }

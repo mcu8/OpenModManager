@@ -189,7 +189,7 @@ namespace ModdingTools.Windows
 
         private void mButton4_Click(object sender, EventArgs e)
         {
-            var input = InputWindow.Ask("Steam Workshop URL", "Insert the URL to the Steam Workshop item", new InputWindow.NonEmptyValidator());
+            var input = InputWindow.Ask(this, "Steam Workshop URL", "Insert the URL to the Steam Workshop item", new InputWindow.NonEmptyValidator());
             if (input == null) return;
 
             try

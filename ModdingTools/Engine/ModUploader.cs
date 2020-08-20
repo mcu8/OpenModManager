@@ -26,7 +26,13 @@ namespace ModdingTools.Engine
         {
             Task.Factory.StartNew(() =>
             {
+                MainWindow.Instance.Invoke(new MethodInvoker(() => {
+                    ModProperties.TemporaryHideAllPropertiesWindows();
+                }));
                 UploadMod(mod, changelog, tags, keepCooked, keepScripts, visibility);
+                MainWindow.Instance.Invoke(new MethodInvoker(() => {
+                    ModProperties.RestoreTemporaryHiddenPropertiesWindows();
+                }));
             });
         }
 
@@ -35,11 +41,12 @@ namespace ModdingTools.Engine
             if (IsUploaderRunning)
             {
                 MainWindow.Instance.Invoke(new MethodInvoker(() => {
-                    MessageBox.Show(MainWindow.Instance, "Only one uploader instance can run at once!");
+                    GUI.MessageBox.Show(MainWindow.Instance, "Only one uploader instance can run at once!");
                 }));
                 return;
             }
 
+            success = true;
             IsUploaderRunning = true;
             try
             {
@@ -66,8 +73,6 @@ namespace ModdingTools.Engine
                 {
                     if (Directory.Exists(Path.Combine(tmpDir, "Maps")))
                         Directory.Delete(Path.Combine(tmpDir, "Maps"), true);
-                    //if (Directory.Exists(Path.Combine(tmpDir, "Localization")))
-                    //    Directory.Delete(Path.Combine(tmpDir, "Localization"), true);
                 }
 
                 var description = mod.GetDescription();
@@ -104,7 +109,7 @@ namespace ModdingTools.Engine
                 }
                 else
                 {
-                    SetStatus("Updating an mod " + mod.Name + " with WorkshopID: " + publishID);
+                    SetStatus("Updating the mod " + mod.Name + " with WorkshopID: " + publishID);
                 }
                 var publishFileID_t = new PublishedFileId_t(publishID);
 
@@ -127,34 +132,37 @@ namespace ModdingTools.Engine
                 while (true)
                 {
                     Thread.Sleep(1000);
-
                     if (ugcUpdateHandle == UGCUpdateHandle_t.Invalid)
                     {
                         break;
                     }
-
                     SteamAPI.RunCallbacks();
-
                     ulong bytesDone, bytesTotal;
-
                     EItemUpdateStatus status = SteamUGC.GetItemUpdateProgress(ugcUpdateHandle, out bytesDone, out bytesTotal);
-
+                    if (status == EItemUpdateStatus.k_EItemUpdateStatusInvalid && !success)
+                    {
+                        break;
+                    }
                     SetStatus(string.Format("[{3}%] Status: {0}\n{1}/{2}", TranslateStatus(status), BytesToString(bytesDone), BytesToString(bytesTotal), bytesTotal > 0 ? Math.Floor(((double)bytesDone / (double)bytesTotal) * (double)100) : 100));
                 }
 
                 DialogResult res = DialogResult.No;
 
-                MainWindow.Instance.Invoke(new MethodInvoker(() => {
-                    res = MessageBox.Show(MainWindow.Instance, "Done, mod url:" + "\nhttps://steamcommunity.com/sharedfiles/filedetails/?id=" + publishID + "\n\nOpen it in the browser?", "Uploader", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (success)
+                {
+                    MainWindow.Instance.Invoke(new MethodInvoker(() => {
+                        res = GUI.MessageBox.Show(MainWindow.Instance, "Done, mod url:" + "\nhttps://steamcommunity.com/sharedfiles/filedetails/?id=" + publishID + "\n\nOpen it in the browser?", "Uploader", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
-                    if (res == DialogResult.Yes)
-                    {
-                        Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=" + publishID);
-                    }
-                }));
+                        if (res == DialogResult.Yes)
+                        {
+                            Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=" + publishID);
+                        }
+                    }));
 
-                SetStatus("Item uploaded successfully!");
-                Thread.Sleep(1000);
+                    SetStatus("Item uploaded successfully!");
+                    Thread.Sleep(1000);
+                }
+
                 SetStatus("Cleanup");
                 if (Directory.Exists(tmpDir))
                     Directory.Delete(tmpDir, true);
@@ -166,7 +174,7 @@ namespace ModdingTools.Engine
             catch (Exception e)
             {
                 MainWindow.Instance.Invoke(new MethodInvoker(() => {
-                    MessageBox.Show(MainWindow.Instance, e.Message + "\n" + e.ToString());
+                    GUI.MessageBox.Show(MainWindow.Instance, e.Message + "\n" + e.ToString());
                 }));
                 IsUploaderRunning = false;
                 SetStatus(null);
@@ -217,6 +225,7 @@ namespace ModdingTools.Engine
             }
         }
 
+        static bool success = false;
         private static void OnItemSubmitted(SubmitItemUpdateResult_t param, bool bIOFailure)
         {
             if (bIOFailure)
@@ -230,6 +239,13 @@ namespace ModdingTools.Engine
                 case EResult.k_EResultOK:
                     SetStatus("SUCCESS! Item submitted!");
                     ugcUpdateHandle = UGCUpdateHandle_t.Invalid;
+                    success = true;
+                    break;
+                default:
+                    SetStatus("Item upload failed! Result code: " + param.m_eResult.ToString());
+                    GUI.MessageBox.Show("Item upload failed! Result code: " + param.m_eResult.ToString());
+                    ugcUpdateHandle = UGCUpdateHandle_t.Invalid;
+                    success = false;
                     break;
             }
         }
@@ -252,6 +268,9 @@ namespace ModdingTools.Engine
                     break;
                 case EResult.k_EResultNotLoggedOn:
                     SetStatus("Error: You're not logged into Steam!");
+                    break;
+                default:
+                    SetStatus("Unknown status: " + callBack.m_eResult.ToString());
                     break;
             }
 
