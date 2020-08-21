@@ -93,6 +93,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildData.cs" />
+    <Compile Include="Engine\APNG\APNG.cs" />
+    <Compile Include="Engine\APNG\Chunks\acTLChunk.cs" />
+    <Compile Include="Engine\APNG\Chunks\Chunk.cs" />
+    <Compile Include="Engine\APNG\Chunks\fcTLChunk.cs" />
+    <Compile Include="Engine\APNG\Chunks\fdATChunk.cs" />
+    <Compile Include="Engine\APNG\Chunks\IDATChunk.cs" />
+    <Compile Include="Engine\APNG\Chunks\IENDChunk.cs" />
+    <Compile Include="Engine\APNG\Chunks\IHDRChunk.cs" />
+    <Compile Include="Engine\APNG\Chunks\OtherChunk.cs" />
+    <Compile Include="Engine\APNG\CrcHelper.cs" />
+    <Compile Include="Engine\APNG\Frame.cs" />
+    <Compile Include="Engine\APNG\Helper.cs" />
+    <Compile Include="Engine\APNG\StreamExtensions.cs" />
     <Compile Include="Engine\NamedPipe.cs" />
     <Compile Include="Engine\UModelFacade.cs" />
     <Compile Include="Engine\UpdateChecker.cs" />

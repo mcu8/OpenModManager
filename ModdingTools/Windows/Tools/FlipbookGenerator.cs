@@ -1,4 +1,5 @@
-﻿using ModdingTools.Engine;
+﻿using LibAPNG;
+using ModdingTools.Engine;
 using ModdingTools.GUI;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace ModdingTools.Windows.Tools
 {
     public partial class FlipbookGenerator : BaseWindow
     {
+        const int MAX_TEXTURE_SIZE = 8192; // max texture size in Hat UDK
+
         public FlipbookGenerator()
         {
             InitializeComponent();
@@ -36,7 +39,26 @@ namespace ModdingTools.Windows.Tools
                 
                 imageList.Add(Transparent2Color(ResizeImage(img, size, size), panel1.BackColor));
             }
+            return imageList;
+        }
 
+        public List<Image> GetFramesFromAnimatePNG(string img)
+        {
+            List<Image> imageList = new List<Image>();
+
+            APNG png = new APNG(img);
+
+            if (!png.DefaultImageIsAnimated)
+                throw new Exception("It's just a PNG... not APNG!");
+
+            var firstFrame = new Bitmap(png.Frames[0].GetStream());
+            int size = firstFrame.Width > firstFrame.Height ? firstFrame.Width : firstFrame.Height;
+
+            Debug.WriteLine(png.Frames.Count());
+            for (int i = 0; i < png.Frames.Count(); i++)
+            {
+                imageList.Add(Transparent2Color(ResizeImage(new Bitmap(png.Frames[i].GetStream()), size, size), panel1.BackColor));
+            }
             return imageList;
         }
 
@@ -87,20 +109,28 @@ namespace ModdingTools.Windows.Tools
                 dlg.DefaultExt = "gif";
                 dlg.Multiselect = false;
                 dlg.InitialDirectory = entryPoint;
-                dlg.Filter = "GIF animation file (*.gif)|*.gif";
+                dlg.Filter = "Animation file (*.gif;*.png)|*.gif;*.png";
                 if (dlg.ShowDialog() != DialogResult.OK)
                 {
                     return;
                 }
-                var gif = Image.FromFile(dlg.FileName);
 
-
-                var output = Path.Combine(Program.GetAppRoot(), "out.png");
-
+                List<Image> frames;
+                if (Path.GetExtension(dlg.FileName).ToLower() == ".png")
+                {
+                    frames = GetFramesFromAnimatePNG(dlg.FileName);
+                }
+                else if (Path.GetExtension(dlg.FileName).ToLower() == ".gif")
+                {
+                    var gif = Image.FromFile(dlg.FileName);
+                    frames = GetFramesFromAnimatedGIF(gif);
+                }
+                else
+                {
+                    throw new Exception("Unsupported extension!");
+                }
 
                 // just forgive my shitty maths... maybe it's the easiest way to do that :hueh:
-                List<Image> frames = GetFramesFromAnimatedGIF(gif);
-
                 double frameW = frames[0].Width;
 
                 var frameCount = frames.Count();
@@ -162,9 +192,9 @@ namespace ModdingTools.Windows.Tools
                 }
 
                 x = (int)Math.Pow(2, x);
-                if (x > 4096)
+                if (x > MAX_TEXTURE_SIZE)
                 {
-                    x = 4096; // max texture size in UE3
+                    x = MAX_TEXTURE_SIZE; // max texture size in Hat UDK
                 }
 
                 canvas.Dispose();

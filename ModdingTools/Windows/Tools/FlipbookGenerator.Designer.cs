@@ -46,7 +46,7 @@
             this.mButton1.Name = "mButton1";
             this.mButton1.Size = new System.Drawing.Size(262, 39);
             this.mButton1.TabIndex = 3;
-            this.mButton1.Text = "LOAD GIF";
+            this.mButton1.Text = "LOAD GIF OR APNG";
             this.mButton1.UseVisualStyleBackColor = false;
             this.mButton1.Click += new System.EventHandler(this.mButton1_Click);
             // 
