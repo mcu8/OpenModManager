@@ -257,5 +257,10 @@ namespace ModdingTools.GUI
                 MainWindow.Instance.ReloadModList();
             }
         }
+
+        private void hatInTimeEntryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Mod.TestMod(MainWindow.Instance.Runner, "hatintimeentry");
+        }
     }
 }

@@ -49,6 +49,7 @@
             this.deleteModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scriptWatcherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scriptWatcherToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.hatInTimeEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -101,7 +102,7 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(129, 142);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 164);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // cookModToolStripMenuItem
@@ -132,7 +133,8 @@
             this.testModToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.titleScreenToolStripMenuItem,
             this.spaceshipToolStripMenuItem,
-            this.mafiaTownToolStripMenuItem});
+            this.mafiaTownToolStripMenuItem,
+            this.hatInTimeEntryToolStripMenuItem});
             this.testModToolStripMenuItem.Name = "testModToolStripMenuItem";
             this.testModToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.testModToolStripMenuItem.Text = "Test mod";
@@ -140,21 +142,21 @@
             // titleScreenToolStripMenuItem
             // 
             this.titleScreenToolStripMenuItem.Name = "titleScreenToolStripMenuItem";
-            this.titleScreenToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.titleScreenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.titleScreenToolStripMenuItem.Text = "Title screen";
             this.titleScreenToolStripMenuItem.Click += new System.EventHandler(this.titleScreenToolStripMenuItem_Click);
             // 
             // spaceshipToolStripMenuItem
             // 
             this.spaceshipToolStripMenuItem.Name = "spaceshipToolStripMenuItem";
-            this.spaceshipToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.spaceshipToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.spaceshipToolStripMenuItem.Text = "Spaceship";
             this.spaceshipToolStripMenuItem.Click += new System.EventHandler(this.spaceshipToolStripMenuItem_Click);
             // 
             // mafiaTownToolStripMenuItem
             // 
             this.mafiaTownToolStripMenuItem.Name = "mafiaTownToolStripMenuItem";
-            this.mafiaTownToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.mafiaTownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.mafiaTownToolStripMenuItem.Text = "Mafia town";
             this.mafiaTownToolStripMenuItem.Click += new System.EventHandler(this.mafiaTownToolStripMenuItem_Click);
             // 
@@ -218,6 +220,13 @@
             this.scriptWatcherToolStripMenuItem1.Name = "scriptWatcherToolStripMenuItem1";
             this.scriptWatcherToolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
             // 
+            // hatInTimeEntryToolStripMenuItem
+            // 
+            this.hatInTimeEntryToolStripMenuItem.Name = "hatInTimeEntryToolStripMenuItem";
+            this.hatInTimeEntryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hatInTimeEntryToolStripMenuItem.Text = "HatInTimeEntry";
+            this.hatInTimeEntryToolStripMenuItem.Click += new System.EventHandler(this.hatInTimeEntryToolStripMenuItem_Click);
+            // 
             // ModTile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -256,5 +265,6 @@
         private System.Windows.Forms.ToolStripMenuItem scriptingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem scriptWatcherToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem deleteModToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hatInTimeEntryToolStripMenuItem;
     }
 }
