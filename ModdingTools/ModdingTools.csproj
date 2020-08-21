@@ -59,21 +59,16 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Eliot.UELib, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Eliot.UELib.dll.1.2.6.0\lib\net40\Eliot.UELib.dll</HintPath>
+    </Reference>
     <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
       <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
-    </Reference>
-    <Reference Include="ModManager">
-      <!-- <HintPath Condition="Exists('..\ModManager.exe')">..\ModManager.exe</HintPath> -->
-      <!-- <HintPath Condition="Exists('.\ModManager.exe')">.\ModManager.exe</HintPath> -->
-      <HintPath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll')">C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll</HintPath>
-      <HintPath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe') And !Exists('C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll')">C:\Program Files (x86)\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe</HintPath>
-      <HintPath Condition="Exists('C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll')">C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll</HintPath>
-      <HintPath Condition="Exists('C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe') And !Exists('C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.dll')">C:\Program Files\Steam\steamapps\common\HatinTime\Binaries\ModManager.exe</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="PagedControl, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedControl.2.2.0\lib\net35\PagedControl.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="Steamworks.NET, Version=14.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\Steamworks.NET.dll</HintPath>
@@ -94,12 +89,74 @@
     </Reference>
     <Reference Include="UIAutomationClient" />
     <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildData.cs" />
+    <Compile Include="Engine\NamedPipe.cs" />
+    <Compile Include="Engine\UModelFacade.cs" />
     <Compile Include="Engine\UpdateChecker.cs" />
+    <Compile Include="GUI\ConfigItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ConfigItem.Designer.cs">
+      <DependentUpon>ConfigItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ARItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ARItem.Designer.cs">
+      <DependentUpon>ARItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ConfigList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ConfigList.Designer.cs">
+      <DependentUpon>ConfigList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ARList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ARList.Designer.cs">
+      <DependentUpon>ARList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\ColoredMenus.cs" />
+    <Compile Include="GUI\ContentBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ContentBrowser.Designer.cs">
+      <DependentUpon>ContentBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\MessageBox.cs" />
     <Compile Include="GUI\MTextBox.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\CardController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Windows\InputWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\InputWindow.Designer.cs">
+      <DependentUpon>InputWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Tools\AssetRipper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\Tools\AssetRipper.Designer.cs">
+      <DependentUpon>AssetRipper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Tools\Benchmark.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\Tools\Benchmark.Designer.cs">
+      <DependentUpon>Benchmark.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Tools\FlipbookGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\Tools\FlipbookGenerator.Designer.cs">
+      <DependentUpon>FlipbookGenerator.cs</DependentUpon>
     </Compile>
     <Compile Include="Windows\UploadOptions.cs">
       <SubType>Form</SubType>
@@ -164,7 +221,6 @@
     </Compile>
     <Compile Include="Modding\ModDirectorySource.cs" />
     <Compile Include="Modding\ModObject.cs" />
-    <Compile Include="Engine\ModManagerProxy.cs" />
     <Compile Include="Windows\ModProperties.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +236,33 @@
     <Compile Include="Engine\ProcessFactory.cs" />
     <Compile Include="Engine\ScriptWatcher.cs" />
     <Compile Include="Engine\Utils.cs" />
+    <EmbeddedResource Include="GUI\ConfigItem.resx">
+      <DependentUpon>ConfigItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ARItem.resx">
+      <DependentUpon>ARItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ConfigList.resx">
+      <DependentUpon>ConfigList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ARList.resx">
+      <DependentUpon>ARList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\ContentBrowser.resx">
+      <DependentUpon>ContentBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\InputWindow.resx">
+      <DependentUpon>InputWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\Tools\AssetRipper.resx">
+      <DependentUpon>AssetRipper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\Tools\Benchmark.resx">
+      <DependentUpon>Benchmark.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\Tools\FlipbookGenerator.resx">
+      <DependentUpon>FlipbookGenerator.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Windows\UploadOptions.resx">
       <DependentUpon>UploadOptions.cs</DependentUpon>
     </EmbeddedResource>
@@ -228,6 +311,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hueh.ico" />
+    <None Include="Resources\tools.png" />
+    <None Include="Resources\editorcrashedhueh4.png" />
+    <None Include="Resources\delete1.png" />
+    <None Include="Resources\console1.png" />
+    <None Include="Resources\console.png" />
+    <None Include="Resources\ok.png" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\steam1.png" />
+    <None Include="Resources\steam.png" />
+    <None Include="Resources\msg.warn.png" />
+    <None Include="Resources\msg.question.png" />
+    <None Include="Resources\msg.info.png" />
+    <None Include="Resources\msg.exc.png" />
+    <None Include="Resources\msg.error.png" />
+    <None Include="Resources\msg.app.png" />
     <None Include="Resources\noimage.png" />
     <None Include="Resources\settings-icon.png" />
     <EmbeddedResource Include="steam_api64.dll">

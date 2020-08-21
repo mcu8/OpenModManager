@@ -49,6 +49,7 @@
             this.deleteModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scriptWatcherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scriptWatcherToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.hatInTimeEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -89,6 +90,7 @@
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.BackColor = System.Drawing.Color.Black;
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cookModToolStripMenuItem,
             this.testModToolStripMenuItem,
@@ -98,7 +100,9 @@
             this.scriptingToolStripMenuItem,
             this.deleteModToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(154, 142);
+            this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.contextMenuStrip1.ShowImageMargin = false;
+            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 164);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // cookModToolStripMenuItem
@@ -107,7 +111,7 @@
             this.compileScriptsToolStripMenuItem,
             this.cookModToolStripMenuItem1});
             this.cookModToolStripMenuItem.Name = "cookModToolStripMenuItem";
-            this.cookModToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.cookModToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.cookModToolStripMenuItem.Text = "Build";
             // 
             // compileScriptsToolStripMenuItem
@@ -129,50 +133,52 @@
             this.testModToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.titleScreenToolStripMenuItem,
             this.spaceshipToolStripMenuItem,
-            this.mafiaTownToolStripMenuItem});
+            this.mafiaTownToolStripMenuItem,
+            this.hatInTimeEntryToolStripMenuItem});
             this.testModToolStripMenuItem.Name = "testModToolStripMenuItem";
-            this.testModToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.testModToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.testModToolStripMenuItem.Text = "Test mod";
             // 
             // titleScreenToolStripMenuItem
             // 
             this.titleScreenToolStripMenuItem.Name = "titleScreenToolStripMenuItem";
-            this.titleScreenToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.titleScreenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.titleScreenToolStripMenuItem.Text = "Title screen";
             this.titleScreenToolStripMenuItem.Click += new System.EventHandler(this.titleScreenToolStripMenuItem_Click);
             // 
             // spaceshipToolStripMenuItem
             // 
             this.spaceshipToolStripMenuItem.Name = "spaceshipToolStripMenuItem";
-            this.spaceshipToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.spaceshipToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.spaceshipToolStripMenuItem.Text = "Spaceship";
             this.spaceshipToolStripMenuItem.Click += new System.EventHandler(this.spaceshipToolStripMenuItem_Click);
             // 
             // mafiaTownToolStripMenuItem
             // 
             this.mafiaTownToolStripMenuItem.Name = "mafiaTownToolStripMenuItem";
-            this.mafiaTownToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.mafiaTownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.mafiaTownToolStripMenuItem.Text = "Mafia town";
             this.mafiaTownToolStripMenuItem.Click += new System.EventHandler(this.mafiaTownToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(150, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(152, 6);
             // 
             // openDirectoryToolStripMenuItem
             // 
             this.openDirectoryToolStripMenuItem.Name = "openDirectoryToolStripMenuItem";
-            this.openDirectoryToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.openDirectoryToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.openDirectoryToolStripMenuItem.Text = "Open directory";
             this.openDirectoryToolStripMenuItem.Click += new System.EventHandler(this.openDirectoryToolStripMenuItem_Click);
             // 
             // moveToToolStripMenuItem
             // 
+            this.moveToToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.moveToToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.testToolStripMenuItem});
             this.moveToToolStripMenuItem.Name = "moveToToolStripMenuItem";
-            this.moveToToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.moveToToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.moveToToolStripMenuItem.Text = "Move to";
             this.moveToToolStripMenuItem.DropDownOpening += new System.EventHandler(this.moveoToolStripMenuItem_DropDownOpening);
             // 
@@ -187,7 +193,7 @@
             this.scriptingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.scriptWatcherToolStripMenuItem2});
             this.scriptingToolStripMenuItem.Name = "scriptingToolStripMenuItem";
-            this.scriptingToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.scriptingToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.scriptingToolStripMenuItem.Text = "Scripting";
             // 
             // scriptWatcherToolStripMenuItem2
@@ -200,7 +206,7 @@
             // deleteModToolStripMenuItem
             // 
             this.deleteModToolStripMenuItem.Name = "deleteModToolStripMenuItem";
-            this.deleteModToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.deleteModToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.deleteModToolStripMenuItem.Text = "Delete mod";
             this.deleteModToolStripMenuItem.Click += new System.EventHandler(this.deleteModToolStripMenuItem_Click);
             // 
@@ -213,6 +219,13 @@
             // 
             this.scriptWatcherToolStripMenuItem1.Name = "scriptWatcherToolStripMenuItem1";
             this.scriptWatcherToolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
+            // 
+            // hatInTimeEntryToolStripMenuItem
+            // 
+            this.hatInTimeEntryToolStripMenuItem.Name = "hatInTimeEntryToolStripMenuItem";
+            this.hatInTimeEntryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hatInTimeEntryToolStripMenuItem.Text = "HatInTimeEntry";
+            this.hatInTimeEntryToolStripMenuItem.Click += new System.EventHandler(this.hatInTimeEntryToolStripMenuItem_Click);
             // 
             // ModTile
             // 
@@ -252,5 +265,6 @@
         private System.Windows.Forms.ToolStripMenuItem scriptingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem scriptWatcherToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem deleteModToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hatInTimeEntryToolStripMenuItem;
     }
 }

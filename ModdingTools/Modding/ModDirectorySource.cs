@@ -47,7 +47,7 @@ namespace ModdingTools.Modding
             this.Root = path;
             this.AutoLoad = autoLoad;
 
-            if (!Directory.Exists(path))
+            if (!Directory.Exists(path) && !isReadOnly)
             {
                 Directory.CreateDirectory(path);
             }

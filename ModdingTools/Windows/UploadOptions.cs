@@ -1,7 +1,6 @@
 ﻿using ModdingTools.GUI;
 using ModdingTools.Modding;
 using ModdingTools.Engine;
-using ModManager.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -142,13 +141,13 @@ namespace ModdingTools.Windows
             var tags = GetTags();
             if (tags.Count() == 0)
             {
-                MessageBox.Show("You should choose at least one tag!");
+                GUI.MessageBox.Show("You should choose at least one tag!");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(textBox1.Text))
             {
-                MessageBox.Show("Please, enter the changelog!");
+                GUI.MessageBox.Show("Please, enter the changelog!");
                 return;
             }
 
@@ -190,13 +189,12 @@ namespace ModdingTools.Windows
 
         private void mButton4_Click(object sender, EventArgs e)
         {
-            var input = new TextInputForm("Steam Workshop URL", "Insert the URL to the Steam Workshop item");
-            input.StartPosition = FormStartPosition.CenterParent;
-            if (input.ShowDialog(this) != DialogResult.OK) return;
+            var input = InputWindow.Ask(this, "Steam Workshop URL", "Insert the URL to the Steam Workshop item", new InputWindow.NonEmptyValidator());
+            if (input == null) return;
 
             try
             {
-                var parsed = HttpUtility.ParseQueryString(new Uri(input.Result).Query).Get("id");
+                var parsed = HttpUtility.ParseQueryString(new Uri(input).Query).Get("id");
                 var lg = ulong.Parse(parsed);
                 if (lg > 100000)
                 {
@@ -212,7 +210,7 @@ namespace ModdingTools.Windows
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Invalid input: " + input.Result + "\n" + ex.Message + "\n\n" + ex.ToString());
+                GUI.MessageBox.Show("Invalid input: " + input + "\n" + ex.Message + "\n\n" + ex.ToString());
             }
         }
     }

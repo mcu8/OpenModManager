@@ -135,9 +135,9 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pictureBox1.Image = global::ModdingTools.Properties.Resources.compile4;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 172);
+            this.pictureBox1.Location = new System.Drawing.Point(-14, 162);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(216, 317);
+            this.pictureBox1.Size = new System.Drawing.Size(216, 314);
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
             // 

@@ -1,5 +1,6 @@
 ﻿using ModdingTools.Engine;
 using ModdingTools.Windows;
+using ModdingTools.Windows.Tools;
 using Steamworks;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace ModdingTools
         /// 
         public static readonly ProcessFactory ProcFactory = new ProcessFactory();
         public static ModUploader Uploader { get; set; }
+        public static Benchmark Benchmark { get; set; } = null;
 
         public static string GetAppRoot()
         {
@@ -32,7 +34,7 @@ namespace ModdingTools
             bool steam = SteamAPI.Init();
             if (!steam)
             {
-                MessageBox.Show("SteamAPI init failed! (is Steam running/installed?)");
+                MessageBox.Show("SteamAPI initialization failed! (is Steam running/installed?)");
                 Environment.Exit(0);
             }
 
@@ -42,27 +44,12 @@ namespace ModdingTools
                 Environment.Exit(0);
             }
 
-            var modManagerOriginal = Path.Combine(Path.GetDirectoryName(Engine.GameFinder.FindGameDir()), "ModManager.exe");
-            var localDll = Path.Combine(GetAppRoot(), "ModManager.dll");
-            if (File.Exists(modManagerOriginal))
-            {
-                File.Delete(localDll);
-                File.Copy(modManagerOriginal, localDll);
-            }
-            else
-            {
-                MessageBox.Show("ModManager.exe not found...");
-                Environment.Exit(0);
-            }
-
-            System.Windows.Automation.Automation.AddAutomationEventHandler(
+            Automation.AddAutomationEventHandler(
                 eventId: WindowPattern.WindowOpenedEvent,
                 element: AutomationElement.RootElement,
                 scope: TreeScope.Children,
                 eventHandler: OnWindowOpened);
 
-            AppDomain currentDomain = AppDomain.CurrentDomain;
-            currentDomain.AssemblyResolve += new ResolveEventHandler(LoadFromSameFolder);
             Directory.SetCurrentDirectory(Path.GetDirectoryName(Engine.GameFinder.FindGameDir()));
             Uploader = new ModUploader();
 
@@ -80,11 +67,16 @@ namespace ModdingTools
                 {
                     if (element.Current.Name.Trim() == "Editor for A Hat in Time (64-bit, DX9, Cooked Editor, PMT)")
                     {
+                        if (Benchmark != null)
+                        {
+                            Benchmark.Stop();
+                        }
                         Meme.StopElevatorMusic();
                     }
                     else if (element.Current.Name.Trim() == "Editor for A Hat in Time (64-bit, DX9)")
                     {
                         Meme.PlayElevatorMusic();
+                       
                     }
                 }
                
@@ -92,35 +84,6 @@ namespace ModdingTools
             catch (ElementNotAvailableException)
             {
             }
-        }
-
-        static Assembly LoadFromSameFolder(object sender, ResolveEventArgs args)
-        {
-            string folderPath = Path.GetDirectoryName(Engine.GameFinder.FindGameDir());
-            var name = new AssemblyName(args.Name).Name;
-            Debug.WriteLine(name);
-
-            Debug.WriteLine("test: " + folderPath);
-
-            string ext = name.EndsWith(".resources") ? ".resources" : name.EndsWith(".dll") ? ".dll" : name.EndsWith(".exe") ? ".exe" : "";
-
-            if (name == "ModManager")
-            {
-                ext = ".dll";
-            }
-
-            string assemblyPath = Path.Combine(folderPath, name + ext);
-
-            Debug.WriteLine("test: " + assemblyPath);
-
-            if (!File.Exists(assemblyPath))
-            {
-                assemblyPath = Path.Combine(folderPath, name + ext);
-                if (!File.Exists(assemblyPath)) return null;
-            }
-
-            Assembly assembly = Assembly.LoadFrom(assemblyPath);
-            return assembly;
         }
     }
 }

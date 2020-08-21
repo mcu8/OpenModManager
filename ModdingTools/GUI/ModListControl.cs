@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ModdingTools.Engine;
 using ModdingTools.Modding;
 using ModdingTools.Windows;
 
@@ -13,11 +14,12 @@ namespace ModdingTools.GUI
         {
             InitializeComponent();
             flowLayoutPanel1.Resize += ModListControl_SizeChanged;
+            if (DesignMode || Utils.IsVSDesignMode()) panel1.Visible = false;
         }
 
         private void ModListControl_SizeChanged(object sender, EventArgs e)
         {
-            TriggerUpdate();
+            //TriggerUpdate();
         }
 
         public void TriggerUpdate()
@@ -34,11 +36,9 @@ namespace ModdingTools.GUI
                 {
                     RevalidateTile((ModTile)ctrl);
                 }
-
             }
-
             flowLayoutPanel1.ResumeLayout();
-            flowLayoutPanel1.Update();
+            //flowLayoutPanel1.Update();
         }
 
         public void RevalidateTile(ModTile tile)
@@ -72,6 +72,7 @@ namespace ModdingTools.GUI
         {
             flowLayoutPanel1.Controls.Clear();
             flowLayoutPanel1.Visible = false;
+            flowLayoutPanel1.SuspendLayout();
             this.BackgroundImage = Properties.Resources.loading_text;
             Task.Factory.StartNew(() =>
             {
@@ -87,31 +88,40 @@ namespace ModdingTools.GUI
                     if (mods.Length > 0)
                     {
                         var space = new CategorySpacer(source.Name, source.Root);
+                        space.ToggleState = source.Enabled;
+                        space.Width = this.Width - 20 - SystemInformation.VerticalScrollBarWidth;
+                        space.HeaderClick += Space_Click;
+                        space.Toggle += Toggle;
+
                         this.Invoke(new MethodInvoker(() =>
-                        {
-                            space.ToggleState = source.Enabled;
-                            space.Width = this.Width - 20 - SystemInformation.VerticalScrollBarWidth;
-                            space.HeaderClick += Space_Click;
-                            space.Toggle += Toggle;
+                        {  
                             flowLayoutPanel1.Controls.Add(space);
                         }));
+                        List<ModTile> tiles = new List<ModTile>();
                         foreach (var d in mods)
                         {
                             i2++;
-                            SetStatus("Loading mod " + d.Name + " [" + i2 + " of " + i1 + "]");
+                            SetStatus("Loading mod " + d.Name + " [" + i2 + " of " + i1 + "]"); 
+                            
+                            var tile = new ModTile(d);
+                            tile.Visible = source.Enabled;
+                            tile.Tag = space;
+                            RevalidateTile(tile);
                             this.Invoke(new MethodInvoker(() =>
-                            {
-                                var tile = new ModTile(d);
-                                tile.Visible = source.Enabled;
-                                tile.Tag = space;
-                                RevalidateTile(tile);
-                                flowLayoutPanel1.Controls.Add(tile);
+                            {       
+                                tiles.Add(tile);
                             }));
                         }
+                        var arr = tiles.ToArray();
+                        this.Invoke(new MethodInvoker(() =>
+                        {
+                            flowLayoutPanel1.Controls.AddRange(arr);
+                        }));  
                     }
                 }
                 this.Invoke(new MethodInvoker(() => {
                     flowLayoutPanel1.Visible = true;
+                    flowLayoutPanel1.ResumeLayout();
                     this.BackgroundImage = null;
                     SetStatus("Loaded " + i1 + " elements!");
                     SetWorker(null);
@@ -237,10 +247,7 @@ namespace ModdingTools.GUI
                 return;
             }
 
-            
-
             SetWorker(text);
-
             label1.Text = text == null ? "" : text;
         }
 

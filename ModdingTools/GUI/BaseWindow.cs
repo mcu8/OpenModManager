@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -15,10 +16,14 @@ namespace ModdingTools.GUI
             this.MinimumSize = new Size(800, 480);
 
             this.StartPosition = FormStartPosition.CenterScreen;
+
             
+            //this.Load += BaseWindow_Load;
+            
+
             titleBar = new Label();
             titleBar.Height = 32;
-            titleBar.Parent = this;
+            titleBar.Parent = this;  
 
             this.SizeChanged += ((o, e) =>
             {
@@ -33,16 +38,76 @@ namespace ModdingTools.GUI
 
             this.Paint += BaseWindow_Paint;
             this.titleBar.MouseDown += Header_MouseDown;
-           
 
             this.ForeColor = ThemeConstants.ForegroundColor;
             this.BackColor = ThemeConstants.BackgroundColor;
 
             this.box = new ControlBox();
 
+            if (!p_IsControlBoxVisible)
+            {
+                this.box.Visible = false;
+            }
+
+            this.FormClosing += BaseWindow_FormClosing;
             InitTitleBar();
+        }
 
+        private void BaseWindow_Load(object sender, EventArgs e)
+        {
+            Activate();
+        }
 
+        private void BaseWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (null != Owner)
+            {
+                Owner.Activate();
+            }
+        }
+
+        private void ToggleMaximize() // not used for now, it's glitched as peck
+        {
+            if (this.IsResizable)
+            {
+                var nws = this.WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
+                if (nws == FormWindowState.Maximized)
+                {
+                    this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+                    this.WindowState = nws;
+                }
+            }
+        }
+
+        private bool p_IsControlBoxVisible = true;
+        [Browsable(true)]
+        [Category("OMM")]
+        public bool ControlBoxVisible
+        {
+            get
+            {
+                return p_IsControlBoxVisible;
+            }
+            set
+            {
+                p_IsControlBoxVisible = value;
+                this.box.Visible = p_IsControlBoxVisible;
+            }
+        }
+
+        private bool p_IsResizable = true;
+        [Browsable(true)]
+        [Category("OMM")]
+        public bool IsResizable
+        {
+            get
+            {
+                return p_IsResizable;
+            }
+            set
+            {
+                p_IsResizable = value;
+            }
         }
 
         public void InitTitleBar()
@@ -91,7 +156,7 @@ namespace ModdingTools.GUI
 
         private void Header_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left && e.Clicks == 1)
             {
                 this.titleBar.Capture = false;
                 const int WM_NCLBUTTONDOWN = 0xa1;
@@ -120,6 +185,12 @@ namespace ModdingTools.GUI
 
         protected override void WndProc(ref Message m)
         {
+            if (!p_IsResizable)
+            {
+                base.WndProc(ref m);
+                return;
+            }
+
             const int RESIZE_HANDLE_SIZE = 10;
 
             switch (m.Msg)

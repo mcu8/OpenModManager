@@ -1,7 +1,6 @@
 ﻿using ModdingTools.GUI;
 using ModdingTools.Modding;
 using ModdingTools.Engine;
-using ModManager.Forms;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -9,6 +8,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Automation;
 using System.Windows.Forms;
+using ModdingTools.Windows.Tools;
+using System.Drawing;
 
 namespace ModdingTools.Windows
 {
@@ -17,60 +18,26 @@ namespace ModdingTools.Windows
         public static MainWindow Instance { get; private set; }
         private UpdateChecker UpdateChk;
 
+        private ModListControl modListControl1;
+        private ProcessRunner processRunner1;
+
         public MainWindow()
         {
             if (!DesignMode)
             {
-                try
-                {
-                    ModManagerProxy.Init();
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("PECK >> " + e.Message + "\n" + e.ToString());
-                }
-
                 Utils.CleanUpTrash(GameFinder.FindGameDir());
-            }
+            }  
 
             Instance = this;
             InitializeComponent();
 
-            ToggleConsole(false);
+            modListControl1 = new ModListControl();
+            processRunner1 = new ProcessRunner();
 
-            modListControl1.AddModSource(new ModDirectorySource("Mods directory", Path.Combine(Program.ProcFactory.GetGamePath(), @"HatinTimeGame\Mods"), true));
-            modListControl1.AddModSource(new ModDirectorySource("Mods directory (disabled)", Path.Combine(Program.ProcFactory.GetGamePath(), @"HatinTimeGame\Mods\Disabled"), true));
+            cardController1.AddCard("mods", modListControl1);
+            cardController1.AddCard("console", processRunner1);
 
-            var autoLoad = Properties.Settings.Default.AutoScanDownloadedMods;
-
-            modListControl1.AddModSource(new ModDirectorySource("Downloaded mods", GameFinder.GetWorkshopDir(), autoLoad, false, true));
-            modListControl1.AddModSource(new ModDirectorySource("Downloaded mods (disabled)", Path.Combine(GameFinder.GetWorkshopDir(), "Disabled"), autoLoad, false, true));
-
-            modListControl1.ReloadList();
-
-            SetModListState(null);
-
-            Automation.AddAutomationEventHandler(
-            WindowPattern.WindowOpenedEvent,
-            AutomationElement.RootElement,
-            TreeScope.Children,
-            (sender, e) =>
-            {
-                var element = sender as AutomationElement;
-
-                Console.WriteLine("new window opened");
-            });
-
-            UpdateChk = new UpdateChecker(BuildData.CurrentVersion, BuildData.UpdateUrl, new Action(() => {
-                this.Invoke(new MethodInvoker(() =>
-                {
-                    var dialog = MessageBox.Show(this, "New version of OpenModManager is avaiable!\nDo you want to download it?", "Update checker", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                    if (dialog == DialogResult.Yes)
-                    {
-                        Process.Start(BuildData.ReleasesPage);
-                    }
-                }));
-            }));
+            contextMenuStrip1.Renderer = new ToolStripProfessionalRenderer(new MenuColorTable());
         }
 
         public ModDirectorySource[] GetModSources()
@@ -89,7 +56,6 @@ namespace ModdingTools.Windows
 
         public void ToggleConsole(bool v)
         {
-            processRunner1.Visible = v;
             modListControl1.Visible = !v;
         }
 
@@ -110,7 +76,7 @@ namespace ModdingTools.Windows
             Runner.KillAllWorkers();
             Utils.KillEditor();
             Meme.StopElevatorMusic();
-            if (!Program.Uploader.isRunning)
+            if (!Program.Uploader.IsUploaderRunning)
                 ToggleConsole(false);
         }
 
@@ -133,28 +99,13 @@ namespace ModdingTools.Windows
         private void mButton4_Click(object sender, EventArgs e)
         {
             string modsRoot = Path.Combine(Program.ProcFactory.GetGamePath(), @"HatinTimeGame\Mods");
-            var modPrompt = new TextInputForm("New mod", "Please enter mod folder name");
+            var modName = InputWindow.Ask(this, "New mod", "Please enter mod folder name", new InputWindow.ModNameValidator());
 
-            modPrompt.StartPosition = FormStartPosition.CenterParent;
-
-            if (modPrompt.ShowDialog() != DialogResult.OK)
+            if (modName == null)
                 return;
 
-            if (!Regex.IsMatch(modPrompt.Result, @"^[a-zA-Z0-9_]+$"))
-            {
-                MessageBox.Show("Invalid characters in mod folder name - you can only use numbers and letters and _");
-                return;
-            }
-
-            string modName = modPrompt.Result;
             string modPath = Path.Combine(modsRoot, modName);
             string modInfoPath = Path.Combine(modPath, "modinfo.ini");
-
-            if (File.Exists(modInfoPath))
-            {
-                MessageBox.Show("There's already a mod with name \"" + modName + "\". Please delete it or set it up.");
-                return;
-            }
 
             Directory.CreateDirectory(modPath);
 
@@ -170,7 +121,18 @@ namespace ModdingTools.Windows
             }
 
             modListControl1.ReloadList(() => {
-                ModManagerProxy.LaunchPropertiesWindow(modListControl1.GetMod(modName));
+                var mod = modListControl1.GetMod(modName);
+                var mp = ModProperties.GetPropertiesWindowForMod(mod);
+                if (mp != null)
+                {
+                    mp.Show();
+                    mp.WindowState = FormWindowState.Normal;
+                    mp.Focus();
+                }
+                else
+                {
+                    new ModProperties(mod).Show();
+                }
             });
         }
 
@@ -192,16 +154,93 @@ namespace ModdingTools.Windows
 
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
-
             modListControl1.Width += 1;
             modListControl1.Width -= 1;
             modListControl1.TriggerUpdate();
             modListControl1.ResumeLayout();
         }
 
-        private void MainWindow_Load(object sender, EventArgs e)
+        private void MainWindow_Load(object z, EventArgs x)
         {
+            modListControl1.SetWorker("Loading...");
+            ToggleConsole(false);
+
+            UpdateChk = new UpdateChecker(BuildData.CurrentVersion, BuildData.UpdateUrl, new Action(() => {
+                this.Invoke(new MethodInvoker(() =>
+                {
+                    var dialog = GUI.MessageBox.Show(this, "New version of OpenModManager is avaiable!\nDo you want to download it?", "Update checker", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (dialog == DialogResult.Yes)
+                    {
+                        Process.Start(BuildData.ReleasesPage);
+                    }
+                }));
+            }));
+
+            modListControl1.AddModSource(new ModDirectorySource("Mods directory", Path.Combine(Program.ProcFactory.GetGamePath(), @"HatinTimeGame\Mods"), true));
+            modListControl1.AddModSource(new ModDirectorySource("Mods directory (disabled)", Path.Combine(Program.ProcFactory.GetGamePath(), @"HatinTimeGame\Mods\Disabled"), true, true, true));
+
+            var autoLoad = Properties.Settings.Default.AutoScanDownloadedMods;
+
+            modListControl1.AddModSource(new ModDirectorySource("Downloaded mods", GameFinder.GetWorkshopDir(), autoLoad, false, true));
+            modListControl1.AddModSource(new ModDirectorySource("Downloaded mods (disabled)", Path.Combine(GameFinder.GetWorkshopDir(), "Disabled"), autoLoad, false, true));
+
+            modListControl1.ReloadList();
+
+            SetModListState(null);
+
+            Automation.AddAutomationEventHandler(
+            WindowPattern.WindowOpenedEvent,
+            AutomationElement.RootElement,
+            TreeScope.Children,
+            (sender, e) =>
+            {
+                var element = sender as AutomationElement;
+                Console.WriteLine("new window opened");
+            });
+
             UpdateChk.CheckForUpdatesAsync();
+        }
+
+        private void mButton5_Click(object sender, EventArgs e)
+        {
+            cardController1.SetCard(cardController1.CurrentCard == processRunner1 ? "mods" : "console");
+            mButton5.BackColor = cardController1.CurrentCard == modListControl1 ? Color.Black : ThemeConstants.BorderColor;
+        }
+
+        private void mButton6_Click(object sender, EventArgs e)
+        {
+            contextMenuStrip1.ForeColor = Color.White;
+            mButton6.BackColor = ThemeConstants.BorderColor;
+            contextMenuStrip1.Show(new Point(Location.X + mButton6.Location.X, Location.Y + mButton6.Location.Y + mButton6.Height));
+        }
+
+        private void assetExporterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new AssetRipper().ShowDialog(this);
+        }
+
+        private void flipbookGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FlipbookGenerator().ShowDialog(this);
+        }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void contextMenuStrip1_Closed(object sender, ToolStripDropDownClosedEventArgs e)
+        {
+            mButton6.BackColor = Color.Black;
+        }
+
+        public void FocusMe()
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.WindowState = FormWindowState.Normal;
+            }
+            this.Focus();
         }
     }
 }

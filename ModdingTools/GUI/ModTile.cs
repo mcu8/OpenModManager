@@ -21,6 +21,10 @@ namespace ModdingTools.GUI
         {
             InitializeComponent();
 
+            contextMenuStrip1.Renderer = new ToolStripProfessionalRenderer(new MenuColorTable());
+            contextMenuStrip1.BackColor = ThemeConstants.BackgroundColor;
+            contextMenuStrip1.ForeColor = ThemeConstants.ForegroundColor; 
+
             OriginalColor = this.BackColor;
 
             this.Mod = mod;
@@ -46,6 +50,29 @@ namespace ModdingTools.GUI
             this.label1.Click += ModTile_Click;
 
             scriptWatcherToolStripMenuItem2.Checked = ScriptWatcherManager.IsWatcherAttached(Mod);
+
+            RevalidateBG();
+        }
+
+        private void RevalidateBG(ToolStripItemCollection col = null)
+        {
+            if (col == null)
+                col = contextMenuStrip1.Items;
+            foreach (var item in col)
+            {
+                if (item is ToolStripMenuItem)
+                {
+                    var it = ((ToolStripMenuItem)item);
+                    it.DisplayStyle = ToolStripItemDisplayStyle.Text;
+                    it.BackColor = ThemeConstants.BackgroundColor;
+                    it.ForeColor = ThemeConstants.ForegroundColor;
+
+                    if (it.HasDropDownItems)
+                    {
+                        RevalidateBG(it.DropDownItems);
+                    }
+                }
+            }
         }
 
         private void ModTile_MouseLeave(object sender, EventArgs e)
@@ -69,7 +96,16 @@ namespace ModdingTools.GUI
                 if (!this.Checked)
                 {
                     this.Mod.Refresh();
-                    ModManagerProxy.LaunchPropertiesWindow(this.Mod);
+                    var mp = ModProperties.GetPropertiesWindowForMod(this.Mod);
+                    if (mp != null) {  
+                        mp.Show();
+                        mp.WindowState = FormWindowState.Normal;
+                        mp.Focus();
+                    }
+                    else
+                    {
+                        new ModProperties(this.Mod).Show();
+                    }
                     //prop.Show();
                 }
             }
@@ -113,7 +149,7 @@ namespace ModdingTools.GUI
             menu.DropDownItems.Clear();
             foreach (var modSource in MainWindow.Instance.GetModSources())
             {
-                if (modSource.IsReadOnly || Mod.RootSource == modSource)
+                if ((modSource.IsReadOnly && modSource.Name != "Mods directory (disabled)") || Mod.RootSource == modSource)
                     continue;
 
                 var item = new ToolStripMenuItem(modSource.Name, null, (obj, args) => {
@@ -130,6 +166,7 @@ namespace ModdingTools.GUI
 
                 menu.DropDownItems.Add(item);
             }
+            RevalidateBG();
         }
 
         private void mafiaTownToolStripMenuItem_Click(object sender, EventArgs e)
@@ -158,9 +195,57 @@ namespace ModdingTools.GUI
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
+            CleanupTests();
+
             cookModToolStripMenuItem.Enabled = !Mod.IsReadOnly;
             testModToolStripMenuItem.Enabled = !Mod.IsReadOnly;
             scriptingToolStripMenuItem.Enabled = !Mod.IsReadOnly;
+
+            var test = new ContentBrowser();
+            test.LoadMod(Mod);
+
+            var result = test.HasContentError;
+            test.Dispose();
+
+            bool flag5 = Utils.DirContainsKey(Mod.GetCookedDir(), "*.u") || Utils.DirContainsKey(Mod.GetCookedDir(), "*.umap");
+            var cooked = (flag5 || Mod.IsLanguagePack) && !result;
+
+            compileScriptsToolStripMenuItem.Enabled = !Mod.IsReadOnly && !result && Mod.HasAnyScripts();
+            cookModToolStripMenuItem1.Enabled = !Mod.IsReadOnly && !result && !(!Mod.HasCompiledScripts() && Mod.HasAnyScripts());
+            testModToolStripMenuItem.Enabled = cooked && !Mod.IsReadOnly;
+
+            if (Mod.HasAnyMaps() && testModToolStripMenuItem.Enabled)
+            {
+                testModToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator() {Tag = "toDelete", BackColor = ThemeConstants.BackgroundColor });
+                foreach (var map in Mod.GetCookedMaps())
+                {
+                    var item = new ToolStripMenuItem() { Tag = "toDelete", Text = map };
+                    item.Click += (s, a) =>
+                    {
+                        var y = (ToolStripMenuItem)s;
+                        Mod.TestMod(MainWindow.Instance.Runner, y.Text);
+                    };
+                    testModToolStripMenuItem.DropDownItems.Add(item);
+                }
+            }
+            RevalidateBG();
+        }
+
+        private void CleanupTests()
+        {
+            List<object> pendingRemoval = new List<object>();
+            foreach (var i in testModToolStripMenuItem.DropDownItems)
+            {
+                if (((ToolStripItem)i).Tag == null) continue;
+                if (((ToolStripItem)i).Tag.ToString().Equals("toDelete"))
+                {
+                    pendingRemoval.Add(i);
+                }
+            }
+            foreach (var i in pendingRemoval)
+            {
+                testModToolStripMenuItem.DropDownItems.Remove((ToolStripItem)i);
+            }
         }
 
         private void deleteModToolStripMenuItem_Click(object sender, EventArgs e)
@@ -171,6 +256,11 @@ namespace ModdingTools.GUI
                 Mod.Delete();
                 MainWindow.Instance.ReloadModList();
             }
+        }
+
+        private void hatInTimeEntryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Mod.TestMod(MainWindow.Instance.Runner, "hatintimeentry");
         }
     }
 }
