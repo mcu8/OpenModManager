@@ -22,6 +22,9 @@ namespace ModdingTools.Modding
             if (!AutoLoad)
                 return mods.ToArray();
 
+            if (!Directory.Exists(Root))
+                return mods.ToArray();
+
             var paths = Directory.GetDirectories(Root);
             foreach (var path in paths)
             {
