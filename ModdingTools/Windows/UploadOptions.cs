@@ -38,6 +38,9 @@ namespace ModdingTools.Windows
                 comboBox3.SelectedIndex = store.Visibility;
                 checkBox1.Checked = store.UploadUnCookedContent;
                 checkBox2.Checked = store.UploadScripts;
+                checkBox13.Checked = store.ForceNoTags;
+
+                checkBox13_CheckedChanged(null, null);
 
                 var wsid = mod.GetUploadedId();
                 if (wsid > 0)
@@ -138,10 +141,10 @@ namespace ModdingTools.Windows
 
         private void mButton2_Click(object sender, EventArgs e)
         {
-            var tags = GetTags();
-            if (tags.Count() == 0)
+            var tags = checkBox13.Checked ? new string[0] : GetTags();
+            if (tags.Count() == 0 && !checkBox13.Checked)
             {
-                GUI.MessageBox.Show("You should choose at least one tag!");
+                GUI.MessageBox.Show("You should choose at least one tag!\n(or check the \"Upload without tags\" option)");
                 return;
             }
 
@@ -156,6 +159,7 @@ namespace ModdingTools.Windows
             store.Tags = tags;
             store.Visibility = comboBox3.SelectedIndex;
             store.Changelog = textBox1.Text;
+            store.ForceNoTags = checkBox13.Checked;
             store.SaveForMod(mod);
 
             Program.Uploader.UploadModAsync(mod, textBox1.Text, store.Tags, checkBox1.Checked, checkBox2.Checked, comboBox3.SelectedIndex);
@@ -213,6 +217,12 @@ namespace ModdingTools.Windows
                 GUI.MessageBox.Show("Invalid input: " + input + "\n" + ex.Message + "\n\n" + ex.ToString());
             }
         }
+
+        private void checkBox13_CheckedChanged(object sender, EventArgs e)
+        {
+            mButton1.Enabled = !checkBox13.Checked;
+            borderPanel1.Enabled = !checkBox13.Checked;
+        }
     }
 
     public class ModStore
@@ -222,6 +232,7 @@ namespace ModdingTools.Windows
         public bool UploadUnCookedContent = false;
         public int Visibility = 0;
         public string Changelog = "Initial release!";
+        public bool ForceNoTags = false;
 
         public static ModStore LoadForMod(ModObject mod)
         {

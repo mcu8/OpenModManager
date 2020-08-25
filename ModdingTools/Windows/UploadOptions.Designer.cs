@@ -57,6 +57,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.mButton1 = new ModdingTools.GUI.MButton();
             this.mButton4 = new ModdingTools.GUI.MButton();
+            this.checkBox13 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.borderPanel1.SuspendLayout();
             this.borderPanel2.SuspendLayout();
@@ -370,7 +371,7 @@
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.ForeColor = System.Drawing.Color.DarkGray;
-            this.label5.Location = new System.Drawing.Point(8, 145);
+            this.label5.Location = new System.Drawing.Point(8, 156);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(60, 13);
             this.label5.TabIndex = 29;
@@ -385,7 +386,7 @@
             "Friends-only",
             "Hidden",
             "Unlisted"});
-            this.comboBox3.Location = new System.Drawing.Point(11, 166);
+            this.comboBox3.Location = new System.Drawing.Point(11, 177);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(230, 21);
             this.comboBox3.TabIndex = 28;
@@ -434,12 +435,24 @@
             this.mButton4.UseVisualStyleBackColor = false;
             this.mButton4.Click += new System.EventHandler(this.mButton4_Click);
             // 
+            // checkBox13
+            // 
+            this.checkBox13.AutoSize = true;
+            this.checkBox13.Location = new System.Drawing.Point(11, 135);
+            this.checkBox13.Name = "checkBox13";
+            this.checkBox13.Size = new System.Drawing.Size(120, 17);
+            this.checkBox13.TabIndex = 33;
+            this.checkBox13.Text = "Upload without tags";
+            this.checkBox13.UseVisualStyleBackColor = true;
+            this.checkBox13.CheckedChanged += new System.EventHandler(this.checkBox13_CheckedChanged);
+            // 
             // UploadOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(500, 400);
             this.ControlBoxVisible = false;
+            this.Controls.Add(this.checkBox13);
             this.Controls.Add(this.mButton4);
             this.Controls.Add(this.mButton1);
             this.Controls.Add(this.label6);
@@ -467,6 +480,7 @@
             this.Controls.SetChildIndex(this.label6, 0);
             this.Controls.SetChildIndex(this.mButton1, 0);
             this.Controls.SetChildIndex(this.mButton4, 0);
+            this.Controls.SetChildIndex(this.checkBox13, 0);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.borderPanel1.ResumeLayout(false);
             this.borderPanel1.PerformLayout();
@@ -507,5 +521,6 @@
         private System.Windows.Forms.Label label6;
         private GUI.MButton mButton1;
         private GUI.MButton mButton4;
+        private System.Windows.Forms.CheckBox checkBox13;
     }
 }
