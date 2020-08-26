@@ -73,6 +73,8 @@ namespace ModdingTools.Engine
                 {
                     if (Directory.Exists(Path.Combine(tmpDir, "Maps")))
                         Directory.Delete(Path.Combine(tmpDir, "Maps"), true);
+                    if (Directory.Exists(Path.Combine(tmpDir, "Content")))
+                        Directory.Delete(Path.Combine(tmpDir, "Content"), true);
                 }
 
                 var description = mod.GetDescription();
