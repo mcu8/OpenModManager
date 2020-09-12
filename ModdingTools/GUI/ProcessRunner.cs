@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Threading;
 using System.Windows.Input;
+using System.Drawing;
 
 namespace ModdingTools.GUI
 {
@@ -21,6 +22,11 @@ namespace ModdingTools.GUI
 
         public delegate void OnAppRun();
         private static OnAppRun AppRun = null;
+
+        public enum LogLevel
+        {
+            Verbose, Info, Success, Warn, Error
+        }
 
         public ProcessRunner()
         {
@@ -161,7 +167,7 @@ namespace ModdingTools.GUI
             this.Invoke(new MethodInvoker(() =>
             {
                 textBox1.Clear();
-                Log(taskName);
+                Log(taskName, LogLevel.Verbose);
             }));
 
             NamedPipe mLogPipe;
@@ -198,12 +204,42 @@ namespace ModdingTools.GUI
                     Debug.WriteLine("Pipe open");
                     try
                     {
+                        var level = LogLevel.Info;
                         while (process != null && !process.HasExited)
                         {
                             string text = mLogPipe.Read();
-                            if (text.Length > 0 && !text.StartsWith("`~[~`"))
+                            //Debug.WriteLine(text);
+
+                            if (text.StartsWith("`~[~`")) // control code
                             {
-                                Log(text.Replace("\r\n", ""));
+                                var raw = text.Split('`');
+                                var code = raw[raw.Length - 1].Trim();
+
+                                switch (code)
+                                {
+                                    case "Reset":
+                                        level = LogLevel.Info;
+                                        break;
+                                    case "1111":
+                                        level = LogLevel.Info;
+                                        break;
+                                    case "1101":
+                                        level = LogLevel.Warn;
+                                        break;
+                                    case "1001":
+                                        level = LogLevel.Error;
+                                        break;
+                                    case "0101":
+                                        level = LogLevel.Success;
+                                        break;
+                                    default:
+                                        Debug.WriteLine("Code not implemented: " + code);
+                                        break;
+                                }
+                            }
+                            else if (text.Length > 0)
+                            {
+                                Log(text.Replace("\r\n", ""), level);
                             }
                         }
                     }
@@ -214,7 +250,7 @@ namespace ModdingTools.GUI
                     {
                     }
                     Debug.WriteLine("Pipe close");
-                    Log("Process exited with exit code: " + process.ExitCode);
+                    Log("Process exited with exit code: " + process.ExitCode, process.ExitCode != 0 ? LogLevel.Warn : LogLevel.Verbose);
                 });
                 mOutputThread.Start();
             }
@@ -245,19 +281,50 @@ namespace ModdingTools.GUI
             }));
         }
 
-        public void Log(string msg)
+        public void Log(string msg, LogLevel level)
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new MethodInvoker(() => Log(msg)));
+                this.Invoke(new MethodInvoker(() => Log(msg, level)));
                 return;
             }
             mButton3.Visible = true;
-            textBox1.AppendText($"[{GetLoggerDate()}] {msg}{Environment.NewLine}");
+
+            var color = Color.White;
+            switch(level)
+            {
+                case LogLevel.Error:
+                    color = Color.Red;
+                    break;
+                case LogLevel.Warn:
+                    color = Color.Yellow;
+                    break;
+                case LogLevel.Info:
+                    color = Color.White;
+                    break;
+                case LogLevel.Success:
+                    color = Color.Green;
+                    break;
+                case LogLevel.Verbose:
+                    color = Color.Gray;
+                    break;
+            }
+
+            AppendLoggerText($"[{GetLoggerDate()}][{level.ToString()}] {msg}{Environment.NewLine}", color);
             textBox1.SelectionStart = textBox1.Text.Length;
             textBox1.ScrollToCaret();
 
             MainWindow.Instance.SetModListStatus(msg.Trim('-'));
+        }
+
+        public void AppendLoggerText(string text, Color color)
+        {
+            textBox1.SelectionStart = textBox1.TextLength;
+            textBox1.SelectionLength = 0;
+
+            textBox1.SelectionColor = color;
+            textBox1.AppendText(text);
+            textBox1.SelectionColor = textBox1.ForeColor;
         }
 
         public static string GetLoggerDate()

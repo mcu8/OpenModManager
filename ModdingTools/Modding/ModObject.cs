@@ -242,6 +242,11 @@ namespace ModdingTools.Modding
             return (c.GetDirectoryName().ToLower() == this.GetDirectoryName().ToLower());
         }
 
+        public override int GetHashCode()
+        {
+            return this.GetDirectoryName().ToLower().GetHashCode();
+        }
+
         public void CookMod(ProcessRunner runner, bool async = true)
         {
             if (async)

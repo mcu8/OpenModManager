@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.RichTextBox();
             this.mButton1 = new ModdingTools.GUI.MButton();
             this.mButton3 = new ModdingTools.GUI.MButton();
             this.SuspendLayout();
@@ -62,7 +62,7 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.textBox1.Size = new System.Drawing.Size(688, 343);
             this.textBox1.TabIndex = 8;
             // 
@@ -117,7 +117,7 @@
         #endregion
         private System.Windows.Forms.Label label2;
         private MButton mButton3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.RichTextBox textBox1;
         private MButton mButton1;
     }
 }

@@ -44,7 +44,6 @@ namespace LibAPNG
                 {
                     case "IHDR":
                         throw new Exception("Only single IHDR is allowed.");
-                        break;
 
                     case "acTL":
                         if (IsSimplePNG)
@@ -52,7 +51,6 @@ namespace LibAPNG
 
                         acTLChunk = new acTLChunk(chunk);
                         break;
-
                     case "IDAT":
                         // To be an APNG, acTL must located before any IDAT and fdAT.
                         if (acTLChunk == null)

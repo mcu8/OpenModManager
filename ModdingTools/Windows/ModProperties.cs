@@ -321,7 +321,7 @@ namespace ModdingTools.Windows
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.DefaultExt = "png";
             dlg.Multiselect = false;
-            dlg.Filter = "PNG image file (*.png)|*.png";
+            dlg.Filter = "PNG image file (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 FileInfo f = new FileInfo(dlg.FileName);
@@ -334,7 +334,7 @@ namespace ModdingTools.Windows
                     else
                     {
                         var img = Image.FromFile(f.FullName);
-                        if (img.Width / img.Height == 1)
+                        if (img.Width == img.Height)
                         {
                             if (img.Width < 100)
                             {
@@ -396,14 +396,24 @@ namespace ModdingTools.Windows
 
                 if (_newIcon != null)
                 {
-                    var icon = Path.Combine(Mod.RootPath, "icon.png");
+                    var iconE = _newIcon.Split('.');
+                    var iconExt = iconE[iconE.Length - 1].ToLower();
+
+                    var allowedExts = new[] { "png", "jpg", "jpeg" };
+                    if (!allowedExts.Contains(iconExt))
+                    {
+                        throw new Exception("Illegal icon extension: " + iconExt);
+                    }
+ 
+                    var icon = Path.Combine(Mod.RootPath, "icon." + iconExt);
+                    
                     if (File.Exists(icon))
                     {
                         File.Delete(icon);
                     }
                     File.Copy(_newIcon, icon);
                     _newIcon = null;
-                    Mod.Icon = "icon.png";
+                    Mod.Icon = "icon." + iconExt;
                 }
 
                 Mod.Save();
