@@ -321,7 +321,7 @@ namespace ModdingTools.Windows
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.DefaultExt = "png";
             dlg.Multiselect = false;
-            dlg.Filter = "PNG image file (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
+            dlg.Filter = "Image file (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 FileInfo f = new FileInfo(dlg.FileName);
