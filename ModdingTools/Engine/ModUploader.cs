@@ -22,21 +22,21 @@ namespace ModdingTools.Engine
 
         public bool IsUploaderRunning { get; protected set; } = false;
 
-        public void UploadModAsync(ModObject mod, string changelog, string[] tags, bool keepCooked, bool keepScripts, int visibility)
+        public void UploadModAsync(ModObject mod, string changelog, string[] tags, bool keepCooked, bool keepScripts, int visibility, string description)
         {
             Task.Factory.StartNew(() =>
             {
                 MainWindow.Instance.Invoke(new MethodInvoker(() => {
                     ModProperties.TemporaryHideAllPropertiesWindows();
                 }));
-                UploadMod(mod, changelog, tags, keepCooked, keepScripts, visibility);
+                UploadMod(mod, changelog, tags, keepCooked, keepScripts, visibility, description);
                 MainWindow.Instance.Invoke(new MethodInvoker(() => {
                     ModProperties.RestoreTemporaryHiddenPropertiesWindows();
                 }));
             });
         }
 
-        public void UploadMod(ModObject mod, string changelog, string[] tags, bool keepUnCooked, bool keepScripts, int visibility)
+        public void UploadMod(ModObject mod, string changelog, string[] tags, bool keepUnCooked, bool keepScripts, int visibility, string description)
         {
             if (IsUploaderRunning)
             {
@@ -77,7 +77,7 @@ namespace ModdingTools.Engine
                         Directory.Delete(Path.Combine(tmpDir, "Content"), true);
                 }
 
-                var description = mod.GetDescription();
+                //var description = mod.GetDescription();
 
                 var modid = mod.GetUploadedId();
 
@@ -157,7 +157,7 @@ namespace ModdingTools.Engine
 
                         if (res == DialogResult.Yes)
                         {
-                            Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=" + publishID);
+                            Process.Start("steam://openurl/https://steamcommunity.com/sharedfiles/filedetails/?id=" + publishID);
                         }
                     }));
 

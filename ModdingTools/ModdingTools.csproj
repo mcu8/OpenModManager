@@ -322,6 +322,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hueh.ico" />
+    <None Include="Resources\cook.png" />
+    <None Include="Resources\compncook.png" />
+    <None Include="Resources\compile.png" />
     <None Include="Resources\play.png" />
     <None Include="Resources\tools.png" />
     <None Include="Resources\editorcrashedhueh4.png" />

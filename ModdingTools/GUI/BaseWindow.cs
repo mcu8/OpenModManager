@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ModdingTools.Windows;
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -50,12 +52,17 @@ namespace ModdingTools.GUI
             }
 
             this.FormClosing += BaseWindow_FormClosing;
+            this.Load += BaseWindow_Load;
             InitTitleBar();
         }
 
         private void BaseWindow_Load(object sender, EventArgs e)
         {
-            Activate();
+            if (this is MainWindow) return;
+            if (MainWindow.Instance is MainWindow)
+            {
+                this.Icon = MainWindow.Instance.Icon;
+            }
         }
 
         private void BaseWindow_FormClosing(object sender, FormClosingEventArgs e)

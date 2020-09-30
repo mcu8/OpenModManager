@@ -43,6 +43,7 @@ namespace ModdingTools.Modding
         public string MapType           { get; set; }
         public string GameMod           { get; set; }
         public string Coop              { get; set; }
+        public string ModClass          { get; set; }
 
         public List<ModConfigItem> Config  { get; set; }
 
@@ -247,15 +248,16 @@ namespace ModdingTools.Modding
             return this.GetDirectoryName().ToLower().GetHashCode();
         }
 
-        public void CookMod(ProcessRunner runner, bool async = true)
+        public bool CookMod(ProcessRunner runner, bool async = true, bool cleanConsole = true)
         {
             if (async)
             {
                 runner.RunAppAsync(Program.ProcFactory.GetCookMod(this));
+                return true; // async task always return true
             }
             else
             {
-                runner.RunApp(Program.ProcFactory.GetCookMod(this));
+                return runner.RunApp(Program.ProcFactory.GetCookMod(this), cleanConsole);
             }
         }
 
@@ -264,15 +266,16 @@ namespace ModdingTools.Modding
             runner.RunWithoutWait(Program.ProcFactory.StartMap(mapName));
         }
 
-        public void CompileScripts(ProcessRunner runner, bool async = true, bool watcher = false)
+        public bool CompileScripts(ProcessRunner runner, bool async = true, bool watcher = false)
         {
             if (async)
             {
                 runner.RunAppAsync(Program.ProcFactory.GetCompileScript(this, watcher));
+                return true; // async task always return true
             }
             else
             {
-                runner.RunApp(Program.ProcFactory.GetCompileScript(this, watcher));
+                return runner.RunApp(Program.ProcFactory.GetCompileScript(this, watcher));
             }
         }
 
@@ -304,6 +307,7 @@ namespace ModdingTools.Modding
             this.IsCheat = bool.Parse(TryGet(i, "is_cheat", "false"));
             this.Icon = TryGet(i, "icon");
             this.ChapterInfoName = TryGet(i, "ChapterInfoName", "");
+            this.ModClass = TryGet(i, "modclass", "");
 
             // Parse "Tags" section
             var t = info["Tags"];
@@ -315,6 +319,7 @@ namespace ModdingTools.Modding
             this.HasPlayableCharacter = TryGet(t, "HasPlayableCharacter", "0").Equals("1");
             this.IsLanguagePack       = TryGet(t, "IsLanguagePack", "0").Equals("1");
             this.Coop                 = TryGet(t, "Coop", "");
+           
 
             if (!this.IsReadOnly)
                 GetModClasses(true);
@@ -529,7 +534,14 @@ namespace ModdingTools.Modding
                     {
                         if (obj.Class.Name == "Hat_ChapterInfo")
                         {
-                            return $"{obj.Package.PackageName}.{obj.Outer.Name}.{obj.Name}";
+                            if (obj.Outer == null)
+                            {
+                                return $"{obj.Package.PackageName}.{obj.Name}";
+                            }
+                            else
+                            {
+                                return $"{obj.Package.PackageName}.{obj.Outer.Name}.{obj.Name}";
+                            }
                         }
                     }
                 }            

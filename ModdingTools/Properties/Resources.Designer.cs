@@ -83,9 +83,29 @@ namespace ModdingTools.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap compile {
+            get {
+                object obj = ResourceManager.GetObject("compile", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap compile4 {
             get {
                 object obj = ResourceManager.GetObject("compile4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap compncook {
+            get {
+                object obj = ResourceManager.GetObject("compncook", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -106,6 +126,16 @@ namespace ModdingTools.Properties {
         internal static System.Drawing.Bitmap console1 {
             get {
                 object obj = ResourceManager.GetObject("console1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cook {
+            get {
+                object obj = ResourceManager.GetObject("cook", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

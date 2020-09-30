@@ -53,10 +53,10 @@ namespace ModdingTools.GUI
             RunAppAsync(info.Executable, info.Arguments, info.WorkingDirectory, info.TaskName, info.OnFinish);
         }
 
-        public void RunApp(ExecutableArgumentsPair info)
+        public bool RunApp(ExecutableArgumentsPair info, bool cleanConsole = true)
         {
             Debug.WriteLine(info.ToString());
-            RunApp(info.Executable, info.Arguments, info.WorkingDirectory, info.TaskName, info.OnFinish);
+            return RunApp(info.Executable, info.Arguments, info.WorkingDirectory, info.TaskName, info.OnFinish, cleanConsole);
         }
 
         public void RunAppAsync(string exe, string[] args, string cwd = ".", string taskName = "", Action o = null)
@@ -162,11 +162,11 @@ namespace ModdingTools.GUI
         }
 
         List<Process> runningProcesses = new List<Process>();
-        private void RunApp(string exe, string[] args, string cwd = ".", string taskName = "", Action o = null)
+        private bool RunApp(string exe, string[] args, string cwd = ".", string taskName = "", Action o = null, bool cleanConsole = true)
         {
             this.Invoke(new MethodInvoker(() =>
             {
-                textBox1.Clear();
+                if (cleanConsole) textBox1.Clear();
                 Log(taskName, LogLevel.Verbose);
             }));
 
@@ -279,6 +279,8 @@ namespace ModdingTools.GUI
             {
                 MainWindow.Instance.ToggleConsole(false);
             }));
+
+            return process.ExitCode == 0;
         }
 
         public void Log(string msg, LogLevel level)

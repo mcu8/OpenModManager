@@ -45,6 +45,9 @@ namespace ModdingTools.Windows
             this.cbOnlineParty = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.SteamDescription = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.ModDescriptionEdit = new System.Windows.Forms.TextBox();
             this.processRunner1 = new ModdingTools.GUI.ProcessRunner();
@@ -65,9 +68,12 @@ namespace ModdingTools.Windows
             this.label8 = new System.Windows.Forms.Label();
             this.tab5 = new System.Windows.Forms.TabPage();
             this.tab6 = new System.Windows.Forms.TabPage();
+            this.ModClass = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.mButton10 = new ModdingTools.GUI.MButton();
             this.mButton6 = new ModdingTools.GUI.MButton();
             this.mButton5 = new ModdingTools.GUI.MButton();
+            this.label17 = new System.Windows.Forms.Label();
             this.tab7 = new System.Windows.Forms.TabPage();
             this.tab8 = new System.Windows.Forms.TabPage();
             this.contentBrowser1 = new ModdingTools.GUI.ContentBrowser();
@@ -191,7 +197,7 @@ namespace ModdingTools.Windows
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(306, 170);
+            this.label1.Location = new System.Drawing.Point(306, 168);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 15);
             this.label1.TabIndex = 14;
@@ -203,7 +209,7 @@ namespace ModdingTools.Windows
             this.levelType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.levelType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.levelType.FormattingEnabled = true;
-            this.levelType.Location = new System.Drawing.Point(309, 188);
+            this.levelType.Location = new System.Drawing.Point(309, 186);
             this.levelType.Name = "levelType";
             this.levelType.Size = new System.Drawing.Size(379, 23);
             this.levelType.TabIndex = 13;
@@ -271,12 +277,62 @@ namespace ModdingTools.Windows
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.checkBox1);
+            this.panel3.Controls.Add(this.SteamDescription);
+            this.panel3.Controls.Add(this.label15);
             this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.ModDescriptionEdit);
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(700, 467);
             this.panel3.TabIndex = 13;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(196)))), ((int)(((byte)(0)))));
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.checkBox1.ForeColor = System.Drawing.Color.Black;
+            this.checkBox1.Location = new System.Drawing.Point(343, 224);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(351, 17);
+            this.checkBox1.TabIndex = 19;
+            this.checkBox1.Text = "USE A SEPARATE DESCRIPTION FOR THE STEAM WORKSHOP";
+            this.checkBox1.UseVisualStyleBackColor = false;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // SteamDescription
+            // 
+            this.SteamDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SteamDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.SteamDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SteamDescription.ForeColor = System.Drawing.Color.White;
+            this.SteamDescription.Location = new System.Drawing.Point(2, 247);
+            this.SteamDescription.Margin = new System.Windows.Forms.Padding(2);
+            this.SteamDescription.Multiline = true;
+            this.SteamDescription.Name = "SteamDescription";
+            this.SteamDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.SteamDescription.Size = new System.Drawing.Size(694, 216);
+            this.SteamDescription.TabIndex = 18;
+            this.SteamDescription.TextChanged += new System.EventHandler(this.SteamDescription_TextChanged);
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(196)))), ((int)(((byte)(0)))));
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.label15.ForeColor = System.Drawing.Color.Black;
+            this.label15.Location = new System.Drawing.Point(0, 219);
+            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label15.Name = "label15";
+            this.label15.Padding = new System.Windows.Forms.Padding(5);
+            this.label15.Size = new System.Drawing.Size(699, 26);
+            this.label15.TabIndex = 17;
+            this.label15.Text = "MOD DESCRIPTION (STEAM WORKSHOP)";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label2
             // 
@@ -291,7 +347,7 @@ namespace ModdingTools.Windows
             this.label2.Padding = new System.Windows.Forms.Padding(5);
             this.label2.Size = new System.Drawing.Size(699, 26);
             this.label2.TabIndex = 16;
-            this.label2.Text = "MOD DESCRIPTION";
+            this.label2.Text = "MOD DESCRIPTION (IN-GAME)";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ModDescriptionEdit
@@ -302,12 +358,12 @@ namespace ModdingTools.Windows
             this.ModDescriptionEdit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
             this.ModDescriptionEdit.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ModDescriptionEdit.ForeColor = System.Drawing.Color.White;
-            this.ModDescriptionEdit.Location = new System.Drawing.Point(4, 31);
+            this.ModDescriptionEdit.Location = new System.Drawing.Point(2, 28);
             this.ModDescriptionEdit.Margin = new System.Windows.Forms.Padding(2);
             this.ModDescriptionEdit.Multiline = true;
             this.ModDescriptionEdit.Name = "ModDescriptionEdit";
             this.ModDescriptionEdit.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ModDescriptionEdit.Size = new System.Drawing.Size(690, 430);
+            this.ModDescriptionEdit.Size = new System.Drawing.Size(694, 189);
             this.ModDescriptionEdit.TabIndex = 8;
             this.ModDescriptionEdit.TextChanged += new System.EventHandler(this.ModDescriptionEdit_TextChanged);
             // 
@@ -315,10 +371,10 @@ namespace ModdingTools.Windows
             // 
             this.processRunner1.BackColor = System.Drawing.Color.Black;
             this.processRunner1.Font = new System.Drawing.Font("Segoe UI Semilight", 9F);
-            this.processRunner1.Location = new System.Drawing.Point(5, 95);
+            this.processRunner1.Location = new System.Drawing.Point(5, 97);
             this.processRunner1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.processRunner1.Name = "processRunner1";
-            this.processRunner1.Size = new System.Drawing.Size(698, 373);
+            this.processRunner1.Size = new System.Drawing.Size(698, 342);
             this.processRunner1.TabIndex = 15;
             // 
             // chapterInfoInput
@@ -326,7 +382,7 @@ namespace ModdingTools.Windows
             this.chapterInfoInput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.chapterInfoInput.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
             this.chapterInfoInput.ForeColor = System.Drawing.Color.White;
-            this.chapterInfoInput.Location = new System.Drawing.Point(91, 11);
+            this.chapterInfoInput.Location = new System.Drawing.Point(91, 14);
             this.chapterInfoInput.Name = "chapterInfoInput";
             this.chapterInfoInput.Size = new System.Drawing.Size(518, 23);
             this.chapterInfoInput.TabIndex = 16;
@@ -339,7 +395,7 @@ namespace ModdingTools.Windows
             this.mButton7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mButton7.ForeColor = System.Drawing.Color.White;
-            this.mButton7.Location = new System.Drawing.Point(614, 10);
+            this.mButton7.Location = new System.Drawing.Point(614, 13);
             this.mButton7.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton7.Name = "mButton7";
             this.mButton7.Size = new System.Drawing.Size(77, 24);
@@ -351,12 +407,12 @@ namespace ModdingTools.Windows
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 14);
+            this.label4.Location = new System.Drawing.Point(3, 17);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 15);
+            this.label4.Size = new System.Drawing.Size(86, 15);
             this.label4.TabIndex = 9;
-            this.label4.Text = "Chapter info";
+            this.label4.Text = "CHAPTER INFO";
             // 
             // arList1
             // 
@@ -522,7 +578,9 @@ namespace ModdingTools.Windows
             // tab6
             // 
             this.tab6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tab6.Controls.Add(this.ModClass);
             this.tab6.Controls.Add(this.panel1);
+            this.tab6.Controls.Add(this.label17);
             this.tab6.Controls.Add(this.processRunner1);
             this.tab6.ImageIndex = 0;
             this.tab6.Location = new System.Drawing.Point(0, 0);
@@ -531,10 +589,24 @@ namespace ModdingTools.Windows
             this.tab6.TabIndex = 2;
             this.tab6.Text = "BUILD";
             // 
+            // ModClass
+            // 
+            this.ModClass.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.ModClass.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ModClass.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.ModClass.Location = new System.Drawing.Point(87, 445);
+            this.ModClass.Name = "ModClass";
+            this.ModClass.Size = new System.Drawing.Size(616, 21);
+            this.ModClass.TabIndex = 19;
+            this.ModClass.Text = "Class";
+            this.ModClass.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ModClass.Click += new System.EventHandler(this.label16_Click);
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.mButton10);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.mButton6);
             this.panel1.Controls.Add(this.mButton7);
@@ -545,6 +617,24 @@ namespace ModdingTools.Windows
             this.panel1.Size = new System.Drawing.Size(698, 88);
             this.panel1.TabIndex = 17;
             // 
+            // mButton10
+            // 
+            this.mButton10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.mButton10.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(64)))));
+            this.mButton10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mButton10.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.mButton10.ForeColor = System.Drawing.Color.White;
+            this.mButton10.Image = global::ModdingTools.Properties.Resources.compncook;
+            this.mButton10.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mButton10.Location = new System.Drawing.Point(504, 45);
+            this.mButton10.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
+            this.mButton10.Name = "mButton10";
+            this.mButton10.Size = new System.Drawing.Size(191, 39);
+            this.mButton10.TabIndex = 17;
+            this.mButton10.Text = "COMPILE AND COOK";
+            this.mButton10.UseVisualStyleBackColor = false;
+            this.mButton10.Click += new System.EventHandler(this.mButton10_Click);
+            // 
             // mButton6
             // 
             this.mButton6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
@@ -552,9 +642,9 @@ namespace ModdingTools.Windows
             this.mButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton6.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.mButton6.ForeColor = System.Drawing.Color.White;
-            this.mButton6.Image = global::ModdingTools.Properties.Resources.settings_icon;
+            this.mButton6.Image = global::ModdingTools.Properties.Resources.cook;
             this.mButton6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton6.Location = new System.Drawing.Point(514, 42);
+            this.mButton6.Location = new System.Drawing.Point(325, 45);
             this.mButton6.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton6.Name = "mButton6";
             this.mButton6.Size = new System.Drawing.Size(177, 39);
@@ -570,16 +660,26 @@ namespace ModdingTools.Windows
             this.mButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton5.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.mButton5.ForeColor = System.Drawing.Color.White;
-            this.mButton5.Image = global::ModdingTools.Properties.Resources.settings_icon;
+            this.mButton5.Image = global::ModdingTools.Properties.Resources.compile;
             this.mButton5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton5.Location = new System.Drawing.Point(327, 42);
+            this.mButton5.Location = new System.Drawing.Point(146, 45);
             this.mButton5.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton5.Name = "mButton5";
-            this.mButton5.Size = new System.Drawing.Size(184, 39);
+            this.mButton5.Size = new System.Drawing.Size(177, 39);
             this.mButton5.TabIndex = 12;
             this.mButton5.Text = "COMPILE SCRIPTS";
             this.mButton5.UseVisualStyleBackColor = false;
             this.mButton5.Click += new System.EventHandler(this.mButton5_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(8, 448);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(73, 15);
+            this.label17.TabIndex = 20;
+            this.label17.Text = "MOD CLASS:";
+            this.label17.Click += new System.EventHandler(this.label17_Click);
             // 
             // tab7
             // 
@@ -943,6 +1043,7 @@ namespace ModdingTools.Windows
             this.panel4.PerformLayout();
             this.tab5.ResumeLayout(false);
             this.tab6.ResumeLayout(false);
+            this.tab6.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tab7.ResumeLayout(false);
@@ -1017,5 +1118,11 @@ namespace ModdingTools.Windows
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox SteamDescription;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label ModClass;
+        private System.Windows.Forms.Label label17;
+        private MButton mButton10;
     }
 }

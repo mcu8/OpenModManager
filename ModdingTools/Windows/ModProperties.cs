@@ -15,6 +15,7 @@ namespace ModdingTools.Windows
     public partial class ModProperties : BaseWindow
     {
         public ModObject Mod { get; private set; }
+        private ModStore Store;
         private string _newIcon = null;
         bool _unsaved;
         bool _saveFeatureHold = true;
@@ -24,10 +25,16 @@ namespace ModdingTools.Windows
 
         private bool HasUnsavedChanges {
             get {
-                return _unsaved;
+                return _unsaved && !Mod.IsReadOnly;
             }
             set
             {
+                if (Mod != null ? Mod.IsReadOnly : false)
+                {
+                    _unsaved = false;
+                    label7.Visible = false;
+                    return;
+                }
                 if (_saveFeatureHold) return;
                 _unsaved = value;
                 label7.Visible = value;
@@ -130,7 +137,7 @@ namespace ModdingTools.Windows
             var imageList = new ImageList();
             imageList.ImageSize = new Size(36, 36);
 
-            foreach (var img in ModClass.ClassToIconMapping)
+            foreach (var img in Engine.ModClass.ClassToIconMapping)
             {
                 imageList.Images.Add(img.Key.ToString(), img.Value);
             }
@@ -153,10 +160,12 @@ namespace ModdingTools.Windows
             this.tagsList.Clear();
             this.tagsList.LargeImageList = imageList;
 
+            this.ModClass.Text = Mod.ModClass;
+
             foreach (var tag in tags)
             {
-                if (ModClass.VisibleTypes.Contains(tag))
-                    this.tagsList.Items.Add("Contains " + ModClass.ClassToNameMapping[tag], tag.ToString());
+                if (Engine.ModClass.VisibleTypes.Contains(tag))
+                    this.tagsList.Items.Add("Contains " + Engine.ModClass.ClassToNameMapping[tag], tag.ToString());
             }
 
             if (Mod.HasAnyMaps())
@@ -190,6 +199,7 @@ namespace ModdingTools.Windows
                 mButton6.Enabled = false;
                 mButton7.Enabled = false;
                 mButton8.Enabled = false;
+                mButton10.Enabled = false;
                 label5.Enabled = false;
                 arList1.Enabled = false;
                 chapterInfoInput.Enabled = false;
@@ -223,6 +233,13 @@ namespace ModdingTools.Windows
                 comboBox1.SelectedIndex = comboBox1.Items.Count - 1;
                 panel2.Enabled = true;
             }
+
+            Store = ModStore.LoadForMod(Mod);
+
+            checkBox1.Checked = Store.UseSeparateDescriptionForSteam;
+            SteamDescription.Enabled = Store.UseSeparateDescriptionForSteam;
+            SteamDescription.Text = Store.GetDescription();
+
             _saveFeatureHold = false;
             HasUnsavedChanges = false;
         }
@@ -410,6 +427,11 @@ namespace ModdingTools.Windows
                 }
 
                 Mod.Save();
+
+                Store.SetDescription(SteamDescription.Text);
+                Store.UseSeparateDescriptionForSteam = checkBox1.Checked;
+                Store.SaveForMod(Mod);
+
                 HasUnsavedChanges = false;
 
                 Reload();
@@ -470,7 +492,7 @@ namespace ModdingTools.Windows
         {
             if (Mod.GetUploadedId() > 0)
             {
-                Process.Start("http://steamcommunity.com/sharedfiles/filedetails/?id=" + Mod.GetUploadedId());
+                Process.Start("steam://openurl/http://steamcommunity.com/sharedfiles/filedetails/?id=" + Mod.GetUploadedId());
             }
         }
 
@@ -646,6 +668,62 @@ namespace ModdingTools.Windows
         private void tabController1_PageChange(object sender, TabController.TabControllerPageChangeEventArgs e)
         {
 
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            Store.UseSeparateDescriptionForSteam = checkBox1.Checked;
+            SteamDescription.Enabled = checkBox1.Checked;
+            if (!checkBox1.Checked)
+            {
+                SteamDescription.Text = Store.GetDescription();
+            }
+            HasUnsavedChanges = true;
+        }
+
+        private void SteamDescription_TextChanged(object sender, EventArgs e)
+        {
+            HasUnsavedChanges = true;
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mButton10_Click(object sender, EventArgs e)
+        {
+            if (!contentBrowser1.HasContentError)
+            {
+                if (!ConditionalReload()) return;
+                ToggleUnlock(false);
+                SaveMod();
+                Mod.UnCookMod();
+                Task.Factory.StartNew(() =>
+                {
+                    var compileResult = Mod.CompileScripts(this.processRunner1, false);
+                    if (compileResult)
+                    {
+                        var cookResult = Mod.CookMod(this.processRunner1, false, false);
+                        if (!cookResult)
+                        {
+                            GUI.MessageBox.Show(this, "Cooking the mod was failed! Look at the console output for more info!");
+                        }
+                    }
+                    else
+                    {
+                        GUI.MessageBox.Show(this, "Compiling scripts was failed! Look at the console output for more info!");
+                    }
+
+                    this.Invoke(new MethodInvoker(() => ToggleUnlock(true)));
+                    this.Invoke(new MethodInvoker(() => Reload()));
+                });
+            }
         }
     }
 }

@@ -162,7 +162,7 @@ namespace ModdingTools.Windows
             store.ForceNoTags = checkBox13.Checked;
             store.SaveForMod(mod);
 
-            Program.Uploader.UploadModAsync(mod, textBox1.Text, store.Tags, checkBox1.Checked, checkBox2.Checked, comboBox3.SelectedIndex);
+            Program.Uploader.UploadModAsync(mod, textBox1.Text, store.Tags, checkBox1.Checked, checkBox2.Checked, comboBox3.SelectedIndex, store.UseSeparateDescriptionForSteam ? store.GetDescription() : mod.GetDescription());
             this.Close();
         }
 
@@ -233,6 +233,18 @@ namespace ModdingTools.Windows
         public int Visibility = 0;
         public string Changelog = "Initial release!";
         public bool ForceNoTags = false;
+        public bool UseSeparateDescriptionForSteam = false;
+        public string Description = "";
+
+        public void SetDescription(string desc)
+        {
+            Description = desc.Replace(Environment.NewLine, "[br]");
+        }
+
+        public string GetDescription()
+        {
+            return Description.Replace("[br]", Environment.NewLine);
+        }
 
         public static ModStore LoadForMod(ModObject mod)
         {
