@@ -31,14 +31,16 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContentBrowser));
             this.ContentTreeView = new System.Windows.Forms.TreeView();
+            this.TreeViewImageList = new System.Windows.Forms.ImageList(this.components);
             this.AssetDescriptionLabel = new System.Windows.Forms.Label();
             this.AssetNameLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.TreeViewImageList = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
             // ContentTreeView
             // 
+            this.ContentTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.ContentTreeView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ContentTreeView.ForeColor = System.Drawing.Color.White;
             this.ContentTreeView.ImageIndex = 0;
@@ -51,39 +53,6 @@
             this.ContentTreeView.Size = new System.Drawing.Size(290, 304);
             this.ContentTreeView.TabIndex = 0;
             this.ContentTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ContentTreeView_AfterSelect);
-            // 
-            // AssetDescriptionLabel
-            // 
-            this.AssetDescriptionLabel.AutoSize = true;
-            this.AssetDescriptionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AssetDescriptionLabel.ForeColor = System.Drawing.Color.Red;
-            this.AssetDescriptionLabel.Location = new System.Drawing.Point(319, 88);
-            this.AssetDescriptionLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.AssetDescriptionLabel.Name = "AssetDescriptionLabel";
-            this.AssetDescriptionLabel.Size = new System.Drawing.Size(58, 13);
-            this.AssetDescriptionLabel.TabIndex = 2;
-            this.AssetDescriptionLabel.Text = "Asset Error";
-            // 
-            // AssetNameLabel
-            // 
-            this.AssetNameLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.AssetNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AssetNameLabel.Location = new System.Drawing.Point(318, 53);
-            this.AssetNameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.AssetNameLabel.Name = "AssetNameLabel";
-            this.AssetNameLabel.Size = new System.Drawing.Size(272, 27);
-            this.AssetNameLabel.TabIndex = 1;
-            this.AssetNameLabel.Text = "Asset Name";
-            this.AssetNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(319, 37);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Asset name:";
             // 
             // TreeViewImageList
             // 
@@ -102,6 +71,41 @@
             this.TreeViewImageList.Images.SetKeyName(10, "remix");
             this.TreeViewImageList.Images.SetKeyName(11, "sticker");
             this.TreeViewImageList.Images.SetKeyName(12, "weapon");
+            // 
+            // AssetDescriptionLabel
+            // 
+            this.AssetDescriptionLabel.AutoSize = true;
+            this.AssetDescriptionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AssetDescriptionLabel.ForeColor = System.Drawing.Color.Red;
+            this.AssetDescriptionLabel.Location = new System.Drawing.Point(319, 88);
+            this.AssetDescriptionLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.AssetDescriptionLabel.Name = "AssetDescriptionLabel";
+            this.AssetDescriptionLabel.Size = new System.Drawing.Size(58, 13);
+            this.AssetDescriptionLabel.TabIndex = 2;
+            this.AssetDescriptionLabel.Text = "Asset Error";
+            // 
+            // AssetNameLabel
+            // 
+            this.AssetNameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AssetNameLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.AssetNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AssetNameLabel.Location = new System.Drawing.Point(318, 53);
+            this.AssetNameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.AssetNameLabel.Name = "AssetNameLabel";
+            this.AssetNameLabel.Size = new System.Drawing.Size(272, 27);
+            this.AssetNameLabel.TabIndex = 1;
+            this.AssetNameLabel.Text = "Asset Name";
+            this.AssetNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(319, 37);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Asset name:";
             // 
             // ContentBrowser
             // 

@@ -607,7 +607,7 @@ namespace ModdingTools.Modding
                 Image img;
                 using (var bmpTemp = new Bitmap(path))
                 {
-                    img = FlipbookGenerator.ResizeImage(new Bitmap(bmpTemp), 128, 128);
+                    img = FlipbookGenerator.ResizeImage(new Bitmap(bmpTemp), 200, 200);
                 }
                 return img;
             }

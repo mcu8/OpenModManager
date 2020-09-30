@@ -14,8 +14,6 @@ namespace ModdingTools.Windows
 {
     public partial class ModProperties : BaseWindow
     {
-       
-
         public ModObject Mod { get; private set; }
         private string _newIcon = null;
         bool _unsaved;
@@ -81,28 +79,20 @@ namespace ModdingTools.Windows
 
         public ModProperties(ModObject mod)
         {
+            this.HandleCreated += ModProperties_HandleCreated;
             InitializeComponent();
-
             HasUnsavedChanges = false;
-
-            foreach (var tab in tabControl2.Pages)
-            {
-                if (tab == tabControl2.SelectedTab)
-                {
-                    tab.BackColor = Color.FromArgb(32, 32, 32);
-                    
-                }
-                else
-                {
-                    tab.BackColor = Color.FromArgb(80, 80, 80);
-                }
-            }
 
             this.Mod = mod;
             this.configList1.OnUpdate += ConfigList1_OnUpdate;
             this.arList1.OnUpdate += ConfigList1_OnUpdate;
 
             Reload();
+        }
+
+        private void ModProperties_HandleCreated(object sender, EventArgs e)
+        {
+            this.tabController1.Init();
         }
 
         private void ConfigList1_OnUpdate(object sender, EventArgs e)
@@ -156,6 +146,7 @@ namespace ModdingTools.Windows
             this.cbCoOp.Checked = Mod.Coop.ToLower() == "cooponly";
             this.cbOnlineParty.Checked = Mod.IsOnlineParty;
             this.label5.Text = Mod.Version;
+            this.lblAuthor.Text = Mod.Author;
 
             var tags = ModObject.CombineTags(Mod.GetModClasses());
 
@@ -238,7 +229,7 @@ namespace ModdingTools.Windows
 
         public void ToggleUnlock(bool v)
         {
-            foreach (var tab in tabControl2.Tabs)
+            foreach (var tab in tabControl2.TabPages)
             {
                 if (tab == tab6) continue;
                 ((Control)tab).Enabled = v;
@@ -252,6 +243,7 @@ namespace ModdingTools.Windows
             label5.Enabled = v;
             ModDescriptionEdit.ReadOnly = !v;
             panel2.Enabled = v;
+            tabController1.Enabled = v;
         }
 
         private bool ConditionalReload()
@@ -381,6 +373,7 @@ namespace ModdingTools.Windows
                 Mod.IsOnlineParty = cbOnlineParty.Checked;
                 Mod.Coop = cbCoOp.Checked ? "CoopOnly" : "";
                 Mod.Version = label5.Text;
+                Mod.Author = lblAuthor.Text;
                 if (Mod.GetDirectoryName() != modFolderName.Text)
                 {
                     Mod.RenameDirectory(modFolderName.Text);
@@ -542,18 +535,6 @@ namespace ModdingTools.Windows
             }
         }
 
-        private void tabControl2_PageChanging(object sender, Manina.Windows.Forms.PageChangingEventArgs e)
-        {
-            if (!((Control)tab1).Enabled)
-            {
-                e.Cancel = true;
-                return;
-            }
-
-            e.NewPage.BackColor = Color.FromArgb(32, 32, 32);
-            e.CurrentPage.BackColor = Color.FromArgb(80,80,80);
-        }
-
         private void label5_Click(object sender, EventArgs e)
         {
             var iw = InputWindow.Ask(this, "Version", "Enter the mod version", new InputWindow.NonEmptyValidator(), label5.Text);
@@ -642,7 +623,29 @@ namespace ModdingTools.Windows
 
         private void flagTags_Click(object sender, EventArgs e)
         {
-            tabControl2.SelectedTab = tab5;
+            tabControl2.SelectedTab = tab1;
+        }
+
+        private void lblAuthor_Click(object sender, EventArgs e)
+        {
+            var iw = InputWindow.Ask(this, "Author", "Enter the mod author", null, lblAuthor.Text);
+            if (iw != null)
+            {
+                if (lblAuthor.Text != iw)
+                {
+                    lblAuthor.Text = iw;
+                    HasUnsavedChanges = true;
+                }
+            }
+        }
+
+        private void ModProperties_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void tabController1_PageChange(object sender, TabController.TabControllerPageChangeEventArgs e)
+        {
+
         }
     }
 }
