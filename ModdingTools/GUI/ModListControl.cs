@@ -15,6 +15,7 @@ namespace ModdingTools.GUI
             InitializeComponent();
             flowLayoutPanel1.Resize += ModListControl_SizeChanged;
             if (DesignMode || Utils.IsVSDesignMode()) panel1.Visible = false;
+            label5.Text = "APP BUILD NUMBER: " + BuildData.CurrentVersion;
         }
 
         private void ModListControl_SizeChanged(object sender, EventArgs e)

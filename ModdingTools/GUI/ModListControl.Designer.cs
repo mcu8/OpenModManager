@@ -35,6 +35,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.mButtonBorderless2 = new ModdingTools.GUI.MButtonBorderless();
             this.mButtonBorderless1 = new ModdingTools.GUI.MButtonBorderless();
             this.panel1.SuspendLayout();
@@ -68,7 +69,7 @@
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
             this.label1.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.label1.Size = new System.Drawing.Size(734, 21);
+            this.label1.Size = new System.Drawing.Size(606, 21);
             this.label1.TabIndex = 4;
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -141,6 +142,20 @@
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
             // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label5.Font = new System.Drawing.Font("Segoe UI Semilight", 6F);
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(607, 456);
+            this.label5.Margin = new System.Windows.Forms.Padding(0);
+            this.label5.Name = "label5";
+            this.label5.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.label5.Size = new System.Drawing.Size(127, 22);
+            this.label5.TabIndex = 9;
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // mButtonBorderless2
             // 
             this.mButtonBorderless2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -185,6 +200,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.label5);
             this.DoubleBuffered = true;
             this.Name = "ModListControl";
             this.Size = new System.Drawing.Size(734, 478);
@@ -204,5 +220,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
     }
 }

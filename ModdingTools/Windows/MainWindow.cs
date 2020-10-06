@@ -31,7 +31,7 @@ namespace ModdingTools.Windows
             "NOT CRASH MY EDITOR EDITION",
             "HUEH",
             "HEUH",
-            "RIFT COLLAPSE, OR YOU KNEECAPS ~ SuperInkLink 2020",
+            "RIFT COLLAPSE, OR UR KNEECAPS ~ SuperInkLink 2020",
             "PLAY FAREWELL",
             "DO NOT RESEARCH",
             "CHAT, SAY POGGERS",
