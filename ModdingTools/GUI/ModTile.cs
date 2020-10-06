@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using ModdingTools.Modding;
 using ModdingTools.Engine;
 using ModdingTools.Windows;
+using System.Diagnostics;
 
 namespace ModdingTools.GUI
 {
@@ -30,6 +31,8 @@ namespace ModdingTools.GUI
             this.Mod = mod;
             this.panel1.BackgroundImage = mod.GetIcon();
             this.label1.Text = mod.Name + "\n(" + mod.GetDirectoryName() + ")";
+
+            this.panel2.Visible = mod.IsReleased;
 
             checkBox1.CheckedChanged += CheckBox1_CheckedChanged;
             CheckBox1_CheckedChanged(null, null);
@@ -261,6 +264,11 @@ namespace ModdingTools.GUI
         private void hatInTimeEntryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Mod.TestMod(MainWindow.Instance.Runner, "hatintimeentry");
+        }
+
+        private void panel2_Click(object sender, EventArgs e)
+        {
+            Process.Start("steam://openurl/http://steamcommunity.com/sharedfiles/filedetails/?id=" + Mod.GetUploadedId());
         }
     }
 }

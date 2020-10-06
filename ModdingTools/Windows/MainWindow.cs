@@ -128,6 +128,11 @@ namespace ModdingTools.Windows
             string modInfoPath = Path.Combine(modPath, "modinfo.ini");
 
             Directory.CreateDirectory(modPath);
+            Directory.CreateDirectory(Path.Combine(modPath, "Classes"));
+            Directory.CreateDirectory(Path.Combine(modPath, "Content"));
+            Directory.CreateDirectory(Path.Combine(modPath, "Maps"));
+            Directory.CreateDirectory(Path.Combine(modPath, "Localization"));
+            Directory.CreateDirectory(Path.Combine(modPath, "Localization", "INT"));
 
             using (StreamWriter sW = File.CreateText(modInfoPath))
             {

@@ -288,6 +288,8 @@ namespace ModdingTools.Modding
             Refresh();
         }
 
+        public bool IsReleased => GetUploadedId() > 0;
+
         public void Refresh()
         {
             Debug.WriteLine("Refreshing mod...");
@@ -680,7 +682,7 @@ namespace ModdingTools.Modding
 
         public ulong GetUploadedId()
         {
-            string checkPath = Path.Combine(RootPath, "..\\SteamWorkshop.ini");
+            string checkPath = Path.Combine(GameFinder.GetModsDir(), "SteamWorkshop.ini");
             Debug.WriteLine(checkPath);
             if (File.Exists(checkPath))
             {

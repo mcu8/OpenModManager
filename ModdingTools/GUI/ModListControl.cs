@@ -102,14 +102,14 @@ namespace ModdingTools.GUI
                         foreach (var d in mods)
                         {
                             i2++;
-                            SetStatus("Loading mod " + d.Name + " [" + i2 + " of " + i1 + "]"); 
-                            
-                            var tile = new ModTile(d);
-                            tile.Visible = source.Enabled;
-                            tile.Tag = space;
-                            RevalidateTile(tile);
+                            SetStatus("Loading mod " + d.Name + " [" + i2 + " of " + i1 + "]");
+                            ModTile tile = null;
                             this.Invoke(new MethodInvoker(() =>
-                            {       
+                            {
+                                tile = new ModTile(d);
+                                tile.Visible = source.Enabled;
+                                tile.Tag = space;
+                                RevalidateTile(tile);
                                 tiles.Add(tile);
                             }));
                         }

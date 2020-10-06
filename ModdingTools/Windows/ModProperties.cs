@@ -183,7 +183,7 @@ namespace ModdingTools.Windows
                 this.tagsList.Items.Add("Items are available immediately", "AutoGiveItems");
             }
 
-            mButton1.Enabled = Mod.GetUploadedId() > 0;
+            mButton1.Enabled = Mod.IsReleased;
 
             arList1.Fill(Mod.AssetReplacements);
 

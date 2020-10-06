@@ -40,6 +40,7 @@
             this.titleScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spaceshipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mafiaTownToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hatInTimeEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.openDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,7 +50,7 @@
             this.deleteModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scriptWatcherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scriptWatcherToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.hatInTimeEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -60,6 +61,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panel1.Controls.Add(this.checkBox1);
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(144, 104);
@@ -102,7 +104,7 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 164);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(129, 142);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // cookModToolStripMenuItem
@@ -111,7 +113,7 @@
             this.compileScriptsToolStripMenuItem,
             this.cookModToolStripMenuItem1});
             this.cookModToolStripMenuItem.Name = "cookModToolStripMenuItem";
-            this.cookModToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.cookModToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.cookModToolStripMenuItem.Text = "Build";
             // 
             // compileScriptsToolStripMenuItem
@@ -136,39 +138,46 @@
             this.mafiaTownToolStripMenuItem,
             this.hatInTimeEntryToolStripMenuItem});
             this.testModToolStripMenuItem.Name = "testModToolStripMenuItem";
-            this.testModToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.testModToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.testModToolStripMenuItem.Text = "Test mod";
             // 
             // titleScreenToolStripMenuItem
             // 
             this.titleScreenToolStripMenuItem.Name = "titleScreenToolStripMenuItem";
-            this.titleScreenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.titleScreenToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.titleScreenToolStripMenuItem.Text = "Title screen";
             this.titleScreenToolStripMenuItem.Click += new System.EventHandler(this.titleScreenToolStripMenuItem_Click);
             // 
             // spaceshipToolStripMenuItem
             // 
             this.spaceshipToolStripMenuItem.Name = "spaceshipToolStripMenuItem";
-            this.spaceshipToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.spaceshipToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.spaceshipToolStripMenuItem.Text = "Spaceship";
             this.spaceshipToolStripMenuItem.Click += new System.EventHandler(this.spaceshipToolStripMenuItem_Click);
             // 
             // mafiaTownToolStripMenuItem
             // 
             this.mafiaTownToolStripMenuItem.Name = "mafiaTownToolStripMenuItem";
-            this.mafiaTownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mafiaTownToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.mafiaTownToolStripMenuItem.Text = "Mafia town";
             this.mafiaTownToolStripMenuItem.Click += new System.EventHandler(this.mafiaTownToolStripMenuItem_Click);
+            // 
+            // hatInTimeEntryToolStripMenuItem
+            // 
+            this.hatInTimeEntryToolStripMenuItem.Name = "hatInTimeEntryToolStripMenuItem";
+            this.hatInTimeEntryToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.hatInTimeEntryToolStripMenuItem.Text = "HatInTimeEntry";
+            this.hatInTimeEntryToolStripMenuItem.Click += new System.EventHandler(this.hatInTimeEntryToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(152, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(125, 6);
             // 
             // openDirectoryToolStripMenuItem
             // 
             this.openDirectoryToolStripMenuItem.Name = "openDirectoryToolStripMenuItem";
-            this.openDirectoryToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.openDirectoryToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.openDirectoryToolStripMenuItem.Text = "Open directory";
             this.openDirectoryToolStripMenuItem.Click += new System.EventHandler(this.openDirectoryToolStripMenuItem_Click);
             // 
@@ -178,7 +187,7 @@
             this.moveToToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.testToolStripMenuItem});
             this.moveToToolStripMenuItem.Name = "moveToToolStripMenuItem";
-            this.moveToToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.moveToToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.moveToToolStripMenuItem.Text = "Move to";
             this.moveToToolStripMenuItem.DropDownOpening += new System.EventHandler(this.moveoToolStripMenuItem_DropDownOpening);
             // 
@@ -193,7 +202,7 @@
             this.scriptingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.scriptWatcherToolStripMenuItem2});
             this.scriptingToolStripMenuItem.Name = "scriptingToolStripMenuItem";
-            this.scriptingToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.scriptingToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.scriptingToolStripMenuItem.Text = "Scripting";
             // 
             // scriptWatcherToolStripMenuItem2
@@ -206,7 +215,7 @@
             // deleteModToolStripMenuItem
             // 
             this.deleteModToolStripMenuItem.Name = "deleteModToolStripMenuItem";
-            this.deleteModToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.deleteModToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.deleteModToolStripMenuItem.Text = "Delete mod";
             this.deleteModToolStripMenuItem.Click += new System.EventHandler(this.deleteModToolStripMenuItem_Click);
             // 
@@ -220,12 +229,19 @@
             this.scriptWatcherToolStripMenuItem1.Name = "scriptWatcherToolStripMenuItem1";
             this.scriptWatcherToolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
             // 
-            // hatInTimeEntryToolStripMenuItem
+            // panel2
             // 
-            this.hatInTimeEntryToolStripMenuItem.Name = "hatInTimeEntryToolStripMenuItem";
-            this.hatInTimeEntryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.hatInTimeEntryToolStripMenuItem.Text = "HatInTimeEntry";
-            this.hatInTimeEntryToolStripMenuItem.Click += new System.EventHandler(this.hatInTimeEntryToolStripMenuItem_Click);
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
+            this.panel2.BackgroundImage = global::ModdingTools.Properties.Resources.uploaded;
+            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panel2.Location = new System.Drawing.Point(110, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(34, 30);
+            this.panel2.TabIndex = 1;
+            this.panel2.Visible = false;
+            this.panel2.Click += new System.EventHandler(this.panel2_Click);
             // 
             // ModTile
             // 
@@ -266,5 +282,6 @@
         private System.Windows.Forms.ToolStripMenuItem scriptWatcherToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem deleteModToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hatInTimeEntryToolStripMenuItem;
+        private System.Windows.Forms.Panel panel2;
     }
 }
