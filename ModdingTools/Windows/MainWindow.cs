@@ -21,6 +21,24 @@ namespace ModdingTools.Windows
         private ModListControl modListControl1;
         private ProcessRunner processRunner1;
 
+        // Don't ask, just add :)
+        private String[] FunnyTexts = new[] { 
+            "GAMEDAT ANNIVERSARY EDITION",
+            ":S_:",
+            "MODDING",
+            "GAMING",
+            "LOWRESMU EDITION",
+            "NOT CRASH MY EDITOR EDITION",
+            "HUEH",
+            "HEUH",
+            "RIFT COLLAPSE, OR YOU KNEECAPS ~ SuperInkLink 2020",
+            "PLAY FAREWELL",
+            "DO NOT RESEARCH",
+            "CHAT, SAY POGGERS",
+            "ALWAYSLOADED",
+            "FATAL ERROR 0x0"
+        };
+
         public MainWindow()
         {
             if (!DesignMode)
@@ -30,6 +48,8 @@ namespace ModdingTools.Windows
 
             Instance = this;
             InitializeComponent();
+
+            this.Text = "OPEN MOD MANAGER - FOR A HAT IN TIME  [" + FunnyTexts[new Random().Next(FunnyTexts.Length)] + "]";
 
             modListControl1 = new ModListControl();
             processRunner1 = new ProcessRunner();

@@ -228,7 +228,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(958, 515);
             this.Name = "MainWindow";
-            this.Text = "OPEN MOD MANAGER - FOR A HAT IN TIME (!GAMEDAT ANNIVERSARY EDITION)";
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.ResizeBegin += new System.EventHandler(this.MainWindow_ResizeBegin);
             this.ResizeEnd += new System.EventHandler(this.MainWindow_ResizeEnd);
