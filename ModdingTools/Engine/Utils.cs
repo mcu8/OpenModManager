@@ -87,7 +87,14 @@ namespace ModdingTools.Engine
 
         public static string FindPackage(string name)
         {
-            return Directory.GetFiles(GameFinder.GetEditorCookedPcDir(), name + ".upk", SearchOption.AllDirectories).First();
+            var lookupA = Directory.GetFiles(GameFinder.GetEditorCookedPcDir(), name + ".upk", SearchOption.AllDirectories);
+            if (lookupA.Length > 0) return lookupA.First();
+
+            var lookupB = Directory.GetFiles(GameFinder.GetModsDir(), name + ".upk", SearchOption.AllDirectories);
+            if (lookupB.Length > 0) return lookupB.First();
+
+            var lookupC = Directory.GetFiles(GameFinder.GetWorkshopDir(), name + ".upk", SearchOption.AllDirectories);
+            return lookupC.First();
         }
 
         public static string ReadStringFromFile(string path)

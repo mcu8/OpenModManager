@@ -4,6 +4,7 @@ using ModdingTools.Engine;
 using ModdingTools.GUI;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -70,7 +71,7 @@ namespace ModdingTools.Windows.Tools
                             if (dlg.ShowDialog() == DialogResult.OK)
                             {
                                 var facade = new UModelFacade();
-                                var result = facade.Export(package, spl.Last(), parserType, dlg.FileName);
+                                var result = facade.Export(Path.GetDirectoryName(pkg), package, spl.Last(), parserType, dlg.FileName);
                                 CUMessageBox.Show(this, result ? "File exported sucessfully!" : "Export failed!");
                             }
                             return;

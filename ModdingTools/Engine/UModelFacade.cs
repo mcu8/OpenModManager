@@ -62,7 +62,7 @@ namespace ModdingTools.Engine
             return p.ExitCode == 0;
         }
 
-        public bool Export(string package, string assetName, ExportType exportType, string destination)
+        public bool Export(string root, string package, string assetName, ExportType exportType, string destination)
         {
             var tmpDir = GetTMPDir();
             if (Directory.Exists(tmpDir))
@@ -72,7 +72,7 @@ namespace ModdingTools.Engine
             Directory.CreateDirectory(tmpDir);
 
             // .\umodel.exe -game=ue3 -path="C:\Program Files (x86)\Steam\steamapps\common\HatinTime\HatinTimeGame\EditorCookedPC" -export HatinTime_Music_Metro4 Act_4_Pink_Paw_Station -sounds -out=".\test"
-            var res = Run($"-game=ue3 -path=\"{GameFinder.GetEditorCookedPcDir()}\" -3rdparty -export {package} {assetName}{(exportType == ExportType.SoundNodeWave ? " -sounds" : "")} -out=\"{tmpDir}\"");
+            var res = Run($"-game=ue3 -path=\"{root}\" -3rdparty -export {package} {assetName}{(exportType == ExportType.SoundNodeWave ? " -sounds" : "")} -out=\"{tmpDir}\"");
             if (!res)
             {
                 return false;
