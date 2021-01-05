@@ -1,4 +1,6 @@
-﻿using ModdingTools.Engine;
+﻿using CUFramework.Dialogs;
+using CUFramework.Windows;
+using ModdingTools.Engine;
 using ModdingTools.GUI;
 using System;
 using System.Diagnostics;
@@ -10,7 +12,7 @@ using UELib.Core;
 
 namespace ModdingTools.Windows.Tools
 {
-    public partial class AssetRipper : BaseWindow
+    public partial class AssetRipper : CUWindow
     {
         public AssetRipper()
         {
@@ -25,7 +27,7 @@ namespace ModdingTools.Windows.Tools
 
             if (match.Count != 1 || match[0].Groups.Count != 3)
             {
-                GUI.MessageBox.Show(this, "Invalid input!");
+                CUMessageBox.Show(this, "Invalid input!");
             } 
 
             try
@@ -57,7 +59,7 @@ namespace ModdingTools.Windows.Tools
                             var ext = UModelFacade.GetExtensionForType(parserType);
                             if (ext == null)
                             {
-                                GUI.MessageBox.Show(this, "Unsupported type: " + parserType);
+                                CUMessageBox.Show(this, "Unsupported type: " + parserType);
                                 return;
                             }
 
@@ -69,18 +71,18 @@ namespace ModdingTools.Windows.Tools
                             {
                                 var facade = new UModelFacade();
                                 var result = facade.Export(package, spl.Last(), parserType, dlg.FileName);
-                                GUI.MessageBox.Show(this, result ? "File exported sucessfully!" : "Export failed!");
+                                CUMessageBox.Show(this, result ? "File exported sucessfully!" : "Export failed!");
                             }
                             return;
                         }
                     }
                 }
-                GUI.MessageBox.Show(this, "Asset not found!");
+                CUMessageBox.Show(this, "Asset not found!");
 
             }
             catch (Exception ex)
             {
-                GUI.MessageBox.Show(ex.Message + "\n\n" + ex);
+                CUMessageBox.Show(ex.Message + "\n\n" + ex);
             }
         }
 

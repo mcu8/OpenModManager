@@ -59,6 +59,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CUFramework, Version=0.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CUFramework.0.0.1\lib\net40\CUFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Eliot.UELib, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Eliot.UELib.dll.1.2.6.0\lib\net40\Eliot.UELib.dll</HintPath>
     </Reference>
@@ -128,28 +131,20 @@
     <Compile Include="GUI\ARList.Designer.cs">
       <DependentUpon>ARList.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\ColoredMenus.cs" />
     <Compile Include="GUI\ContentBrowser.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\ContentBrowser.Designer.cs">
       <DependentUpon>ContentBrowser.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\MessageBox.cs" />
-    <Compile Include="GUI\MTextBox.cs">
+    <Compile Include="GUI\GUIWorker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\GUIWorker.Designer.cs">
+      <DependentUpon>GUIWorker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\HuehProgressBar.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GUI\CardController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GUI\TabController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Windows\InputWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Windows\InputWindow.Designer.cs">
-      <DependentUpon>InputWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Windows\Tools\AssetRipper.cs">
       <SubType>Form</SubType>
@@ -180,9 +175,6 @@
     </Compile>
     <Compile Include="Windows\ConfigWindow.Designer.cs">
       <DependentUpon>ConfigWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\BorderlessTabControl.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="GUI\BorderPanel.cs">
       <SubType>Component</SubType>
@@ -218,18 +210,6 @@
     <Compile Include="Windows\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\BaseWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\ControlBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GUI\MButtonBorderless.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GUI\MButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Modding\ModDirectorySource.cs" />
     <Compile Include="Modding\ModObject.cs" />
     <Compile Include="Windows\ModProperties.cs">
@@ -247,6 +227,7 @@
     <Compile Include="Engine\ProcessFactory.cs" />
     <Compile Include="Engine\ScriptWatcher.cs" />
     <Compile Include="Engine\Utils.cs" />
+    <Compile Include="Windows\Validators\ModdingValidators.cs" />
     <EmbeddedResource Include="GUI\ConfigItem.resx">
       <DependentUpon>ConfigItem.cs</DependentUpon>
     </EmbeddedResource>
@@ -262,8 +243,8 @@
     <EmbeddedResource Include="GUI\ContentBrowser.resx">
       <DependentUpon>ContentBrowser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Windows\InputWindow.resx">
-      <DependentUpon>InputWindow.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\GUIWorker.resx">
+      <DependentUpon>GUIWorker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\Tools\AssetRipper.resx">
       <DependentUpon>AssetRipper.cs</DependentUpon>
@@ -322,6 +303,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hueh.ico" />
+    <None Include="Resources\heeh_3.png" />
+    <None Include="Resources\heeh_2.png" />
+    <None Include="Resources\heeh_1b.png" />
     <None Include="Resources\uploaded.png" />
     <None Include="Resources\cook.png" />
     <None Include="Resources\compncook.png" />

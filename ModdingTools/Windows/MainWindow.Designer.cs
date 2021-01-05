@@ -1,4 +1,7 @@
-﻿namespace ModdingTools.Windows
+﻿using CUFramework.Controls;
+using CUFramework.Controls.Tabs;
+
+namespace ModdingTools.Windows
 {
     partial class MainWindow
     {
@@ -30,19 +33,21 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
-            this.mButton3 = new ModdingTools.GUI.MButton();
-            this.mButton4 = new ModdingTools.GUI.MButton();
-            this.mTextBox1 = new ModdingTools.GUI.MTextBox();
+            this.mButton3 = new CUFramework.Controls.CUButton();
+            this.mButton4 = new CUFramework.Controls.CUButton();
+            this.mTextBox1 = new CUFramework.Controls.CUTextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.mButton1 = new ModdingTools.GUI.MButton();
+            this.mButton1 = new CUFramework.Controls.CUButton();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.assetExporterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flipbookGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mButton6 = new ModdingTools.GUI.MButton();
-            this.mButton5 = new ModdingTools.GUI.MButton();
-            this.mButton2 = new ModdingTools.GUI.MButton();
-            this.cardController1 = new ModdingTools.GUI.CardController();
+            this.mButton6 = new CUFramework.Controls.CUButton();
+            this.mButton5 = new CUFramework.Controls.CUButton();
+            this.mButton2 = new CUFramework.Controls.CUButton();
+            this.cardController1 = new CUFramework.Controls.Tabs.CUCardController();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.contextMenuStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mButton3
@@ -52,8 +57,9 @@
             this.mButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton3.ForeColor = System.Drawing.Color.Black;
             this.mButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton3.Location = new System.Drawing.Point(198, 35);
+            this.mButton3.Location = new System.Drawing.Point(196, 1);
             this.mButton3.Name = "mButton3";
+            this.mButton3.NoFocus = false;
             this.mButton3.Size = new System.Drawing.Size(243, 33);
             this.mButton3.TabIndex = 6;
             this.mButton3.Text = "MAFIA PUNCH (KILL EDITOR)";
@@ -67,8 +73,9 @@
             this.mButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton4.ForeColor = System.Drawing.Color.White;
             this.mButton4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton4.Location = new System.Drawing.Point(4, 36);
+            this.mButton4.Location = new System.Drawing.Point(2, 2);
             this.mButton4.Name = "mButton4";
+            this.mButton4.NoFocus = false;
             this.mButton4.Size = new System.Drawing.Size(192, 32);
             this.mButton4.TabIndex = 7;
             this.mButton4.Text = "NEW MOD";
@@ -81,7 +88,7 @@
             this.mTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.mTextBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
             this.mTextBox1.ForeColor = System.Drawing.Color.White;
-            this.mTextBox1.Location = new System.Drawing.Point(637, 42);
+            this.mTextBox1.Location = new System.Drawing.Point(638, 8);
             this.mTextBox1.Name = "mTextBox1";
             this.mTextBox1.Size = new System.Drawing.Size(310, 20);
             this.mTextBox1.TabIndex = 8;
@@ -93,7 +100,7 @@
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.ForeColor = System.Drawing.Color.DarkGray;
-            this.label5.Location = new System.Drawing.Point(579, 46);
+            this.label5.Location = new System.Drawing.Point(580, 12);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 13);
             this.label5.TabIndex = 30;
@@ -107,8 +114,9 @@
             this.mButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton1.ForeColor = System.Drawing.Color.White;
             this.mButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton1.Location = new System.Drawing.Point(741, 3);
+            this.mButton1.Location = new System.Drawing.Point(666, 3);
             this.mButton1.Name = "mButton1";
+            this.mButton1.NoFocus = false;
             this.mButton1.Size = new System.Drawing.Size(145, 30);
             this.mButton1.TabIndex = 4;
             this.mButton1.Text = "LAUNCH EDITOR";
@@ -156,9 +164,10 @@
             this.mButton6.ForeColor = System.Drawing.Color.White;
             this.mButton6.Image = global::ModdingTools.Properties.Resources.tools;
             this.mButton6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton6.Location = new System.Drawing.Point(563, 2);
+            this.mButton6.Location = new System.Drawing.Point(507, 2);
             this.mButton6.Name = "mButton6";
-            this.mButton6.Size = new System.Drawing.Size(82, 32);
+            this.mButton6.NoFocus = false;
+            this.mButton6.Size = new System.Drawing.Size(82, 30);
             this.mButton6.TabIndex = 35;
             this.mButton6.Text = "TOOLS";
             this.mButton6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -174,9 +183,10 @@
             this.mButton5.ForeColor = System.Drawing.Color.White;
             this.mButton5.Image = global::ModdingTools.Properties.Resources.console1;
             this.mButton5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton5.Location = new System.Drawing.Point(660, 3);
+            this.mButton5.Location = new System.Drawing.Point(590, 3);
             this.mButton5.Name = "mButton5";
-            this.mButton5.Size = new System.Drawing.Size(35, 31);
+            this.mButton5.NoFocus = false;
+            this.mButton5.Size = new System.Drawing.Size(35, 29);
             this.mButton5.TabIndex = 34;
             this.mButton5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.mButton5.UseVisualStyleBackColor = false;
@@ -190,9 +200,10 @@
             this.mButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton2.ForeColor = System.Drawing.Color.White;
             this.mButton2.Image = global::ModdingTools.Properties.Resources.settings_icon;
-            this.mButton2.Location = new System.Drawing.Point(699, 4);
+            this.mButton2.Location = new System.Drawing.Point(626, 4);
             this.mButton2.Name = "mButton2";
-            this.mButton2.Size = new System.Drawing.Size(37, 30);
+            this.mButton2.NoFocus = false;
+            this.mButton2.Size = new System.Drawing.Size(37, 28);
             this.mButton2.TabIndex = 5;
             this.mButton2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.mButton2.UseVisualStyleBackColor = false;
@@ -210,22 +221,32 @@
             this.cardController1.Size = new System.Drawing.Size(950, 440);
             this.cardController1.TabIndex = 36;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.mButton4);
+            this.panel1.Controls.Add(this.mButton3);
+            this.panel1.Controls.Add(this.mTextBox1);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(2, 34);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(954, 35);
+            this.panel1.TabIndex = 37;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(958, 515);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.cardController1);
             this.Controls.Add(this.mButton6);
             this.Controls.Add(this.mButton5);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.mTextBox1);
-            this.Controls.Add(this.mButton4);
-            this.Controls.Add(this.mButton3);
             this.Controls.Add(this.mButton2);
             this.Controls.Add(this.mButton1);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Location = new System.Drawing.Point(0, 0);
             this.MinimumSize = new System.Drawing.Size(958, 515);
             this.Name = "MainWindow";
             this.Load += new System.EventHandler(this.MainWindow_Load);
@@ -233,32 +254,31 @@
             this.ResizeEnd += new System.EventHandler(this.MainWindow_ResizeEnd);
             this.Controls.SetChildIndex(this.mButton1, 0);
             this.Controls.SetChildIndex(this.mButton2, 0);
-            this.Controls.SetChildIndex(this.mButton3, 0);
-            this.Controls.SetChildIndex(this.mButton4, 0);
-            this.Controls.SetChildIndex(this.mTextBox1, 0);
-            this.Controls.SetChildIndex(this.label5, 0);
             this.Controls.SetChildIndex(this.mButton5, 0);
             this.Controls.SetChildIndex(this.mButton6, 0);
             this.Controls.SetChildIndex(this.cardController1, 0);
+            this.Controls.SetChildIndex(this.panel1, 0);
             this.contextMenuStrip1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private GUI.MButton mButton1;
-        private GUI.MButton mButton2;
-        private GUI.MButton mButton3;
-        private GUI.MButton mButton4;
-        private GUI.MTextBox mTextBox1;
+        private CUButton mButton1;
+        private CUButton mButton2;
+        private CUButton mButton3;
+        private CUButton mButton4;
+        private CUTextBox mTextBox1;
         private System.Windows.Forms.Label label5;
-        private GUI.MButton mButton5;
-        private GUI.MButton mButton6;
+        private CUButton mButton5;
+        private CUButton mButton6;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem assetExporterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem flipbookGeneratorToolStripMenuItem;
-        private GUI.CardController cardController1;
+        private CUCardController cardController1;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

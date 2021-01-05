@@ -14,10 +14,15 @@ using System.Web;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using CUFramework.Controls;
+using CUFramework.Windows;
+using CUFramework.Dialogs;
+using CUFramework.Dialogs.Validators;
+using ModdingTools.Windows.Tools;
 
 namespace ModdingTools.Windows
 {
-    public partial class UploadOptions : BaseWindow
+    public partial class UploadOptions : CUWindow
     {
         private ModObject mod;
         private ModStore store;
@@ -144,13 +149,13 @@ namespace ModdingTools.Windows
             var tags = checkBox13.Checked ? new string[0] : GetTags();
             if (tags.Count() == 0 && !checkBox13.Checked)
             {
-                GUI.MessageBox.Show("You should choose at least one tag!\n(or check the \"Upload without tags\" option)");
+                CUMessageBox.Show("You should choose at least one tag!\n(or check the \"Upload without tags\" option)");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(textBox1.Text))
             {
-                GUI.MessageBox.Show("Please, enter the changelog!");
+                CUMessageBox.Show("Please, enter the changelog!");
                 return;
             }
 
@@ -162,7 +167,22 @@ namespace ModdingTools.Windows
             store.ForceNoTags = checkBox13.Checked;
             store.SaveForMod(mod);
 
-            Program.Uploader.UploadModAsync(mod, textBox1.Text, store.Tags, checkBox1.Checked, checkBox2.Checked, comboBox3.SelectedIndex, store.UseSeparateDescriptionForSteam ? store.GetDescription() : mod.GetDescription());
+            var iconPath = Path.Combine(mod.RootPath, mod.Icon);
+            if (store.CheckIcon(mod))
+            {
+                var loc = store.GetGifLocation(mod);
+                if (!File.Exists(loc))
+                {
+                    CUMessageBox.Show("You set the GIF icon for the mod but I can't find it at the '" + loc + "' path!");
+                    return;
+                }
+                else
+                {
+                    iconPath = loc;
+                }
+            }
+
+            Program.Uploader.UploadModAsync(mod, textBox1.Text, store.Tags, checkBox1.Checked, checkBox2.Checked, comboBox3.SelectedIndex, store.UseSeparateDescriptionForSteam ? store.GetDescription() : mod.GetDescription(), iconPath);
             this.Close();
         }
 
@@ -193,7 +213,7 @@ namespace ModdingTools.Windows
 
         private void mButton4_Click(object sender, EventArgs e)
         {
-            var input = InputWindow.Ask(this, "Steam Workshop URL", "Insert the URL to the Steam Workshop item", new InputWindow.NonEmptyValidator());
+            var input = CUInputWindow.Ask(this, "Steam Workshop URL", "Insert the URL to the Steam Workshop item", new NonEmptyValidator());
             if (input == null) return;
 
             try
@@ -214,7 +234,7 @@ namespace ModdingTools.Windows
             }
             catch (Exception ex)
             {
-                GUI.MessageBox.Show("Invalid input: " + input + "\n" + ex.Message + "\n\n" + ex.ToString());
+                CUMessageBox.Show("Invalid input: " + input + "\n" + ex.Message + "\n\n" + ex.ToString());
             }
         }
 
@@ -235,6 +255,7 @@ namespace ModdingTools.Windows
         public bool ForceNoTags = false;
         public bool UseSeparateDescriptionForSteam = false;
         public string Description = "";
+        public string AnimatedIconFileName = "";
 
         public void SetDescription(string desc)
         {
@@ -244,6 +265,30 @@ namespace ModdingTools.Windows
         public string GetDescription()
         {
             return Description.Replace("[br]", Environment.NewLine);
+        }
+
+        public bool CheckIcon(ModObject mod)
+        {
+            if (string.IsNullOrEmpty(AnimatedIconFileName))
+                return false;
+
+            var path = Path.Combine(mod.RootPath, AnimatedIconFileName);
+
+            if (!File.Exists(path)) return false;
+
+            try
+            {
+                return ModObject.ValidateIcon(path);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public string GetGifLocation(ModObject mod)
+        {
+            return Path.Combine(mod.RootPath, AnimatedIconFileName);
         }
 
         public static ModStore LoadForMod(ModObject mod)

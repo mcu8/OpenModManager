@@ -12,6 +12,8 @@ using System.IO;
 using System.Threading;
 using System.Windows.Input;
 using System.Drawing;
+using CUFramework.Shared;
+using CUFramework.Controls;
 
 namespace ModdingTools.GUI
 {
@@ -23,26 +25,11 @@ namespace ModdingTools.GUI
         public delegate void OnAppRun();
         private static OnAppRun AppRun = null;
 
-        public enum LogLevel
-        {
-            Verbose, Info, Success, Warn, Error
-        }
-
         public ProcessRunner()
         {
             InitializeComponent();
 
             SetText(null);
-
-            label2.BackColor = ThemeConstants.BorderColor;
-            label2.ForeColor = ThemeConstants.TitleBarForeground;
-
-            mButton3.BackColor = ThemeConstants.BorderColor;
-            mButton3.ForeColor = ThemeConstants.TitleBarForeground;
-
-            mButton1.BackColor = ThemeConstants.BorderColor;
-            mButton1.ForeColor = ThemeConstants.TitleBarForeground;
-
             mButton3.Visible = false;
         }
 
@@ -91,7 +78,7 @@ namespace ModdingTools.GUI
             {
                 if (MainWindow.Instance != null)
                 {
-                    MainWindow.Instance.SetModListState(value);
+                    MainWindow.Instance.GuiWorker.SetStatus(value);
                 }
 
                 if (value == null) Text = "";
@@ -166,8 +153,10 @@ namespace ModdingTools.GUI
         {
             this.Invoke(new MethodInvoker(() =>
             {
-                if (cleanConsole) textBox1.Clear();
-                Log(taskName, LogLevel.Verbose);
+                if (cleanConsole) consoleControl1.Clear();
+                consoleControl1.Log(taskName, LogLevel.Verbose);
+                MainWindow.Instance.CallWorker();
+                mButton3.Visible = true;
             }));
 
             NamedPipe mLogPipe;
@@ -285,54 +274,11 @@ namespace ModdingTools.GUI
 
         public void Log(string msg, LogLevel level)
         {
-            if (this.InvokeRequired)
+            if (level >= LogLevel.Info)
             {
-                this.Invoke(new MethodInvoker(() => Log(msg, level)));
-                return;
+                MainWindow.Instance.GuiWorker.SetStatus(msg, CUConsoleControl.GetLevelColor(level));
             }
-            mButton3.Visible = true;
-
-            var color = Color.White;
-            switch(level)
-            {
-                case LogLevel.Error:
-                    color = Color.Red;
-                    break;
-                case LogLevel.Warn:
-                    color = Color.Yellow;
-                    break;
-                case LogLevel.Info:
-                    color = Color.White;
-                    break;
-                case LogLevel.Success:
-                    color = Color.Green;
-                    break;
-                case LogLevel.Verbose:
-                    color = Color.Gray;
-                    break;
-            }
-
-            AppendLoggerText($"[{GetLoggerDate()}][{level.ToString()}] {msg}{Environment.NewLine}", color);
-            textBox1.SelectionStart = textBox1.Text.Length;
-            textBox1.ScrollToCaret();
-
-            MainWindow.Instance.SetModListStatus(msg.Trim('-'));
-        }
-
-        public void AppendLoggerText(string text, Color color)
-        {
-            textBox1.SelectionStart = textBox1.TextLength;
-            textBox1.SelectionLength = 0;
-
-            textBox1.SelectionColor = color;
-            textBox1.AppendText(text);
-            textBox1.SelectionColor = textBox1.ForeColor;
-        }
-
-        public static string GetLoggerDate()
-        {
-            System.DateTime regDate = System.DateTime.Now;
-            return regDate.ToString("HH:mm:ss");
+            consoleControl1.Log(msg, level);
         }
 
         private void mButton3_Click(object sender, EventArgs e)
@@ -342,7 +288,7 @@ namespace ModdingTools.GUI
 
         private void mButton1_Click(object sender, EventArgs e)
         {
-            textBox1.Clear();
+            consoleControl1.Clear();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace ModdingTools.Windows
+﻿using CUFramework.Controls;
+
+namespace ModdingTools.Windows
 {
     partial class ConfigWindow
     {
@@ -28,8 +30,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.mButton3 = new ModdingTools.GUI.MButton();
-            this.mButton2 = new ModdingTools.GUI.MButton();
+            this.mButton3 = new CUFramework.Controls.CUButton();
+            this.mButton2 = new CUFramework.Controls.CUButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -47,9 +49,10 @@
             this.mButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton3.ForeColor = System.Drawing.Color.Black;
             this.mButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton3.Location = new System.Drawing.Point(123, 3);
+            this.mButton3.Location = new System.Drawing.Point(125, 3);
             this.mButton3.Name = "mButton3";
-            this.mButton3.Size = new System.Drawing.Size(115, 32);
+            this.mButton3.NoFocus = false;
+            this.mButton3.Size = new System.Drawing.Size(117, 32);
             this.mButton3.TabIndex = 8;
             this.mButton3.Text = "CANCEL";
             this.mButton3.UseVisualStyleBackColor = false;
@@ -66,7 +69,8 @@
             this.mButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.mButton2.Location = new System.Drawing.Point(3, 3);
             this.mButton2.Name = "mButton2";
-            this.mButton2.Size = new System.Drawing.Size(114, 32);
+            this.mButton2.NoFocus = false;
+            this.mButton2.Size = new System.Drawing.Size(116, 32);
             this.mButton2.TabIndex = 7;
             this.mButton2.Text = "SAVE";
             this.mButton2.UseVisualStyleBackColor = false;
@@ -80,11 +84,11 @@
             this.tableLayoutPanel1.Controls.Add(this.mButton2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.mButton3, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 347);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 349);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(241, 38);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(245, 38);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
             // checkBox2
@@ -135,7 +139,8 @@
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.MaximumSize = new System.Drawing.Size(249, 389);
+            this.Location = new System.Drawing.Point(0, 0);
+            this.MaximumSize = new System.Drawing.Size(1920, 1080);
             this.MinimumSize = new System.Drawing.Size(249, 389);
             this.Name = "ConfigWindow";
             this.Text = "OMM Configuration";
@@ -150,8 +155,8 @@
         }
 
         #endregion
-        private GUI.MButton mButton3;
-        private GUI.MButton mButton2;
+        private CUButton mButton3;
+        private CUButton mButton2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;

@@ -1,4 +1,5 @@
-﻿using ModdingTools.Modding;
+﻿using CUFramework.Dialogs;
+using ModdingTools.Modding;
 using ModdingTools.Windows;
 using Steamworks;
 using System;
@@ -22,34 +23,37 @@ namespace ModdingTools.Engine
 
         public bool IsUploaderRunning { get; protected set; } = false;
 
-        public void UploadModAsync(ModObject mod, string changelog, string[] tags, bool keepCooked, bool keepScripts, int visibility, string description)
+        public void UploadModAsync(ModObject mod, string changelog, string[] tags, bool keepCooked, bool keepScripts, int visibility, string description, string iconPath)
         {
             Task.Factory.StartNew(() =>
             {
                 MainWindow.Instance.Invoke(new MethodInvoker(() => {
                     ModProperties.TemporaryHideAllPropertiesWindows();
                 }));
-                UploadMod(mod, changelog, tags, keepCooked, keepScripts, visibility, description);
+                UploadMod(mod, changelog, tags, keepCooked, keepScripts, visibility, description, iconPath);
                 MainWindow.Instance.Invoke(new MethodInvoker(() => {
                     ModProperties.RestoreTemporaryHiddenPropertiesWindows();
                 }));
             });
         }
 
-        public void UploadMod(ModObject mod, string changelog, string[] tags, bool keepUnCooked, bool keepScripts, int visibility, string description)
+        public void UploadMod(ModObject mod, string changelog, string[] tags, bool keepUnCooked, bool keepScripts, int visibility, string description, string iconPath)
         {
             if (IsUploaderRunning)
             {
                 MainWindow.Instance.Invoke(new MethodInvoker(() => {
-                    GUI.MessageBox.Show(MainWindow.Instance, "Only one uploader instance can run at once!");
+                    CUMessageBox.Show(MainWindow.Instance, "Only one uploader instance can run at once!");
                 }));
                 return;
             }
+
+            Toggle(true);
 
             success = true;
             IsUploaderRunning = true;
             try
             {
+
                 ERemoteStoragePublishedFileVisibility fileVisibility 
                     = (ERemoteStoragePublishedFileVisibility)Enum.ToObject(typeof(ERemoteStoragePublishedFileVisibility), visibility); ;
 
@@ -124,7 +128,8 @@ namespace ModdingTools.Engine
                 {
                     SteamUGC.SetItemTags(ugcUpdateHandle, tags);
                 }
-                SteamUGC.SetItemPreview(ugcUpdateHandle, Path.Combine(tmpDir, mod.Icon));
+
+                SteamUGC.SetItemPreview(ugcUpdateHandle, iconPath);
                 SteamUGC.SetItemContent(ugcUpdateHandle, tmpDir);
 
                 SteamAPICall_t t = SteamUGC.SubmitItemUpdate(ugcUpdateHandle, changelog);
@@ -145,7 +150,11 @@ namespace ModdingTools.Engine
                     {
                         break;
                     }
-                    SetStatus(string.Format("[{3}%] Status: {0}\n{1}/{2}", TranslateStatus(status), BytesToString(bytesDone), BytesToString(bytesTotal), bytesTotal > 0 ? Math.Floor(((double)bytesDone / (double)bytesTotal) * (double)100) : 100));
+
+
+                    var percent = bytesTotal > 0 ? Math.Floor(((double)bytesDone / (double)bytesTotal) * (double)100) : 100;
+                    SetStatus(string.Format("[{3}%] Status: {0}    {1}/{2}", TranslateStatus(status), BytesToString(bytesDone), BytesToString(bytesTotal), percent));
+                    SetProgress((int)percent);
                 }
 
                 DialogResult res = DialogResult.No;
@@ -153,7 +162,7 @@ namespace ModdingTools.Engine
                 if (success)
                 {
                     MainWindow.Instance.Invoke(new MethodInvoker(() => {
-                        res = GUI.MessageBox.Show(MainWindow.Instance, "Done, mod url:" + "\nhttps://steamcommunity.com/sharedfiles/filedetails/?id=" + publishID + "\n\nOpen it in the browser?", "Uploader", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        res = CUMessageBox.Show(MainWindow.Instance, "Done, mod url:" + "\nhttps://steamcommunity.com/sharedfiles/filedetails/?id=" + publishID + "\n\nOpen it in the browser?", "Uploader", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                         if (res == DialogResult.Yes)
                         {
@@ -169,17 +178,18 @@ namespace ModdingTools.Engine
                 if (Directory.Exists(tmpDir))
                     Directory.Delete(tmpDir, true);
 
-                SetStatus(null);
+                Toggle(false);
 
                 IsUploaderRunning = false;
             }
             catch (Exception e)
             {
                 MainWindow.Instance.Invoke(new MethodInvoker(() => {
-                    GUI.MessageBox.Show(MainWindow.Instance, e.Message + "\n" + e.ToString());
+                    CUMessageBox.Show(MainWindow.Instance, e.Message + "\n" + e.ToString());
                 }));
                 IsUploaderRunning = false;
-                SetStatus(null);
+                SetStatus("");
+                Toggle(false);
             }
         }
 
@@ -203,7 +213,17 @@ namespace ModdingTools.Engine
 
         private static void SetStatus(string v)
         {
-            MainWindow.Instance.SetModListStatus(v);
+            MainWindow.Instance.GuiWorker.SetStatus(v);
+        }
+
+        private static void SetProgress(int v)
+        {
+            MainWindow.Instance.GuiWorker.SetProgress(v);
+        }
+
+        private static void Toggle(bool v)
+        {
+            MainWindow.Instance.SetCard(!v ? MainWindow.CardControllerTabs.Mods : MainWindow.CardControllerTabs.Worker);
         }
 
         private static string TranslateStatus(EItemUpdateStatus s)
@@ -245,7 +265,7 @@ namespace ModdingTools.Engine
                     break;
                 default:
                     SetStatus("Item upload failed! Result code: " + param.m_eResult.ToString());
-                    GUI.MessageBox.Show("Item upload failed! Result code: " + param.m_eResult.ToString());
+                    CUMessageBox.Show("Item upload failed! Result code: " + param.m_eResult.ToString());
                     ugcUpdateHandle = UGCUpdateHandle_t.Invalid;
                     success = false;
                     break;

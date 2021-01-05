@@ -1,4 +1,6 @@
-﻿using LibAPNG;
+﻿using CUFramework.Dialogs;
+using CUFramework.Windows;
+using LibAPNG;
 using ModdingTools.Engine;
 using ModdingTools.GUI;
 using System;
@@ -16,7 +18,7 @@ using System.Windows.Forms;
 
 namespace ModdingTools.Windows.Tools
 {
-    public partial class FlipbookGenerator : BaseWindow
+    public partial class FlipbookGenerator : CUWindow
     {
         const int MAX_TEXTURE_SIZE = 8192; // max texture size in Hat UDK
 
@@ -218,7 +220,7 @@ namespace ModdingTools.Windows.Tools
             }
             catch (Exception ex)
             {
-                GUI.MessageBox.Show($"{ex.Message}\n\n{ex}");
+                CUMessageBox.Show($"{ex.Message}\n\n{ex}");
             }
         }
 

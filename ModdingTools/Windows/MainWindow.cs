@@ -10,19 +10,25 @@ using System.Windows.Automation;
 using System.Windows.Forms;
 using ModdingTools.Windows.Tools;
 using System.Drawing;
+using CUFramework.Windows;
+using CUFramework.Dialogs;
+using CUFramework.Controls;
+using ModdingTools.Windows.Validators;
+using Steamworks;
 
 namespace ModdingTools.Windows
 {
-    public partial class MainWindow : BaseWindow
+    public partial class MainWindow : CUWindow
     {
         public static MainWindow Instance { get; private set; }
         private UpdateChecker UpdateChk;
 
         private ModListControl modListControl1;
         private ProcessRunner processRunner1;
+        public GUIWorker GuiWorker { get; private set; }
 
         // Don't ask, just add :)
-        private String[] FunnyTexts = new[] { 
+        private string[] FunnyTexts = new[] { 
             "GAMEDAT ANNIVERSARY EDITION",
             ":S_:",
             "MODDING",
@@ -39,25 +45,45 @@ namespace ModdingTools.Windows
             "FATAL ERROR 0x0"
         };
 
+        public enum CardControllerTabs
+        {
+            Mods, Console, Worker
+        }
+
         public MainWindow()
         {
             if (!DesignMode)
-            {
                 Utils.CleanUpTrash(GameFinder.FindGameDir());
-            }  
 
             Instance = this;
             InitializeComponent();
 
             this.Text = "OPEN MOD MANAGER - FOR A HAT IN TIME  [" + FunnyTexts[new Random().Next(FunnyTexts.Length)] + "]";
 
+            GuiWorker = new GUIWorker(); // must be first!
+            cardController1.AddCard(CardControllerTabs.Worker.ToString().ToLower(), GuiWorker);
+
             modListControl1 = new ModListControl();
-            processRunner1 = new ProcessRunner();
+            cardController1.AddCard(CardControllerTabs.Mods.ToString().ToLower(), modListControl1);
 
-            cardController1.AddCard("mods", modListControl1);
-            cardController1.AddCard("console", processRunner1);
+            processRunner1 = new ProcessRunner();  
+            cardController1.AddCard(CardControllerTabs.Console.ToString().ToLower(), processRunner1);   
 
-            contextMenuStrip1.Renderer = new ToolStripProfessionalRenderer(new MenuColorTable());
+            contextMenuStrip1.Renderer = new ToolStripProfessionalRenderer(new CUMenuColorTable());
+
+            this.TitlebarColorChanged += MainWindow_TitlebarColorChanged;
+            this.Shown += MainWindow_Shown;
+        }
+
+        private void MainWindow_Shown(object sender, EventArgs e)
+        {
+            Delay(LoadModCategories, 100);
+        }
+
+        private void MainWindow_TitlebarColorChanged(object sender, EventArgs e)
+        {
+            mButton6.BackColor = mButton5.BackColor = mButton2.BackColor = VisibleTitlebarColor;
+            mButton6.FlatAppearance.BorderColor = mButton5.FlatAppearance.BorderColor = mButton2.FlatAppearance.BorderColor = VisibleTitlebarColor;
         }
 
         public ModDirectorySource[] GetModSources()
@@ -100,26 +126,10 @@ namespace ModdingTools.Windows
                 ToggleConsole(false);
         }
 
-        public void SetModListState(string value)
-        {
-            if (modListControl1 == null)
-                return;
-
-            modListControl1.SetWorker(value);
-        }
-
-        public void SetModListStatus(string value)
-        {
-            if (modListControl1 == null)
-                return;
-
-            modListControl1.SetStatus(value);
-        }
-
         private void mButton4_Click(object sender, EventArgs e)
         {
             string modsRoot = Path.Combine(Program.ProcFactory.GetGamePath(), @"HatinTimeGame\Mods");
-            var modName = InputWindow.Ask(this, "New mod", "Please enter mod folder name", new InputWindow.ModNameValidator());
+            var modName = CUInputWindow.Ask(this, "New mod", "Please enter a mod folder name", new ModNameValidator());
 
             if (modName == null)
                 return;
@@ -138,7 +148,7 @@ namespace ModdingTools.Windows
             {
                 sW.WriteLine("[Info]");
                 sW.WriteLine("name=" + modName);
-                sW.WriteLine("author=\"Me\"");
+                sW.WriteLine("author=\"" + SteamFriends.GetPersonaName().Replace("\"", "\\\"") + "\"");
                 sW.WriteLine("description=\"Hello this is my all new mod!\"");
                 sW.WriteLine("version=\"1.0.0\"");
                 sW.WriteLine("is_cheat=false");
@@ -156,14 +166,18 @@ namespace ModdingTools.Windows
                 }
                 else
                 {
-                    new ModProperties(mod).Show();
+                    mp = new ModProperties(mod);
+                    mp.StartPosition = FormStartPosition.CenterParent;
+                    mp.Show(this.FindForm());
                 }
             });
         }
 
         private void mButton2_Click(object sender, EventArgs e)
         {
-            new ConfigWindow().ShowDialog();
+            var conf = new ConfigWindow();
+            conf.StartPosition = FormStartPosition.CenterParent;
+            conf.ShowDialog();
         }
 
         private void mTextBox1_TextChanged(object sender, EventArgs e)
@@ -174,26 +188,26 @@ namespace ModdingTools.Windows
 
         private void MainWindow_ResizeBegin(object sender, EventArgs e)
         {
-            modListControl1.SuspendLayout();
+           // modListControl1.SuspendLayout();
         }
 
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
-            modListControl1.Width += 1;
-            modListControl1.Width -= 1;
-            modListControl1.TriggerUpdate();
-            modListControl1.ResumeLayout();
+            
+            //modListControl1.ResumeLayout();
         }
 
         private void MainWindow_Load(object z, EventArgs x)
         {
-            modListControl1.SetWorker("Loading...");
-            ToggleConsole(false);
+            GuiWorker.SetTextOrHideOnNull("Loading...");
+            CallWorker();//SetCard(CardControllerTabs.Worker);
+            
+            //SetCard(CardControllerTabs.Worker);
 
             UpdateChk = new UpdateChecker(BuildData.CurrentVersion, BuildData.UpdateUrl, new Action(() => {
                 this.Invoke(new MethodInvoker(() =>
                 {
-                    var dialog = GUI.MessageBox.Show(this, "New version of OpenModManager is avaiable!\nDo you want to download it?", "Update checker", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    var dialog = CUMessageBox.Show(this, "New version of OpenModManager is avaiable!\nDo you want to download it?", "Update checker", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (dialog == DialogResult.Yes)
                     {
                         Process.Start(BuildData.ReleasesPage);
@@ -201,6 +215,20 @@ namespace ModdingTools.Windows
                 }));
             }));
 
+            Automation.AddAutomationEventHandler(
+                WindowPattern.WindowOpenedEvent,
+                AutomationElement.RootElement,
+                TreeScope.Children,
+            (sender, e) =>
+            {
+                var element = sender as AutomationElement;
+                Console.WriteLine("new window opened");
+            });
+        }
+
+        public void LoadModCategories()
+        {
+            
             modListControl1.AddModSource(new ModDirectorySource("Mods directory", Path.Combine(Program.ProcFactory.GetGamePath(), @"HatinTimeGame\Mods"), true));
             modListControl1.AddModSource(new ModDirectorySource("Mods directory (disabled)", Path.Combine(Program.ProcFactory.GetGamePath(), @"HatinTimeGame\Mods\Disabled"), true, true, true));
 
@@ -208,27 +236,30 @@ namespace ModdingTools.Windows
 
             modListControl1.AddModSource(new ModDirectorySource("Downloaded mods", GameFinder.GetWorkshopDir(), autoLoad, false, true));
             modListControl1.AddModSource(new ModDirectorySource("Downloaded mods (disabled)", Path.Combine(GameFinder.GetWorkshopDir(), "Disabled"), autoLoad, false, true));
-
-            modListControl1.ReloadList();
-
-            SetModListState(null);
-
-            Automation.AddAutomationEventHandler(
-            WindowPattern.WindowOpenedEvent,
-            AutomationElement.RootElement,
-            TreeScope.Children,
-            (sender, e) =>
-            {
-                var element = sender as AutomationElement;
-                Console.WriteLine("new window opened");
+            
+            modListControl1.ReloadList(() => {
+                SetCard(CardControllerTabs.Mods);
             });
+        }
 
-            UpdateChk.CheckForUpdatesAsync();
+        public void SetCard(CardControllerTabs tab)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(() => SetCard(tab)));
+                return;
+            }
+            if (tab != CardControllerTabs.Worker)
+            {
+                GuiWorker.SetProgress(0, "...");
+            }
+            panel1.Visible = (tab == CardControllerTabs.Mods);
+            cardController1.SetCard(tab.ToString().ToLower());
         }
 
         private void mButton5_Click(object sender, EventArgs e)
         {
-            cardController1.SetCard(cardController1.CurrentCard == processRunner1 ? "mods" : "console");
+            SetCard(cardController1.CurrentCard == processRunner1 ? CardControllerTabs.Mods : CardControllerTabs.Console);
             mButton5.BackColor = cardController1.CurrentCard == modListControl1 ? Color.Black : ThemeConstants.BorderColor;
         }
 
@@ -241,12 +272,16 @@ namespace ModdingTools.Windows
 
         private void assetExporterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new AssetRipper().ShowDialog(this);
+            var w = new AssetRipper();
+            w.StartPosition = FormStartPosition.CenterParent;
+            w.ShowDialog(this);
         }
 
         private void flipbookGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new FlipbookGenerator().ShowDialog(this);
+            var w = new FlipbookGenerator();
+            w.StartPosition = FormStartPosition.CenterParent;
+            w.ShowDialog(this);
         }
 
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
@@ -266,6 +301,12 @@ namespace ModdingTools.Windows
                 this.WindowState = FormWindowState.Normal;
             }
             this.Focus();
+        }
+
+        public void CallWorker()
+        {
+            ToggleSearchBar(false);
+            SetCard(MainWindow.CardControllerTabs.Worker);
         }
     }
 }

@@ -1,9 +1,11 @@
-﻿namespace ModdingTools.Windows.Tools
+﻿using CUFramework.Controls;
+
+namespace ModdingTools.Windows.Tools
 {
     partial class AssetRipper
     {
         /// <summary>
-        /// Required designer variable.
+        /// Required designer variable.B
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
@@ -28,8 +30,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.mTextBox1 = new ModdingTools.GUI.MTextBox();
-            this.mButton1 = new ModdingTools.GUI.MButton();
+            this.mTextBox1 = new CUFramework.Controls.CUTextBox();
+            this.mButton1 = new CUFramework.Controls.CUButton();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -51,6 +53,7 @@
             this.mButton1.ForeColor = System.Drawing.Color.White;
             this.mButton1.Location = new System.Drawing.Point(489, 110);
             this.mButton1.Name = "mButton1";
+            this.mButton1.NoFocus = false;
             this.mButton1.Size = new System.Drawing.Size(147, 23);
             this.mButton1.TabIndex = 2;
             this.mButton1.Text = "EXPORT";
@@ -75,7 +78,10 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.mButton1);
             this.Controls.Add(this.mTextBox1);
+            this.IsMaximizeButtonEnabled = false;
             this.IsResizable = false;
+            this.Location = new System.Drawing.Point(0, 0);
+            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(10, 10);
             this.Name = "AssetRipper";
             this.Text = "ASSET EXPORTER";
@@ -90,8 +96,8 @@
 
         #endregion
 
-        private GUI.MTextBox mTextBox1;
-        private GUI.MButton mButton1;
+        private CUTextBox mTextBox1;
+        private CUButton mButton1;
         private System.Windows.Forms.Label label1;
     }
 }

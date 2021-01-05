@@ -47,10 +47,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(300, 147);
             this.Controls.Add(this.label1);
+            this.IsMaximizeButtonEnabled = false;
+            this.IsMinimizeButtonEnabled = false;
             this.IsResizable = false;
+            this.Location = new System.Drawing.Point(0, 0);
             this.MinimumSize = new System.Drawing.Size(300, 100);
             this.Name = "Benchmark";
             this.Text = "EDITOR TAS SPEEDRUN ANY%";
+            this.TitlebarColor = System.Drawing.Color.Black;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Benchmark_FormClosing);
             this.Controls.SetChildIndex(this.label1, 0);
             this.ResumeLayout(false);
 

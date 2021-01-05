@@ -92,7 +92,7 @@ namespace ModdingTools.Modding
 
         public string GetDescription()
         {
-            return this.Description.Replace("[br]", Environment.NewLine).Trim('"');
+            return this.Description.Replace("[br]", Environment.NewLine);
         }
 
         public void SetDescription(string desc)
@@ -165,6 +165,10 @@ namespace ModdingTools.Modding
                     File.Delete(file);
                 }
                 foreach (var file in Directory.GetFiles(path, "*.upk"))
+                {
+                    File.Delete(file);
+                }
+                foreach (var file in Directory.GetFiles(path, "*.umap"))
                 {
                     File.Delete(file);
                 }
@@ -577,7 +581,13 @@ namespace ModdingTools.Modding
 
         public bool ValidateIcon()
         {
-            FileInfo f = new FileInfo(Path.Combine(RootPath, Icon));
+            if (string.IsNullOrEmpty(Icon)) return false;
+            return ValidateIcon(Path.Combine(RootPath, Icon));
+        }
+
+        public static bool ValidateIcon(string path)
+        {
+            FileInfo f = new FileInfo(path);
             if (f.Exists)
             {
                 if (f.Length > 1000000)
@@ -617,7 +627,8 @@ namespace ModdingTools.Modding
 
             try
             {
-                if (!ValidateIcon()) return noIconImage;
+                if (!ValidateIcon())
+                    return noIconImage;
                 Image img;
                 using (var bmpTemp = new Bitmap(path))
                 {
@@ -640,8 +651,16 @@ namespace ModdingTools.Modding
         private string TryGet(KeyDataCollection context, string key, string def = null)
         {
             if (context.ContainsKey(key))
-                return context[key].Trim('"');
-            return def?.Trim('"');
+                return CleanString(context[key]);
+            return CleanString(def);
+        }
+
+        private string CleanString(string data)
+        {
+            if (data == null) return null;
+            if (data.StartsWith("\"") && data.EndsWith("\""))
+                data = data.Substring(1, data.Length - 2);
+            return data.Replace("\\\"", "\"");
         }
 
         private void AppendIni(KeyDataCollection context, string key, string value)

@@ -1,4 +1,6 @@
-﻿namespace ModdingTools.GUI
+﻿using CUFramework.Controls;
+
+namespace ModdingTools.GUI
 {
     partial class ARItem
     {
@@ -32,7 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.mButtonBorderless1 = new ModdingTools.GUI.MButtonBorderless();
+            this.CUButtonBorderless1 = new CUButtonBorderless();
             this.SuspendLayout();
             // 
             // label1
@@ -85,23 +87,23 @@
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
-            // mButtonBorderless1
+            // CUButtonBorderless1
             // 
-            this.mButtonBorderless1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.CUButtonBorderless1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.mButtonBorderless1.BackColor = System.Drawing.Color.Transparent;
-            this.mButtonBorderless1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.mButtonBorderless1.FlatAppearance.BorderSize = 0;
-            this.mButtonBorderless1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mButtonBorderless1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.mButtonBorderless1.Image = global::ModdingTools.Properties.Resources.delete;
-            this.mButtonBorderless1.Location = new System.Drawing.Point(657, 5);
-            this.mButtonBorderless1.Margin = new System.Windows.Forms.Padding(0);
-            this.mButtonBorderless1.Name = "mButtonBorderless1";
-            this.mButtonBorderless1.Size = new System.Drawing.Size(33, 34);
-            this.mButtonBorderless1.TabIndex = 4;
-            this.mButtonBorderless1.UseVisualStyleBackColor = false;
-            this.mButtonBorderless1.Click += new System.EventHandler(this.mButtonBorderless1_Click);
+            this.CUButtonBorderless1.BackColor = System.Drawing.Color.Transparent;
+            this.CUButtonBorderless1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.CUButtonBorderless1.FlatAppearance.BorderSize = 0;
+            this.CUButtonBorderless1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CUButtonBorderless1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.CUButtonBorderless1.Image = global::ModdingTools.Properties.Resources.delete;
+            this.CUButtonBorderless1.Location = new System.Drawing.Point(657, 5);
+            this.CUButtonBorderless1.Margin = new System.Windows.Forms.Padding(0);
+            this.CUButtonBorderless1.Name = "CUButtonBorderless1";
+            this.CUButtonBorderless1.Size = new System.Drawing.Size(33, 34);
+            this.CUButtonBorderless1.TabIndex = 4;
+            this.CUButtonBorderless1.UseVisualStyleBackColor = false;
+            this.CUButtonBorderless1.Click += new System.EventHandler(this.CUButtonBorderless1_Click);
             // 
             // ARItem
             // 
@@ -110,7 +112,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.mButtonBorderless1);
+            this.Controls.Add(this.CUButtonBorderless1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "ARItem";
@@ -126,6 +128,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private MButtonBorderless mButtonBorderless1;
+        private CUButtonBorderless CUButtonBorderless1;
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ModdingTools.Windows;
+using ModdingTools.Windows.Validators;
 
 namespace ModdingTools.GUI
 {
@@ -22,7 +23,7 @@ namespace ModdingTools.GUI
         public string Target => label4.Text;
         public string Replacement => label3.Text;
 
-        private void mButtonBorderless1_Click(object sender, EventArgs e)
+        private void CUButtonBorderless1_Click(object sender, EventArgs e)
         {
             if (this.Parent is FlowLayoutPanel)
             {
@@ -33,7 +34,7 @@ namespace ModdingTools.GUI
 
         private void label4_Click(object sender, EventArgs e)
         {
-            var a = InputWindow.Ask(this, "AR Editor", "Please, enter the original asset name", new InputWindow.ARValidator(), label4.Text);
+            var a = CUInputWindow.Ask(this, "AR Editor", "Please, enter the original asset name", new ARValidator(), label4.Text);
             if (a != null)
             {
                 if (label4.Text != a)
@@ -46,7 +47,7 @@ namespace ModdingTools.GUI
 
         private void label3_Click(object sender, EventArgs e)
         {
-            var a = InputWindow.Ask(this, "AR Editor", "Please, enter the replacement asset name", new InputWindow.ARValidator(), label3.Text);
+            var a = CUInputWindow.Ask(this, "AR Editor", "Please, enter the replacement asset name", new ARValidator(), label3.Text);
             if (a != null)
             {
                 if (label3.Text != a)

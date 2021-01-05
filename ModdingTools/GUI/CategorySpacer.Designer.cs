@@ -1,4 +1,6 @@
-﻿namespace ModdingTools.GUI
+﻿using CUFramework.Controls;
+
+namespace ModdingTools.GUI
 {
     partial class CategorySpacer
     {
@@ -31,7 +33,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.mButtonBorderless1 = new ModdingTools.GUI.MButtonBorderless();
+            this.CUButtonBorderless1 = new CUButtonBorderless();
             this.SuspendLayout();
             // 
             // panel1
@@ -76,29 +78,29 @@
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // mButtonBorderless1
+            // CUButtonBorderless1
             // 
-            this.mButtonBorderless1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.mButtonBorderless1.BackColor = System.Drawing.Color.Transparent;
-            this.mButtonBorderless1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.mButtonBorderless1.FlatAppearance.BorderSize = 0;
-            this.mButtonBorderless1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mButtonBorderless1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
-            this.mButtonBorderless1.Image = global::ModdingTools.Properties.Resources.icon_043;
-            this.mButtonBorderless1.Location = new System.Drawing.Point(590, 0);
-            this.mButtonBorderless1.Name = "mButtonBorderless1";
-            this.mButtonBorderless1.Padding = new System.Windows.Forms.Padding(3);
-            this.mButtonBorderless1.Size = new System.Drawing.Size(30, 26);
-            this.mButtonBorderless1.TabIndex = 6;
-            this.mButtonBorderless1.UseVisualStyleBackColor = false;
-            this.mButtonBorderless1.Click += new System.EventHandler(this.mButtonBorderless1_Click);
+            this.CUButtonBorderless1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CUButtonBorderless1.BackColor = System.Drawing.Color.Transparent;
+            this.CUButtonBorderless1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.CUButtonBorderless1.FlatAppearance.BorderSize = 0;
+            this.CUButtonBorderless1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CUButtonBorderless1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.CUButtonBorderless1.Image = global::ModdingTools.Properties.Resources.icon_043;
+            this.CUButtonBorderless1.Location = new System.Drawing.Point(590, 0);
+            this.CUButtonBorderless1.Name = "CUButtonBorderless1";
+            this.CUButtonBorderless1.Padding = new System.Windows.Forms.Padding(3);
+            this.CUButtonBorderless1.Size = new System.Drawing.Size(30, 26);
+            this.CUButtonBorderless1.TabIndex = 6;
+            this.CUButtonBorderless1.UseVisualStyleBackColor = false;
+            this.CUButtonBorderless1.Click += new System.EventHandler(this.CUButtonBorderless1_Click);
             // 
             // CategorySpacer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.mButtonBorderless1);
+            this.Controls.Add(this.CUButtonBorderless1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "CategorySpacer";
@@ -112,6 +114,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private MButtonBorderless mButtonBorderless1;
+        private CUButtonBorderless CUButtonBorderless1;
     }
 }

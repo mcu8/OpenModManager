@@ -1,4 +1,5 @@
-﻿using ModdingTools.Engine;
+﻿using CUFramework.Dialogs;
+using ModdingTools.Engine;
 using ModdingTools.Windows;
 using ModdingTools.Windows.Tools;
 using Steamworks;
@@ -34,13 +35,13 @@ namespace ModdingTools
             bool steam = SteamAPI.Init();
             if (!steam)
             {
-                MessageBox.Show("SteamAPI initialization failed! (is Steam running/installed?)");
+                CUMessageBox.Show("SteamAPI initialization failed! (is Steam running/installed?)");
                 Environment.Exit(0);
             }
 
             if (!Environment.Is64BitOperatingSystem || !Environment.Is64BitProcess)
             {
-                MessageBox.Show("This app needs 64-bit operating environment and operating system!");
+                CUMessageBox.Show("This app needs 64-bit operating environment and operating system!");
                 Environment.Exit(0);
             }
 

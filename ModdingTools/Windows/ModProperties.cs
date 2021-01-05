@@ -9,14 +9,20 @@ using System.IO;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using CUFramework.Windows;
+using CUFramework.Dialogs;
+using CUFramework.Controls.Tabs;
+using CUFramework.Dialogs.Validators;
+using ModdingTools.Windows.Validators;
 
 namespace ModdingTools.Windows
 {
-    public partial class ModProperties : BaseWindow
+    public partial class ModProperties : CUWindow
     {
         public ModObject Mod { get; private set; }
         private ModStore Store;
         private string _newIcon = null;
+        private string _newIconGif = null;
         bool _unsaved;
         bool _saveFeatureHold = true;
 
@@ -93,8 +99,14 @@ namespace ModdingTools.Windows
             this.Mod = mod;
             this.configList1.OnUpdate += ConfigList1_OnUpdate;
             this.arList1.OnUpdate += ConfigList1_OnUpdate;
+            this.TitlebarColorChanged += ModProperties_FocusChanged;
 
             Reload();
+        }
+
+        private void ModProperties_FocusChanged(object sender, EventArgs e)
+        {
+            mButton2.BackColor = VisibleTitlebarColor;
         }
 
         private void ModProperties_HandleCreated(object sender, EventArgs e)
@@ -207,6 +219,7 @@ namespace ModdingTools.Windows
                 cbCoOp.Enabled = false;
                 levelType.Enabled = false;
                 iconView.Enabled = false;
+                pictureBox1.Enabled = false;
                 modName.Enabled = false;
                 modFolderName.Enabled = false;
                 ModDescriptionEdit.ReadOnly = true;
@@ -216,6 +229,17 @@ namespace ModdingTools.Windows
             panel2.Enabled = false;
             if (cooked)
             {
+                string lastMap = "";
+                try
+                {
+                    var flagFile = Path.Combine(Mod.RootPath, ".lastMap");
+                    if (File.Exists(flagFile))
+                        lastMap = File.ReadAllText(flagFile);
+                }
+                catch(Exception)
+                {
+                }
+
                 //Mod.TestMod(MainWindow.Instance.Runner, "mafia_town");
                 comboBox1.Items.Add(new MapItem("hub_spaceship", "Spaceship"));
                 comboBox1.Items.Add(new MapItem("mafia_town", "Mafia Town"));
@@ -230,11 +254,43 @@ namespace ModdingTools.Windows
                     }
                 }
 
-                comboBox1.SelectedIndex = comboBox1.Items.Count - 1;
+                bool found = false;
+                foreach (var a in comboBox1.Items)
+                {
+                    var item = (MapItem)a;
+                    if (item.Name == lastMap)
+                    {
+                        comboBox1.SelectedIndex = comboBox1.Items.IndexOf(a);
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) 
+                    comboBox1.SelectedIndex = comboBox1.Items.Count - 1;
+
                 panel2.Enabled = true;
             }
 
             Store = ModStore.LoadForMod(Mod);
+
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            if (Store.CheckIcon(Mod))
+            {
+                var loc = Store.GetGifLocation(Mod);
+                if (!File.Exists(loc))
+                {
+                    pictureBox1.Image = Properties.Resources.noimage;
+                }
+                else
+                {
+                    pictureBox1.Image = Utils.LoadImageIntoMemory(loc);
+                }          
+            }
+            else
+            {
+                pictureBox1.Image = Properties.Resources.noimage;
+            }
 
             checkBox1.Checked = Store.UseSeparateDescriptionForSteam;
             SteamDescription.Enabled = Store.UseSeparateDescriptionForSteam;
@@ -267,7 +323,7 @@ namespace ModdingTools.Windows
         {
             if (HasUnsavedChanges)
             {
-                var result = GUI.MessageBox.Show("You have unsaved changes... Do you want to save them?\n\nClicking \"NO\" will undo any changes to the last saved state!", "Unsaved changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                var result = CUMessageBox.Show("You have unsaved changes... Do you want to save them?\n\nClicking \"NO\" will undo any changes to the last saved state!", "Unsaved changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     SaveMod();
@@ -338,7 +394,7 @@ namespace ModdingTools.Windows
                 {
                     if (f.Length > 1000000)
                     {
-                        GUI.MessageBox.Show("Icon must have less than 1MB of size!");
+                        CUMessageBox.Show("Icon must have less than 1MB of size!");
                     }
                     else
                     {
@@ -347,7 +403,7 @@ namespace ModdingTools.Windows
                         {
                             if (img.Width < 100)
                             {
-                                GUI.MessageBox.Show("Icon must have at least 100x100px size!");
+                                CUMessageBox.Show("Icon must have at least 100x100px size!");
                             }
                             else
                             {
@@ -358,13 +414,13 @@ namespace ModdingTools.Windows
                         }
                         else
                         {
-                            GUI.MessageBox.Show("Icon must be square shaped!");
+                            CUMessageBox.Show("Icon must be square shaped!");
                         }            
                     }
                 }
                 else
                 {
-                    GUI.MessageBox.Show("Invalid file");
+                    CUMessageBox.Show("Invalid file");
                 }
             }
         }
@@ -425,6 +481,38 @@ namespace ModdingTools.Windows
                     _newIcon = null;
                     Mod.Icon = "icon." + iconExt;
                 }
+                else
+                {
+                    if (!File.Exists(Path.Combine(Mod.RootPath, Mod.Icon)))
+                        Mod.Icon = "";
+                }
+
+                if (_newIconGif != null)
+                {
+                    var iconE = _newIconGif.Split('.');
+                    var iconExt = iconE[iconE.Length - 1].ToLower();
+
+                    var allowedExts = new[] { "gif" };
+                    if (!allowedExts.Contains(iconExt))
+                    {
+                        throw new Exception("Illegal icon extension: " + iconExt);
+                    }
+
+                    var icon = Path.Combine(Mod.RootPath, "icon_animated." + iconExt);
+
+                    if (File.Exists(icon))
+                    {
+                        File.Delete(icon);
+                    }
+                    File.Copy(_newIconGif, icon);
+                    _newIconGif = null;
+                    Store.AnimatedIconFileName = "icon_animated." + iconExt;
+                }
+                else
+                {
+                    if (!File.Exists(Path.Combine(Mod.RootPath, Store.AnimatedIconFileName)))
+                        Store.AnimatedIconFileName = "";
+                }
 
                 Mod.Save();
 
@@ -438,7 +526,7 @@ namespace ModdingTools.Windows
             }
             catch (Exception e)
             {
-                GUI.MessageBox.Show(this, e.Message + "\n\n" + e.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CUMessageBox.Show(this, e.Message + "\n\n" + e.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -449,7 +537,7 @@ namespace ModdingTools.Windows
 
         private void modName_Click(object sender, EventArgs e)
         {
-            var iw = InputWindow.Ask(this, "Mod name", "Enter the mod name", new InputWindow.NonEmptyValidator(), modName.Text);
+            var iw = CUInputWindow.Ask(this, "Mod name", "Enter the mod name", new NonEmptyValidator(), modName.Text);
             if (iw != null)
             {
                 if (modName.Text != iw)
@@ -498,7 +586,7 @@ namespace ModdingTools.Windows
 
         private void modFolderName_Click(object sender, EventArgs e)
         {
-            var iw = InputWindow.Ask(this, "Mod folder name", "Enter the mod folder name", new InputWindow.ModNameValidator(), modFolderName.Text);
+            var iw = CUInputWindow.Ask(this, "Mod folder name", "Enter the mod folder name", new ModNameValidator(), modFolderName.Text);
             if (iw != null)
             {
                 if (modFolderName.Text != iw)
@@ -534,7 +622,7 @@ namespace ModdingTools.Windows
 
                 if (!Mod.HasCompiledScripts() && Mod.HasAnyScripts())
                 {
-                    GUI.MessageBox.Show("Please compile scripts first!");
+                    CUMessageBox.Show("Please compile scripts first!");
                     return;
                 }
                 ToggleUnlock(false);
@@ -553,13 +641,15 @@ namespace ModdingTools.Windows
         {
             if (ConditionalReload())
             {
-                new UploadOptions(Mod).ShowDialog(this);
+                var up = new UploadOptions(Mod);
+                up.StartPosition = FormStartPosition.CenterParent;
+                up.ShowDialog(this);
             }
         }
 
         private void label5_Click(object sender, EventArgs e)
         {
-            var iw = InputWindow.Ask(this, "Version", "Enter the mod version", new InputWindow.NonEmptyValidator(), label5.Text);
+            var iw = CUInputWindow.Ask(this, "Version", "Enter the mod version", new NonEmptyValidator(), label5.Text);
             if (iw != null)
             {
                 if (label5.Text != iw)
@@ -590,6 +680,11 @@ namespace ModdingTools.Windows
         private void mButton9_Click(object sender, EventArgs e)
         {
             var item = (MapItem)comboBox1.SelectedItem;
+            try
+            {
+                File.WriteAllText(Path.Combine(Mod.RootPath, ".lastMap"), item.Name);
+            }
+            catch (Exception) { }
             Mod.TestMod(MainWindow.Instance.Runner, item.Name == "??menu" ? null : item.Name);
         }
 
@@ -650,7 +745,7 @@ namespace ModdingTools.Windows
 
         private void lblAuthor_Click(object sender, EventArgs e)
         {
-            var iw = InputWindow.Ask(this, "Author", "Enter the mod author", null, lblAuthor.Text);
+            var iw = CUInputWindow.Ask(this, "Author", "Enter the mod author", null, lblAuthor.Text);
             if (iw != null)
             {
                 if (lblAuthor.Text != iw)
@@ -665,7 +760,7 @@ namespace ModdingTools.Windows
         {
         }
 
-        private void tabController1_PageChange(object sender, TabController.TabControllerPageChangeEventArgs e)
+        private void tabController1_PageChange(object sender, CUTabController.TabControllerPageChangeEventArgs e)
         {
 
         }
@@ -712,18 +807,83 @@ namespace ModdingTools.Windows
                         var cookResult = Mod.CookMod(this.processRunner1, false, false);
                         if (!cookResult)
                         {
-                            GUI.MessageBox.Show(this, "Cooking the mod was failed! Look at the console output for more info!");
+                            CUMessageBox.Show(this, "Cooking the mod was failed! Look at the console output for more info!");
                         }
                     }
                     else
                     {
-                        GUI.MessageBox.Show(this, "Compiling scripts was failed! Look at the console output for more info!");
+                        CUMessageBox.Show(this, "Compiling scripts was failed! Look at the console output for more info!");
                     }
 
                     this.Invoke(new MethodInvoker(() => ToggleUnlock(true)));
                     this.Invoke(new MethodInvoker(() => Reload()));
                 });
             }
+        }
+
+        private void tableLayoutPanel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel4_Click(object sender, EventArgs e)
+        {
+ 
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.DefaultExt = "gif";
+            dlg.Multiselect = false;
+            dlg.Filter = "GIF Animation file (*.gif)|*.gif";
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                FileInfo f = new FileInfo(dlg.FileName);
+                if (f.Exists)
+                {
+                    if (f.Length > 1000000)
+                    {
+                        CUMessageBox.Show("Icon must have less than 1MB of size!");
+                    }
+                    else
+                    {
+                        var img = Image.FromFile(f.FullName);
+                        if (img.Width == img.Height)
+                        {
+                            if (img.Width < 100)
+                            {
+                                CUMessageBox.Show("Icon must have at least 100x100px size!");
+                            }
+                            else
+                            {
+                                pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                                pictureBox1.Image = null; // dispose old image
+                                pictureBox1.Image = Utils.LoadImageIntoMemory(f.FullName);
+                                
+                                _newIconGif = f.FullName;
+                                HasUnsavedChanges = true;
+                            }
+                        }
+                        else
+                        {
+                            CUMessageBox.Show("Icon must be square shaped!");
+                        }
+                    }
+                }
+                else
+                {
+                    CUMessageBox.Show("Invalid file");
+                }
+            }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            HasUnsavedChanges = true;
+            _newIconGif = "";
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.Image = Properties.Resources.noimage;
         }
     }
 }

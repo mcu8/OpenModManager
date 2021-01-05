@@ -1,4 +1,6 @@
-﻿namespace ModdingTools.Windows.Tools
+﻿using CUFramework.Controls;
+
+namespace ModdingTools.Windows.Tools
 {
     partial class FlipbookGenerator
     {
@@ -28,7 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.mButton1 = new ModdingTools.GUI.MButton();
+            this.mButton1 = new CUFramework.Controls.CUButton();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -44,6 +46,7 @@
             this.mButton1.ForeColor = System.Drawing.Color.White;
             this.mButton1.Location = new System.Drawing.Point(9, 78);
             this.mButton1.Name = "mButton1";
+            this.mButton1.NoFocus = false;
             this.mButton1.Size = new System.Drawing.Size(262, 39);
             this.mButton1.TabIndex = 3;
             this.mButton1.Text = "LOAD GIF OR APNG";
@@ -100,7 +103,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.mButton1);
+            this.IsMaximizeButtonEnabled = false;
             this.IsResizable = false;
+            this.Location = new System.Drawing.Point(0, 0);
             this.MinimumSize = new System.Drawing.Size(200, 200);
             this.Name = "FlipbookGenerator";
             this.Text = "FLIPBOOK GENERATOR";
@@ -117,7 +122,7 @@
 
         #endregion
 
-        private GUI.MButton mButton1;
+        private CUButton mButton1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;

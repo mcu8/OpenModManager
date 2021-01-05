@@ -1,4 +1,6 @@
-﻿namespace ModdingTools.GUI
+﻿using CUFramework.Controls;
+
+namespace ModdingTools.GUI
 {
     partial class ConfigItem
     {
@@ -32,12 +34,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.mButtonBorderless1 = new ModdingTools.GUI.MButtonBorderless();
+            this.mButtonBorderless1 = new CUButtonBorderless();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.mButtonBorderless2 = new ModdingTools.GUI.MButtonBorderless();
-            this.mButtonBorderless3 = new ModdingTools.GUI.MButtonBorderless();
+            this.mButtonBorderless2 = new CUButtonBorderless();
+            this.mButtonBorderless3 = new CUButtonBorderless();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -243,12 +245,12 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private MButtonBorderless mButtonBorderless1;
+        private CUButtonBorderless mButtonBorderless1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private MButtonBorderless mButtonBorderless2;
-        private MButtonBorderless mButtonBorderless3;
+        private CUButtonBorderless mButtonBorderless2;
+        private CUButtonBorderless mButtonBorderless3;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ListBox listBox1;

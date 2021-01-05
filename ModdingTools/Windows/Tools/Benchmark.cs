@@ -1,4 +1,5 @@
-﻿using ModdingTools.GUI;
+﻿using CUFramework.Windows;
+using ModdingTools.GUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,12 +14,14 @@ using System.Windows.Forms;
 
 namespace ModdingTools.Windows.Tools
 {
-    public partial class Benchmark : BaseWindow
+    public partial class Benchmark : CUWindow
     {
         public Benchmark()
         {
             InitializeComponent(); 
         }
+
+        bool closing = false;
 
         Stopwatch sw = new Stopwatch();
         public void Start()
@@ -29,10 +32,18 @@ namespace ModdingTools.Windows.Tools
             {
                 while(sw.IsRunning)
                 {
-                    this.Invoke(new MethodInvoker(() =>
+                    if (closing) return;
+                    try
                     {
-                        label1.Text = sw.Elapsed.ToString(@"hh\:mm\:ss\.fff");
-                    }));
+                        this.Invoke(new MethodInvoker(() =>
+                        {
+                            label1.Text = sw.Elapsed.ToString(@"hh\:mm\:ss\.fff");
+                        }));
+                    }
+                    catch (Exception)
+                    {
+                        break;
+                    }
                     Thread.Sleep(10);
                 }
                 this.Invoke(new MethodInvoker(() =>
@@ -45,6 +56,11 @@ namespace ModdingTools.Windows.Tools
         public void Stop()
         {
             sw.Stop();
+        }
+
+        private void Benchmark_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            closing = true;
         }
     }
 }

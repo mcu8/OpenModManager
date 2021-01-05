@@ -39,12 +39,12 @@ namespace ModdingTools.GUI
             set
             {
                 _ToggleState = value;
-                mButtonBorderless1.Image = (value) ? Properties.Resources.icon_044 : Properties.Resources.icon_043;
+                CUButtonBorderless1.Image = (value) ? Properties.Resources.icon_044 : Properties.Resources.icon_043;
                 Toggle?.Invoke(this, value);
             }
         }
 
-        private void mButtonBorderless1_Click(object sender, EventArgs e)
+        private void CUButtonBorderless1_Click(object sender, EventArgs e)
         {
             ToggleState = !ToggleState;
         }

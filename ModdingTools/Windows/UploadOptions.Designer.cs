@@ -1,4 +1,6 @@
-﻿namespace ModdingTools.Windows
+﻿using CUFramework.Controls;
+
+namespace ModdingTools.Windows
 {
     partial class UploadOptions
     {
@@ -28,8 +30,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.mButton3 = new ModdingTools.GUI.MButton();
-            this.mButton2 = new ModdingTools.GUI.MButton();
+            this.mButton3 = new CUButton();
+            this.mButton2 = new CUButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
@@ -55,8 +57,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.mButton1 = new ModdingTools.GUI.MButton();
-            this.mButton4 = new ModdingTools.GUI.MButton();
+            this.mButton1 = new CUButton();
+            this.mButton4 = new CUButton();
             this.checkBox13 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.borderPanel1.SuspendLayout();
@@ -492,8 +494,8 @@
         }
 
         #endregion
-        private GUI.MButton mButton3;
-        private GUI.MButton mButton2;
+        private CUButton mButton3;
+        private CUButton mButton2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
@@ -519,8 +521,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Label label6;
-        private GUI.MButton mButton1;
-        private GUI.MButton mButton4;
+        private CUButton mButton1;
+        private CUButton mButton4;
         private System.Windows.Forms.CheckBox checkBox13;
     }
 }

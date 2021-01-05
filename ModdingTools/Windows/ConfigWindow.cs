@@ -1,4 +1,5 @@
-﻿using ModdingTools.GUI;
+﻿using CUFramework.Windows;
+using ModdingTools.GUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +11,7 @@ using System.Windows.Forms;
 
 namespace ModdingTools.Windows
 {
-    public partial class ConfigWindow : BaseWindow
+    public partial class ConfigWindow : CUWindow
     {
         public ConfigWindow()
         {

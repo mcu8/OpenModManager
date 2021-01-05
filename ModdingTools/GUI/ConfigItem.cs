@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using ModdingTools.Windows;
 using ModdingTools.Modding;
+using CUFramework.Dialogs.Validators;
 
 namespace ModdingTools.GUI
 {
@@ -47,7 +48,7 @@ namespace ModdingTools.GUI
 
         private void label4_Click(object sender, EventArgs e)
         {
-            var a = InputWindow.Ask(this, "Config Editor", "Please, enter config property name (var config int <name>)", new InputWindow.NonEmptyValidator(), label4.Text);
+            var a = CUInputWindow.Ask(this, "Config Editor", "Please, enter config property name (var config int <name>)", new NonEmptyValidator(), label4.Text);
             if (a != null)
             {
                 label4.Text = a;
@@ -58,7 +59,7 @@ namespace ModdingTools.GUI
 
         private void label3_Click(object sender, EventArgs e)
         {
-            var a = InputWindow.Ask(this, "Config Editor", "Please, enter the description", new InputWindow.NonEmptyValidator(), label3.Text, true);
+            var a = CUInputWindow.Ask(this, "Config Editor", "Please, enter the description", new NonEmptyValidator(), label3.Text, true);
             if (a != null)
             {
                 label3.Text = a;
@@ -74,7 +75,7 @@ namespace ModdingTools.GUI
 
         private void label5_Click(object sender, EventArgs e)
         {
-            var a = InputWindow.Ask(this, "Config Editor", "Please, enter config display name", new InputWindow.NonEmptyValidator(), label5.Text);
+            var a = CUInputWindow.Ask(this, "Config Editor", "Please, enter config display name", new NonEmptyValidator(), label5.Text);
             if (a != null)
             {
                 label5.Text = a;
@@ -119,7 +120,7 @@ namespace ModdingTools.GUI
 
         private void mButtonBorderless3_Click(object sender, EventArgs e)
         {
-            var a = InputWindow.Ask(this, "Config Editor", "Please, enter a new value name", new InputWindow.NonEmptyValidator());
+            var a = CUInputWindow.Ask(this, "Config Editor", "Please, enter a new value name", new NonEmptyValidator());
             if (a != null)
             {
                 listBox1.Items.Add(a);

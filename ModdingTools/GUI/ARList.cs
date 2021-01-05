@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ModdingTools.Windows;
+using ModdingTools.Windows.Validators;
 
 namespace ModdingTools.GUI
 {
@@ -83,12 +84,12 @@ namespace ModdingTools.GUI
             return d;
         }
 
-        private void mButtonBorderless1_Click(object sender, EventArgs e)
+        private void CUButtonBorderless1_Click(object sender, EventArgs e)
         {
-            string source = InputWindow.Ask(this, "Asset Replacement: from", "Enter the asset name which you want to replace", new InputWindow.ARValidator());
+            string source = CUInputWindow.Ask(this, "Asset Replacement: from", "Enter the asset name which you want to replace", new ARValidator());
             if (source != null)
             {
-                string target = InputWindow.Ask(this, "Asset Replacement: to", $"Replacement: {source}{Environment.NewLine}Enter the target asset name", new InputWindow.ARValidator());
+                string target = CUInputWindow.Ask(this, "Asset Replacement: to", $"Replacement: {source}{Environment.NewLine}Enter the target asset name", new ARValidator());
                 if (target != null)
                 {
                     Append(source, target);

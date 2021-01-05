@@ -10,6 +10,8 @@ using ModdingTools.Modding;
 using ModdingTools.Engine;
 using ModdingTools.Windows;
 using System.Diagnostics;
+using CUFramework.Controls;
+using CUFramework.Dialogs;
 
 namespace ModdingTools.GUI
 {
@@ -22,7 +24,7 @@ namespace ModdingTools.GUI
         {
             InitializeComponent();
 
-            contextMenuStrip1.Renderer = new ToolStripProfessionalRenderer(new MenuColorTable());
+            contextMenuStrip1.Renderer = new ToolStripProfessionalRenderer(new CUMenuColorTable());
             contextMenuStrip1.BackColor = ThemeConstants.BackgroundColor;
             contextMenuStrip1.ForeColor = ThemeConstants.ForegroundColor; 
 
@@ -107,7 +109,10 @@ namespace ModdingTools.GUI
                     }
                     else
                     {
-                        new ModProperties(this.Mod).Show();
+                        var props = new ModProperties(this.Mod);
+                        props.StartPosition = FormStartPosition.CenterParent;
+                        props.ToCenterParent = this.ParentForm;
+                        props.Show();
                     }
                     //prop.Show();
                 }
@@ -253,7 +258,7 @@ namespace ModdingTools.GUI
 
         private void deleteModToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show(null, "Do you REALLY want to delete '" + Mod.Name + "'?\nThis CANNOT BE UNDONE!", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning );
+            var result = CUMessageBox.Show(null, "Do you REALLY want to delete '" + Mod.Name + "'?\nThis CANNOT BE UNDONE!", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning );
             if (result == DialogResult.Yes)
             {
                 Mod.Delete();
