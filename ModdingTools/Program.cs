@@ -61,11 +61,10 @@ namespace ModdingTools
             SetRPData();
         }
 
-        // just tried to do some self-advertisement, that doesn't work anyway...
         private static void SetRPData()
         {
             SteamFriends.SetRichPresence("gamelocation", "OpenModManager");
-            SteamFriends.SetRichPresence("status", "I'm using OpenModManager!\nhttps://github.com/mcu82/OpenModManager");
+            SteamFriends.SetRichPresence("status", "I'm using OpenModManager!\nhttps://github.com/mcu8/OpenModManager");
             SteamFriends.SetRichPresence("steam_display", "#Status");
         }
 
