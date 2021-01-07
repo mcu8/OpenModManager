@@ -57,6 +57,16 @@ namespace ModdingTools
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainWindow());
+
+            SetRPData();
+        }
+
+        // just tried to do some self-advertisement, that doesn't work anyway...
+        private static void SetRPData()
+        {
+            SteamFriends.SetRichPresence("gamelocation", "OpenModManager");
+            SteamFriends.SetRichPresence("status", "I'm using OpenModManager!\nhttps://github.com/mcu82/OpenModManager");
+            SteamFriends.SetRichPresence("steam_display", "#Status");
         }
 
         private static void OnWindowOpened(object sender, AutomationEventArgs automationEventArgs)

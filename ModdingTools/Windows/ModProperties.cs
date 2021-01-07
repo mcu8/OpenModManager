@@ -483,7 +483,7 @@ namespace ModdingTools.Windows
                 }
                 else
                 {
-                    if (!File.Exists(Path.Combine(Mod.RootPath, Mod.Icon)))
+                    if (String.IsNullOrEmpty(Mod.Icon) || !File.Exists(Path.Combine(Mod.RootPath, Mod.Icon)))
                         Mod.Icon = "";
                 }
 
@@ -510,7 +510,7 @@ namespace ModdingTools.Windows
                 }
                 else
                 {
-                    if (!File.Exists(Path.Combine(Mod.RootPath, Store.AnimatedIconFileName)))
+                    if (String.IsNullOrEmpty(Store.AnimatedIconFileName) || !File.Exists(Path.Combine(Mod.RootPath, Store.AnimatedIconFileName)))
                         Store.AnimatedIconFileName = "";
                 }
 
