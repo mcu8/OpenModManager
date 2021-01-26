@@ -30,7 +30,7 @@ namespace ModdingTools
         }
 
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             bool steam = SteamAPI.Init();
             if (!steam)

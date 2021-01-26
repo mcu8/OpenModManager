@@ -360,7 +360,7 @@ namespace ModdingTools.Windows
             bool flag5 = Utils.DirContainsKey(Mod.GetCookedDir(), "*.u") || Utils.DirContainsKey(Mod.GetCookedDir(), "*.umap");
             bool flag6 = (Mod.HasCompiledScripts() | flag3 | flag4) || Mod.HasAnyMaps();
             bool flag7 = Mod.ValidateIcon();
-            bool flag8 = Mod.TagsCompleted(); //todo: tags
+            bool flag8 = Mod.TagsCompleted();
 
             mButton6.Enabled = (flag6 && !contentBrowser1.HasContentError && !Mod.IsLanguagePack);
 

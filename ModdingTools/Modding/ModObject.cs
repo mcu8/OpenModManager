@@ -567,7 +567,7 @@ namespace ModdingTools.Modding
 
             var cp = Path.Combine(classDir, $"{className}.uc");
             
-            if (File.Exists(cp)) return className; // don't edit exists class
+            if (File.Exists(cp)) return className; // don't edit existing class
             if (!Directory.Exists(classDir))
             {
                 Directory.CreateDirectory(classDir);
@@ -727,7 +727,7 @@ namespace ModdingTools.Modding
                     if (!info.Sections.ContainsSection(GetDirectoryName()))
                         info.Sections.Add(new SectionData(GetDirectoryName()));
 
-                    // int32 no more in official tools :crabrave:
+                    // int32 is no more in official tools :crabrave:
                     if (!info[GetDirectoryName()].ContainsKey("WorkshopId"))
                         info[GetDirectoryName()].AddKey(new KeyData("WorkshopId"));
 

@@ -103,8 +103,13 @@ namespace ModdingTools.Engine
             {
                 "Hat_Ability_Trigger",
                 "Hat_Ability_Help",
+                "Hat_Ability_Help_Detective",
+                "Hat_Ability_Parade",
                 "Hat_Ability_TimeStop",
                 "Hat_Ability_FoxMask",
+                "Hat_Ability_Sprint",
+                "Hat_Ability_Chemical",
+                "Hat_Ability_StatueFall",
                 "Hat_Ability_Sprint"
             }))
             {
