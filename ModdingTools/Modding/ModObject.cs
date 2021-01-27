@@ -252,7 +252,7 @@ namespace ModdingTools.Modding
             return this.GetDirectoryName().ToLower().GetHashCode();
         }
 
-        public bool CookMod(ProcessRunner runner, bool async = true, bool cleanConsole = true)
+        public bool CookMod(AbstractProcessRunner runner, bool async = true, bool cleanConsole = true)
         {
             if (async)
             {
@@ -265,12 +265,12 @@ namespace ModdingTools.Modding
             }
         }
 
-        public void TestMod(ProcessRunner runner, string mapName = null)
+        public void TestMod(AbstractProcessRunner runner, string mapName = null)
         {
             runner.RunWithoutWait(Program.ProcFactory.StartMap(mapName));
         }
 
-        public bool CompileScripts(ProcessRunner runner, bool async = true, bool watcher = false)
+        public bool CompileScripts(AbstractProcessRunner runner, bool async = true, bool watcher = false)
         {
             if (async)
             {

@@ -71,6 +71,20 @@ namespace ModdingTools.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ...____                   __  __           _ __  __                                   
+        ///  / __ \                 |  \/  |         | |  \/  |                                  
+        /// | |  | |_ __   ___ _ __ | \  / | ___   __| | \  / | __ _ _ __   __ _  __ _  ___ _ __ 
+        /// | |  | | &apos;_ \ / _ \ &apos;_ \| |\/| |/ _ \ / _` | |\/| |/ _` | &apos;_ \ / _` |/ _` |/ _ \ &apos;__|
+        /// | |__| | |_) |  __/ | | | |  | | (_) | (_| | |  | | (_| | | | | (_| | (_| |  __/ |   
+        ///  \____/| .__/ \___|_| |_|_|  |_|\___/ \__,_|_|  |_|\__,_|_| |_|\__,_|\_ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Banner {
+            get {
+                return ResourceManager.GetString("Banner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap close {

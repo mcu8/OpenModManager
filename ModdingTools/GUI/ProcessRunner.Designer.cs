@@ -114,9 +114,9 @@ namespace ModdingTools.GUI
         }
 
         #endregion
-        private CUButton mButton3;
-        private CUButton mButton1;
-        private CUGroupBox cuGroupBox1;
-        private CUConsoleControl consoleControl1;
+        public CUButton mButton3;
+        public CUButton mButton1;
+        public CUGroupBox cuGroupBox1;
+        public CUConsoleControl consoleControl1;
     }
 }

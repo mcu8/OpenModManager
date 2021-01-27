@@ -105,7 +105,7 @@ namespace ModdingTools.Windows
             modListControl1.Visible = !v;
         }
 
-        public ProcessRunner Runner => processRunner1;
+        public AbstractProcessRunner Runner => processRunner1.Runner;
 
         private void mButton1_Click(object sender, System.EventArgs e)
         {

@@ -607,7 +607,7 @@ namespace ModdingTools.Windows
                 Mod.UnCookMod();
                 Task.Factory.StartNew(() =>
                 {
-                    Mod.CompileScripts(this.processRunner1, false, false);
+                    Mod.CompileScripts(this.processRunner1.Runner, false, false);
                     this.Invoke(new MethodInvoker(() => ToggleUnlock(true)));
                     this.Invoke(new MethodInvoker(() => Reload()));
                 });
@@ -630,7 +630,7 @@ namespace ModdingTools.Windows
                 Mod.UnCookMod();
                 Task.Factory.StartNew(() =>
                 {
-                    Mod.CookMod(this.processRunner1, false);
+                    Mod.CookMod(this.processRunner1.Runner, false);
                     this.Invoke(new MethodInvoker(() => ToggleUnlock(true)));
                     this.Invoke(new MethodInvoker(() => Reload()));
                 });
@@ -801,10 +801,10 @@ namespace ModdingTools.Windows
                 Mod.UnCookMod();
                 Task.Factory.StartNew(() =>
                 {
-                    var compileResult = Mod.CompileScripts(this.processRunner1, false);
+                    var compileResult = Mod.CompileScripts(this.processRunner1.Runner, false);
                     if (compileResult)
                     {
-                        var cookResult = Mod.CookMod(this.processRunner1, false, false);
+                        var cookResult = Mod.CookMod(this.processRunner1.Runner, false, false);
                         if (!cookResult)
                         {
                             CUMessageBox.Show(this, "Cooking the mod was failed! Look at the console output for more info!");

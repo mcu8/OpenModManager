@@ -16,7 +16,7 @@ namespace ModdingTools.Modding
         public bool Enabled            { get; set; }
         public bool AutoLoad           { get; set; }
 
-        public ModObject[] GetMods()
+        public ModObject[] GetMods(string modName = null)
         {
             List<ModObject> mods = new List<ModObject>();
             if (!AutoLoad)
@@ -28,6 +28,14 @@ namespace ModdingTools.Modding
             var paths = Directory.GetDirectories(Root);
             foreach (var path in paths)
             {
+                if (modName != null)
+                {
+                    if (!modName.Equals(Path.GetFileName(path), StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        continue;
+                    }
+                }
+
                 var modIniPath = Path.Combine(path, "modinfo.ini");
                 if (File.Exists(modIniPath))
                 {
@@ -36,7 +44,8 @@ namespace ModdingTools.Modding
                         var mod = new ModObject(path, this);
                         mods.Add(mod);
                     }
-                    catch (Exception ex) {
+                    catch (Exception ex)
+                    {
                         Debug.WriteLine(":sealnyon: Oopsie woopsie!\n" + ex.Message + "\n" + ex.ToString());
                     }
                 }

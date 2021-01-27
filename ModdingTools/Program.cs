@@ -1,5 +1,7 @@
-﻿using CUFramework.Dialogs;
+﻿using CommandLine;
+using CUFramework.Dialogs;
 using ModdingTools.Engine;
+using ModdingTools.Headless;
 using ModdingTools.Windows;
 using ModdingTools.Windows.Tools;
 using Steamworks;
@@ -9,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows.Automation;
 using System.Windows.Forms;
 
@@ -16,6 +19,12 @@ namespace ModdingTools
 {
     static class Program
     {
+        [DllImport("kernel32.dll")]
+        static extern IntPtr GetConsoleWindow();
+
+        [DllImport("user32.dll")]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -29,8 +38,27 @@ namespace ModdingTools
             return Path.GetDirectoryName(Application.ExecutablePath);
         }
 
+        private static void HideConsoleWindow()
+        {
+            var handle = GetConsoleWindow();
+            ShowWindow(handle, 0);
+        }
+
         [STAThread]
         static void Main(string[] args)
+        {
+            if (args.Length > 0)
+            {
+                ProgramHeadless.MainHeadless(args);
+            }
+            else
+            {
+                HideConsoleWindow();
+                MainGUI(args);
+            }
+        }
+
+        static void MainGUI(string[] args)
         {
             bool steam = SteamAPI.Init();
             if (!steam)
