@@ -18,6 +18,7 @@ namespace ModdingTools.Windows.Tools
         public AssetRipper()
         {
             InitializeComponent();
+            checkBox1.Checked = Properties.Settings.Default.Exporter_ForcePNG;
         }
 
         private void mButton1_Click(object sender, EventArgs e)
@@ -29,6 +30,7 @@ namespace ModdingTools.Windows.Tools
             if (match.Count != 1 || match[0].Groups.Count != 3)
             {
                 CUMessageBox.Show(this, "Invalid input!");
+                return;
             } 
 
             try
@@ -57,7 +59,7 @@ namespace ModdingTools.Windows.Tools
                             }
 
                             SaveFileDialog dlg = new SaveFileDialog();
-                            var ext = UModelFacade.GetExtensionForType(parserType);
+                            var ext = UModelFacade.GetExtensionForType(parserType, checkBox1.Checked);
                             if (ext == null)
                             {
                                 CUMessageBox.Show(this, "Unsupported type: " + parserType);
@@ -71,7 +73,7 @@ namespace ModdingTools.Windows.Tools
                             if (dlg.ShowDialog() == DialogResult.OK)
                             {
                                 var facade = new UModelFacade();
-                                var result = facade.Export(Path.GetDirectoryName(pkg), package, spl.Last(), parserType, dlg.FileName);
+                                var result = facade.Export(Path.GetDirectoryName(pkg), package, spl.Last(), parserType, dlg.FileName, checkBox1.Checked);
                                 CUMessageBox.Show(this, result ? "File exported sucessfully!" : "Export failed!");
                             }
                             return;
@@ -91,14 +93,11 @@ namespace ModdingTools.Windows.Tools
         {
 
         }
-    }
 
-    public class UMyTexture : UObject
-    {
-        public override string Decompile()
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            var output = base.Decompile();
-            return output + "\r\n\tUMyTexture has its own decompile output!";
+            Properties.Settings.Default.Exporter_ForcePNG = checkBox1.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }

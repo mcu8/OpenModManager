@@ -46,6 +46,7 @@ namespace ModdingTools.Windows
             this.mButton2 = new CUFramework.Controls.CUButton();
             this.cardController1 = new CUFramework.Controls.Tabs.CUCardController();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cuButton1 = new CUFramework.Controls.CUButton();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -164,7 +165,7 @@ namespace ModdingTools.Windows
             this.mButton6.ForeColor = System.Drawing.Color.White;
             this.mButton6.Image = global::ModdingTools.Properties.Resources.tools;
             this.mButton6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton6.Location = new System.Drawing.Point(507, 2);
+            this.mButton6.Location = new System.Drawing.Point(473, 2);
             this.mButton6.Name = "mButton6";
             this.mButton6.NoFocus = false;
             this.mButton6.Size = new System.Drawing.Size(82, 30);
@@ -183,7 +184,7 @@ namespace ModdingTools.Windows
             this.mButton5.ForeColor = System.Drawing.Color.White;
             this.mButton5.Image = global::ModdingTools.Properties.Resources.console1;
             this.mButton5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton5.Location = new System.Drawing.Point(590, 3);
+            this.mButton5.Location = new System.Drawing.Point(556, 3);
             this.mButton5.Name = "mButton5";
             this.mButton5.NoFocus = false;
             this.mButton5.Size = new System.Drawing.Size(35, 29);
@@ -200,7 +201,7 @@ namespace ModdingTools.Windows
             this.mButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton2.ForeColor = System.Drawing.Color.White;
             this.mButton2.Image = global::ModdingTools.Properties.Resources.settings_icon;
-            this.mButton2.Location = new System.Drawing.Point(626, 4);
+            this.mButton2.Location = new System.Drawing.Point(592, 4);
             this.mButton2.Name = "mButton2";
             this.mButton2.NoFocus = false;
             this.mButton2.Size = new System.Drawing.Size(37, 28);
@@ -233,11 +234,29 @@ namespace ModdingTools.Windows
             this.panel1.Size = new System.Drawing.Size(954, 35);
             this.panel1.TabIndex = 37;
             // 
+            // cuButton1
+            // 
+            this.cuButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cuButton1.BackColor = System.Drawing.Color.Black;
+            this.cuButton1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.cuButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cuButton1.ForeColor = System.Drawing.Color.White;
+            this.cuButton1.Image = global::ModdingTools.Properties.Resources.about;
+            this.cuButton1.Location = new System.Drawing.Point(631, 4);
+            this.cuButton1.Name = "cuButton1";
+            this.cuButton1.NoFocus = false;
+            this.cuButton1.Size = new System.Drawing.Size(32, 28);
+            this.cuButton1.TabIndex = 38;
+            this.cuButton1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cuButton1.UseVisualStyleBackColor = false;
+            this.cuButton1.Click += new System.EventHandler(this.cuButton1_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(958, 515);
+            this.Controls.Add(this.cuButton1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.cardController1);
             this.Controls.Add(this.mButton6);
@@ -258,6 +277,7 @@ namespace ModdingTools.Windows
             this.Controls.SetChildIndex(this.mButton6, 0);
             this.Controls.SetChildIndex(this.cardController1, 0);
             this.Controls.SetChildIndex(this.panel1, 0);
+            this.Controls.SetChildIndex(this.cuButton1, 0);
             this.contextMenuStrip1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -279,6 +299,7 @@ namespace ModdingTools.Windows
         private System.Windows.Forms.ToolStripMenuItem flipbookGeneratorToolStripMenuItem;
         private CUCardController cardController1;
         private System.Windows.Forms.Panel panel1;
+        private CUButton cuButton1;
     }
 }
 

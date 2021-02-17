@@ -30,8 +30,9 @@ namespace ModdingTools.Windows
         /// </summary>
         private void InitializeComponent()
         {
-            this.mButton3 = new CUButton();
-            this.mButton2 = new CUButton();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UploadOptions));
+            this.mButton3 = new CUFramework.Controls.CUButton();
+            this.mButton2 = new CUFramework.Controls.CUButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
@@ -57,8 +58,8 @@ namespace ModdingTools.Windows
             this.label5 = new System.Windows.Forms.Label();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.mButton1 = new CUButton();
-            this.mButton4 = new CUButton();
+            this.mButton1 = new CUFramework.Controls.CUButton();
+            this.mButton4 = new CUFramework.Controls.CUButton();
             this.checkBox13 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.borderPanel1.SuspendLayout();
@@ -74,9 +75,10 @@ namespace ModdingTools.Windows
             this.mButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton3.ForeColor = System.Drawing.Color.Black;
             this.mButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton3.Location = new System.Drawing.Point(249, 3);
+            this.mButton3.Location = new System.Drawing.Point(251, 3);
             this.mButton3.Name = "mButton3";
-            this.mButton3.Size = new System.Drawing.Size(240, 32);
+            this.mButton3.NoFocus = false;
+            this.mButton3.Size = new System.Drawing.Size(242, 32);
             this.mButton3.TabIndex = 8;
             this.mButton3.Text = "CANCEL";
             this.mButton3.UseVisualStyleBackColor = false;
@@ -93,7 +95,8 @@ namespace ModdingTools.Windows
             this.mButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.mButton2.Location = new System.Drawing.Point(3, 3);
             this.mButton2.Name = "mButton2";
-            this.mButton2.Size = new System.Drawing.Size(240, 32);
+            this.mButton2.NoFocus = false;
+            this.mButton2.Size = new System.Drawing.Size(242, 32);
             this.mButton2.TabIndex = 7;
             this.mButton2.Text = "UPLOAD/UPDATE MOD";
             this.mButton2.UseVisualStyleBackColor = false;
@@ -107,11 +110,11 @@ namespace ModdingTools.Windows
             this.tableLayoutPanel1.Controls.Add(this.mButton2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.mButton3, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 358);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 360);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(492, 38);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(496, 38);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
             // checkBox1
@@ -414,6 +417,7 @@ namespace ModdingTools.Windows
             this.mButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.mButton1.Location = new System.Drawing.Point(253, 35);
             this.mButton1.Name = "mButton1";
+            this.mButton1.NoFocus = false;
             this.mButton1.Size = new System.Drawing.Size(240, 27);
             this.mButton1.TabIndex = 31;
             this.mButton1.Text = "AUTOFILL";
@@ -431,6 +435,7 @@ namespace ModdingTools.Windows
             this.mButton4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.mButton4.Location = new System.Drawing.Point(11, 35);
             this.mButton4.Name = "mButton4";
+            this.mButton4.NoFocus = false;
             this.mButton4.Size = new System.Drawing.Size(240, 48);
             this.mButton4.TabIndex = 32;
             this.mButton4.Text = "ALREADY RELEASED?\r\nCLICK HERE!";
@@ -466,6 +471,8 @@ namespace ModdingTools.Windows
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Location = new System.Drawing.Point(0, 0);
             this.MaximumSize = new System.Drawing.Size(500, 400);
             this.MinimumSize = new System.Drawing.Size(500, 400);
             this.Name = "UploadOptions";

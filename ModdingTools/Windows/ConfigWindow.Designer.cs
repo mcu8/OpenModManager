@@ -30,6 +30,7 @@ namespace ModdingTools.Windows
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigWindow));
             this.mButton3 = new CUFramework.Controls.CUButton();
             this.mButton2 = new CUFramework.Controls.CUButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -139,6 +140,7 @@ namespace ModdingTools.Windows
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Location = new System.Drawing.Point(0, 0);
             this.MaximumSize = new System.Drawing.Size(1920, 1080);
             this.MinimumSize = new System.Drawing.Size(249, 389);

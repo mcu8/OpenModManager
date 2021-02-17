@@ -69,6 +69,17 @@ namespace ModdingTools.Engine
             System.Diagnostics.Process.Start("explorer.exe", "\"" + path + "\"");
         }
 
+        public static void StartInDefaultBrowser(string url)
+        {
+            try
+            {
+                Process.Start("rundll32", "url.dll,FileProtocolHandler \"" + url + "\"");
+            }
+            catch (Exception)
+            {
+            }
+        }
+
         public static void KillEditor()
         {
             System.Diagnostics.Process.Start("taskkill.exe", "/F /IM HatInTimeEditor.exe");

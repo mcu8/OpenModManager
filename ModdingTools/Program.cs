@@ -47,15 +47,7 @@ namespace ModdingTools
         [STAThread]
         static void Main(string[] args)
         {
-            if (args.Length > 0)
-            {
-                ProgramHeadless.MainHeadless(args);
-            }
-            else
-            {
-                HideConsoleWindow();
-                MainGUI(args);
-            }
+            MainGUI(args);
         }
 
         static void MainGUI(string[] args)

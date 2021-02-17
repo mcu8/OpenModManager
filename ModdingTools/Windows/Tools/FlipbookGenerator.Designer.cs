@@ -30,11 +30,13 @@ namespace ModdingTools.Windows.Tools
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FlipbookGenerator));
             this.mButton1 = new CUFramework.Controls.CUButton();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,7 +70,7 @@ namespace ModdingTools.Windows.Tools
             this.panel1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.panel1.Location = new System.Drawing.Point(110, 41);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(85, 30);
+            this.panel1.Size = new System.Drawing.Size(33, 30);
             this.panel1.TabIndex = 6;
             this.panel1.Click += new System.EventHandler(this.panel1_Click);
             // 
@@ -93,19 +95,33 @@ namespace ModdingTools.Windows.Tools
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(149, 41);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(109, 30);
+            this.checkBox1.TabIndex = 8;
+            this.checkBox1.Text = "Use transparency\r\ninstead of color";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // FlipbookGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(688, 451);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.mButton1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMaximizeButtonEnabled = false;
             this.IsResizable = false;
             this.Location = new System.Drawing.Point(0, 0);
+            this.MaximumSize = new System.Drawing.Size(1920, 1080);
             this.MinimumSize = new System.Drawing.Size(200, 200);
             this.Name = "FlipbookGenerator";
             this.Text = "FLIPBOOK GENERATOR";
@@ -114,6 +130,7 @@ namespace ModdingTools.Windows.Tools
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.label2, 0);
+            this.Controls.SetChildIndex(this.checkBox1, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -127,5 +144,6 @@ namespace ModdingTools.Windows.Tools
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

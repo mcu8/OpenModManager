@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OpenModManager")]
+[assembly: AssemblyTitle("OpenModManager (Console Interface)")]
 [assembly: AssemblyDescription("Funni modding tool for A Hat in Time")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("m_cu8/m_cube")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("0569be64-ba84-4c53-9296-ee830f5a002f")]
+[assembly: Guid("23733746-7020-4e5b-958f-e3aa34e9e60f")]
 
 // Version information for an assembly consists of the following four values:
 //

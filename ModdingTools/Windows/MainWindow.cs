@@ -308,5 +308,12 @@ namespace ModdingTools.Windows
             ToggleSearchBar(false);
             SetCard(MainWindow.CardControllerTabs.Worker);
         }
+
+        private void cuButton1_Click(object sender, EventArgs e)
+        {
+            var w = new AboutWindow();
+            w.StartPosition = FormStartPosition.CenterParent;
+            w.ShowDialog(this);
+        }
     }
 }

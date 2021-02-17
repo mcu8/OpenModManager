@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0569BE64-BA84-4C53-9296-EE830F5A002F}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>ModdingTools</RootNamespace>
     <AssemblyName>ModdingTools</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -98,6 +98,7 @@
   <ItemGroup>
     <Compile Include="BuildData.cs" />
     <Compile Include="Engine\AbstractProcessRunner.cs" />
+    <Compile Include="Engine\TGA\TargaImage.cs" />
     <Compile Include="GUI\GUIProcessRunner.cs" />
     <Compile Include="Headless\CommandLineOptions.cs" />
     <Compile Include="Engine\APNG\APNG.cs" />
@@ -161,6 +162,12 @@
     <Compile Include="Logging\Handlers\DebuggerLogger.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Windows\AboutWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\AboutWindow.Designer.cs">
+      <DependentUpon>AboutWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Tools\AssetRipper.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -261,6 +268,9 @@
     <EmbeddedResource Include="GUI\GUIWorker.resx">
       <DependentUpon>GUIWorker.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Windows\AboutWindow.resx">
+      <DependentUpon>AboutWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Windows\Tools\AssetRipper.resx">
       <DependentUpon>AssetRipper.cs</DependentUpon>
     </EmbeddedResource>
@@ -318,6 +328,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hueh.ico" />
+    <None Include="Resources\about.png" />
     <None Include="Resources\heeh_3.png" />
     <None Include="Resources\heeh_2.png" />
     <None Include="Resources\heeh_1b.png" />

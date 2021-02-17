@@ -121,8 +121,21 @@
   <data name="remix" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\remix.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="heeh_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\heeh_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="compile" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\compile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Banner" xml:space="preserve">
+    <value>...____                   __  __           _ __  __                                   
+  / __ \                 |  \/  |         | |  \/  |                                  
+ | |  | |_ __   ___ _ __ | \  / | ___   __| | \  / | __ _ _ __   __ _  __ _  ___ _ __ 
+ | |  | | '_ \ / _ \ '_ \| |\/| |/ _ \ / _` | |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__|
+ | |__| | |_) |  __/ | | | |  | | (_) | (_| | |  | | (_| | | | | (_| | (_| |  __/ |   
+  \____/| .__/ \___|_| |_|_|  |_|\___/ \__,_|_|  |_|\__,_|_| |_|\__,_|\__, |\___|_|   
+        | |                                                            __/ |          
+        |_|                                                           |___/</value>
   </data>
   <data name="loading_text" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\loading_text.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -145,14 +158,14 @@
   <data name="folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cook" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cook.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="steam" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\steam.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="msg_exc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\msg.exc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="msg_app" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\msg.app.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="uploaded" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\uploaded.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="sticker" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sticker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -162,6 +175,9 @@
   </data>
   <data name="tools" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tools.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="compncook" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\compncook.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="msg_info" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\msg.info.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -178,8 +194,8 @@
   <data name="deathwish" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\deathwish.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icon_164" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icon_164.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="steam" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\steam.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="settings-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\settings-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -189,6 +205,9 @@
   </data>
   <data name="console1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\console1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="heeh_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\heeh_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icon_073" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon_073.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -208,8 +227,8 @@
   <data name="save" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dye" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dye.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icon_164" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_164.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="console" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\console.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -223,8 +242,8 @@
   <data name="delete1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\delete1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="compncook" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\compncook.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cook" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cook.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="loading" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\loading.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -232,35 +251,19 @@
   <data name="noimage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\noimage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="heeh_1b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\heeh_1b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="msg_warn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\msg.warn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="msg_exc" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\msg.exc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="dye" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dye.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icon_004" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon_004.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="uploaded" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\uploaded.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="heeh_1b" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\heeh_1b.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="heeh_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\heeh_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="heeh_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\heeh_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Banner" xml:space="preserve">
-    <value>...____                   __  __           _ __  __                                   
-  / __ \                 |  \/  |         | |  \/  |                                  
- | |  | |_ __   ___ _ __ | \  / | ___   __| | \  / | __ _ _ __   __ _  __ _  ___ _ __ 
- | |  | | '_ \ / _ \ '_ \| |\/| |/ _ \ / _` | |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__|
- | |__| | |_) |  __/ | | | |  | | (_) | (_| | |  | | (_| | | | | (_| | (_| |  __/ |   
-  \____/| .__/ \___|_| |_|_|  |_|\___/ \__,_|_|  |_|\__,_|_| |_|\__,_|\__, |\___|_|   
-        | |                                                            __/ |          
-        |_|                                                           |___/</value>
+  <data name="about" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\about.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

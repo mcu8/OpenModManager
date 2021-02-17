@@ -1129,6 +1129,7 @@ namespace ModdingTools.Windows
             this.Controls.Add(this.mButton2);
             this.Controls.Add(this.btnEditor);
             this.Font = new System.Drawing.Font("Segoe UI Semilight", 9F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMaximizeButtonEnabled = false;
             this.IsResizable = false;
             this.Location = new System.Drawing.Point(0, 0);

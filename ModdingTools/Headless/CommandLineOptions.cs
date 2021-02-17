@@ -8,13 +8,19 @@ namespace ModdingTools.Headless
 {
     class CommandLineOptions
     {
-        [Option(Group = "build", HelpText = "Compile scripts")]
+        [Option(Group = "task", HelpText = "Compile scripts")]
         public bool CompileMod { get; set; }
 
-        [Option(Group = "build", HelpText = "Cook mod")]
+        [Option(Group = "task", HelpText = "Cook mod")]
         public bool CookMod { get; set; }
+
+        [Option(Group = "task", HelpText = "Print mod list")]
+        public bool ModList { get; set; }
 
         [Option("mod", HelpText = "Mod folder name")]
         public string ModName { get; set; }
+
+        [Option(HelpText = "Hide banner", Default = false)]
+        public bool NoLogo { get; set; }
     }
 }

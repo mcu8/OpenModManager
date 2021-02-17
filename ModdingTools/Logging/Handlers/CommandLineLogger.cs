@@ -9,7 +9,10 @@ namespace ModdingTools.Logging.Handlers
         public void Init()
         {
             Console.Title = "OMM";
+        }
 
+        public static void PrintBanner()
+        {
             Logger.PrintBoxed(Properties.Resources.Banner + "\n\n" + "[Command Line mode]\nApp build number: " + BuildData.CurrentVersion, ConsoleColor.Yellow);
 
             Console.WriteLine("");
@@ -18,7 +21,6 @@ namespace ModdingTools.Logging.Handlers
 
         public void Append(string text, string sender, LogLevel level)
         {
-            ConsoleColor consoleColor = Console.ForegroundColor;
             string tag = "[" + Logger.GetLoggerDate() + " " + Logger.GetLevelText(level) + "]  ";
 
             switch (level)

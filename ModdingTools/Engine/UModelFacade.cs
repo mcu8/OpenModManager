@@ -1,6 +1,9 @@
-﻿using System;
+﻿using ModdingTools.Engine.TGA;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -34,7 +37,7 @@ namespace ModdingTools.Engine
             return Path.Combine(Program.GetAppRoot(), "ExporterTMP");
         }
 
-        public static string GetExtensionForType(ExportType exportType)
+        public static string GetExtensionForType(ExportType exportType, bool forcePng = false)
         {
             string extension = null;
             switch (exportType)
@@ -43,7 +46,7 @@ namespace ModdingTools.Engine
                     extension = ".ogg";
                     break;
                 case ExportType.Texture2D:
-                    extension = ".tga";
+                    extension = forcePng ? ".png" : ".tga";
                     break;
             }
             return extension;
@@ -62,7 +65,7 @@ namespace ModdingTools.Engine
             return p.ExitCode == 0;
         }
 
-        public bool Export(string root, string package, string assetName, ExportType exportType, string destination)
+        public bool Export(string root, string package, string assetName, ExportType exportType, string destination, bool forceTgaToPng = false)
         {
             var tmpDir = GetTMPDir();
             if (Directory.Exists(tmpDir))
@@ -89,7 +92,18 @@ namespace ModdingTools.Engine
                 {
                     File.Delete(destination);
                 }
-                File.Move(path, destination);
+
+                if (forceTgaToPng && exportType == ExportType.Texture2D)
+                {
+                    using (var b = new TargaImage(path))
+                    {
+                        b.Image.Save(destination, ImageFormat.Png);
+                    }
+                }
+                else
+                {
+                    File.Move(path, destination);
+                }   
                 return true;
             }
 

@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModdingTools", "ModdingTools\ModdingTools.csproj", "{0569BE64-BA84-4C53-9296-EE830F5A002F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModdingTools.Cli", "ModdingTools.Cli\ModdingTools.Cli.csproj", "{23733746-7020-4E5B-958F-E3AA34E9E60F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0569BE64-BA84-4C53-9296-EE830F5A002F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0569BE64-BA84-4C53-9296-EE830F5A002F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0569BE64-BA84-4C53-9296-EE830F5A002F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23733746-7020-4E5B-958F-E3AA34E9E60F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23733746-7020-4E5B-958F-E3AA34E9E60F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23733746-7020-4E5B-958F-E3AA34E9E60F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23733746-7020-4E5B-958F-E3AA34E9E60F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

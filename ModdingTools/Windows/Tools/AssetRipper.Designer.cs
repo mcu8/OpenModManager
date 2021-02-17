@@ -30,9 +30,11 @@ namespace ModdingTools.Windows.Tools
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssetRipper));
             this.mTextBox1 = new CUFramework.Controls.CUTextBox();
             this.mButton1 = new CUFramework.Controls.CUButton();
             this.label1 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // mTextBox1
@@ -70,14 +72,27 @@ namespace ModdingTools.Windows.Tools
             this.label1.Text = "Please, enter the asset name\r\n(right click on the asset in the Content Browser, c" +
     "hoose the \"Copy the full name to Clipboard\" option and paste it here)";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(35, 114);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(190, 17);
+            this.checkBox1.TabIndex = 4;
+            this.checkBox1.Text = "Automatically convert TGA to PNG";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // AssetRipper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(674, 151);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.mButton1);
             this.Controls.Add(this.mTextBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMaximizeButtonEnabled = false;
             this.IsResizable = false;
             this.Location = new System.Drawing.Point(0, 0);
@@ -89,6 +104,7 @@ namespace ModdingTools.Windows.Tools
             this.Controls.SetChildIndex(this.mTextBox1, 0);
             this.Controls.SetChildIndex(this.mButton1, 0);
             this.Controls.SetChildIndex(this.label1, 0);
+            this.Controls.SetChildIndex(this.checkBox1, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -99,5 +115,6 @@ namespace ModdingTools.Windows.Tools
         private CUTextBox mTextBox1;
         private CUButton mButton1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

@@ -26,6 +26,7 @@ namespace ModdingTools.Windows.Tools
         {
             InitializeComponent();
             pictureBox1.Image = Properties.Resources.editorcrashedhueh4;
+            checkBox1.Checked = Properties.Settings.Default.Flipbook_TrueTransparency;
         }
 
         public List<Image> GetFramesFromAnimatedGIF(Image img)
@@ -39,7 +40,14 @@ namespace ModdingTools.Windows.Tools
             {
                 img.SelectActiveFrame(FrameDimension.Time, i);
                 
-                imageList.Add(Transparent2Color(ResizeImage(img, size, size), panel1.BackColor));
+                if (checkBox1.Checked)
+                {
+                    imageList.Add(ResizeImage(img, size, size));
+                }
+                else
+                {
+                    imageList.Add(Transparent2Color(ResizeImage(img, size, size), panel1.BackColor));
+                }
             }
             return imageList;
         }
@@ -59,7 +67,15 @@ namespace ModdingTools.Windows.Tools
             Debug.WriteLine(png.Frames.Count());
             for (int i = 0; i < png.Frames.Count(); i++)
             {
-                imageList.Add(Transparent2Color(ResizeImage(new Bitmap(png.Frames[i].GetStream()), size, size), panel1.BackColor));
+                var im = new Bitmap(png.Frames[i].GetStream());
+                if (checkBox1.Checked)
+                {
+                    imageList.Add(ResizeImage(im, size, size));
+                }
+                else
+                {
+                    imageList.Add(Transparent2Color(ResizeImage(im, size, size), panel1.BackColor));
+                }
             }
             return imageList;
         }
@@ -165,7 +181,7 @@ namespace ModdingTools.Windows.Tools
 
                 var bmp = new Bitmap((int)size, (int)size);
                 var canvas = Graphics.FromImage(bmp);
-                canvas.Clear(SystemColors.AppWorkspace);
+                canvas.Clear(checkBox1.Checked ? Color.Transparent : SystemColors.AppWorkspace);
 
                 int line = 0;
                 int nIndex = 0;
@@ -231,6 +247,12 @@ namespace ModdingTools.Windows.Tools
             {
                 panel1.BackColor = dlg.Color;
             }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Flipbook_TrueTransparency = checkBox1.Checked;
+            Properties.Settings.Default.Save();
         }
     }
 }
