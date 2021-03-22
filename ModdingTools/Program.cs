@@ -32,16 +32,11 @@ namespace ModdingTools
         public static readonly ProcessFactory ProcFactory = new ProcessFactory();
         public static ModUploader Uploader { get; set; }
         public static Benchmark Benchmark { get; set; } = null;
+        public static SteamWorkshopStorage SWS {get; set;}
 
         public static string GetAppRoot()
         {
             return Path.GetDirectoryName(Application.ExecutablePath);
-        }
-
-        private static void HideConsoleWindow()
-        {
-            var handle = GetConsoleWindow();
-            ShowWindow(handle, 0);
         }
 
         [STAThread]
@@ -73,6 +68,7 @@ namespace ModdingTools
 
             Directory.SetCurrentDirectory(Path.GetDirectoryName(Engine.GameFinder.FindGameDir()));
             Uploader = new ModUploader();
+            SWS = new SteamWorkshopStorage(Path.Combine(Engine.GameFinder.GetModsDir(), "SteamWorkshop.ini"));
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

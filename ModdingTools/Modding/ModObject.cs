@@ -671,71 +671,14 @@ namespace ModdingTools.Modding
             context.AddKey(data);
         }
 
-        // migrate from int32 to ulong
-        public void Migrate()
-        {
-            string checkPath = Path.Combine(RootPath, "..\\SteamWorkshop.ini");
-            Debug.WriteLine(checkPath);
-            if (File.Exists(checkPath))
-            {
-                IniData info = Parser.Parse(File.ReadAllText(checkPath));
-                var i = info[GetDirectoryName()];
-                var a = TryGet(i, "WorkshopIdLong", "-1");
-                if (a == "-1") return;
-
-                ulong result;
-                if (ulong.TryParse(a, out result))
-                {
-                    i.AddKey(new KeyData("WorkshopId"));
-
-                    if (!i.ContainsKey("WorkshopId"))
-                        i.AddKey(new KeyData("WorkshopId"));
-
-                    i["WorkshopId"] = "" + a;
-                    i.RemoveKey("WorkshopIdLong");
-
-                    File.WriteAllText(checkPath, info.ToString());
-                }
-            }
-        }
-
         public ulong GetUploadedId()
         {
-            string checkPath = Path.Combine(GameFinder.GetModsDir(), "SteamWorkshop.ini");
-            Debug.WriteLine(checkPath);
-            if (File.Exists(checkPath))
-            {
-                IniData info = Parser.Parse(File.ReadAllText(checkPath));
-                var i = info[GetDirectoryName()];
-                return ulong.Parse(TryGet(i, "WorkshopIdLong", TryGet(i, "WorkshopId", "0")));
-            }
-            else
-            {
-                return 0;
-            }
+            return Program.SWS.GetIdForMod(this);
         }
 
         public void SetUploadedId(ulong id)
         {
-            string checkPath = Path.Combine(RootPath, "..\\SteamWorkshop.ini");
-            Debug.WriteLine(checkPath);
-            if (File.Exists(checkPath))
-            {
-                if (GetUploadedId() == 0)
-                {
-                    IniData info = Parser.Parse(File.ReadAllText(checkPath));
-                    if (!info.Sections.ContainsSection(GetDirectoryName()))
-                        info.Sections.Add(new SectionData(GetDirectoryName()));
-
-                    // int32 is no more in official tools :crabrave:
-                    if (!info[GetDirectoryName()].ContainsKey("WorkshopId"))
-                        info[GetDirectoryName()].AddKey(new KeyData("WorkshopId"));
-
-                    info[GetDirectoryName()]["WorkshopId"] = "" + id;
-
-                    System.IO.File.WriteAllText(checkPath, info.ToString());
-                }
-            }
+            Program.SWS.SetIdForMod(this, id);
         }
 
 
@@ -756,16 +699,6 @@ namespace ModdingTools.Modding
         // here we PECKIN GO!
         public void Save()
         {
-            try
-            {
-                // migrate from int32 to ulong
-                Migrate();
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.Message + "\n" + e.ToString());
-            }
-
             IniData info = new IniData();
             info.Configuration.AssigmentSpacer = "";
 
