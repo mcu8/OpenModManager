@@ -105,6 +105,7 @@ namespace ModdingTools.Windows
             this.mButton3 = new CUFramework.Controls.CUButton();
             this.mButton4 = new CUFramework.Controls.CUButton();
             this.mButton2 = new CUFramework.Controls.CUButton();
+            this.label14 = new System.Windows.Forms.Label();
             this.panel7.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tab3.SuspendLayout();
@@ -1114,11 +1115,21 @@ namespace ModdingTools.Windows
             this.mButton2.UseVisualStyleBackColor = false;
             this.mButton2.Click += new System.EventHandler(this.mButton2_Click);
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 37);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(44, 15);
+            this.label14.TabIndex = 24;
+            this.label14.Text = "label14";
+            // 
             // ModProperties
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(0)))), ((int)(((byte)(49)))));
             this.ClientSize = new System.Drawing.Size(824, 573);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.tabController1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.panel2);
@@ -1147,6 +1158,7 @@ namespace ModdingTools.Windows
             this.Controls.SetChildIndex(this.panel2, 0);
             this.Controls.SetChildIndex(this.label7, 0);
             this.Controls.SetChildIndex(this.tabController1, 0);
+            this.Controls.SetChildIndex(this.label14, 0);
             this.panel7.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tab3.ResumeLayout(false);
@@ -1252,5 +1264,6 @@ namespace ModdingTools.Windows
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label14;
     }
 }

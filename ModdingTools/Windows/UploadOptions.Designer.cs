@@ -36,6 +36,16 @@ namespace ModdingTools.Windows
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.mButton1 = new CUFramework.Controls.CUButton();
+            this.mButton4 = new CUFramework.Controls.CUButton();
+            this.checkBox13 = new System.Windows.Forms.CheckBox();
+            this.cuButton1 = new CUFramework.Controls.CUButton();
+            this.borderPanel2 = new ModdingTools.GUI.BorderPanel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.borderPanel1 = new ModdingTools.GUI.BorderPanel();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.checkBox12 = new System.Windows.Forms.CheckBox();
@@ -52,18 +62,9 @@ namespace ModdingTools.Windows
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.borderPanel2 = new ModdingTools.GUI.BorderPanel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.mButton1 = new CUFramework.Controls.CUButton();
-            this.mButton4 = new CUFramework.Controls.CUButton();
-            this.checkBox13 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
-            this.borderPanel1.SuspendLayout();
             this.borderPanel2.SuspendLayout();
+            this.borderPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mButton3
@@ -136,6 +137,143 @@ namespace ModdingTools.Windows
             this.checkBox2.TabIndex = 11;
             this.checkBox2.Text = "Upload scripts";
             this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.ForeColor = System.Drawing.Color.DarkGray;
+            this.label4.Location = new System.Drawing.Point(8, 205);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(74, 13);
+            this.label4.TabIndex = 28;
+            this.label4.Text = "CHANGELOG";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.ForeColor = System.Drawing.Color.DarkGray;
+            this.label5.Location = new System.Drawing.Point(8, 156);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(60, 13);
+            this.label5.TabIndex = 29;
+            this.label5.Text = "VISIBILITY";
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "Public",
+            "Friends-only",
+            "Hidden",
+            "Unlisted"});
+            this.comboBox3.Location = new System.Drawing.Point(11, 177);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(230, 21);
+            this.comboBox3.TabIndex = 28;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.ForeColor = System.Drawing.Color.DarkGray;
+            this.label6.Location = new System.Drawing.Point(9, 41);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(0, 13);
+            this.label6.TabIndex = 30;
+            // 
+            // mButton1
+            // 
+            this.mButton1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(196)))), ((int)(((byte)(0)))));
+            this.mButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.mButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mButton1.ForeColor = System.Drawing.Color.Black;
+            this.mButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mButton1.Location = new System.Drawing.Point(253, 35);
+            this.mButton1.Name = "mButton1";
+            this.mButton1.NoFocus = false;
+            this.mButton1.Size = new System.Drawing.Size(240, 27);
+            this.mButton1.TabIndex = 31;
+            this.mButton1.Text = "AUTOFILL";
+            this.mButton1.UseVisualStyleBackColor = false;
+            this.mButton1.Click += new System.EventHandler(this.mButton1_Click);
+            // 
+            // mButton4
+            // 
+            this.mButton4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(196)))), ((int)(((byte)(0)))));
+            this.mButton4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.mButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.mButton4.ForeColor = System.Drawing.Color.Black;
+            this.mButton4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mButton4.Location = new System.Drawing.Point(7, 37);
+            this.mButton4.Name = "mButton4";
+            this.mButton4.NoFocus = false;
+            this.mButton4.Size = new System.Drawing.Size(240, 46);
+            this.mButton4.TabIndex = 32;
+            this.mButton4.Text = "ALREADY RELEASED?\r\nCLICK HERE!";
+            this.mButton4.UseVisualStyleBackColor = false;
+            this.mButton4.Click += new System.EventHandler(this.mButton4_Click);
+            // 
+            // checkBox13
+            // 
+            this.checkBox13.AutoSize = true;
+            this.checkBox13.Location = new System.Drawing.Point(11, 135);
+            this.checkBox13.Name = "checkBox13";
+            this.checkBox13.Size = new System.Drawing.Size(120, 17);
+            this.checkBox13.TabIndex = 33;
+            this.checkBox13.Text = "Upload without tags";
+            this.checkBox13.UseVisualStyleBackColor = true;
+            this.checkBox13.CheckedChanged += new System.EventHandler(this.checkBox13_CheckedChanged);
+            // 
+            // cuButton1
+            // 
+            this.cuButton1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cuButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(196)))), ((int)(((byte)(0)))));
+            this.cuButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.cuButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cuButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cuButton1.ForeColor = System.Drawing.Color.Black;
+            this.cuButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cuButton1.Location = new System.Drawing.Point(7, 61);
+            this.cuButton1.Name = "cuButton1";
+            this.cuButton1.NoFocus = false;
+            this.cuButton1.Size = new System.Drawing.Size(240, 22);
+            this.cuButton1.TabIndex = 34;
+            this.cuButton1.Text = "REMOVE WORKSHOPID";
+            this.cuButton1.UseVisualStyleBackColor = false;
+            this.cuButton1.Click += new System.EventHandler(this.cuButton1_Click);
+            // 
+            // borderPanel2
+            // 
+            this.borderPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
+            this.borderPanel2.BorderThickness = 2;
+            this.borderPanel2.Controls.Add(this.textBox1);
+            this.borderPanel2.ForeColor = System.Drawing.Color.White;
+            this.borderPanel2.Location = new System.Drawing.Point(7, 223);
+            this.borderPanel2.Name = "borderPanel2";
+            this.borderPanel2.Padding = new System.Windows.Forms.Padding(5);
+            this.borderPanel2.Size = new System.Drawing.Size(240, 132);
+            this.borderPanel2.TabIndex = 28;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.ForeColor = System.Drawing.Color.White;
+            this.textBox1.Location = new System.Drawing.Point(5, 5);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(5);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(230, 122);
+            this.textBox1.TabIndex = 28;
             // 
             // borderPanel1
             // 
@@ -335,132 +473,15 @@ namespace ModdingTools.Windows
             this.checkBox3.Text = "Dye";
             this.checkBox3.UseVisualStyleBackColor = true;
             // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.Location = new System.Drawing.Point(5, 5);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(5);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(230, 122);
-            this.textBox1.TabIndex = 28;
-            // 
-            // borderPanel2
-            // 
-            this.borderPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
-            this.borderPanel2.BorderThickness = 2;
-            this.borderPanel2.Controls.Add(this.textBox1);
-            this.borderPanel2.ForeColor = System.Drawing.Color.White;
-            this.borderPanel2.Location = new System.Drawing.Point(7, 223);
-            this.borderPanel2.Name = "borderPanel2";
-            this.borderPanel2.Padding = new System.Windows.Forms.Padding(5);
-            this.borderPanel2.Size = new System.Drawing.Size(240, 132);
-            this.borderPanel2.TabIndex = 28;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.ForeColor = System.Drawing.Color.DarkGray;
-            this.label4.Location = new System.Drawing.Point(8, 205);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 13);
-            this.label4.TabIndex = 28;
-            this.label4.Text = "CHANGELOG";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.ForeColor = System.Drawing.Color.DarkGray;
-            this.label5.Location = new System.Drawing.Point(8, 156);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 13);
-            this.label5.TabIndex = 29;
-            this.label5.Text = "VISIBILITY";
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "Public",
-            "Friends-only",
-            "Hidden",
-            "Unlisted"});
-            this.comboBox3.Location = new System.Drawing.Point(11, 177);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(230, 21);
-            this.comboBox3.TabIndex = 28;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.ForeColor = System.Drawing.Color.DarkGray;
-            this.label6.Location = new System.Drawing.Point(9, 72);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(0, 13);
-            this.label6.TabIndex = 30;
-            // 
-            // mButton1
-            // 
-            this.mButton1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.mButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(196)))), ((int)(((byte)(0)))));
-            this.mButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
-            this.mButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mButton1.ForeColor = System.Drawing.Color.Black;
-            this.mButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton1.Location = new System.Drawing.Point(253, 35);
-            this.mButton1.Name = "mButton1";
-            this.mButton1.NoFocus = false;
-            this.mButton1.Size = new System.Drawing.Size(240, 27);
-            this.mButton1.TabIndex = 31;
-            this.mButton1.Text = "AUTOFILL";
-            this.mButton1.UseVisualStyleBackColor = false;
-            this.mButton1.Click += new System.EventHandler(this.mButton1_Click);
-            // 
-            // mButton4
-            // 
-            this.mButton4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.mButton4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(196)))), ((int)(((byte)(0)))));
-            this.mButton4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
-            this.mButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mButton4.ForeColor = System.Drawing.Color.Black;
-            this.mButton4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton4.Location = new System.Drawing.Point(11, 35);
-            this.mButton4.Name = "mButton4";
-            this.mButton4.NoFocus = false;
-            this.mButton4.Size = new System.Drawing.Size(240, 48);
-            this.mButton4.TabIndex = 32;
-            this.mButton4.Text = "ALREADY RELEASED?\r\nCLICK HERE!";
-            this.mButton4.UseVisualStyleBackColor = false;
-            this.mButton4.Click += new System.EventHandler(this.mButton4_Click);
-            // 
-            // checkBox13
-            // 
-            this.checkBox13.AutoSize = true;
-            this.checkBox13.Location = new System.Drawing.Point(11, 135);
-            this.checkBox13.Name = "checkBox13";
-            this.checkBox13.Size = new System.Drawing.Size(120, 17);
-            this.checkBox13.TabIndex = 33;
-            this.checkBox13.Text = "Upload without tags";
-            this.checkBox13.UseVisualStyleBackColor = true;
-            this.checkBox13.CheckedChanged += new System.EventHandler(this.checkBox13_CheckedChanged);
-            // 
             // UploadOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(500, 400);
             this.ControlBoxVisible = false;
-            this.Controls.Add(this.checkBox13);
             this.Controls.Add(this.mButton4);
+            this.Controls.Add(this.cuButton1);
+            this.Controls.Add(this.checkBox13);
             this.Controls.Add(this.mButton1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.comboBox3);
@@ -488,13 +509,14 @@ namespace ModdingTools.Windows
             this.Controls.SetChildIndex(this.comboBox3, 0);
             this.Controls.SetChildIndex(this.label6, 0);
             this.Controls.SetChildIndex(this.mButton1, 0);
-            this.Controls.SetChildIndex(this.mButton4, 0);
             this.Controls.SetChildIndex(this.checkBox13, 0);
+            this.Controls.SetChildIndex(this.cuButton1, 0);
+            this.Controls.SetChildIndex(this.mButton4, 0);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.borderPanel1.ResumeLayout(false);
-            this.borderPanel1.PerformLayout();
             this.borderPanel2.ResumeLayout(false);
             this.borderPanel2.PerformLayout();
+            this.borderPanel1.ResumeLayout(false);
+            this.borderPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -531,5 +553,6 @@ namespace ModdingTools.Windows
         private CUButton mButton1;
         private CUButton mButton4;
         private System.Windows.Forms.CheckBox checkBox13;
+        private CUButton cuButton1;
     }
 }

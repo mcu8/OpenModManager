@@ -298,6 +298,9 @@ namespace ModdingTools.Windows
 
             _saveFeatureHold = false;
             HasUnsavedChanges = false;
+
+            var workshopId = Mod.GetUploadedId();
+            label14.Text = workshopId > 0 ? ("WorkshopId: "  + workshopId) : "";
         }
 
         public void ToggleUnlock(bool v)

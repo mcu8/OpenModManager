@@ -52,10 +52,12 @@ namespace ModdingTools.Windows
                 {
                     label6.Text = "WorkshopId: " + wsid;
                     mButton4.Visible = false;
+                    cuButton1.Visible = true;
                 }
                 else
                 {
                     mButton4.Visible = true;
+                    cuButton1.Visible = false;
                 }
             } 
         }
@@ -229,6 +231,7 @@ namespace ModdingTools.Windows
                     {
                         label6.Text = "WorkshopId: " + wsid;
                         mButton4.Visible = false;
+                        cuButton1.Visible = true;
                     }
                 }
             }
@@ -242,6 +245,13 @@ namespace ModdingTools.Windows
         {
             mButton1.Enabled = !checkBox13.Checked;
             borderPanel1.Enabled = !checkBox13.Checked;
+        }
+
+        private void cuButton1_Click(object sender, EventArgs e)
+        {
+            mod.SetUploadedId(0);
+            mButton4.Visible = true;
+            cuButton1.Visible = false;
         }
     }
 

@@ -37,6 +37,16 @@ namespace ModdingTools.Engine
             });
         }
 
+        // I'm a fuckin idiot...
+        public void ResetUploader()
+        {
+            publishID = 0;
+            Message = "";
+            m_itemCreated?.Dispose();
+            m_itemSubmitted?.Dispose();
+            ugcUpdateHandle = UGCUpdateHandle_t.Invalid;
+        }
+
         public void UploadMod(ModObject mod, string changelog, string[] tags, bool keepUnCooked, bool keepScripts, int visibility, string description, string iconPath)
         {
             if (IsUploaderRunning)
@@ -48,6 +58,7 @@ namespace ModdingTools.Engine
             }
 
             Toggle(true);
+            ResetUploader();
 
             success = true;
             IsUploaderRunning = true;
@@ -91,7 +102,7 @@ namespace ModdingTools.Engine
 
                 var appId = new AppId_t(uint.Parse(GameFinder.AppID));
 
-                if (modid == 0)
+                if (modid <= 100)
                 {
                     SteamAPICall_t call = SteamUGC.CreateItem(appId, EWorkshopFileType.k_EWorkshopFileTypeCommunity);
                     m_itemCreated.Set(call);
@@ -100,6 +111,7 @@ namespace ModdingTools.Engine
                 {
                     publishID = modid;
                 }
+
                 while (publishID == 0)
                 {
                     SteamAPI.RunCallbacks();
@@ -117,6 +129,9 @@ namespace ModdingTools.Engine
                 {
                     SetStatus("Updating the mod " + mod.Name + " with WorkshopID: " + publishID);
                 }
+
+                //throw new Exception("FUCK YOU WOKRSHOPID!!!!!!!!!!\nBtw, id: " + publishID);
+
                 var publishFileID_t = new PublishedFileId_t(publishID);
 
                 ugcUpdateHandle = SteamUGC.StartItemUpdate(appId, publishFileID_t);
