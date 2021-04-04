@@ -201,8 +201,10 @@ namespace ModdingTools.Windows
         {
             GuiWorker.SetTextOrHideOnNull("Loading...");
             CallWorker();//SetCard(CardControllerTabs.Worker);
-            
+
             //SetCard(CardControllerTabs.Worker);
+
+            Debug.WriteLine("Setup update checker...");
 
             UpdateChk = new UpdateChecker(BuildData.CurrentVersion, BuildData.UpdateUrl, new Action(() => {
                 this.Invoke(new MethodInvoker(() =>
@@ -224,6 +226,8 @@ namespace ModdingTools.Windows
                 var element = sender as AutomationElement;
                 Console.WriteLine("new window opened");
             });
+
+            UpdateChk.CheckForUpdatesAsync();
         }
 
         public void LoadModCategories()

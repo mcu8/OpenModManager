@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Automation;
@@ -42,6 +43,17 @@ namespace ModdingTools
         [STAThread]
         static void Main(string[] args)
         {
+            // for updater lol
+            try
+            {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            }
+            catch (Exception e)
+            {
+                //
+            }
+
             MainGUI(args);
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -22,14 +23,18 @@ namespace ModdingTools.Engine
 
         public void CheckForUpdatesAsync()
         {
-            if (!Properties.Settings.Default.UpdateCheck) return;
+            if (!Properties.Settings.Default.UpdateCheck)
+            {
+                Debug.WriteLine("Updates disabled");
+                return;
+            }
             Task.Factory.StartNew(() =>
             {
                 try
                 {
                     using (var wc = new WebClient())
                     {
-                        var remoteVersion = long.Parse(wc.DownloadString(UpdateUrl));
+                        var remoteVersion = long.Parse(wc.DownloadString(UpdateUrl).Trim());
                         if (remoteVersion > BuildNumber)
                         {
                             OnUpdateAvaiable?.Invoke();
@@ -38,7 +43,8 @@ namespace ModdingTools.Engine
                 }
                 catch (Exception e)
                 {
-                    // just do nothing...
+                    Debug.WriteLine("!!" + e.Message);
+                    Debug.WriteLine("!!" + e.StackTrace);
                 }
             });
         }
