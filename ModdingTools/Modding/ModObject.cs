@@ -59,7 +59,7 @@ namespace ModdingTools.Modding
         {
             { "TimeRift",                "Time Rift"                 },
             { "SingleTimePiece",         "Single TimePiece Level"    },
-            { "MultiTimePiece",          "Mulit TimePiece Level"     }
+            { "MultiTimePiece",          "Multi TimePiece Level"     }
         };
 
         IniParser.Parser.IniDataParser Parser;
