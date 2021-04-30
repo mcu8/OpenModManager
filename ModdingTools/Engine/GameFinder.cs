@@ -43,6 +43,26 @@ namespace ModdingTools.Engine
 
         public static string FindGameDir()
         {
+
+            if (File.Exists("GameDirPath.dat"))
+            {
+                try
+                {
+                    var testPath = File.ReadAllText("GameDirPath.dat");
+                    var gamePath = Path.Combine(testPath, "HatinTimeGame.exe");
+                    var editorPath = Path.Combine(testPath, "HatinTimeEditor.exe");
+
+                    if (File.Exists(gamePath) && File.Exists(editorPath))
+                    {
+                        return testPath;
+                    }
+                }
+                catch (Exception)
+                {
+                    File.Delete("GameDirPath.dat");
+                }
+            }
+
             var strSteamInstallPath = GetSteamDir();
 
             if (strSteamInstallPath != null && Directory.Exists(strSteamInstallPath))

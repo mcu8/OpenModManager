@@ -671,12 +671,12 @@ namespace ModdingTools.Modding
             context.AddKey(data);
         }
 
-        public ulong GetUploadedId()
+        public long GetUploadedId()
         {
             return Program.SWS.GetIdForMod(this);
         }
 
-        public void SetUploadedId(ulong id)
+        public void SetUploadedId(long id)
         {
             Program.SWS.SetIdForMod(this, id);
         }

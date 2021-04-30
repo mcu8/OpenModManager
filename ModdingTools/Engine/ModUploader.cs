@@ -109,7 +109,7 @@ namespace ModdingTools.Engine
                 }
                 else
                 {
-                    publishID = modid;
+                    publishID = modid < 0 ? (ulong)(modid * -1) : (ulong)modid;
                 }
 
                 while (publishID == 0)
@@ -123,7 +123,7 @@ namespace ModdingTools.Engine
                 if (modid == 0)
                 {
                     SetStatus("Uploading an new mod " + mod.Name + " with WorkshopID: " + publishID);
-                    mod.SetUploadedId(publishID);
+                    mod.SetUploadedId((long)publishID);
                 }
                 else
                 {

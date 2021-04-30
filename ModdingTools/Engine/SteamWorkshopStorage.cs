@@ -9,17 +9,17 @@ namespace ModdingTools.Engine
 {
     public class SteamWorkshopStorage
     {
-        Dictionary<string, ulong> SteamWorkshopData;
+        Dictionary<string, long> SteamWorkshopData;
         private string FileName;
 
         public SteamWorkshopStorage(string fileName)
         {
-            SteamWorkshopData = new Dictionary<string, ulong>(StringComparer.InvariantCultureIgnoreCase);
+            SteamWorkshopData = new Dictionary<string, long>(StringComparer.InvariantCultureIgnoreCase);
             this.FileName = fileName;
             Reload();
         }
 
-        public ulong GetIdForMod(ModObject mod)
+        public long GetIdForMod(ModObject mod)
         {
             var dirname = mod.GetDirectoryName();
             if (SteamWorkshopData.ContainsKey(dirname)) 
@@ -27,7 +27,7 @@ namespace ModdingTools.Engine
             return 0;
         }
 
-        public void SetIdForMod(ModObject mod, ulong value)
+        public void SetIdForMod(ModObject mod, long value)
         {
             var dirname = mod.GetDirectoryName();
             if (SteamWorkshopData.ContainsKey(dirname))
@@ -60,7 +60,7 @@ namespace ModdingTools.Engine
                 }
                 else if (nextLineShouldHaveValue && sanitized.Split('=')[0].Trim().StartsWith("WorkshopId"))
                 {
-                    SteamWorkshopData.Add(cachedPrevLineName, ulong.Parse(sanitized.Split('=')[1].Trim()));
+                    SteamWorkshopData.Add(cachedPrevLineName, long.Parse(sanitized.Split('=')[1].Trim()));
                     nextLineShouldHaveValue = false;
                     cachedPrevLineName = "";
                 }

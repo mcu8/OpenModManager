@@ -221,7 +221,7 @@ namespace ModdingTools.Windows
             try
             {
                 var parsed = HttpUtility.ParseQueryString(new Uri(input).Query).Get("id");
-                var lg = ulong.Parse(parsed);
+                var lg = long.Parse(parsed);
                 if (lg > 100000)
                 {
                     mod.SetUploadedId(lg);

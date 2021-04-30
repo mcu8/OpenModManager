@@ -2,6 +2,7 @@
 using CUFramework.Dialogs;
 using ModdingTools.Engine;
 using ModdingTools.Headless;
+using ModdingTools.Logging;
 using ModdingTools.Windows;
 using ModdingTools.Windows.Tools;
 using Steamworks;
@@ -13,6 +14,9 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Automation;
 using System.Windows.Forms;
 
@@ -20,21 +24,12 @@ namespace ModdingTools
 {
     static class Program
     {
-        [DllImport("kernel32.dll")]
-        static extern IntPtr GetConsoleWindow();
+        public static SteamWorkshopStorage SWS { get; set; }
 
-        [DllImport("user32.dll")]
-        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        /// 
-        public static readonly ProcessFactory ProcFactory = new ProcessFactory();
+        public static ProcessFactory ProcFactory;
         public static ModUploader Uploader { get; set; }
         public static Benchmark Benchmark { get; set; } = null;
-        public static SteamWorkshopStorage SWS {get; set;}
-
+ 
         public static string GetAppRoot()
         {
             return Path.GetDirectoryName(Application.ExecutablePath);
@@ -43,11 +38,114 @@ namespace ModdingTools
         [STAThread]
         static void Main(string[] args)
         {
+            AttachBugTracker();
             MainGUI(args);
+        }
+
+        private static void AttachBugTracker()
+        {
+            if (!Debugger.IsAttached)
+            {
+                // Add the event handler for handling UI thread exceptions to the event.
+                Application.ThreadException += (sender, e)
+                    => FatalExceptionObject(e);
+
+                // Set the unhandled exception mode to force all Windows Forms errors to go through our handler.
+                Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+
+                // Add the event handler for handling non-UI thread exceptions to the event.
+                AppDomain.CurrentDomain.UnhandledException += (sender, e)
+                    => FatalExceptionObject(e.ExceptionObject);
+
+                //  This AppDomain-wide event provides a mechanism to prevent exception escalation policy (which, by default, terminates the process) from triggering.
+                //  Each handler is passed a UnobservedTaskExceptionEventArgs instance, which may be used to examine the exception and to mark it as observed.
+                TaskScheduler.UnobservedTaskException += (sender, e)
+                    => FatalExceptionObject(e);
+
+                // Add the event handler for handling UI thread exceptions to the event.
+                System.Windows.Threading.Dispatcher.CurrentDispatcher.UnhandledException += (sender, e)
+                    => FatalExceptionObject(e);
+            }
+        }
+
+        static bool isReported = false;
+        static int threads;
+        public static void FatalExceptionObject(object exc)
+        {
+            if (!Debugger.IsAttached)
+            {
+                if (isReported)
+                {
+                    CloseApp(1);
+                }
+
+                var e = exc as Exception;
+                if (e == null)
+                {
+                    e = new NotSupportedException(
+                        "Unhandled exception doesn't derive from System.Exception: "
+                        + exc.ToString()
+                    );
+                }
+
+                threads = Process.GetCurrentProcess().Threads.Count;
+
+                var x = new StringBuilder();
+                x.AppendLine("Failed to launch OMM: ");
+                x.AppendLine(e.Message);
+                x.AppendLine(e.StackTrace);
+                if (e.InnerException != null)
+                {
+                    x.AppendLine("---[inner exception]---");
+                    x.AppendLine(e.InnerException.Message);
+                    x.AppendLine(e.InnerException.StackTrace);
+                }
+                x.AppendLine("");
+                x.AppendLine("Threads: " + threads);
+
+                MessageBox.Show(x.ToString());
+                isReported = true;
+                CloseApp(1);
+            }
+        }
+
+        public static void CloseApp(int i)
+        {
+            Debug.WriteLine("Closing application...");
+            if (!Debugger.IsAttached)
+            {
+                Application.Exit();
+            }
+            else
+            {
+                Environment.Exit(i);
+            }
         }
 
         static void MainGUI(string[] args)
         {
+            //throw new Exception("test");
+            if (GameFinder.FindGameDir() == null)
+            {
+                CUMessageBox.Show("Failed to find the game directory! Please specify the path to the original ModManager.exe manually!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                OpenFileDialog ov = new OpenFileDialog();
+                ov.CheckFileExists = true;
+                ov.FileName = "ModManager.exe";
+                ov.Filter = "ModManager.exe|ModManager.exe";
+
+                if (ov.ShowDialog() == DialogResult.OK)
+                {
+                    string dir = Path.GetDirectoryName(ov.FileName);
+                    File.WriteAllText("GameDirPath.cfg", dir);
+                    if (GameFinder.FindGameDir() == null)
+                    {
+                        CUMessageBox.Show($"Failed to find the game files in '{dir}'", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+
+                Environment.Exit(1);
+            }
+
             bool steam = SteamAPI.Init();
             if (!steam)
             {
@@ -60,6 +158,8 @@ namespace ModdingTools
                 CUMessageBox.Show("This app needs 64-bit operating environment and operating system!");
                 Environment.Exit(0);
             }
+
+            ProcFactory = new ProcessFactory();
 
             Automation.AddAutomationEventHandler(
                 eventId: WindowPattern.WindowOpenedEvent,
