@@ -538,7 +538,7 @@ namespace ModdingTools.Modding
                 {
                     foreach (var obj in pkg.Objects)
                     {
-                        if (obj.Class.Name == "Hat_ChapterInfo")
+                        if (obj.Class != null && obj.Class.Name == "Hat_ChapterInfo")
                         {
                             if (obj.Outer == null)
                             {

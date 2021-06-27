@@ -73,6 +73,7 @@ namespace ModdingTools.Windows
             this.tab6 = new System.Windows.Forms.TabPage();
             this.ModClass = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cuButton1 = new CUFramework.Controls.CUButton();
             this.mButton10 = new CUFramework.Controls.CUButton();
             this.mButton6 = new CUFramework.Controls.CUButton();
             this.mButton5 = new CUFramework.Controls.CUButton();
@@ -244,7 +245,7 @@ namespace ModdingTools.Windows
             this.chapterInfoInput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.chapterInfoInput.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
             this.chapterInfoInput.ForeColor = System.Drawing.Color.White;
-            this.chapterInfoInput.Location = new System.Drawing.Point(91, 14);
+            this.chapterInfoInput.Location = new System.Drawing.Point(95, 7);
             this.chapterInfoInput.Name = "chapterInfoInput";
             this.chapterInfoInput.Size = new System.Drawing.Size(518, 23);
             this.chapterInfoInput.TabIndex = 16;
@@ -257,7 +258,7 @@ namespace ModdingTools.Windows
             this.mButton7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mButton7.ForeColor = System.Drawing.Color.White;
-            this.mButton7.Location = new System.Drawing.Point(614, 13);
+            this.mButton7.Location = new System.Drawing.Point(618, 6);
             this.mButton7.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton7.Name = "mButton7";
             this.mButton7.NoFocus = false;
@@ -270,7 +271,7 @@ namespace ModdingTools.Windows
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 17);
+            this.label4.Location = new System.Drawing.Point(7, 10);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(86, 15);
@@ -639,6 +640,7 @@ namespace ModdingTools.Windows
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.cuButton1);
             this.panel1.Controls.Add(this.mButton10);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.mButton6);
@@ -647,8 +649,28 @@ namespace ModdingTools.Windows
             this.panel1.Controls.Add(this.mButton5);
             this.panel1.Location = new System.Drawing.Point(5, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(698, 88);
+            this.panel1.Size = new System.Drawing.Size(698, 102);
             this.panel1.TabIndex = 17;
+            // 
+            // cuButton1
+            // 
+            this.cuButton1.BackColor = System.Drawing.Color.Green;
+            this.cuButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.cuButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cuButton1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.cuButton1.ForeColor = System.Drawing.Color.White;
+            this.cuButton1.Image = global::ModdingTools.Properties.Resources.play;
+            this.cuButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cuButton1.Location = new System.Drawing.Point(1, 41);
+            this.cuButton1.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
+            this.cuButton1.Name = "cuButton1";
+            this.cuButton1.NoFocus = false;
+            this.cuButton1.Size = new System.Drawing.Size(185, 57);
+            this.cuButton1.TabIndex = 18;
+            this.cuButton1.Text = "COMPILE SCRIPTS\r\nAND LAUNCH EDITOR";
+            this.cuButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cuButton1.UseVisualStyleBackColor = false;
+            this.cuButton1.Click += new System.EventHandler(this.cuButton1_Click);
             // 
             // mButton10
             // 
@@ -658,14 +680,15 @@ namespace ModdingTools.Windows
             this.mButton10.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.mButton10.ForeColor = System.Drawing.Color.White;
             this.mButton10.Image = global::ModdingTools.Properties.Resources.compncook;
-            this.mButton10.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton10.Location = new System.Drawing.Point(504, 45);
+            this.mButton10.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.mButton10.Location = new System.Drawing.Point(520, 41);
             this.mButton10.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton10.Name = "mButton10";
             this.mButton10.NoFocus = false;
-            this.mButton10.Size = new System.Drawing.Size(191, 39);
+            this.mButton10.Size = new System.Drawing.Size(175, 57);
             this.mButton10.TabIndex = 17;
             this.mButton10.Text = "COMPILE AND COOK";
+            this.mButton10.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.mButton10.UseVisualStyleBackColor = false;
             this.mButton10.Click += new System.EventHandler(this.mButton10_Click);
             // 
@@ -677,14 +700,15 @@ namespace ModdingTools.Windows
             this.mButton6.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.mButton6.ForeColor = System.Drawing.Color.White;
             this.mButton6.Image = global::ModdingTools.Properties.Resources.cook;
-            this.mButton6.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton6.Location = new System.Drawing.Point(325, 45);
+            this.mButton6.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.mButton6.Location = new System.Drawing.Point(385, 41);
             this.mButton6.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton6.Name = "mButton6";
             this.mButton6.NoFocus = false;
-            this.mButton6.Size = new System.Drawing.Size(177, 39);
+            this.mButton6.Size = new System.Drawing.Size(133, 57);
             this.mButton6.TabIndex = 13;
             this.mButton6.Text = "COOK MOD";
+            this.mButton6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.mButton6.UseVisualStyleBackColor = false;
             this.mButton6.Click += new System.EventHandler(this.mButton6_Click);
             // 
@@ -696,14 +720,15 @@ namespace ModdingTools.Windows
             this.mButton5.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.mButton5.ForeColor = System.Drawing.Color.White;
             this.mButton5.Image = global::ModdingTools.Properties.Resources.compile;
-            this.mButton5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton5.Location = new System.Drawing.Point(146, 45);
+            this.mButton5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.mButton5.Location = new System.Drawing.Point(188, 41);
             this.mButton5.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton5.Name = "mButton5";
             this.mButton5.NoFocus = false;
-            this.mButton5.Size = new System.Drawing.Size(177, 39);
+            this.mButton5.Size = new System.Drawing.Size(195, 57);
             this.mButton5.TabIndex = 12;
             this.mButton5.Text = "COMPILE SCRIPTS";
+            this.mButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.mButton5.UseVisualStyleBackColor = false;
             this.mButton5.Click += new System.EventHandler(this.mButton5_Click);
             // 
@@ -721,10 +746,10 @@ namespace ModdingTools.Windows
             // 
             this.processRunner1.BackColor = System.Drawing.Color.Black;
             this.processRunner1.Font = new System.Drawing.Font("Segoe UI Semilight", 9F);
-            this.processRunner1.Location = new System.Drawing.Point(5, 97);
+            this.processRunner1.Location = new System.Drawing.Point(5, 113);
             this.processRunner1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.processRunner1.Name = "processRunner1";
-            this.processRunner1.Size = new System.Drawing.Size(698, 342);
+            this.processRunner1.Size = new System.Drawing.Size(698, 326);
             this.processRunner1.TabIndex = 15;
             // 
             // tab7
@@ -1047,7 +1072,7 @@ namespace ModdingTools.Windows
             this.mButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton1.ForeColor = System.Drawing.Color.White;
             this.mButton1.Image = global::ModdingTools.Properties.Resources.steam1;
-            this.mButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.mButton1.Location = new System.Drawing.Point(613, 43);
             this.mButton1.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton1.Name = "mButton1";
@@ -1066,7 +1091,7 @@ namespace ModdingTools.Windows
             this.mButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton3.ForeColor = System.Drawing.Color.White;
             this.mButton3.Image = global::ModdingTools.Properties.Resources.folder;
-            this.mButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.mButton3.Location = new System.Drawing.Point(480, 43);
             this.mButton3.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton3.Name = "mButton3";
@@ -1103,7 +1128,7 @@ namespace ModdingTools.Windows
             this.mButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton2.ForeColor = System.Drawing.Color.White;
             this.mButton2.Image = global::ModdingTools.Properties.Resources.refresh;
-            this.mButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.mButton2.Location = new System.Drawing.Point(485, 5);
             this.mButton2.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton2.Name = "mButton2";
@@ -1111,7 +1136,7 @@ namespace ModdingTools.Windows
             this.mButton2.Size = new System.Drawing.Size(96, 27);
             this.mButton2.TabIndex = 10;
             this.mButton2.Text = "REFRESH";
-            this.mButton2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.mButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.mButton2.UseVisualStyleBackColor = false;
             this.mButton2.Click += new System.EventHandler(this.mButton2_Click);
             // 
@@ -1265,5 +1290,6 @@ namespace ModdingTools.Windows
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label14;
+        private CUButton cuButton1;
     }
 }

@@ -888,5 +888,27 @@ namespace ModdingTools.Windows
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.Image = Properties.Resources.noimage;
         }
+
+        private void cuButton1_Click(object sender, EventArgs e)
+        {
+            if (!contentBrowser1.HasContentError)
+            {
+                if (!ConditionalReload()) return;
+                ToggleUnlock(false);
+
+                Mod.UnCookMod();
+                Task.Factory.StartNew(() =>
+                {
+                    if (Mod.CompileScripts(this.processRunner1.Runner, false, false))
+                    {
+                        this.Invoke(new MethodInvoker(() => {
+                            MainWindow.Instance.Runner.RunWithoutWait(Program.ProcFactory.LaunchEditor(Mod.GetDirectoryName()));
+                        }));
+                    }
+                    this.Invoke(new MethodInvoker(() => ToggleUnlock(true)));
+                    this.Invoke(new MethodInvoker(() => Reload()));
+                });
+            }
+        }
     }
 }
