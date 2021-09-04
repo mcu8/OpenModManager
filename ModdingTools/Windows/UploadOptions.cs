@@ -44,6 +44,7 @@ namespace ModdingTools.Windows
                 checkBox1.Checked = store.UploadUnCookedContent;
                 checkBox2.Checked = store.UploadScripts;
                 checkBox13.Checked = store.ForceNoTags;
+                checkBox12.Checked = store.IsLanguagePack;
 
                 checkBox13_CheckedChanged(null, null);
 
@@ -167,6 +168,7 @@ namespace ModdingTools.Windows
             store.Visibility = comboBox3.SelectedIndex;
             store.Changelog = textBox1.Text;
             store.ForceNoTags = checkBox13.Checked;
+            store.IsLanguagePack = checkBox12.Checked;
             store.SaveForMod(mod);
 
             var iconPath = Path.Combine(mod.RootPath, mod.Icon);
@@ -266,6 +268,7 @@ namespace ModdingTools.Windows
         public bool UseSeparateDescriptionForSteam = false;
         public string Description = "";
         public string AnimatedIconFileName = "";
+        public bool IsLanguagePack = false;
 
         public void SetDescription(string desc)
         {
