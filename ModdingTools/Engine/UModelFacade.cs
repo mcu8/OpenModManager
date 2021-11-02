@@ -58,6 +58,8 @@ namespace ModdingTools.Engine
             var p = new Process();
             p.StartInfo.FileName = GetUModelEXE();
             p.StartInfo.Arguments = args;
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.CreateNoWindow = true;
             p.Start();
 
             p.WaitForExit();
