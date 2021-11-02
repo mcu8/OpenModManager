@@ -709,7 +709,6 @@ namespace ModdingTools.Modding
             AppendIni(i, "author", IniQuote(this.Author));
             AppendIni(i, "description", IniQuote(this.Description));
             AppendIni(i, "version", IniQuote(this.Version));
-            AppendIni(i, "version", IniQuote(this.Version));
 
             AppendIni(i, "is_cheat", this.IsCheat ? "true" : "false");
             AppendIni(i, "icon", this.Icon);
@@ -727,6 +726,7 @@ namespace ModdingTools.Modding
 
             bool autoEquip = false;
             bool hasModClass = false;
+            bool hasSkin = false;
             foreach (var c in GetModClasses())
             {
                 if (!c.IsIniAccessible)
@@ -740,6 +740,15 @@ namespace ModdingTools.Modding
                     {
                         autoEquip = true;
                     }
+                    if (c.ClassType == ModClassType.Skin)
+                    {
+                        hasSkin = true;
+                    }
+                    if (c.ClassType == ModClassType.Weapon)
+                    {
+                        hasSkin = true;
+                    }
+
                     continue;
                 }
                 ApplyTag(info, c.IniKey, "1");
@@ -750,9 +759,24 @@ namespace ModdingTools.Modding
                 AppendIni(i, "modclass", MakeARClass());
             }
 
+            if (hasSkin)
+            {
+                ApplyTag(info, "HasSkin", "1");
+            }
+
             if (autoEquip)
             {
                 ApplyTag(info, "AutoGiveItems", "1");
+            }
+
+            if (HasPlayableCharacter)
+            {
+                ApplyTag(info, "HasPlayableCharacter", "1");
+            }
+
+            if (HasHatFlair)
+            {
+                ApplyTag(info, "HasHatFlair", "1");
             }
 
             // asset replacement storage
