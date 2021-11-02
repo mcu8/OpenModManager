@@ -744,11 +744,6 @@ namespace ModdingTools.Modding
                     {
                         hasSkin = true;
                     }
-                    if (c.ClassType == ModClassType.Weapon)
-                    {
-                        hasSkin = true;
-                    }
-
                     continue;
                 }
                 ApplyTag(info, c.IniKey, "1");
@@ -794,7 +789,7 @@ namespace ModdingTools.Modding
                 }
             }
 
-            // configs replacement storage
+            // config storage
             if (Config.Count > 0)
             {
                 builder.AppendLine("[Configs]");
