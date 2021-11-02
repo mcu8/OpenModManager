@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using ModdingTools.Windows;
 using ModdingTools.Windows.Validators;
+using CUFramework.Dialogs;
 
 namespace ModdingTools.GUI
 {
@@ -89,6 +90,12 @@ namespace ModdingTools.GUI
             string source = CUInputWindow.Ask(this, "Asset Replacement: from", "Enter the asset name which you want to replace", new ARValidator());
             if (source != null)
             {
+                if (Collect().Where(item => item.Key.ToLowerInvariant() == source.ToLowerInvariant()).Count() > 0)
+                {
+                    CUMessageBox.Show("ARList already contains item with key: " + source, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 string target = CUInputWindow.Ask(this, "Asset Replacement: to", $"Replacement: {source}{Environment.NewLine}Enter the target asset name", new ARValidator());
                 if (target != null)
                 {
