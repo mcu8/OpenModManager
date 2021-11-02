@@ -25,6 +25,22 @@ namespace ModdingTools.Windows.Tools
         public FlipbookGenerator()
         {
             InitializeComponent();
+            var loadedConfig = false;
+            foreach (var i in Enum.GetValues(typeof(InterpolationMode)))
+            {
+                if ((InterpolationMode)i == InterpolationMode.Invalid) continue;
+                comboBox1.Items.Add(i);
+                if (Properties.Settings.Default.Flipbook_LastIntrpValue == ((InterpolationMode)i).ToString())
+                {
+                    comboBox1.SelectedItem = i;
+                    loadedConfig = true;
+                }
+            }
+            if (!loadedConfig)
+                comboBox1.SelectedItem = InterpolationMode.HighQualityBicubic;
+
+            panel1.BackColor = Color.FromArgb(Properties.Settings.Default.Flipbook_LastColorValue);
+
             pictureBox1.Image = Properties.Resources.editorcrashedhueh4;
             checkBox1.Checked = Properties.Settings.Default.Flipbook_TrueTransparency;
         }
@@ -42,11 +58,11 @@ namespace ModdingTools.Windows.Tools
                 
                 if (checkBox1.Checked)
                 {
-                    imageList.Add(ResizeImage(img, size, size));
+                    imageList.Add(ResizeImage(img, size, size, (InterpolationMode)comboBox1.SelectedItem));
                 }
                 else
                 {
-                    imageList.Add(Transparent2Color(ResizeImage(img, size, size), panel1.BackColor));
+                    imageList.Add(Transparent2Color(ResizeImage(img, size, size, (InterpolationMode)comboBox1.SelectedItem), panel1.BackColor));
                 }
             }
             return imageList;
@@ -70,11 +86,11 @@ namespace ModdingTools.Windows.Tools
                 var im = new Bitmap(png.Frames[i].GetStream());
                 if (checkBox1.Checked)
                 {
-                    imageList.Add(ResizeImage(im, size, size));
+                    imageList.Add(ResizeImage(im, size, size, (InterpolationMode)comboBox1.SelectedItem));
                 }
                 else
                 {
-                    imageList.Add(Transparent2Color(ResizeImage(im, size, size), panel1.BackColor));
+                    imageList.Add(Transparent2Color(ResizeImage(im, size, size, (InterpolationMode)comboBox1.SelectedItem), panel1.BackColor));
                 }
             }
             return imageList;
@@ -92,7 +108,7 @@ namespace ModdingTools.Windows.Tools
             return bmp2;
         }
 
-        public static Bitmap ResizeImage(Image image, int width, int height)
+        public static Bitmap ResizeImage(Image image, int width, int height, InterpolationMode interpolationMode = InterpolationMode.HighQualityBicubic)
         {
             var destRect = new Rectangle(0, 0, width, height);
             var destImage = new Bitmap(width, height);
@@ -103,7 +119,7 @@ namespace ModdingTools.Windows.Tools
             {
                 graphics.CompositingMode = CompositingMode.SourceCopy;
                 graphics.CompositingQuality = CompositingQuality.HighQuality;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.InterpolationMode = interpolationMode;
                 graphics.SmoothingMode = SmoothingMode.HighQuality;
                 graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
@@ -148,7 +164,7 @@ namespace ModdingTools.Windows.Tools
                     throw new Exception("Unsupported extension!");
                 }
 
-                // just forgive my shitty maths... maybe it's the easiest way to do that :hueh:
+                // just forgive my shitty maths... maybe there's an easier way to do that :hueh:
                 double frameW = frames[0].Width;
 
                 var frameCount = frames.Count();
@@ -217,7 +233,7 @@ namespace ModdingTools.Windows.Tools
 
                 canvas.Dispose();
 
-                var n = ResizeImage(bmp, x, x);
+                var n = ResizeImage(bmp, x, x, (InterpolationMode)comboBox1.SelectedItem);
                 bmp.Dispose();
        
                 label1.Text = $"Size: {x}x{x}px\nRows: {level}\nColumns: {level}\n\nAmount of empty space: {remain + (remain > 0 ? " (filled by duplicating the last frame)" : "")}";
@@ -246,12 +262,20 @@ namespace ModdingTools.Windows.Tools
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 panel1.BackColor = dlg.Color;
+                Properties.Settings.Default.Flipbook_LastColorValue = dlg.Color.ToArgb();
+                Properties.Settings.Default.Save();
             }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.Flipbook_TrueTransparency = checkBox1.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Flipbook_LastIntrpValue = comboBox1.SelectedItem.ToString();
             Properties.Settings.Default.Save();
         }
     }

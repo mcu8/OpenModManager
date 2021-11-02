@@ -37,6 +37,8 @@ namespace ModdingTools.Windows.Tools
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,7 +48,7 @@ namespace ModdingTools.Windows.Tools
             this.mButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
             this.mButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton1.ForeColor = System.Drawing.Color.White;
-            this.mButton1.Location = new System.Drawing.Point(9, 78);
+            this.mButton1.Location = new System.Drawing.Point(9, 123);
             this.mButton1.Name = "mButton1";
             this.mButton1.NoFocus = false;
             this.mButton1.Size = new System.Drawing.Size(262, 39);
@@ -58,9 +60,9 @@ namespace ModdingTools.Windows.Tools
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label1.Location = new System.Drawing.Point(9, 120);
+            this.label1.Location = new System.Drawing.Point(9, 165);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(262, 321);
+            this.label1.Size = new System.Drawing.Size(262, 276);
             this.label1.TabIndex = 5;
             // 
             // panel1
@@ -106,11 +108,32 @@ namespace ModdingTools.Windows.Tools
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(9, 96);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(262, 21);
+            this.comboBox1.TabIndex = 9;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 80);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Interpolation mode";
+            // 
             // FlipbookGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(688, 451);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
@@ -131,6 +154,8 @@ namespace ModdingTools.Windows.Tools
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.checkBox1, 0);
+            this.Controls.SetChildIndex(this.comboBox1, 0);
+            this.Controls.SetChildIndex(this.label3, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -145,5 +170,7 @@ namespace ModdingTools.Windows.Tools
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label3;
     }
 }
