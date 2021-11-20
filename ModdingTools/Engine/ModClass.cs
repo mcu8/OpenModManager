@@ -241,13 +241,17 @@ namespace ModdingTools.Engine
                         // Try to extract class name with extend object name
                         if (cleaned.StartsWith("class"))
                         {
+                            Debug.WriteLine(cleaned);
                             var contentA = Utils.ClearWhitespaces(string.Join(" ", content.Skip(i)));
                             var result = Utils.Split(contentA, "class ");
-                            ClassName = result[1].Split(' ')[0].Trim();
-                            var ext = Utils.Split(contentA, " extends ");
-                            if (ext.Length > 0)
+                            if (result.Length > 0)
                             {
-                                ExtendsClass = ext[1].Split(';')[0].Trim().Split(' ')[0];
+                                ClassName = result[1].Split(' ')[0].Trim();
+                                var ext = Utils.Split(contentA, " extends ");
+                                if (ext.Length > 0)
+                                {
+                                    ExtendsClass = ext[1].Split(';')[0].Trim().Split(' ')[0];
+                                }
                             }
                         }
                     }
