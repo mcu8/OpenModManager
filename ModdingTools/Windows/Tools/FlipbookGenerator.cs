@@ -20,7 +20,7 @@ namespace ModdingTools.Windows.Tools
 {
     public partial class FlipbookGenerator : CUWindow
     {
-        const int MAX_TEXTURE_SIZE = 8192; // max texture size in Hat UDK
+        int MaxTextureSize = 8192; // max texture size in Hat UDK
 
         public FlipbookGenerator()
         {
@@ -37,9 +37,13 @@ namespace ModdingTools.Windows.Tools
                 }
             }
             if (!loadedConfig)
+            {
                 comboBox1.SelectedItem = InterpolationMode.HighQualityBicubic;
+            }
 
             panel1.BackColor = Color.FromArgb(Properties.Settings.Default.Flipbook_LastColorValue);
+
+            comboBox2.Text = "" + Properties.Settings.Default.Flipbook_LastSize;
 
             pictureBox1.Image = Properties.Resources.editorcrashedhueh4;
             checkBox1.Checked = Properties.Settings.Default.Flipbook_TrueTransparency;
@@ -136,8 +140,12 @@ namespace ModdingTools.Windows.Tools
         private void mButton1_Click(object sender, EventArgs e)
         {
 
-           try
+            try
             {
+                MaxTextureSize = int.Parse("" + comboBox2.SelectedItem);
+                Properties.Settings.Default.Flipbook_LastSize = MaxTextureSize;
+                Properties.Settings.Default.Save();
+
                 var entryPoint = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
                 OpenFileDialog dlg = new OpenFileDialog();
                 dlg.DefaultExt = "gif";
@@ -226,16 +234,16 @@ namespace ModdingTools.Windows.Tools
                 }
 
                 x = (int)Math.Pow(2, x);
-                if (x > MAX_TEXTURE_SIZE)
+                if (x > MaxTextureSize)
                 {
-                    x = MAX_TEXTURE_SIZE; // max texture size in Hat UDK
+                    x = MaxTextureSize; // max texture size in Hat UDK
                 }
 
                 canvas.Dispose();
 
                 var n = ResizeImage(bmp, x, x, (InterpolationMode)comboBox1.SelectedItem);
                 bmp.Dispose();
-       
+
                 label1.Text = $"Size: {x}x{x}px\nRows: {level}\nColumns: {level}\n\nAmount of empty space: {remain + (remain > 0 ? " (filled by duplicating the last frame)" : "")}";
 
                 SaveFileDialog sfd = new SaveFileDialog();
@@ -248,6 +256,7 @@ namespace ModdingTools.Windows.Tools
                     n.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
                     n.Dispose();
                     pictureBox1.ImageLocation = sfd.FileName;
+                    CUFramework.Dialogs.CUMessageBox.Show("Flipbook texture saved successfully!");
                 }
             }
             catch (Exception ex)

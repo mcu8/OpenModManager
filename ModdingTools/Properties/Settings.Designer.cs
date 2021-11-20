@@ -118,5 +118,17 @@ namespace ModdingTools.Properties {
                 this["Flipbook_LastColorValue"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8192")]
+        public int Flipbook_LastSize {
+            get {
+                return ((int)(this["Flipbook_LastSize"]));
+            }
+            set {
+                this["Flipbook_LastSize"] = value;
+            }
+        }
     }
 }

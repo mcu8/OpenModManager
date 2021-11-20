@@ -233,7 +233,14 @@ namespace ModdingTools.Modding
             {
                 foreach (var file in Directory.GetFiles(path, "*.uc", SearchOption.AllDirectories))
                 {
-                    mlc.Add(new ModClass(file));
+                    try
+                    {
+                        mlc.Add(new ModClass(file));
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception("Failed to read class file: " + file + "\nException message: " + e.Message + "\nStack trace:\n" + e.StackTrace);
+                    }
                 }
             }
             ModClassCache = mlc.ToArray();

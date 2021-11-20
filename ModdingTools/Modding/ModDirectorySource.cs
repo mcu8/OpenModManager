@@ -46,7 +46,7 @@ namespace ModdingTools.Modding
                     }
                     catch (Exception ex)
                     {
-                        //CUFramework.Dialogs.CUMessageBox.Show($"Mod parser failed while reading mod {path}!\n" + ex.Message + "\n" + ex.ToString());
+                        CUFramework.Dialogs.CUMessageBox.Show($"Mod parser failed while reading mod {path}!\n" + ex.Message + "\n" + ex.ToString());
                         Debug.WriteLine(":sealnyon: Oopsie woopsie!\n" + ex.Message + "\n" + ex.ToString());
                     }
                 }

@@ -244,7 +244,7 @@ namespace ModdingTools.Engine
                             Debug.WriteLine(cleaned);
                             var contentA = Utils.ClearWhitespaces(string.Join(" ", content.Skip(i)));
                             var result = Utils.Split(contentA, "class ");
-                            if (result.Length > 0)
+                            if (result.Length > 1)
                             {
                                 ClassName = result[1].Split(' ')[0].Trim();
                                 var ext = Utils.Split(contentA, " extends ");
