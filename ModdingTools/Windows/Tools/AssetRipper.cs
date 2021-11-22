@@ -50,7 +50,7 @@ namespace ModdingTools.Windows.Tools
                 line++;
                 if (string.IsNullOrWhiteSpace(a)) continue;
 
-                var pattern = new Regex(@"([A-Za-z0-9]{1,255})\'([A-Za-z_0-9\.]{1,255})\'$");
+                var pattern = new Regex(@"([A-Za-z0-9]{1,255})\'([A-Za-z0-9\.\-_]{1,255})\'$");
                 var match = pattern.Matches(a);
 
                 if (match.Count != 1 || match[0].Groups.Count != 3)

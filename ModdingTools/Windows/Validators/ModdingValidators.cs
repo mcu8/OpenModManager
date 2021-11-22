@@ -46,7 +46,7 @@ namespace ModdingTools.Windows.Validators
         public string Validate(string inputText)
         {
 
-            if (!Regex.IsMatch(inputText, @"[A-Za-z0-9]{1,255}\'[A-Za-z_0-9\.]{1,255}\'$"))
+            if (!Regex.IsMatch(inputText, @"[A-Za-z0-9]{1,255}\'[A-Za-z0-9\.\-_]{1,255}\'$"))
             {
                 return "Invalid asset name!\nIt should look something like this: StaticMesh'MyPackage.MyMesh'";
             }
