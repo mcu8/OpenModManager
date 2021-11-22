@@ -8,7 +8,7 @@ namespace ModdingTools.Engine
 
     public class UpdateChecker
     {
-        static readonly bool TestMode = true;
+        static readonly bool TestMode = false;
 
         private Action OnUpdateAvaiable;
         private string UpdateUrl;
