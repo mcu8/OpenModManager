@@ -14,10 +14,22 @@ namespace ModdingTools.Windows
 {
     public partial class ChangelogWindow : CUWindow
     {
-        public ChangelogWindow()
+        public ChangelogWindow(bool changelogOnly = false)
         {
             InitializeComponent();
+            webBrowser1.ScriptErrorsSuppressed = true;
+            webBrowser1.DocumentText = "<body style=\"background: #111111\"></body>";
             webBrowser1.Navigate(BuildData.ChangeLogUrl + "?ver=" + BuildData.CurrentVersion);
+            if (changelogOnly)
+            {
+                this.IsResizable = true;
+                this.IsCloseButtonEnabled = true;
+                this.ControlBoxVisible = true;
+                tableLayoutPanel1.Visible = false;
+                label2.Visible = false;
+                webBrowser1.Dock = DockStyle.Fill;
+                this.Text = "CHANGELOG";
+            }
         }
 
         private void cuButton1_Click(object sender, EventArgs e)

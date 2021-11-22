@@ -40,13 +40,14 @@
             // cuButton1
             // 
             this.cuButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.cuButton1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cuButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
             this.cuButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cuButton1.ForeColor = System.Drawing.Color.White;
             this.cuButton1.Location = new System.Drawing.Point(266, 3);
             this.cuButton1.Name = "cuButton1";
             this.cuButton1.NoFocus = false;
-            this.cuButton1.Size = new System.Drawing.Size(257, 32);
+            this.cuButton1.Size = new System.Drawing.Size(257, 34);
             this.cuButton1.TabIndex = 1;
             this.cuButton1.Text = "YES";
             this.cuButton1.UseVisualStyleBackColor = false;
@@ -59,7 +60,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(521, 23);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Do you want to go to the download webpage?";
+            this.label2.Text = "Open the download page?";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel1
@@ -82,13 +83,14 @@
             // cuButton2
             // 
             this.cuButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.cuButton2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cuButton2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.cuButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cuButton2.ForeColor = System.Drawing.Color.White;
             this.cuButton2.Location = new System.Drawing.Point(3, 3);
             this.cuButton2.Name = "cuButton2";
             this.cuButton2.NoFocus = false;
-            this.cuButton2.Size = new System.Drawing.Size(257, 32);
+            this.cuButton2.Size = new System.Drawing.Size(257, 34);
             this.cuButton2.TabIndex = 2;
             this.cuButton2.Text = "NO";
             this.cuButton2.UseVisualStyleBackColor = false;
@@ -96,10 +98,11 @@
             // 
             // webBrowser1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(5, 37);
+            this.webBrowser1.Location = new System.Drawing.Point(2, 34);
+            this.webBrowser1.Margin = new System.Windows.Forms.Padding(0);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(520, 277);
+            this.webBrowser1.Size = new System.Drawing.Size(526, 280);
             this.webBrowser1.TabIndex = 11;
             // 
             // ChangelogWindow

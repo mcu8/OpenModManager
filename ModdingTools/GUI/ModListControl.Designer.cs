@@ -89,6 +89,7 @@ namespace ModdingTools.GUI
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label5.Font = new System.Drawing.Font("Segoe UI Semilight", 6F);
             this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(607, 456);
@@ -98,6 +99,7 @@ namespace ModdingTools.GUI
             this.label5.Size = new System.Drawing.Size(127, 22);
             this.label5.TabIndex = 9;
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // mButtonBorderless2
             // 
@@ -109,6 +111,7 @@ namespace ModdingTools.GUI
             this.mButtonBorderless2.ForeColor = System.Drawing.Color.White;
             this.mButtonBorderless2.Location = new System.Drawing.Point(503, 2);
             this.mButtonBorderless2.Name = "mButtonBorderless2";
+            this.mButtonBorderless2.NoFocus = false;
             this.mButtonBorderless2.Size = new System.Drawing.Size(136, 27);
             this.mButtonBorderless2.TabIndex = 6;
             this.mButtonBorderless2.Text = "BUILD SELECTED";
@@ -125,6 +128,7 @@ namespace ModdingTools.GUI
             this.mButtonBorderless1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.mButtonBorderless1.Location = new System.Drawing.Point(640, 2);
             this.mButtonBorderless1.Name = "mButtonBorderless1";
+            this.mButtonBorderless1.NoFocus = false;
             this.mButtonBorderless1.Size = new System.Drawing.Size(91, 27);
             this.mButtonBorderless1.TabIndex = 5;
             this.mButtonBorderless1.Text = "REFRESH";

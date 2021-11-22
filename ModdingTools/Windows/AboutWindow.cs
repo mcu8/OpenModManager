@@ -44,5 +44,10 @@ namespace ModdingTools.Windows
         {
             Process.Start("steam://openurl/https://steamcommunity.com/id/m_cu8/myworkshopfiles/?appid=253230");
         }
+
+        private void cuButton6_Click(object sender, EventArgs e)
+        {
+            new ChangelogWindow(true).ShowDialog(this);
+        }
     }
 }
