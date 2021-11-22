@@ -209,8 +209,8 @@ namespace ModdingTools.Windows
             UpdateChk = new UpdateChecker(BuildData.CurrentVersion, BuildData.UpdateUrl, new Action(() => {
                 this.Invoke(new MethodInvoker(() =>
                 {
-                    var dialog = CUMessageBox.Show(this, "New version of OpenModManager is avaiable!\nDo you want to download it?", "Update checker", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                    if (dialog == DialogResult.Yes)
+                    var dialog = new ChangelogWindow();
+                    if (dialog.ShowDialog() == DialogResult.Yes)
                     {
                         Process.Start(BuildData.ReleasesPage);
                     }
