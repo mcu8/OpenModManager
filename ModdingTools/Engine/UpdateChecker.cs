@@ -8,8 +8,11 @@ using System.Threading.Tasks;
 
 namespace ModdingTools.Engine
 {
+
     public class UpdateChecker
     {
+        static readonly bool TestMode = false;
+
         private Action OnUpdateAvaiable;
         private string UpdateUrl;
         private long BuildNumber;
@@ -35,7 +38,7 @@ namespace ModdingTools.Engine
                     using (var wc = new WebClient())
                     {
                         var remoteVersion = long.Parse(wc.DownloadString(UpdateUrl).Trim());
-                        if (remoteVersion > BuildNumber)
+                        if (remoteVersion > BuildNumber || TestMode)
                         {
                             OnUpdateAvaiable?.Invoke();
                         }
