@@ -17,7 +17,7 @@ namespace ModdingTools.Windows
         public ChangelogWindow()
         {
             InitializeComponent();
-            webBrowser1.Navigate(BuildData.ChangeLogUrl);
+            webBrowser1.Navigate(BuildData.ChangeLogUrl + "?ver=" + BuildData.CurrentVersion);
         }
 
         private void cuButton1_Click(object sender, EventArgs e)

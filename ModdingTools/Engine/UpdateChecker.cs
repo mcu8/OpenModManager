@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ModdingTools.Engine
@@ -11,7 +8,7 @@ namespace ModdingTools.Engine
 
     public class UpdateChecker
     {
-        static readonly bool TestMode = false;
+        static readonly bool TestMode = true;
 
         private Action OnUpdateAvaiable;
         private string UpdateUrl;
