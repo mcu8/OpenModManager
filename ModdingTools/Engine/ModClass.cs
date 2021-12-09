@@ -61,11 +61,12 @@ namespace ModdingTools.Engine
 
         public static readonly Dictionary<ModClassType, string> ClassToIniPropertyMapping = new Dictionary<ModClassType, string>
         {
-            { ModClassType.Hat,         "HasHat"        },
+            { ModClassType.Hat,         "HasHatFlair"        },
             { ModClassType.Sticker,     "HasSticker"   },
             { ModClassType.Badge,       "HasBadge"      },
             { ModClassType.Weapon,      "HasWeapon"     },
-            { ModClassType.Skin,        "HasSkin"       }
+            { ModClassType.Skin,        "HasSkin"       },
+            { ModClassType.Playable,    "HasPlayableCharacter " }
         };
 
         public static readonly Dictionary<ModClassType, string> ClassToNameMapping = new Dictionary<ModClassType, string>
