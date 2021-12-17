@@ -167,6 +167,12 @@
     <Compile Include="Logging\Handlers\DebuggerLogger.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Windows\ArrayInputWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\ArrayInputWindow.Designer.cs">
+      <DependentUpon>ArrayInputWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ChangelogWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -278,6 +284,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\GUIWorker.resx">
       <DependentUpon>GUIWorker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\ArrayInputWindow.resx">
+      <DependentUpon>ArrayInputWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\ChangelogWindow.resx">
       <DependentUpon>ChangelogWindow.cs</DependentUpon>

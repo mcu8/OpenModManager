@@ -34,12 +34,12 @@ namespace ModdingTools.GUI
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.mButtonBorderless1 = new CUButtonBorderless();
+            this.mButtonBorderless1 = new CUFramework.Controls.CUButtonBorderless();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.mButtonBorderless2 = new CUButtonBorderless();
-            this.mButtonBorderless3 = new CUButtonBorderless();
+            this.mButtonBorderless2 = new CUFramework.Controls.CUButtonBorderless();
+            this.mButtonBorderless3 = new CUFramework.Controls.CUButtonBorderless();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -108,7 +108,8 @@ namespace ModdingTools.GUI
             this.mButtonBorderless1.Location = new System.Drawing.Point(339, 5);
             this.mButtonBorderless1.Margin = new System.Windows.Forms.Padding(0);
             this.mButtonBorderless1.Name = "mButtonBorderless1";
-            this.mButtonBorderless1.Size = new System.Drawing.Size(33, 64);
+            this.mButtonBorderless1.NoFocus = false;
+            this.mButtonBorderless1.Size = new System.Drawing.Size(33, 44);
             this.mButtonBorderless1.TabIndex = 4;
             this.mButtonBorderless1.UseVisualStyleBackColor = false;
             this.mButtonBorderless1.Click += new System.EventHandler(this.mButtonBorderless1_Click);
@@ -158,6 +159,7 @@ namespace ModdingTools.GUI
             this.mButtonBorderless2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.mButtonBorderless2.Location = new System.Drawing.Point(275, 153);
             this.mButtonBorderless2.Name = "mButtonBorderless2";
+            this.mButtonBorderless2.NoFocus = false;
             this.mButtonBorderless2.Size = new System.Drawing.Size(60, 23);
             this.mButtonBorderless2.TabIndex = 9;
             this.mButtonBorderless2.Text = "[ - ]";
@@ -174,6 +176,7 @@ namespace ModdingTools.GUI
             this.mButtonBorderless3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
             this.mButtonBorderless3.Location = new System.Drawing.Point(275, 122);
             this.mButtonBorderless3.Name = "mButtonBorderless3";
+            this.mButtonBorderless3.NoFocus = false;
             this.mButtonBorderless3.Size = new System.Drawing.Size(61, 23);
             this.mButtonBorderless3.TabIndex = 10;
             this.mButtonBorderless3.Text = "[ + ]";
@@ -191,6 +194,7 @@ namespace ModdingTools.GUI
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(246, 21);
             this.comboBox1.TabIndex = 11;
+            this.comboBox1.Visible = false;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label8
@@ -202,6 +206,7 @@ namespace ModdingTools.GUI
             this.label8.Size = new System.Drawing.Size(69, 13);
             this.label8.TabIndex = 12;
             this.label8.Text = "DEF. VALUE";
+            this.label8.Visible = false;
             // 
             // listBox1
             // 
@@ -232,7 +237,7 @@ namespace ModdingTools.GUI
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "ConfigItem";
-            this.Size = new System.Drawing.Size(380, 211);
+            this.Size = new System.Drawing.Size(380, 191);
             this.Load += new System.EventHandler(this.ConfigItem_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

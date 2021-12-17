@@ -165,7 +165,7 @@ namespace ModdingTools.Windows
             this.cbCoOp.Checked = Mod.Coop.ToLower() == "cooponly";
             this.cbOnlineParty.Checked = Mod.IsOnlineParty;
             this.label5.Text = Mod.Version;
-            this.lblAuthor.Text = Mod.Author;
+            this.lblAuthor.Text = "";//Mod.Author;
 
             var tags = ModObject.CombineTags(Mod.GetModClasses());
 
@@ -449,7 +449,7 @@ namespace ModdingTools.Windows
                 Mod.IsOnlineParty = cbOnlineParty.Checked;
                 Mod.Coop = cbCoOp.Checked ? "CoopOnly" : "";
                 Mod.Version = label5.Text;
-                Mod.Author = lblAuthor.Text;
+                Mod.Author = new string[] { "test" }; //lblAuthor.Text;
                 if (Mod.GetDirectoryName() != modFolderName.Text)
                 {
                     Mod.RenameDirectory(modFolderName.Text);

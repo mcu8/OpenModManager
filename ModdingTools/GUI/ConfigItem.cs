@@ -109,10 +109,10 @@ namespace ModdingTools.GUI
             foreach (var item in listBox1.Items)
             {
                 comboBox1.Items.Add((string)item);
-                if (i == Conf.DefaultIndex)
+                /*if (i == Conf.DefaultIndex)
                 {
                     comboBox1.SelectedIndex = i;
-                }
+                }*/
                 i++;
             }
 
@@ -138,10 +138,10 @@ namespace ModdingTools.GUI
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Conf.DefaultIndex != comboBox1.SelectedIndex)
+            /*if (Conf.DefaultIndex != comboBox1.SelectedIndex)
                 CallUpdateEvent();
 
-            Conf.DefaultIndex = comboBox1.SelectedIndex;
+            Conf.DefaultIndex = comboBox1.SelectedIndex;*/
         }
     }
 }

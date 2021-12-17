@@ -23,7 +23,8 @@ namespace ModdingTools.Modding
     public class ModObject
     {
         public string Name              { get; set; }
-        public string Author            { get; set; }
+        // changed from String to Array for compatibility with CDLC
+        public string[] Author      { get; set; } 
         public string Description       { get; set; }
         public string Version           { get; set; }
         public bool   IsCheat           { get; set; }
@@ -44,6 +45,14 @@ namespace ModdingTools.Modding
         public string GameMod           { get; set; }
         public string Coop              { get; set; }
         public string ModClass          { get; set; }
+
+
+        // CDLC-related tags
+        public List<string> SpecialThanks { get; set; }
+        public string Logo { get; set; }
+        public string SplashArt { get; set; }
+        public string Background { get; set; }
+        public string Titlecard { get; set; }
 
         public List<ModConfigItem> Config  { get; set; }
 
@@ -313,7 +322,7 @@ namespace ModdingTools.Modding
             var i = info["Info"];
             // Parse "Info" section
             this.Name = TryGet(i, "name", "New mod");
-            this.Author = TryGet(i, "author", "Me");
+            this.Author = TryGet(i, "author", "Me").Split(';');
             this.Description = TryGet(i, "description", "Hello this is my all new mod!");
             this.Version = TryGet(i, "version", "1.0.0");
 
@@ -468,9 +477,9 @@ namespace ModdingTools.Modding
                                     case "description":
                                         tmp.Description = val;
                                         break;
-                                    case "default":
+                                    /*case "default":
                                         tmp.DefaultIndex = int.Parse(val);
-                                        break;
+                                        break;*/
                                 }
                             }
                         }
@@ -713,7 +722,7 @@ namespace ModdingTools.Modding
    
             // Store "Info" section
             AppendIni(i, "name", IniQuote(this.Name));
-            AppendIni(i, "author", IniQuote(this.Author));
+            AppendIni(i, "author", IniQuote(string.Join(";", this.Author)));
             AppendIni(i, "description", IniQuote(this.Description));
             AppendIni(i, "version", IniQuote(this.Version));
 
@@ -838,7 +847,7 @@ namespace ModdingTools.Modding
             public string PropertyName;
             public string Name;
             public string Description;
-            public int DefaultIndex;
+            /* public int DefaultIndex; */
             public SortedDictionary<int, string> Options;
 
             public ModConfigItem()
@@ -846,7 +855,7 @@ namespace ModdingTools.Modding
                 PropertyName = "";
                 Name = "";
                 Description = "";
-                DefaultIndex = 0;
+                /* DefaultIndex = 0; */
                 Options = new SortedDictionary<int, string>();
             }
 
@@ -856,7 +865,7 @@ namespace ModdingTools.Modding
                 build.AppendLine($"+Config={PropertyName}");
                 build.AppendLine($"Name={IniQuote(Name)}");
                 build.AppendLine($"Description={IniQuote(Description)}");
-                build.AppendLine($"Default={DefaultIndex}");
+                /* build.AppendLine($"Default={DefaultIndex}"); */
                 foreach (var opt in Options)
                 {
                     build.AppendLine($"Option[{opt.Key}]={IniQuote(opt.Value)}");
