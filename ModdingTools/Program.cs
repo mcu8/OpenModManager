@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using CUFramework.Dialogs;
+using CUFramework.Shared;
 using ModdingTools.Engine;
 using ModdingTools.Headless;
 using ModdingTools.Logging;
@@ -124,6 +125,9 @@ namespace ModdingTools
 
         static void MainGUI(string[] args)
         {
+            // Window border looks like shit on Windows 11.. so change the color to something else
+            ThemeConstants.BorderColor = ThemeConstants.BackgroundColor;
+
             //throw new Exception("test");
             if (GameFinder.FindGameDir() == null)
             {

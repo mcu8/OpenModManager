@@ -165,7 +165,7 @@ namespace ModdingTools.Windows
             this.cbCoOp.Checked = Mod.Coop.ToLower() == "cooponly";
             this.cbOnlineParty.Checked = Mod.IsOnlineParty;
             this.label5.Text = Mod.Version;
-            this.lblAuthor.Text = "";//Mod.Author;
+            this.lblAuthor.Text = string.Join(";", Mod.Author);
 
             var tags = ModObject.CombineTags(Mod.GetModClasses());
 
@@ -449,7 +449,7 @@ namespace ModdingTools.Windows
                 Mod.IsOnlineParty = cbOnlineParty.Checked;
                 Mod.Coop = cbCoOp.Checked ? "CoopOnly" : "";
                 Mod.Version = label5.Text;
-                Mod.Author = new string[] { "test" }; //lblAuthor.Text;
+                Mod.Author = lblAuthor.Text.Split(';');
                 if (Mod.GetDirectoryName() != modFolderName.Text)
                 {
                     Mod.RenameDirectory(modFolderName.Text);
@@ -748,12 +748,14 @@ namespace ModdingTools.Windows
 
         private void lblAuthor_Click(object sender, EventArgs e)
         {
-            var iw = CUInputWindow.Ask(this, "Author", "Enter the mod author", null, lblAuthor.Text);
+            var iw = ArrayInputWindow.Ask("Author/Credits", "Enter the mod author or credits.\n\n(if you put more than one item, the game will treat it as credits!)", lblAuthor.Text.Split(';'), new SplitListValidator(';')); 
+            //CUInputWindow.Ask(this, "Author", "Enter the mod author", null, lblAuthor.Text);
             if (iw != null)
             {
-                if (lblAuthor.Text != iw)
+                var result = string.Join(";", iw);
+                if (lblAuthor.Text != result)
                 {
-                    lblAuthor.Text = iw;
+                    lblAuthor.Text = result;
                     HasUnsavedChanges = true;
                 }
             }

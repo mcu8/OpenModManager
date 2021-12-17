@@ -409,9 +409,9 @@ namespace ModdingTools.Windows
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(282, 170);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(56, 15);
+            this.label13.Size = new System.Drawing.Size(121, 15);
             this.label13.TabIndex = 23;
-            this.label13.Text = "AUTHOR:";
+            this.label13.Text = "AUTHOR OR CREDITS:";
             // 
             // label9
             // 

@@ -113,6 +113,7 @@ namespace ModdingTools.Windows
             this.label1.Size = new System.Drawing.Size(321, 95);
             this.label1.TabIndex = 5;
             this.label1.Text = "Title T";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cuButton3
             // 

@@ -1,4 +1,5 @@
 ﻿using CUFramework.Dialogs;
+using CUFramework.Dialogs.Validators;
 using CUFramework.Windows;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,30 @@ namespace ModdingTools.Windows
     {
         public bool AllowDuplicates { get; set; }
 
-        public ArrayInputWindow()
+        public IValidator Validator;
+
+        public ArrayInputWindow(IValidator validator = null)
         {
             InitializeComponent();
+            this.Validator = validator;
+        }
+
+        public static List<string> Ask(string title, string desc, string[] defaultItems, IValidator validator)
+        {   
+            var a = new ArrayInputWindow(validator);
+            a.label1.Text = desc;
+            a.Text = title;
+            if (defaultItems != null)
+                a.listBox1.Items.AddRange(defaultItems);
+            var result = a.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                var res = new List<string>();
+                foreach (var i in a.listBox1.Items)
+                    res.Add((string)i);
+                return res;
+            }
+            return null;
         }
 
         private void cuButton2_Click(object sender, EventArgs e)
@@ -37,8 +59,16 @@ namespace ModdingTools.Windows
                 CUMessageBox.Show("The list already contains an element with this name!");
                 return;
             }
-            listBox1.Items.Add(cuTextBox1.Text);
-            cuTextBox1.Text = "";
+            var result = Validator != null ? Validator.Validate(cuTextBox1.Text) : "";
+            if (string.IsNullOrEmpty(result))
+            {
+                listBox1.Items.Add(cuTextBox1.Text);
+                cuTextBox1.Text = "";
+            }
+            else
+            {
+                CUMessageBox.Show(result);
+            }
         }
 
         private void cuButton5_Click(object sender, EventArgs e)

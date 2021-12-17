@@ -53,4 +53,22 @@ namespace ModdingTools.Windows.Validators
             return null;
         }
     }
+
+    public class SplitListValidator : IValidator
+    {
+        char SplitChar;
+        public SplitListValidator(char splitChar)
+        {
+            this.SplitChar = splitChar;
+        }
+
+        public string Validate(string inputText)
+        {
+            if (inputText.Contains(SplitChar))
+            {
+                return $"Item shouldn't contain the '{SplitChar}' character.";
+            }
+            return null;
+        }
+    }
 }
