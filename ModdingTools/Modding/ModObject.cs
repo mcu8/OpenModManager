@@ -568,6 +568,27 @@ namespace ModdingTools.Modding
             return Directory.GetFiles(GetCookedDir(), "*.umap").Length > 0;
         }
 
+        public string[] GetAllMaps()
+        {
+            var a = GetUncookedMaps();
+            var b = GetCookedMaps();
+            var x = new List<string>();
+            if (a != null)
+            {
+                foreach (var _a in a)
+                    x.Add(_a);
+            }
+            if (b != null)
+            {
+                foreach (var _b in b)
+                    if (!x.Contains(_b))
+                        x.Add(_b);
+            }
+
+            x.Sort();
+            return x.ToArray();
+        }
+
         public string[] GetCookedMaps()
         {
             if (!Directory.Exists(GetCookedDir())) return null;
@@ -583,7 +604,7 @@ namespace ModdingTools.Modding
         {
             if (!Directory.Exists(GetMapsDir())) return null;
             List<string> maps = new List<string>();
-            foreach (var x in Directory.GetFiles(GetMapsDir(), "*.umap"))
+            foreach (var x in Directory.GetFiles(GetMapsDir(), "*.umap", SearchOption.TopDirectoryOnly))
             {
                 maps.Add(Path.GetFileNameWithoutExtension(x));
             }
