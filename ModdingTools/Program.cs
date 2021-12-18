@@ -126,7 +126,7 @@ namespace ModdingTools
         static void MainGUI(string[] args)
         {
             // Window border looks like shit on Windows 11.. so change the color to something else
-            ThemeConstants.BorderColor = ThemeConstants.BackgroundColor;
+            ThemeConstants.BorderColor = System.Drawing.Color.FromArgb(64, 64, 64);
 
             //throw new Exception("test");
             if (GameFinder.FindGameDir() == null)
