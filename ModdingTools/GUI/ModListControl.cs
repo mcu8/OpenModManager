@@ -148,6 +148,7 @@ namespace ModdingTools.GUI
                     this.BackgroundImage = null;
                     SetStatus("Loaded " + i1 + " elements!");
                     MainWindow.Instance.SetCard(MainWindow.CardControllerTabs.Mods);
+                    MainWindow.Instance.ToggleSearchBar(true);
                     a?.Invoke();
                     modContainer.Visible = true;
                     _timer.Start();
