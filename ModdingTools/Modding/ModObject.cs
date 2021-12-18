@@ -53,6 +53,7 @@ namespace ModdingTools.Modding
         public string SplashArt { get; set; }
         public string Background { get; set; }
         public string Titlecard { get; set; }
+        public string IntroductionMap { get; set; }
 
         public List<ModConfigItem> Config  { get; set; }
 
@@ -394,6 +395,8 @@ namespace ModdingTools.Modding
             this.Background = TryGet(i, "Background");
             this.Titlecard  = TryGet(i, "Titlecard");
 
+            this.IntroductionMap = TryGet(i, "IntroductionMap");
+
             if (!this.IsReadOnly)
                 GetModClasses(true);
 
@@ -570,6 +573,17 @@ namespace ModdingTools.Modding
             if (!Directory.Exists(GetCookedDir())) return null;
             List<string> maps = new List<string>();
             foreach (var x in Directory.GetFiles(GetCookedDir(), "*.umap"))
+            {
+                maps.Add(Path.GetFileNameWithoutExtension(x));
+            }
+            return maps.ToArray();
+        }
+
+        public string[] GetUncookedMaps()
+        {
+            if (!Directory.Exists(GetMapsDir())) return null;
+            List<string> maps = new List<string>();
+            foreach (var x in Directory.GetFiles(GetMapsDir(), "*.umap"))
             {
                 maps.Add(Path.GetFileNameWithoutExtension(x));
             }
@@ -827,6 +841,8 @@ namespace ModdingTools.Modding
             AppendIni(i, "Background", this.Background);
             AppendIni(i, "Titlecard", this.Titlecard);
             AppendIni(i, "Logo", this.Logo);
+
+            AppendIni(i, "IntroductionMap", this.IntroductionMap);
 
             bool autoEquip = false;
             bool hasModClass = false;

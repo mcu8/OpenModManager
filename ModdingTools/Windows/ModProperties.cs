@@ -227,7 +227,25 @@ namespace ModdingTools.Windows
             }
 
             comboBox1.Items.Clear();
+            comboBox2.Items.Clear();
+
             panel2.Enabled = false;
+
+
+            comboBox2.Items.Add(new MapItem(null, "(none)"));
+            foreach (var a in Mod.GetUncookedMaps())
+            {
+                comboBox2.Items.Add(new MapItem(a));
+                if (a.Equals(Mod.IntroductionMap, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    comboBox2.SelectedIndex = comboBox2.Items.Count - 1;
+                }
+            }
+            if (comboBox2.SelectedIndex < 0)
+            {
+                comboBox2.SelectedIndex = 0;
+            }
+
             if (cooked)
             {
                 string lastMap = "";
@@ -545,6 +563,9 @@ namespace ModdingTools.Windows
                     if (String.IsNullOrEmpty(Store.AnimatedIconFileName) || !File.Exists(Path.Combine(Mod.RootPath, Store.AnimatedIconFileName)))
                         Store.AnimatedIconFileName = "";
                 }
+
+
+                Mod.IntroductionMap = ((MapItem)comboBox2.SelectedItem).Name;
 
                 Mod.Save();
 
@@ -978,6 +999,14 @@ namespace ModdingTools.Windows
                     HasUnsavedChanges = true;
                 }
             }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var item = (MapItem)comboBox2.SelectedItem;
+            if (item == null) return;
+            if (Mod.IntroductionMap != item.Name)
+                HasUnsavedChanges = true;
         }
     }
 }
