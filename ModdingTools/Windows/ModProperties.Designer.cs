@@ -36,7 +36,7 @@ namespace ModdingTools.Windows
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModProperties));
             this.btnEditor = new CUFramework.Controls.CUButton();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.iconView = new System.Windows.Forms.Panel();
+            this.iconView = new System.Windows.Forms.PictureBox();
             this.modName = new System.Windows.Forms.Label();
             this.modFolderName = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -48,24 +48,40 @@ namespace ModdingTools.Windows
             this.tabControl2 = new CUFramework.Controls.Tabs.CUBorderlessTabControl();
             this.tab3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.cuGroupBox1 = new CUFramework.Controls.CUGroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.lblAuthor = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.cuGroupBox2 = new CUFramework.Controls.CUGroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tagsList = new System.Windows.Forms.ListView();
             this.cbCoOp = new System.Windows.Forms.CheckBox();
             this.levelType = new System.Windows.Forms.ComboBox();
             this.cbOnlineParty = new System.Windows.Forms.CheckBox();
+            this.cuGroupBox5 = new CUFramework.Controls.CUGroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.IconViewGif = new System.Windows.Forms.PictureBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cuGroupBox1 = new CUFramework.Controls.CUGroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.lblAuthor = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cuGroupBox6 = new CUFramework.Controls.CUGroupBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.PictureBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.PictureBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.PictureBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.PictureBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.tab5 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.cuGroupBox3 = new CUFramework.Controls.CUGroupBox();
@@ -78,13 +94,9 @@ namespace ModdingTools.Windows
             this.mButton6 = new CUFramework.Controls.CUButton();
             this.mButton5 = new CUFramework.Controls.CUButton();
             this.label17 = new System.Windows.Forms.Label();
-            this.processRunner1 = new ModdingTools.GUI.ProcessRunner();
             this.tab7 = new System.Windows.Forms.TabPage();
-            this.arList1 = new ModdingTools.GUI.ARList();
             this.tab8 = new System.Windows.Forms.TabPage();
-            this.contentBrowser1 = new ModdingTools.GUI.ContentBrowser();
             this.tab2 = new System.Windows.Forms.TabPage();
-            this.configList1 = new ModdingTools.GUI.ConfigList();
             this.tab1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.mButton8 = new CUFramework.Controls.CUButton();
@@ -107,14 +119,30 @@ namespace ModdingTools.Windows
             this.mButton4 = new CUFramework.Controls.CUButton();
             this.mButton2 = new CUFramework.Controls.CUButton();
             this.label14 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.processRunner1 = new ModdingTools.GUI.ProcessRunner();
+            this.arList1 = new ModdingTools.GUI.ARList();
+            this.contentBrowser1 = new ModdingTools.GUI.ContentBrowser();
+            this.configList1 = new ModdingTools.GUI.ConfigList();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iconView)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.tab3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.cuGroupBox1.SuspendLayout();
-            this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.cuGroupBox2.SuspendLayout();
+            this.cuGroupBox5.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.IconViewGif)).BeginInit();
+            this.cuGroupBox1.SuspendLayout();
+            this.cuGroupBox6.SuspendLayout();
+            this.panel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panel12)).BeginInit();
+            this.panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panel10)).BeginInit();
+            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panel8)).BeginInit();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panel5)).BeginInit();
             this.tab5.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.cuGroupBox3.SuspendLayout();
@@ -128,6 +156,7 @@ namespace ModdingTools.Windows
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnEditor
@@ -151,7 +180,7 @@ namespace ModdingTools.Windows
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
             this.panel7.Controls.Add(this.iconView);
-            this.panel7.Location = new System.Drawing.Point(12, 62);
+            this.panel7.Location = new System.Drawing.Point(12, 81);
             this.panel7.Name = "panel7";
             this.panel7.Padding = new System.Windows.Forms.Padding(1);
             this.panel7.Size = new System.Drawing.Size(120, 120);
@@ -167,16 +196,17 @@ namespace ModdingTools.Windows
             this.iconView.Name = "iconView";
             this.iconView.Size = new System.Drawing.Size(118, 118);
             this.iconView.TabIndex = 10;
+            this.iconView.TabStop = false;
             this.iconView.Click += new System.EventHandler(this.iconView_Click);
             // 
             // modName
             // 
             this.modName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.modName.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.modName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.modName.Location = new System.Drawing.Point(284, 64);
+            this.modName.Font = new System.Drawing.Font("Segoe UI", 11.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.modName.Location = new System.Drawing.Point(158, 75);
             this.modName.Name = "modName";
-            this.modName.Size = new System.Drawing.Size(409, 32);
+            this.modName.Size = new System.Drawing.Size(225, 24);
             this.modName.TabIndex = 13;
             this.modName.Text = "ModName";
             this.modName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -186,10 +216,10 @@ namespace ModdingTools.Windows
             // 
             this.modFolderName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.modFolderName.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.modFolderName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.modFolderName.Location = new System.Drawing.Point(284, 127);
+            this.modFolderName.Font = new System.Drawing.Font("Segoe UI", 11.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.modFolderName.Location = new System.Drawing.Point(158, 112);
             this.modFolderName.Name = "modFolderName";
-            this.modFolderName.Size = new System.Drawing.Size(409, 32);
+            this.modFolderName.Size = new System.Drawing.Size(225, 24);
             this.modFolderName.TabIndex = 14;
             this.modFolderName.Text = "ModFolderName";
             this.modFolderName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -310,165 +340,26 @@ namespace ModdingTools.Windows
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.14689F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.85311F));
+            this.tableLayoutPanel2.Controls.Add(this.cuGroupBox2, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.cuGroupBox5, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.cuGroupBox1, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.cuGroupBox2, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel5, 0, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 53.27695F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.72305F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(708, 473);
             this.tableLayoutPanel2.TabIndex = 26;
             // 
-            // cuGroupBox1
-            // 
-            this.cuGroupBox1.BorderSize = 0;
-            this.cuGroupBox1.Controls.Add(this.label3);
-            this.cuGroupBox1.Controls.Add(this.panel3);
-            this.cuGroupBox1.Controls.Add(this.label2);
-            this.cuGroupBox1.Controls.Add(this.panel7);
-            this.cuGroupBox1.Controls.Add(this.label8);
-            this.cuGroupBox1.Controls.Add(this.label13);
-            this.cuGroupBox1.Controls.Add(this.label9);
-            this.cuGroupBox1.Controls.Add(this.modName);
-            this.cuGroupBox1.Controls.Add(this.lblAuthor);
-            this.cuGroupBox1.Controls.Add(this.label11);
-            this.cuGroupBox1.Controls.Add(this.modFolderName);
-            this.cuGroupBox1.Controls.Add(this.label5);
-            this.cuGroupBox1.Controls.Add(this.label12);
-            this.cuGroupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cuGroupBox1.HeaderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(196)))), ((int)(((byte)(0)))));
-            this.cuGroupBox1.HeaderFontColor = System.Drawing.Color.Black;
-            this.cuGroupBox1.HeaderHeight = 25;
-            this.cuGroupBox1.HeaderText = "GENERAL";
-            this.cuGroupBox1.Location = new System.Drawing.Point(0, 0);
-            this.cuGroupBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.cuGroupBox1.Name = "cuGroupBox1";
-            this.cuGroupBox1.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.cuGroupBox1.Size = new System.Drawing.Size(708, 236);
-            this.cuGroupBox1.TabIndex = 24;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label3.Location = new System.Drawing.Point(252, 44);
-            this.label3.Name = "label3";
-            this.label3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label3.Size = new System.Drawing.Size(22, 15);
-            this.label3.TabIndex = 24;
-            this.label3.Text = "[X]";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
-            this.panel3.Controls.Add(this.pictureBox1);
-            this.panel3.Location = new System.Drawing.Point(150, 62);
-            this.panel3.Name = "panel3";
-            this.panel3.Padding = new System.Windows.Forms.Padding(1);
-            this.panel3.Size = new System.Drawing.Size(120, 120);
-            this.panel3.TabIndex = 22;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(1, 1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(118, 118);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(147, 44);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(105, 15);
-            this.label2.TabIndex = 23;
-            this.label2.Text = "GIF ICON (STEAM):";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(281, 45);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(73, 15);
-            this.label8.TabIndex = 18;
-            this.label8.Text = "MOD NAME:";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(282, 170);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(121, 15);
-            this.label13.TabIndex = 23;
-            this.label13.Text = "AUTHOR OR CREDITS:";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(281, 108);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(88, 15);
-            this.label9.TabIndex = 19;
-            this.label9.Text = "FOLDER NAME:";
-            // 
-            // lblAuthor
-            // 
-            this.lblAuthor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lblAuthor.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.lblAuthor.Location = new System.Drawing.Point(284, 189);
-            this.lblAuthor.Name = "lblAuthor";
-            this.lblAuthor.Size = new System.Drawing.Size(409, 32);
-            this.lblAuthor.TabIndex = 22;
-            this.lblAuthor.Text = "ModAuthor";
-            this.lblAuthor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblAuthor.Click += new System.EventHandler(this.lblAuthor_Click);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(10, 199);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(57, 15);
-            this.label11.TabIndex = 20;
-            this.label11.Text = "VERSION:";
-            // 
-            // label5
-            // 
-            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
-            this.label5.Location = new System.Drawing.Point(75, 189);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(195, 32);
-            this.label5.TabIndex = 17;
-            this.label5.Text = "ModVersion";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label5.Click += new System.EventHandler(this.label5_Click);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(9, 44);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(38, 15);
-            this.label12.TabIndex = 21;
-            this.label12.Text = "ICON:";
-            // 
             // cuGroupBox2
             // 
-            this.cuGroupBox2.BorderSize = 0;
+            this.cuGroupBox2.BorderSize = 1;
             this.cuGroupBox2.Controls.Add(this.label1);
             this.cuGroupBox2.Controls.Add(this.tagsList);
             this.cuGroupBox2.Controls.Add(this.cbCoOp);
@@ -479,18 +370,18 @@ namespace ModdingTools.Windows
             this.cuGroupBox2.HeaderFontColor = System.Drawing.Color.Black;
             this.cuGroupBox2.HeaderHeight = 25;
             this.cuGroupBox2.HeaderText = "TAGS";
-            this.cuGroupBox2.Location = new System.Drawing.Point(0, 236);
+            this.cuGroupBox2.Location = new System.Drawing.Point(439, 251);
             this.cuGroupBox2.Margin = new System.Windows.Forms.Padding(0);
             this.cuGroupBox2.Name = "cuGroupBox2";
-            this.cuGroupBox2.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.cuGroupBox2.Size = new System.Drawing.Size(708, 237);
+            this.cuGroupBox2.Padding = new System.Windows.Forms.Padding(1, 26, 1, 1);
+            this.cuGroupBox2.Size = new System.Drawing.Size(269, 222);
             this.cuGroupBox2.TabIndex = 25;
             // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(351, 184);
+            this.label1.Location = new System.Drawing.Point(7, 191);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 15);
             this.label1.TabIndex = 14;
@@ -506,9 +397,9 @@ namespace ModdingTools.Windows
             this.tagsList.ForeColor = System.Drawing.Color.White;
             this.tagsList.FullRowSelect = true;
             this.tagsList.HideSelection = false;
-            this.tagsList.Location = new System.Drawing.Point(3, 32);
+            this.tagsList.Location = new System.Drawing.Point(4, 29);
             this.tagsList.Name = "tagsList";
-            this.tagsList.Size = new System.Drawing.Size(345, 202);
+            this.tagsList.Size = new System.Drawing.Size(261, 125);
             this.tagsList.TabIndex = 12;
             this.tagsList.TileSize = new System.Drawing.Size(280, 36);
             this.tagsList.UseCompatibleStateImageBehavior = false;
@@ -518,7 +409,7 @@ namespace ModdingTools.Windows
             // 
             this.cbCoOp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCoOp.AutoSize = true;
-            this.cbCoOp.Location = new System.Drawing.Point(354, 57);
+            this.cbCoOp.Location = new System.Drawing.Point(34, 160);
             this.cbCoOp.Name = "cbCoOp";
             this.cbCoOp.Size = new System.Drawing.Size(87, 19);
             this.cbCoOp.TabIndex = 11;
@@ -532,9 +423,9 @@ namespace ModdingTools.Windows
             this.levelType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.levelType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.levelType.FormattingEnabled = true;
-            this.levelType.Location = new System.Drawing.Point(354, 202);
+            this.levelType.Location = new System.Drawing.Point(80, 188);
             this.levelType.Name = "levelType";
-            this.levelType.Size = new System.Drawing.Size(351, 23);
+            this.levelType.Size = new System.Drawing.Size(180, 23);
             this.levelType.TabIndex = 13;
             this.levelType.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -542,13 +433,345 @@ namespace ModdingTools.Windows
             // 
             this.cbOnlineParty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbOnlineParty.AutoSize = true;
-            this.cbOnlineParty.Location = new System.Drawing.Point(354, 32);
+            this.cbOnlineParty.Location = new System.Drawing.Point(140, 160);
             this.cbOnlineParty.Name = "cbOnlineParty";
             this.cbOnlineParty.Size = new System.Drawing.Size(91, 19);
             this.cbOnlineParty.TabIndex = 10;
             this.cbOnlineParty.Text = "Online Party";
             this.cbOnlineParty.UseVisualStyleBackColor = true;
             this.cbOnlineParty.CheckedChanged += new System.EventHandler(this.cbOnlineParty_CheckedChanged);
+            // 
+            // cuGroupBox5
+            // 
+            this.cuGroupBox5.BorderSize = 1;
+            this.cuGroupBox5.Controls.Add(this.label3);
+            this.cuGroupBox5.Controls.Add(this.panel7);
+            this.cuGroupBox5.Controls.Add(this.panel3);
+            this.cuGroupBox5.Controls.Add(this.label12);
+            this.cuGroupBox5.Controls.Add(this.label2);
+            this.cuGroupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cuGroupBox5.HeaderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(196)))), ((int)(((byte)(0)))));
+            this.cuGroupBox5.HeaderFontColor = System.Drawing.Color.Black;
+            this.cuGroupBox5.HeaderHeight = 25;
+            this.cuGroupBox5.HeaderText = "ICONS";
+            this.cuGroupBox5.Location = new System.Drawing.Point(439, 0);
+            this.cuGroupBox5.Margin = new System.Windows.Forms.Padding(0);
+            this.cuGroupBox5.Name = "cuGroupBox5";
+            this.cuGroupBox5.Padding = new System.Windows.Forms.Padding(1, 26, 1, 1);
+            this.cuGroupBox5.Size = new System.Drawing.Size(269, 251);
+            this.cuGroupBox5.TabIndex = 26;
+            // 
+            // label3
+            // 
+            this.label3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label3.Location = new System.Drawing.Point(139, 209);
+            this.label3.Name = "label3";
+            this.label3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label3.Size = new System.Drawing.Size(121, 20);
+            this.label3.TabIndex = 24;
+            this.label3.Text = "[Click to remove]";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.panel3.Controls.Add(this.IconViewGif);
+            this.panel3.Location = new System.Drawing.Point(141, 81);
+            this.panel3.Name = "panel3";
+            this.panel3.Padding = new System.Windows.Forms.Padding(1);
+            this.panel3.Size = new System.Drawing.Size(120, 120);
+            this.panel3.TabIndex = 22;
+            // 
+            // IconViewGif
+            // 
+            this.IconViewGif.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.IconViewGif.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.IconViewGif.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.IconViewGif.Location = new System.Drawing.Point(1, 1);
+            this.IconViewGif.Name = "IconViewGif";
+            this.IconViewGif.Size = new System.Drawing.Size(118, 118);
+            this.IconViewGif.TabIndex = 0;
+            this.IconViewGif.TabStop = false;
+            this.IconViewGif.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(7, 61);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(38, 15);
+            this.label12.TabIndex = 21;
+            this.label12.Text = "ICON:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(136, 61);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(105, 15);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "GIF ICON (STEAM):";
+            // 
+            // cuGroupBox1
+            // 
+            this.cuGroupBox1.BorderSize = 1;
+            this.cuGroupBox1.Controls.Add(this.label21);
+            this.cuGroupBox1.Controls.Add(this.label8);
+            this.cuGroupBox1.Controls.Add(this.label13);
+            this.cuGroupBox1.Controls.Add(this.label20);
+            this.cuGroupBox1.Controls.Add(this.label9);
+            this.cuGroupBox1.Controls.Add(this.modName);
+            this.cuGroupBox1.Controls.Add(this.lblAuthor);
+            this.cuGroupBox1.Controls.Add(this.label11);
+            this.cuGroupBox1.Controls.Add(this.modFolderName);
+            this.cuGroupBox1.Controls.Add(this.label5);
+            this.cuGroupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cuGroupBox1.HeaderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(196)))), ((int)(((byte)(0)))));
+            this.cuGroupBox1.HeaderFontColor = System.Drawing.Color.Black;
+            this.cuGroupBox1.HeaderHeight = 25;
+            this.cuGroupBox1.HeaderText = "GENERAL";
+            this.cuGroupBox1.Location = new System.Drawing.Point(0, 0);
+            this.cuGroupBox1.Margin = new System.Windows.Forms.Padding(0);
+            this.cuGroupBox1.Name = "cuGroupBox1";
+            this.cuGroupBox1.Padding = new System.Windows.Forms.Padding(1, 26, 1, 1);
+            this.cuGroupBox1.Size = new System.Drawing.Size(439, 251);
+            this.cuGroupBox1.TabIndex = 24;
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(18, 75);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(134, 24);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "MOD NAME:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label13
+            // 
+            this.label13.Location = new System.Drawing.Point(18, 149);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(134, 24);
+            this.label13.TabIndex = 23;
+            this.label13.Text = "AUTHOR OR CREDITS:";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label9
+            // 
+            this.label9.Location = new System.Drawing.Point(18, 112);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(134, 24);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "FOLDER NAME:";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblAuthor
+            // 
+            this.lblAuthor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblAuthor.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblAuthor.Font = new System.Drawing.Font("Segoe UI", 11.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.lblAuthor.Location = new System.Drawing.Point(158, 149);
+            this.lblAuthor.Name = "lblAuthor";
+            this.lblAuthor.Size = new System.Drawing.Size(225, 24);
+            this.lblAuthor.TabIndex = 22;
+            this.lblAuthor.Text = "ModAuthor";
+            this.lblAuthor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblAuthor.Click += new System.EventHandler(this.lblAuthor_Click);
+            // 
+            // label11
+            // 
+            this.label11.Location = new System.Drawing.Point(18, 186);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(134, 24);
+            this.label11.TabIndex = 20;
+            this.label11.Text = "VERSION:";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label5.Location = new System.Drawing.Point(158, 186);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(225, 24);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "ModVersion";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // cuGroupBox6
+            // 
+            this.cuGroupBox6.BorderSize = 1;
+            this.cuGroupBox6.Controls.Add(this.panel11);
+            this.cuGroupBox6.Controls.Add(this.label19);
+            this.cuGroupBox6.Controls.Add(this.panel9);
+            this.cuGroupBox6.Controls.Add(this.label18);
+            this.cuGroupBox6.Controls.Add(this.panel6);
+            this.cuGroupBox6.Controls.Add(this.label16);
+            this.cuGroupBox6.Controls.Add(this.panel4);
+            this.cuGroupBox6.Controls.Add(this.label15);
+            this.cuGroupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cuGroupBox6.HeaderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(196)))), ((int)(((byte)(0)))));
+            this.cuGroupBox6.HeaderFontColor = System.Drawing.Color.Black;
+            this.cuGroupBox6.HeaderHeight = 25;
+            this.cuGroupBox6.HeaderText = "CREATORS DLC STUFF (BETA)";
+            this.cuGroupBox6.Location = new System.Drawing.Point(0, 45);
+            this.cuGroupBox6.Margin = new System.Windows.Forms.Padding(0);
+            this.cuGroupBox6.Name = "cuGroupBox6";
+            this.cuGroupBox6.Padding = new System.Windows.Forms.Padding(1, 26, 1, 1);
+            this.cuGroupBox6.Size = new System.Drawing.Size(439, 177);
+            this.cuGroupBox6.TabIndex = 27;
+            // 
+            // label21
+            // 
+            this.label21.Location = new System.Drawing.Point(18, 225);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(134, 25);
+            this.label21.TabIndex = 34;
+            this.label21.Text = "SPECIAL THANKS:";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panel11
+            // 
+            this.panel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.panel11.Controls.Add(this.panel12);
+            this.panel11.Location = new System.Drawing.Point(225, 83);
+            this.panel11.Name = "panel11";
+            this.panel11.Padding = new System.Windows.Forms.Padding(1);
+            this.panel11.Size = new System.Drawing.Size(103, 77);
+            this.panel11.TabIndex = 32;
+            // 
+            // panel12
+            // 
+            this.panel12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.panel12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel12.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel12.Location = new System.Drawing.Point(1, 1);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(101, 75);
+            this.panel12.TabIndex = 10;
+            this.panel12.TabStop = false;
+            this.panel12.Click += new System.EventHandler(this.panel12_Click);
+            // 
+            // label20
+            // 
+            this.label20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label20.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label20.Font = new System.Drawing.Font("Segoe UI", 11.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.label20.Location = new System.Drawing.Point(158, 225);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(225, 24);
+            this.label20.TabIndex = 33;
+            this.label20.Text = "SpecialThanks";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label20.Click += new System.EventHandler(this.label20_Click);
+            // 
+            // label19
+            // 
+            this.label19.Location = new System.Drawing.Point(222, 37);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(96, 44);
+            this.label19.TabIndex = 31;
+            this.label19.Text = "TITLE CARD:";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panel9
+            // 
+            this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.panel9.Controls.Add(this.panel10);
+            this.panel9.Location = new System.Drawing.Point(116, 84);
+            this.panel9.Name = "panel9";
+            this.panel9.Padding = new System.Windows.Forms.Padding(1);
+            this.panel9.Size = new System.Drawing.Size(103, 77);
+            this.panel9.TabIndex = 30;
+            // 
+            // panel10
+            // 
+            this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.panel10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel10.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel10.Location = new System.Drawing.Point(1, 1);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(101, 75);
+            this.panel10.TabIndex = 10;
+            this.panel10.TabStop = false;
+            this.panel10.Click += new System.EventHandler(this.panel10_Click);
+            // 
+            // label18
+            // 
+            this.label18.Location = new System.Drawing.Point(113, 38);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(96, 43);
+            this.label18.TabIndex = 29;
+            this.label18.Text = "BACKGROUND:";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.panel6.Controls.Add(this.panel8);
+            this.panel6.Location = new System.Drawing.Point(5, 83);
+            this.panel6.Name = "panel6";
+            this.panel6.Padding = new System.Windows.Forms.Padding(1);
+            this.panel6.Size = new System.Drawing.Size(105, 79);
+            this.panel6.TabIndex = 28;
+            // 
+            // panel8
+            // 
+            this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.panel8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel8.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel8.Location = new System.Drawing.Point(1, 1);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(103, 77);
+            this.panel8.TabIndex = 10;
+            this.panel8.TabStop = false;
+            this.panel8.Click += new System.EventHandler(this.panel8_Click);
+            // 
+            // label16
+            // 
+            this.label16.Location = new System.Drawing.Point(2, 37);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(95, 43);
+            this.label16.TabIndex = 27;
+            this.label16.Text = "SPLASH ART:";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.panel4.Controls.Add(this.panel5);
+            this.panel4.Location = new System.Drawing.Point(331, 83);
+            this.panel4.Name = "panel4";
+            this.panel4.Padding = new System.Windows.Forms.Padding(1);
+            this.panel4.Size = new System.Drawing.Size(103, 77);
+            this.panel4.TabIndex = 26;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.panel5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(1, 1);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(101, 75);
+            this.panel5.TabIndex = 10;
+            this.panel5.TabStop = false;
+            this.panel5.Click += new System.EventHandler(this.panel5_Click);
+            // 
+            // label15
+            // 
+            this.label15.Location = new System.Drawing.Point(333, 37);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(95, 43);
+            this.label15.TabIndex = 25;
+            this.label15.Text = "LOGO:";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tab5
             // 
@@ -742,16 +965,6 @@ namespace ModdingTools.Windows
             this.label17.Text = "MOD CLASS:";
             this.label17.Click += new System.EventHandler(this.label17_Click);
             // 
-            // processRunner1
-            // 
-            this.processRunner1.BackColor = System.Drawing.Color.Black;
-            this.processRunner1.Font = new System.Drawing.Font("Segoe UI Semilight", 9F);
-            this.processRunner1.Location = new System.Drawing.Point(5, 113);
-            this.processRunner1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.processRunner1.Name = "processRunner1";
-            this.processRunner1.Size = new System.Drawing.Size(698, 326);
-            this.processRunner1.TabIndex = 15;
-            // 
             // tab7
             // 
             this.tab7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
@@ -762,19 +975,6 @@ namespace ModdingTools.Windows
             this.tab7.Size = new System.Drawing.Size(708, 473);
             this.tab7.TabIndex = 3;
             this.tab7.Text = "ASSET REPLACE";
-            // 
-            // arList1
-            // 
-            this.arList1.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.arList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.arList1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.arList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.arList1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.arList1.Location = new System.Drawing.Point(0, 0);
-            this.arList1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.arList1.Name = "arList1";
-            this.arList1.Size = new System.Drawing.Size(708, 473);
-            this.arList1.TabIndex = 0;
             // 
             // tab8
             // 
@@ -787,17 +987,6 @@ namespace ModdingTools.Windows
             this.tab8.TabIndex = 4;
             this.tab8.Text = "CONTENT";
             // 
-            // contentBrowser1
-            // 
-            this.contentBrowser1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.contentBrowser1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.contentBrowser1.Font = new System.Drawing.Font("Segoe UI Semilight", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.contentBrowser1.ForeColor = System.Drawing.Color.White;
-            this.contentBrowser1.Location = new System.Drawing.Point(3, 3);
-            this.contentBrowser1.Name = "contentBrowser1";
-            this.contentBrowser1.Size = new System.Drawing.Size(700, 467);
-            this.contentBrowser1.TabIndex = 0;
-            // 
             // tab2
             // 
             this.tab2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
@@ -808,17 +997,6 @@ namespace ModdingTools.Windows
             this.tab2.Size = new System.Drawing.Size(708, 473);
             this.tab2.TabIndex = 5;
             this.tab2.Text = "MOD CONFIG";
-            // 
-            // configList1
-            // 
-            this.configList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
-            this.configList1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.configList1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.configList1.Location = new System.Drawing.Point(0, 0);
-            this.configList1.Margin = new System.Windows.Forms.Padding(0);
-            this.configList1.Name = "configList1";
-            this.configList1.Size = new System.Drawing.Size(708, 473);
-            this.configList1.TabIndex = 0;
             // 
             // tab1
             // 
@@ -1149,6 +1327,67 @@ namespace ModdingTools.Windows
             this.label14.TabIndex = 24;
             this.label14.Text = "label14";
             // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.ColumnCount = 1;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.Controls.Add(this.cuGroupBox6, 0, 1);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 251);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 2;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.72072F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 79.27928F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(439, 222);
+            this.tableLayoutPanel5.TabIndex = 27;
+            // 
+            // processRunner1
+            // 
+            this.processRunner1.BackColor = System.Drawing.Color.Black;
+            this.processRunner1.Font = new System.Drawing.Font("Segoe UI Semilight", 9F);
+            this.processRunner1.Location = new System.Drawing.Point(5, 113);
+            this.processRunner1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.processRunner1.Name = "processRunner1";
+            this.processRunner1.Size = new System.Drawing.Size(698, 326);
+            this.processRunner1.TabIndex = 15;
+            // 
+            // arList1
+            // 
+            this.arList1.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+            this.arList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.arList1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.arList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.arList1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.arList1.Location = new System.Drawing.Point(0, 0);
+            this.arList1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.arList1.Name = "arList1";
+            this.arList1.Size = new System.Drawing.Size(708, 473);
+            this.arList1.TabIndex = 0;
+            // 
+            // contentBrowser1
+            // 
+            this.contentBrowser1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.contentBrowser1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.contentBrowser1.Font = new System.Drawing.Font("Segoe UI Semilight", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this.contentBrowser1.ForeColor = System.Drawing.Color.White;
+            this.contentBrowser1.Location = new System.Drawing.Point(3, 3);
+            this.contentBrowser1.Name = "contentBrowser1";
+            this.contentBrowser1.Size = new System.Drawing.Size(700, 467);
+            this.contentBrowser1.TabIndex = 0;
+            // 
+            // configList1
+            // 
+            this.configList1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.configList1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.configList1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.configList1.Location = new System.Drawing.Point(0, 0);
+            this.configList1.Margin = new System.Windows.Forms.Padding(0);
+            this.configList1.Name = "configList1";
+            this.configList1.Size = new System.Drawing.Size(708, 473);
+            this.configList1.TabIndex = 0;
+            // 
             // ModProperties
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1185,15 +1424,26 @@ namespace ModdingTools.Windows
             this.Controls.SetChildIndex(this.tabController1, 0);
             this.Controls.SetChildIndex(this.label14, 0);
             this.panel7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.iconView)).EndInit();
             this.tabControl2.ResumeLayout(false);
             this.tab3.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.cuGroupBox1.ResumeLayout(false);
-            this.cuGroupBox1.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.cuGroupBox2.ResumeLayout(false);
             this.cuGroupBox2.PerformLayout();
+            this.cuGroupBox5.ResumeLayout(false);
+            this.cuGroupBox5.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.IconViewGif)).EndInit();
+            this.cuGroupBox1.ResumeLayout(false);
+            this.cuGroupBox6.ResumeLayout(false);
+            this.panel11.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panel12)).EndInit();
+            this.panel9.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panel10)).EndInit();
+            this.panel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panel8)).EndInit();
+            this.panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panel5)).EndInit();
             this.tab5.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.cuGroupBox3.ResumeLayout(false);
@@ -1212,6 +1462,7 @@ namespace ModdingTools.Windows
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.tableLayoutPanel5.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1225,7 +1476,7 @@ namespace ModdingTools.Windows
     private CUButton mButton2;
     private CUButton mButton1;
     private CUButton btnEditor;
-    private System.Windows.Forms.Panel iconView;
+    private System.Windows.Forms.PictureBox iconView;
     private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Label modName;
         private System.Windows.Forms.Label modFolderName;
@@ -1287,9 +1538,26 @@ namespace ModdingTools.Windows
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox IconViewGif;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label14;
         private CUButton cuButton1;
+        private CUGroupBox cuGroupBox5;
+        private CUGroupBox cuGroupBox6;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.PictureBox panel5;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.PictureBox panel12;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.PictureBox panel10;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.PictureBox panel8;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
     }
 }

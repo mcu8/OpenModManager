@@ -351,6 +351,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hueh.ico" />
+    <None Include="Resources\noimage_wide.png" />
     <None Include="Resources\about.png" />
     <None Include="Resources\heeh_3.png" />
     <None Include="Resources\heeh_2.png" />

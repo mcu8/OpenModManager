@@ -117,8 +117,9 @@ namespace ModdingTools.Windows
             // 
             // cuButton3
             // 
-            this.cuButton3.BackColor = System.Drawing.Color.Green;
+            this.cuButton3.BackColor = System.Drawing.Color.Transparent;
             this.cuButton3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
+            this.cuButton3.FlatAppearance.BorderSize = 0;
             this.cuButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cuButton3.ForeColor = System.Drawing.Color.White;
             this.cuButton3.Image = global::ModdingTools.Properties.Resources.icon_073;
@@ -133,8 +134,9 @@ namespace ModdingTools.Windows
             // 
             // cuButton4
             // 
-            this.cuButton4.BackColor = System.Drawing.Color.Red;
+            this.cuButton4.BackColor = System.Drawing.Color.Transparent;
             this.cuButton4.FlatAppearance.BorderColor = System.Drawing.Color.Red;
+            this.cuButton4.FlatAppearance.BorderSize = 0;
             this.cuButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cuButton4.ForeColor = System.Drawing.Color.White;
             this.cuButton4.Image = global::ModdingTools.Properties.Resources.delete;
@@ -148,8 +150,9 @@ namespace ModdingTools.Windows
             // 
             // cuButton5
             // 
-            this.cuButton5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.cuButton5.BackColor = System.Drawing.Color.Transparent;
             this.cuButton5.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.cuButton5.FlatAppearance.BorderSize = 0;
             this.cuButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cuButton5.ForeColor = System.Drawing.Color.White;
             this.cuButton5.Image = global::ModdingTools.Properties.Resources.icon_044;
@@ -163,8 +166,9 @@ namespace ModdingTools.Windows
             // 
             // cuButton6
             // 
-            this.cuButton6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.cuButton6.BackColor = System.Drawing.Color.Transparent;
             this.cuButton6.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.cuButton6.FlatAppearance.BorderSize = 0;
             this.cuButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cuButton6.ForeColor = System.Drawing.Color.White;
             this.cuButton6.Image = global::ModdingTools.Properties.Resources.icon_043;

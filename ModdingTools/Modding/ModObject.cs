@@ -48,7 +48,7 @@ namespace ModdingTools.Modding
 
 
         // CDLC-related tags
-        public List<string> SpecialThanks { get; set; }
+        public string[] SpecialThanks { get; set; }
         public string Logo { get; set; }
         public string SplashArt { get; set; }
         public string Background { get; set; }
@@ -124,6 +124,50 @@ namespace ModdingTools.Modding
             Utils.CleanupAttrib(RootPath);
             Utils.MoveDirDos(RootPath, Path.Combine(RootSource.Root, newName));
             this.RootPath = Path.Combine(RootSource.Root, newName);
+        }
+
+
+        public void SetImageResource(string key, string val)
+        {
+            switch (key)
+            {
+                case "background":
+                    this.Background = val;
+                    break;
+                case "splash":
+                    this.SplashArt = val;
+                    break;
+                case "titlecard":
+                    this.Titlecard = val;
+                    break;
+                case "logo":
+                    this.Logo = val;
+                    break;
+                case "icon":
+                    this.Icon = val;
+                    break;
+                default:
+                    throw new Exception("Not implemented!");
+            }
+        }
+
+        public string GetImageResource(string key)
+        {
+            switch (key)
+            {
+                case "background":
+                    return this.Background;
+                case "splash":
+                    return this.SplashArt;
+                case "titlecard":
+                    return this.Titlecard;
+                case "logo":
+                    return this.Logo;
+                case "icon":
+                    return this.Icon;
+                default:
+                    throw new Exception("Not implemented!");
+            }
         }
 
         // returns null if not
@@ -341,7 +385,14 @@ namespace ModdingTools.Modding
             this.HasPlayableCharacter = TryGet(t, "HasPlayableCharacter", "0").Equals("1");
             this.IsLanguagePack       = TryGet(t, "IsLanguagePack", "0").Equals("1");
             this.Coop                 = TryGet(t, "Coop", "");
-           
+
+
+            this.SpecialThanks = TryGet(i, "specialthanks", "").Split(';');
+
+            this.Logo       = TryGet(i, "Logo");
+            this.SplashArt  = TryGet(i, "SplashArt");
+            this.Background = TryGet(i, "Background");
+            this.Titlecard  = TryGet(i, "Titlecard");
 
             if (!this.IsReadOnly)
                 GetModClasses(true);
@@ -606,7 +657,7 @@ namespace ModdingTools.Modding
             FileInfo f = new FileInfo(path);
             if (f.Exists)
             {
-                if (f.Length > 1000000)
+                if (f.Length > 1048576)
                 {
                     return false;
                 }
@@ -633,13 +684,38 @@ namespace ModdingTools.Modding
             return true;
         }
 
+        public string GetIconLocation()
+        {
+            return Icon == null ? null : Path.Combine(RootPath, Icon);
+        }
+
+        public string GetBackgroundLocation()
+        {
+            return Background == null ? null : Path.Combine(RootPath, Background);
+        }
+
+        public string GetLogoLocation()
+        {
+            return Logo == null ? null : Path.Combine(RootPath, Logo);
+        }
+
+        public string GetSplashArtLocation()
+        {
+            return SplashArt == null ? null : Path.Combine(RootPath, SplashArt);
+        }
+
+        public string GetTitleCardLocation()
+        {
+            return Titlecard == null ? null : Path.Combine(RootPath, Titlecard);
+        }
+
         public Image GetIcon()
         {
             var noIconImage = Properties.Resources.noimage;
             if (Icon == null)
                 return noIconImage;
 
-            var path = Path.Combine(RootPath, Icon);
+            var path = GetIconLocation();
 
             try
             {
@@ -722,7 +798,10 @@ namespace ModdingTools.Modding
    
             // Store "Info" section
             AppendIni(i, "name", IniQuote(this.Name));
-            AppendIni(i, "author", IniQuote(string.Join(";", this.Author)));
+
+            if (this.Author != null && this.Author.Length > 0)
+                AppendIni(i, "author", IniQuote(string.Join(";", this.Author)));
+
             AppendIni(i, "description", IniQuote(this.Description));
             AppendIni(i, "version", IniQuote(this.Version));
 
@@ -739,6 +818,15 @@ namespace ModdingTools.Modding
 
             ApplyTag(info, "OnlineParty", IsOnlineParty ? "1" : "");
             ApplyTag(info, "Coop", Coop);
+
+
+            if (this.SpecialThanks != null && this.SpecialThanks.Length > 0)
+                AppendIni(i, "specialthanks", string.Join(";", this.SpecialThanks));
+
+            AppendIni(i, "SplashArt", this.SplashArt);
+            AppendIni(i, "Background", this.Background);
+            AppendIni(i, "Titlecard", this.Titlecard);
+            AppendIni(i, "Logo", this.Logo);
 
             bool autoEquip = false;
             bool hasModClass = false;

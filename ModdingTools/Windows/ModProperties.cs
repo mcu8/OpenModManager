@@ -21,8 +21,7 @@ namespace ModdingTools.Windows
     {
         public ModObject Mod { get; private set; }
         private ModStore Store;
-        private string _newIcon = null;
-        private string _newIconGif = null;
+
         bool _unsaved;
         bool _saveFeatureHold = true;
 
@@ -158,14 +157,16 @@ namespace ModdingTools.Windows
             this.ModDescriptionEdit.Text = Mod.GetDescription();
             this.modFolderName.Text = Mod.GetDirectoryName();
             this.modName.Text = Mod.Name;
-            this.cbOnlineParty.Checked = Mod.IsOnlineParty;
-            this.iconView.BackgroundImage = Mod.GetIcon();
+            this.cbOnlineParty.Checked = Mod.IsOnlineParty;;
             this.chapterInfoInput.Text = Mod.ChapterInfoName;
 
             this.cbCoOp.Checked = Mod.Coop.ToLower() == "cooponly";
             this.cbOnlineParty.Checked = Mod.IsOnlineParty;
             this.label5.Text = Mod.Version;
             this.lblAuthor.Text = string.Join(";", Mod.Author);
+
+            if (Mod.SpecialThanks != null)
+                this.label20.Text = string.Join(";", Mod.SpecialThanks);
 
             var tags = ModObject.CombineTags(Mod.GetModClasses());
 
@@ -219,7 +220,7 @@ namespace ModdingTools.Windows
                 cbCoOp.Enabled = false;
                 levelType.Enabled = false;
                 iconView.Enabled = false;
-                pictureBox1.Enabled = false;
+                IconViewGif.Enabled = false;
                 modName.Enabled = false;
                 modFolderName.Enabled = false;
                 ModDescriptionEdit.ReadOnly = true;
@@ -274,23 +275,7 @@ namespace ModdingTools.Windows
 
             Store = ModStore.LoadForMod(Mod);
 
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            if (Store.CheckIcon(Mod))
-            {
-                var loc = Store.GetGifLocation(Mod);
-                if (!File.Exists(loc))
-                {
-                    pictureBox1.Image = Properties.Resources.noimage;
-                }
-                else
-                {
-                    pictureBox1.Image = Utils.LoadImageIntoMemory(loc);
-                }          
-            }
-            else
-            {
-                pictureBox1.Image = Properties.Resources.noimage;
-            }
+            LoadGraphics();
 
             checkBox1.Checked = Store.UseSeparateDescriptionForSteam;
             SteamDescription.Enabled = Store.UseSeparateDescriptionForSteam;
@@ -301,6 +286,76 @@ namespace ModdingTools.Windows
 
             var workshopId = Mod.GetUploadedId();
             label14.Text = workshopId > 0 ? ("WorkshopId: "  + workshopId) : "";
+        }
+
+        private void LoadGraphics()
+        {
+            // icon
+            iconView.SizeMode = PictureBoxSizeMode.StretchImage;
+            if (Mod.ValidateIcon())
+            {
+                var loc = Mod.GetIconLocation();
+                if (!File.Exists(loc))
+                {
+                    iconView.Image = Properties.Resources.noimage;
+                }
+                else
+                {
+                    iconView.Image = Utils.LoadImageIntoMemory(loc);
+                }
+            }
+            else
+            {
+                iconView.Image = Properties.Resources.noimage;
+            }
+
+            // icon gif
+            IconViewGif.SizeMode = PictureBoxSizeMode.StretchImage;
+            if (Store.CheckIcon(Mod))
+            {
+                var loc = Store.GetGifLocation(Mod);
+                if (!File.Exists(loc))
+                {
+                    IconViewGif.Image = Properties.Resources.noimage;
+                }
+                else
+                {
+                    IconViewGif.Image = Utils.LoadImageIntoMemory(loc);
+                }
+            }
+            else
+            {
+                Debug.WriteLine("GIF validation failed...");
+                IconViewGif.Image = Properties.Resources.noimage;
+            }
+
+            // logo
+            panel5.SizeMode = PictureBoxSizeMode.StretchImage;
+            {
+                var loc = Mod.GetLogoLocation();
+                panel5.Image = !File.Exists(loc) ? Properties.Resources.noimage_wide : Utils.LoadImageIntoMemory(loc);
+            }
+
+            // splash
+            panel8.SizeMode = PictureBoxSizeMode.StretchImage;
+            {
+                var loc = Mod.GetSplashArtLocation();
+                panel8.Image = !File.Exists(loc) ? Properties.Resources.noimage_wide : Utils.LoadImageIntoMemory(loc);
+            }
+
+            // background
+            panel10.SizeMode = PictureBoxSizeMode.StretchImage;
+            {
+                var loc = Mod.GetBackgroundLocation();
+                panel10.Image = !File.Exists(loc) ? Properties.Resources.noimage_wide : Utils.LoadImageIntoMemory(loc);
+            }
+
+            // titlecard
+            panel12.SizeMode = PictureBoxSizeMode.StretchImage;
+            {
+                var loc = Mod.GetTitleCardLocation();
+                panel12.Image = !File.Exists(loc) ? Properties.Resources.noimage_wide : Utils.LoadImageIntoMemory(loc);
+            }
         }
 
         public void ToggleUnlock(bool v)
@@ -386,46 +441,7 @@ namespace ModdingTools.Windows
 
         private void iconView_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.DefaultExt = "png";
-            dlg.Multiselect = false;
-            dlg.Filter = "Image file (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png";
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                FileInfo f = new FileInfo(dlg.FileName);
-                if (f.Exists)
-                {
-                    if (f.Length > 1000000)
-                    {
-                        CUMessageBox.Show("Icon must have less than 1MB of size!");
-                    }
-                    else
-                    {
-                        var img = Image.FromFile(f.FullName);
-                        if (img.Width == img.Height)
-                        {
-                            if (img.Width < 100)
-                            {
-                                CUMessageBox.Show("Icon must have at least 100x100px size!");
-                            }
-                            else
-                            {
-                                iconView.BackgroundImage = img;
-                                _newIcon = f.FullName;
-                                HasUnsavedChanges = true;
-                            }
-                        }
-                        else
-                        {
-                            CUMessageBox.Show("Icon must be square shaped!");
-                        }            
-                    }
-                }
-                else
-                {
-                    CUMessageBox.Show("Invalid file");
-                }
-            }
+            PickImage("Icon", ref iconView, true, 1, 100);
         }
 
         private void btnIconSelector_Click(object sender, EventArgs e)
@@ -449,7 +465,9 @@ namespace ModdingTools.Windows
                 Mod.IsOnlineParty = cbOnlineParty.Checked;
                 Mod.Coop = cbCoOp.Checked ? "CoopOnly" : "";
                 Mod.Version = label5.Text;
-                Mod.Author = lblAuthor.Text.Split(';');
+                Mod.Author = string.IsNullOrEmpty(lblAuthor.Text) ? null : lblAuthor.Text.Split(';');
+                Mod.SpecialThanks = string.IsNullOrEmpty(label20.Text) ? null : label20.Text.Split(';');
+
                 if (Mod.GetDirectoryName() != modFolderName.Text)
                 {
                     Mod.RenameDirectory(modFolderName.Text);
@@ -463,36 +481,47 @@ namespace ModdingTools.Windows
                     Mod.MapType = "";
                 }
 
-                if (_newIcon != null)
+                Dictionary<PictureBox, string> iconTasks = new Dictionary<PictureBox, string>()
                 {
-                    var iconE = _newIcon.Split('.');
-                    var iconExt = iconE[iconE.Length - 1].ToLower();
+                    { iconView, "icon" },
+                    { panel5,   "logo" },
+                    { panel8,   "splash" },
+                    { panel10,  "background" },
+                    { panel12,  "titlecard" }
+                };
 
-                    var allowedExts = new[] { "png", "jpg", "jpeg" };
-                    if (!allowedExts.Contains(iconExt))
-                    {
-                        throw new Exception("Illegal icon extension: " + iconExt);
-                    }
- 
-                    var icon = Path.Combine(Mod.RootPath, "icon." + iconExt);
-                    
-                    if (File.Exists(icon))
-                    {
-                        File.Delete(icon);
-                    }
-                    File.Copy(_newIcon, icon);
-                    _newIcon = null;
-                    Mod.Icon = "icon." + iconExt;
-                }
-                else
+                foreach (var x in iconTasks)
                 {
-                    if (String.IsNullOrEmpty(Mod.Icon) || !File.Exists(Path.Combine(Mod.RootPath, Mod.Icon)))
-                        Mod.Icon = "";
+                    if (x.Key.Tag != null)
+                    {
+                        var iconE = ((string)x.Key.Tag).Split('.');
+                        var iconExt = iconE[iconE.Length - 1].ToLower();
+
+                        var allowedExts = new[] { "png", "jpg", "jpeg" };
+                        if (!allowedExts.Contains(iconExt))
+                        {
+                            throw new Exception("Illegal icon extension: " + iconExt);
+                        }
+
+                        var icon = Path.Combine(Mod.RootPath, x.Value + "." + iconExt);
+
+                        if (File.Exists(icon)) File.Delete(icon);
+
+                        File.Copy((string)x.Key.Tag, icon);
+                        iconView.Tag = null;
+                        Mod.SetImageResource(x.Value, x.Value + "." + iconExt);
+                    }
+                    else
+                    {
+                        var test = Mod.GetImageResource(x.Value);
+                        if (String.IsNullOrEmpty(test) || !File.Exists(Path.Combine(Mod.RootPath, test)))
+                            Mod.SetImageResource(x.Value, "");
+                    }
                 }
 
-                if (_newIconGif != null)
+                if (IconViewGif.Tag != null)
                 {
-                    var iconE = _newIconGif.Split('.');
+                    var iconE = ((string)IconViewGif.Tag).Split('.');
                     var iconExt = iconE[iconE.Length - 1].ToLower();
 
                     var allowedExts = new[] { "gif" };
@@ -507,8 +536,8 @@ namespace ModdingTools.Windows
                     {
                         File.Delete(icon);
                     }
-                    File.Copy(_newIconGif, icon);
-                    _newIconGif = null;
+                    File.Copy((string)IconViewGif.Tag, icon);
+                    IconViewGif.Tag = null;
                     Store.AnimatedIconFileName = "icon_animated." + iconExt;
                 }
                 else
@@ -748,7 +777,7 @@ namespace ModdingTools.Windows
 
         private void lblAuthor_Click(object sender, EventArgs e)
         {
-            var iw = ArrayInputWindow.Ask("Author/Credits", "Enter the mod author or credits.\n\n(if you put more than one item, the game will treat it as credits!)", lblAuthor.Text.Split(';'), new SplitListValidator(';')); 
+            var iw = ArrayInputWindow.Ask("Author/Credits", "Enter the mod author or credits.\n\n(if you put more than one item, the game will treat it as credits!)", string.IsNullOrEmpty(lblAuthor.Text) ? new string[0] : lblAuthor.Text.Split(';'), new SplitListValidator(';')); 
             //CUInputWindow.Ask(this, "Author", "Enter the mod author", null, lblAuthor.Text);
             if (iw != null)
             {
@@ -838,57 +867,15 @@ namespace ModdingTools.Windows
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.DefaultExt = "gif";
-            dlg.Multiselect = false;
-            dlg.Filter = "GIF Animation file (*.gif)|*.gif";
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                FileInfo f = new FileInfo(dlg.FileName);
-                if (f.Exists)
-                {
-                    if (f.Length > 1000000)
-                    {
-                        CUMessageBox.Show("Icon must have less than 1MB of size!");
-                    }
-                    else
-                    {
-                        var img = Image.FromFile(f.FullName);
-                        if (img.Width == img.Height)
-                        {
-                            if (img.Width < 100)
-                            {
-                                CUMessageBox.Show("Icon must have at least 100x100px size!");
-                            }
-                            else
-                            {
-                                pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-                                pictureBox1.Image = null; // dispose old image
-                                pictureBox1.Image = Utils.LoadImageIntoMemory(f.FullName);
-                                
-                                _newIconGif = f.FullName;
-                                HasUnsavedChanges = true;
-                            }
-                        }
-                        else
-                        {
-                            CUMessageBox.Show("Icon must be square shaped!");
-                        }
-                    }
-                }
-                else
-                {
-                    CUMessageBox.Show("Invalid file");
-                }
-            }
+            PickImage("Animated icon", ref IconViewGif, true, 1, 100, "gif", "GIF Animation file (*.gif)|*.gif");
         }
 
         private void label3_Click(object sender, EventArgs e)
         {
             HasUnsavedChanges = true;
-            _newIconGif = "";
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.Image = Properties.Resources.noimage;
+            IconViewGif.Tag = null;
+            IconViewGif.SizeMode = PictureBoxSizeMode.StretchImage;
+            IconViewGif.Image = Properties.Resources.noimage;
         }
 
         private void cuButton1_Click(object sender, EventArgs e)
@@ -910,6 +897,86 @@ namespace ModdingTools.Windows
                     this.Invoke(new MethodInvoker(() => ToggleUnlock(true)));
                     this.Invoke(new MethodInvoker(() => Reload()));
                 });
+            }
+        }
+
+        // LOGO
+        private void panel5_Click(object sender, EventArgs e)
+        {
+            PickImage("Logo", ref panel5, false, -1, 100);
+        }
+
+        private void PickImage(string context, ref PictureBox target, bool mustBeSquare, int sizeLimit = -1, int minWidth = 100, string ext = "png", string filter = "Image file (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png")
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.DefaultExt = ext;
+            dlg.Multiselect = false;
+            dlg.Filter = filter;
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                FileInfo f = new FileInfo(dlg.FileName);
+                if (f.Exists)
+                {
+                    if (sizeLimit > 0 && f.Length > (sizeLimit * 1048576))
+                    {
+                        CUMessageBox.Show($"{context} must have less than {sizeLimit}MB of size!");
+                        return;
+                    }
+                    var img = Image.FromFile(f.FullName);
+                    if (img.Width == img.Height || !mustBeSquare)
+                    {
+                        if (img.Width < minWidth)
+                        {
+                            CUMessageBox.Show($"{context} must have at least {minWidth}x{minWidth}px size!");
+                        }
+                        else
+                        {
+                            //target.BackgroundImage = img;
+                            target.SizeMode = PictureBoxSizeMode.StretchImage;
+                            target.Image = null; // dispose old image
+                            target.Image = Utils.LoadImageIntoMemory(f.FullName);
+                            target.Tag = f.FullName;
+                            HasUnsavedChanges = true;
+                        }
+                    }
+                    else
+                    {
+                        CUMessageBox.Show($"{context} must be square shaped!");
+                    }
+                }
+                else
+                {
+                    CUMessageBox.Show("Invalid file");
+                }
+            }
+        }
+
+        private void panel8_Click(object sender, EventArgs e)
+        {
+            PickImage("Splash art", ref panel8, false, -1, 100);
+        }
+
+        private void panel10_Click(object sender, EventArgs e)
+        {
+            PickImage("Background", ref panel10, false, -1, 100);
+        }
+
+        private void panel12_Click(object sender, EventArgs e)
+        {
+            PickImage("Title card", ref panel12, false, -1, 100);
+        }
+
+        private void label20_Click(object sender, EventArgs e)
+        {
+            var iw = ArrayInputWindow.Ask("Special thanks", "Bottom text.", string.IsNullOrEmpty(label20.Text) ? new string[0] : label20.Text.Split(';'), new SplitListValidator(';'));
+            if (iw != null)
+            {
+                var result = string.Join(";", iw);
+                if (label20.Text != result)
+                {
+                    label20.Text = result;
+                    HasUnsavedChanges = true;
+                }
             }
         }
     }
