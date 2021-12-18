@@ -233,6 +233,8 @@ namespace ModdingTools.Windows
 
 
             comboBox2.Items.Add(new MapItem(null, "(none)"));
+            var maps = Mod.GetUncookedMaps();
+            if (maps != null)
             foreach (var a in Mod.GetUncookedMaps())
             {
                 comboBox2.Items.Add(new MapItem(a));
