@@ -944,7 +944,7 @@ namespace ModdingTools.Modding
             var iniContent = $"{info}{Environment.NewLine}{builder}";
 
             Parser.Parse(iniContent); // just for a check, it should throw the exception if something weird happens
-            File.WriteAllText(Path.Combine(RootPath, "modinfo.ini"), iniContent);
+            File.WriteAllText(Path.Combine(RootPath, "modinfo.ini"), iniContent, Encoding.Unicode);
         }
 
         private void ApplyTag(IniData ini, string key, string value)
