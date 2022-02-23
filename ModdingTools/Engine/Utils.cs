@@ -27,11 +27,11 @@ namespace ModdingTools.Engine
             return Regex.Replace(source, @"\s+", keepSingleSpace ? " " : "");
         }
 
-        public static bool CollectionContains(string find, string[] haystack)
+        public static bool CollectionContains(string find, string[] haystack, bool caseSensitive)
         {
             foreach (var item in haystack)
             {
-                if (item.Equals(find))
+                if (item.Equals(find, caseSensitive ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase))
                 {
                     return true;
                 }

@@ -91,12 +91,12 @@ namespace ModdingTools.Engine
         private void DetectModClassType()
         {
             // Sticker
-            if ("GameMod".Equals(ExtendsClass))
+            if ("GameMod".Equals(ExtendsClass, StringComparison.InvariantCultureIgnoreCase))
             {
                 ClassType = ModClassType.GameMod;
             }
             // Skin
-            else if ("Hat_Collectible_Skin".Equals(ExtendsClass))
+            else if ("Hat_Collectible_Skin".Equals(ExtendsClass, StringComparison.InvariantCultureIgnoreCase))
             {
                 ClassType = ModClassType.Skin;
             }
@@ -113,7 +113,7 @@ namespace ModdingTools.Engine
                 "Hat_Ability_Chemical",
                 "Hat_Ability_StatueFall",
                 "Hat_Ability_Sprint"
-            }))
+            }, false))
             {
                 ClassType = ModClassType.Hat;
             }
@@ -122,17 +122,17 @@ namespace ModdingTools.Engine
             {
                 "Hat_Ability_Automatic",
                 "Hat_Badge_Weapon"
-            }))
+            }, false))
             {
                 ClassType = ModClassType.Badge;
             }
             // Remix
-            else if ("Hat_Collectible_Remix".Equals(ExtendsClass))
+            else if ("Hat_Collectible_Remix".Equals(ExtendsClass, StringComparison.InvariantCultureIgnoreCase))
             {
                 ClassType = ModClassType.Remix;
             }
             // Sticker
-            else if ("Hat_Collectible_Sticker".Equals(ExtendsClass))
+            else if ("Hat_Collectible_Sticker".Equals(ExtendsClass, StringComparison.InvariantCultureIgnoreCase))
             {
                 ClassType = ModClassType.Sticker;
             }
@@ -142,17 +142,17 @@ namespace ModdingTools.Engine
                 "Hat_Weapon",
                 "Hat_Weapon_Umbrella",
                 "Hat_Weapon_Nyakuza_BaseballBat"
-            }))
+            }, false))
             {
                 ClassType = ModClassType.Weapon;
             }
             // Death Wish
-            else if ("Hat_SnatcherContract_DeathWish".Equals(ExtendsClass))
+            else if ("Hat_SnatcherContract_DeathWish".Equals(ExtendsClass, StringComparison.InvariantCultureIgnoreCase))
             {
                 ClassType = ModClassType.DWContract;
             }
             // Playable
-            else if ("Hat_Player".Equals(ExtendsClass) || "Hat_Player_HatKid".Equals(ExtendsClass))
+            else if ("Hat_Player".Equals(ExtendsClass, StringComparison.InvariantCultureIgnoreCase) || "Hat_Player_HatKid".Equals(ExtendsClass, StringComparison.InvariantCultureIgnoreCase))
             {
                 ClassType = ModClassType.Playable;
             }
