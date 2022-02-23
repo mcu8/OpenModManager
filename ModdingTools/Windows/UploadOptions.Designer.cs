@@ -63,6 +63,7 @@ namespace ModdingTools.Windows
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox15 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.borderPanel2.SuspendLayout();
             this.borderPanel1.SuspendLayout();
@@ -280,6 +281,7 @@ namespace ModdingTools.Windows
             // 
             this.borderPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.borderPanel1.BorderThickness = 2;
+            this.borderPanel1.Controls.Add(this.checkBox15);
             this.borderPanel1.Controls.Add(this.checkBox14);
             this.borderPanel1.Controls.Add(this.comboBox2);
             this.borderPanel1.Controls.Add(this.checkBox12);
@@ -306,7 +308,7 @@ namespace ModdingTools.Windows
             // 
             this.checkBox14.AutoSize = true;
             this.checkBox14.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox14.Location = new System.Drawing.Point(6, 287);
+            this.checkBox14.Location = new System.Drawing.Point(6, 260);
             this.checkBox14.Name = "checkBox14";
             this.checkBox14.Size = new System.Drawing.Size(102, 17);
             this.checkBox14.TabIndex = 28;
@@ -322,7 +324,7 @@ namespace ModdingTools.Windows
             "Available Instantly",
             "Found In Time Rift Roulette",
             "Found In Levels"});
-            this.comboBox2.Location = new System.Drawing.Point(6, 191);
+            this.comboBox2.Location = new System.Drawing.Point(6, 164);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(223, 21);
             this.comboBox2.TabIndex = 27;
@@ -332,7 +334,7 @@ namespace ModdingTools.Windows
             // 
             this.checkBox12.AutoSize = true;
             this.checkBox12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox12.Location = new System.Drawing.Point(6, 264);
+            this.checkBox12.Location = new System.Drawing.Point(6, 237);
             this.checkBox12.Name = "checkBox12";
             this.checkBox12.Size = new System.Drawing.Size(115, 17);
             this.checkBox12.TabIndex = 26;
@@ -344,7 +346,7 @@ namespace ModdingTools.Windows
             // 
             this.checkBox11.AutoSize = true;
             this.checkBox11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox11.Location = new System.Drawing.Point(6, 241);
+            this.checkBox11.Location = new System.Drawing.Point(6, 214);
             this.checkBox11.Name = "checkBox11";
             this.checkBox11.Size = new System.Drawing.Size(118, 17);
             this.checkBox11.TabIndex = 25;
@@ -356,7 +358,7 @@ namespace ModdingTools.Windows
             // 
             this.checkBox10.AutoSize = true;
             this.checkBox10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox10.Location = new System.Drawing.Point(6, 218);
+            this.checkBox10.Location = new System.Drawing.Point(6, 191);
             this.checkBox10.Name = "checkBox10";
             this.checkBox10.Size = new System.Drawing.Size(83, 17);
             this.checkBox10.TabIndex = 24;
@@ -369,7 +371,7 @@ namespace ModdingTools.Windows
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.ForeColor = System.Drawing.Color.DarkGray;
-            this.label3.Location = new System.Drawing.Point(3, 173);
+            this.label3.Location = new System.Drawing.Point(3, 146);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 13);
             this.label3.TabIndex = 23;
@@ -486,6 +488,17 @@ namespace ModdingTools.Windows
             this.checkBox3.Text = "Dye";
             this.checkBox3.UseVisualStyleBackColor = true;
             // 
+            // checkBox15
+            // 
+            this.checkBox15.AutoSize = true;
+            this.checkBox15.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.checkBox15.Location = new System.Drawing.Point(6, 283);
+            this.checkBox15.Name = "checkBox15";
+            this.checkBox15.Size = new System.Drawing.Size(82, 17);
+            this.checkBox15.TabIndex = 29;
+            this.checkBox15.Text = "Death Wish";
+            this.checkBox15.UseVisualStyleBackColor = true;
+            // 
             // UploadOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -568,5 +581,6 @@ namespace ModdingTools.Windows
         private System.Windows.Forms.CheckBox checkBox13;
         private CUButton cuButton1;
         private System.Windows.Forms.CheckBox checkBox14;
+        private System.Windows.Forms.CheckBox checkBox15;
     }
 }

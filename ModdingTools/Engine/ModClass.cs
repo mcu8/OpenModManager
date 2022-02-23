@@ -30,7 +30,8 @@ namespace ModdingTools.Engine
             ModClassType.Hat,
             ModClassType.Skin,
             ModClassType.Playable,
-            ModClassType.Map
+            ModClassType.Map,
+            ModClassType.DWContract
         };
 
         public static ModClassType[] SerializableTypes = new[]
@@ -73,7 +74,7 @@ namespace ModdingTools.Engine
         {
             { ModClassType.Badge,       "Badge"                  },
             { ModClassType.Playable,    "Playable Character"     },
-            { ModClassType.DWContract,  "Death Wish contract"    },
+            { ModClassType.DWContract,  "Death Wish"             },
             { ModClassType.Hat,         "Hat"                    },
             { ModClassType.Remix,       "Remix"                  },
             { ModClassType.Sticker,     "Sticker"                },
