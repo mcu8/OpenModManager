@@ -71,6 +71,10 @@ namespace ModdingTools.Windows
             this.label5 = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.cuGroupBox6 = new CUFramework.Controls.CUGroupBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.PictureBox();
             this.label19 = new System.Windows.Forms.Label();
@@ -647,6 +651,10 @@ namespace ModdingTools.Windows
             // cuGroupBox6
             // 
             this.cuGroupBox6.BorderSize = 1;
+            this.cuGroupBox6.Controls.Add(this.label26);
+            this.cuGroupBox6.Controls.Add(this.label25);
+            this.cuGroupBox6.Controls.Add(this.label24);
+            this.cuGroupBox6.Controls.Add(this.label23);
             this.cuGroupBox6.Controls.Add(this.panel11);
             this.cuGroupBox6.Controls.Add(this.label19);
             this.cuGroupBox6.Controls.Add(this.panel9);
@@ -666,6 +674,54 @@ namespace ModdingTools.Windows
             this.cuGroupBox6.Padding = new System.Windows.Forms.Padding(1, 26, 1, 1);
             this.cuGroupBox6.Size = new System.Drawing.Size(439, 189);
             this.cuGroupBox6.TabIndex = 27;
+            // 
+            // label26
+            // 
+            this.label26.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label26.Location = new System.Drawing.Point(6, 163);
+            this.label26.Name = "label26";
+            this.label26.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label26.Size = new System.Drawing.Size(104, 20);
+            this.label26.TabIndex = 36;
+            this.label26.Text = "[Click to remove]";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label26.Click += new System.EventHandler(this.label26_Click);
+            // 
+            // label25
+            // 
+            this.label25.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label25.Location = new System.Drawing.Point(115, 163);
+            this.label25.Name = "label25";
+            this.label25.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label25.Size = new System.Drawing.Size(104, 20);
+            this.label25.TabIndex = 35;
+            this.label25.Text = "[Click to remove]";
+            this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label25.Click += new System.EventHandler(this.label25_Click);
+            // 
+            // label24
+            // 
+            this.label24.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label24.Location = new System.Drawing.Point(225, 163);
+            this.label24.Name = "label24";
+            this.label24.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label24.Size = new System.Drawing.Size(104, 20);
+            this.label24.TabIndex = 34;
+            this.label24.Text = "[Click to remove]";
+            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label24.Click += new System.EventHandler(this.label24_Click);
+            // 
+            // label23
+            // 
+            this.label23.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label23.Location = new System.Drawing.Point(331, 163);
+            this.label23.Name = "label23";
+            this.label23.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label23.Size = new System.Drawing.Size(104, 20);
+            this.label23.TabIndex = 33;
+            this.label23.Text = "[Click to remove]";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label23.Click += new System.EventHandler(this.label23_Click);
             // 
             // panel11
             // 
@@ -1600,5 +1656,9 @@ namespace ModdingTools.Windows
         private System.Windows.Forms.Panel panel13;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label23;
     }
 }

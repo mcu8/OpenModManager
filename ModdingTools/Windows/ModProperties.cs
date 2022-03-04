@@ -25,6 +25,8 @@ namespace ModdingTools.Windows
         bool _unsaved;
         bool _saveFeatureHold = true;
 
+        private static readonly string RemovalFlag = "!@%^$marked_for_removal";
+
         public FormWindowState BackupWindowState { get; set; }
         public bool HasBeenFocused { get; set; }
 
@@ -514,22 +516,29 @@ namespace ModdingTools.Windows
                 {
                     if (x.Key.Tag != null)
                     {
-                        var iconE = ((string)x.Key.Tag).Split('.');
-                        var iconExt = iconE[iconE.Length - 1].ToLower();
-
-                        var allowedExts = new[] { "png", "jpg", "jpeg" };
-                        if (!allowedExts.Contains(iconExt))
+                        if (x.Key.Tag != RemovalFlag)
                         {
-                            throw new Exception("Illegal icon extension: " + iconExt);
+                            var iconE = ((string)x.Key.Tag).Split('.');
+                            var iconExt = iconE[iconE.Length - 1].ToLower();
+
+                            var allowedExts = new[] { "png", "jpg", "jpeg" };
+                            if (!allowedExts.Contains(iconExt))
+                            {
+                                throw new Exception("Illegal icon extension: " + iconExt);
+                            }
+
+                            var icon = Path.Combine(Mod.RootPath, x.Value + "." + iconExt);
+
+                            if (File.Exists(icon)) File.Delete(icon);
+
+                            File.Copy((string)x.Key.Tag, icon);
+                            x.Key.Tag = null;
+                            Mod.SetImageResource(x.Value, x.Value + "." + iconExt);
                         }
-
-                        var icon = Path.Combine(Mod.RootPath, x.Value + "." + iconExt);
-
-                        if (File.Exists(icon)) File.Delete(icon);
-
-                        File.Copy((string)x.Key.Tag, icon);
-                        iconView.Tag = null;
-                        Mod.SetImageResource(x.Value, x.Value + "." + iconExt);
+                        else
+                        {
+                            Mod.SetImageResource(x.Value, "");
+                        }
                     }
                     else
                     {
@@ -541,24 +550,31 @@ namespace ModdingTools.Windows
 
                 if (IconViewGif.Tag != null)
                 {
-                    var iconE = ((string)IconViewGif.Tag).Split('.');
-                    var iconExt = iconE[iconE.Length - 1].ToLower();
-
-                    var allowedExts = new[] { "gif" };
-                    if (!allowedExts.Contains(iconExt))
+                    if (IconViewGif.Tag != RemovalFlag)
                     {
-                        throw new Exception("Illegal icon extension: " + iconExt);
+                        var iconE = ((string)IconViewGif.Tag).Split('.');
+                        var iconExt = iconE[iconE.Length - 1].ToLower();
+
+                        var allowedExts = new[] { "gif" };
+                        if (!allowedExts.Contains(iconExt))
+                        {
+                            throw new Exception("Illegal icon extension: " + iconExt);
+                        }
+
+                        var icon = Path.Combine(Mod.RootPath, "icon_animated." + iconExt);
+
+                        if (File.Exists(icon))
+                        {
+                            File.Delete(icon);
+                        }
+                        File.Copy((string)IconViewGif.Tag, icon);
+                        IconViewGif.Tag = null;
+                        Store.AnimatedIconFileName = "icon_animated." + iconExt;
                     }
-
-                    var icon = Path.Combine(Mod.RootPath, "icon_animated." + iconExt);
-
-                    if (File.Exists(icon))
+                    else
                     {
-                        File.Delete(icon);
+                        Store.AnimatedIconFileName = "";
                     }
-                    File.Copy((string)IconViewGif.Tag, icon);
-                    IconViewGif.Tag = null;
-                    Store.AnimatedIconFileName = "icon_animated." + iconExt;
                 }
                 else
                 {
@@ -895,10 +911,7 @@ namespace ModdingTools.Windows
 
         private void label3_Click(object sender, EventArgs e)
         {
-            HasUnsavedChanges = true;
-            IconViewGif.Tag = null;
-            IconViewGif.SizeMode = PictureBoxSizeMode.StretchImage;
-            IconViewGif.Image = Properties.Resources.noimage;
+            UnpickImage(ref IconViewGif, Properties.Resources.noimage);
         }
 
         private void cuButton1_Click(object sender, EventArgs e)
@@ -927,6 +940,16 @@ namespace ModdingTools.Windows
         private void panel5_Click(object sender, EventArgs e)
         {
             PickImage("Logo", ref panel5, false, -1, 100);
+        }
+
+        private void UnpickImage(ref PictureBox target, Bitmap noImageBitmap)
+        {
+            if (target.Tag == null && (target.Image == null || target.Image == noImageBitmap)) return;
+            target.SizeMode = PictureBoxSizeMode.StretchImage;
+            target.Image = null;
+            target.Image = noImageBitmap;
+            target.Tag = RemovalFlag;
+            HasUnsavedChanges = true;
         }
 
         private void PickImage(string context, ref PictureBox target, bool mustBeSquare, int sizeLimit = -1, int minWidth = 100, string ext = "png", string filter = "Image file (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png")
@@ -1009,6 +1032,26 @@ namespace ModdingTools.Windows
             if (item == null) return;
             if (Mod.IntroductionMap != item.Name)
                 HasUnsavedChanges = true;
+        }
+
+        private void label23_Click(object sender, EventArgs e)
+        {
+            UnpickImage(ref panel5, Properties.Resources.noimage_wide);
+        }
+
+        private void label24_Click(object sender, EventArgs e)
+        {
+            UnpickImage(ref panel12, Properties.Resources.noimage_wide);
+        }
+
+        private void label25_Click(object sender, EventArgs e)
+        {
+            UnpickImage(ref panel10, Properties.Resources.noimage_wide);
+        }
+
+        private void label26_Click(object sender, EventArgs e)
+        {
+            UnpickImage(ref panel8, Properties.Resources.noimage_wide);
         }
     }
 }
