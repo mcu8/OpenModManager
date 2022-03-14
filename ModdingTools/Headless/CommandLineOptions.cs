@@ -17,6 +17,12 @@ namespace ModdingTools.Headless
         [Option(Group = "task", HelpText = "Print mod list")]
         public bool ModList { get; set; }
 
+        [Option(Group = "task", HelpText = "Launch editor")]
+        public bool Editor { get; set; }
+
+        [Option("testmap", HelpText = "Test map", Group = "task")]
+        public string TestMap { get; set; }
+
         [Option("mod", HelpText = "Mod folder name")]
         public string ModName { get; set; }
 

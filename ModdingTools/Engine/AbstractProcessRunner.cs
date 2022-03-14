@@ -1,4 +1,5 @@
 ﻿using CUFramework.Shared;
+using ModdingTools.Headless;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -64,7 +65,9 @@ namespace ModdingTools.Engine
 
         protected void RunWithoutWait(string exe, string[] args, string cwd = ".")
         {
-            bool poggersMode = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
+            bool poggersMode = false;
+            if (!ProgramHeadless.IsHeadlessMode)
+                poggersMode = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
             if (poggersMode)
             {
                 if (args.Length > 0 && args[0] == "editor")

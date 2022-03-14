@@ -16,9 +16,14 @@ namespace ModdingTools.Headless
 {
     public static class ProgramHeadless
     {
+        public static bool IsHeadlessMode = false;
+
         [STAThread]
         public static void MainHeadless(string[] args)
         {
+            IsHeadlessMode = true;
+            Program.ProcFactory = new ProcessFactory();
+
             Logger.InitializeLogger();
 
             bool steam = SteamAPI.Init();
@@ -67,7 +72,7 @@ namespace ModdingTools.Headless
                 e[68 + i] = id[i];
             }
 
-            Console.WriteLine(new string(e));
+            Logger.Log(LogLevel.Info, new string(e));
         }
 
         static int RunOptionsAndReturnExitCode(CommandLineOptions o)
@@ -80,24 +85,41 @@ namespace ModdingTools.Headless
 
             var exitCode = 0;
 
-            var ds = new ModDirectorySource("Mods directory", Path.Combine(Program.ProcFactory.GetGamePath(), @"HatinTimeGame\Mods"), true);
+            var gamePath = Program.ProcFactory.GetGamePath();
+            Logger.Log(LogLevel.Info, "Game path: " + gamePath);
+
+            var ds = new ModDirectorySource("Mods directory", Path.Combine(gamePath, @"HatinTimeGame\Mods"), true);
 
             if (o.ModList)
             {
                 var mod = ds.GetMods();
-                Console.WriteLine("+----------------------------------------------------------------------------------------+");
-                Console.WriteLine("|                                        MOD LIST                                        |");
-                Console.WriteLine("|--------------------------------+--------------------------------+----------------------|");
-                Console.WriteLine("| MOD NAME                       | MOD DIRECTORY NAME             | STEAM ID             |");
-                Console.WriteLine("|--------------------------------+--------------------------------+----------------------|");
+                Logger.Log(LogLevel.Info, "+----------------------------------------------------------------------------------------+");
+                Logger.Log(LogLevel.Info, "|                                        MOD LIST                                        |");
+                Logger.Log(LogLevel.Info, "|--------------------------------+--------------------------------+----------------------|");
+                Logger.Log(LogLevel.Info, "| MOD NAME                       | MOD DIRECTORY NAME             | STEAM ID             |");
+                Logger.Log(LogLevel.Info, "|--------------------------------+--------------------------------+----------------------|");
                 foreach (var m in mod)
                 {
                     PrintModEntry(m);
                 }
-                Console.WriteLine("+--------------------------------+--------------------------------+----------------------+");
+                Logger.Log(LogLevel.Info, "+--------------------------------+--------------------------------+----------------------+");
             }
             else
             {
+                if (o.TestMap != null)
+                {
+                    var runner = new ConsoleProcessRunner();
+                    runner.RunWithoutWait(Program.ProcFactory.StartMap(o.TestMap));
+                    return 0;
+                }
+                
+                if (o.Editor && o.ModName == null)
+                {
+                    var runner = new ConsoleProcessRunner();
+                    runner.RunWithoutWait(Program.ProcFactory.LaunchEditor());
+                    return 0;
+                }
+
                 if (o.ModName == null)
                 {
                     Logger.Log(LogLevel.Error, $"You need to specify mod name!");
@@ -105,9 +127,17 @@ namespace ModdingTools.Headless
                 }
 
                 var mod = ds.GetMods(o.ModName);
+
+
                 if (mod.Length > 0)
                 {
                     var runner = new ConsoleProcessRunner();
+                    if (o.Editor)
+                    {
+                        runner.RunWithoutWait(Program.ProcFactory.LaunchEditor(mod[0].GetDirectoryName()));
+                        return 0;
+                    }
+
                     if (o.CompileMod)
                     {
                         bool result = mod[0].CompileScripts(runner, false, false);
