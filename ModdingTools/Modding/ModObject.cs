@@ -227,6 +227,15 @@ namespace ModdingTools.Modding
                     File.Delete(file);
                 }
             }
+
+            var shaders = GetShaderCacheDir();
+            if (Directory.Exists(shaders))
+            {
+                foreach (var file in Directory.GetFiles(shaders, "*.upk"))
+                {
+                    File.Delete(file);
+                }
+            }
         }
 
         public static ModClass.ModClassType[] CombineTags(ModClass[] source)
@@ -265,6 +274,11 @@ namespace ModdingTools.Modding
         public string GetCompiledScriptsDir()
         {
             return Path.Combine(RootPath, "CompiledScripts");
+        }
+
+        public string GetShaderCacheDir()
+        {
+            return Path.Combine(RootPath, "Shadercache");
         }
 
         public string GetLocsDir()
