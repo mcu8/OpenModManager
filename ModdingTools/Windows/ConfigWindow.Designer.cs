@@ -38,6 +38,7 @@ namespace ModdingTools.Windows
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -129,12 +130,22 @@ namespace ModdingTools.Windows
             this.checkBox5.Text = "Enable update checker";
             this.checkBox5.UseVisualStyleBackColor = true;
             // 
+            // checkBox3
+            // 
+            this.checkBox3.Location = new System.Drawing.Point(12, 221);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(216, 41);
+            this.checkBox3.TabIndex = 12;
+            this.checkBox3.Text = "Cleanup shadercache folder before cooking (may increase cooking time)";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
             // ConfigWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(249, 389);
             this.ControlBoxVisible = false;
+            this.Controls.Add(this.checkBox3);
             this.Controls.Add(this.checkBox5);
             this.Controls.Add(this.checkBox4);
             this.Controls.Add(this.checkBox1);
@@ -151,6 +162,7 @@ namespace ModdingTools.Windows
             this.Controls.SetChildIndex(this.checkBox1, 0);
             this.Controls.SetChildIndex(this.checkBox4, 0);
             this.Controls.SetChildIndex(this.checkBox5, 0);
+            this.Controls.SetChildIndex(this.checkBox3, 0);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -164,5 +176,6 @@ namespace ModdingTools.Windows
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox3;
     }
 }

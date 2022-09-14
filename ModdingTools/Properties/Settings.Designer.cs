@@ -130,5 +130,17 @@ namespace ModdingTools.Properties {
                 this["Flipbook_LastSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RmShaderOnCook {
+            get {
+                return ((bool)(this["RmShaderOnCook"]));
+            }
+            set {
+                this["RmShaderOnCook"] = value;
+            }
+        }
     }
 }

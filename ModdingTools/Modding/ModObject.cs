@@ -228,14 +228,17 @@ namespace ModdingTools.Modding
                 }
             }
 
-            var shaders = GetShaderCacheDir();
-            if (Directory.Exists(shaders))
+            if (Properties.Settings.Default.RmShaderOnCook)
             {
-                foreach (var file in Directory.GetFiles(shaders, "*.upk"))
+                var shaders = GetShaderCacheDir();
+                if (Directory.Exists(shaders))
                 {
-                    File.Delete(file);
+                    foreach (var file in Directory.GetFiles(shaders, "*.upk"))
+                    {
+                        File.Delete(file);
+                    }
                 }
-            }
+            }   
         }
 
         public static ModClass.ModClassType[] CombineTags(ModClass[] source)

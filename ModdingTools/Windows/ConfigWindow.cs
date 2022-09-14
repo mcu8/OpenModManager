@@ -27,6 +27,7 @@ namespace ModdingTools.Windows
             checkBox1.Checked = !Properties.Settings.Default.AutoScanDownloadedMods;
             checkBox2.Checked = Properties.Settings.Default.Memes;
             checkBox4.Checked = Properties.Settings.Default.MultilangCook;
+            checkBox3.Checked = Properties.Settings.Default.RmShaderOnCook;
             checkBox5.Checked = Properties.Settings.Default.UpdateCheck;
         }
 
@@ -35,6 +36,7 @@ namespace ModdingTools.Windows
             Properties.Settings.Default.AutoScanDownloadedMods = !checkBox1.Checked;
             Properties.Settings.Default.Memes = checkBox2.Checked;
             Properties.Settings.Default.MultilangCook = checkBox4.Checked;
+            Properties.Settings.Default.RmShaderOnCook = checkBox3.Checked;
             Properties.Settings.Default.UpdateCheck = checkBox5.Checked;
             Properties.Settings.Default.Save();
         }

@@ -29,5 +29,8 @@
     <Setting Name="Flipbook_LastSize" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">8192</Value>
     </Setting>
+    <Setting Name="RmShaderOnCook" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
