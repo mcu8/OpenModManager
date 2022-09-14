@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CUFramework.Dialogs;
 using ModdingTools.Engine;
 using ModdingTools.Modding;
 using ModdingTools.Windows;
@@ -50,7 +51,7 @@ namespace ModdingTools.GUI
         public void RevalidateTile(ModTile tile)
         {
             if (tile.Parent == null) return;
-            int offset = (tile.Parent.Padding.Left + tile.Margin.Left)*2;
+            int offset = (tile.Parent.Padding.Left + tile.Margin.Left) * 2;
             int xa = 150;
             int width = tile.Parent.Width;
             int cols = width / (xa + offset);
@@ -112,7 +113,7 @@ namespace ModdingTools.GUI
                         {
                             i2++;
                             MainWindow.Instance.GuiWorker.SetStatus("Loading mod " + d.Name + " [" + i2 + " of " + i1 + "]");
-                            
+
                             this.Invoke(new MethodInvoker(() =>
                             {
                                 ModTile tile = null;
@@ -141,10 +142,10 @@ namespace ModdingTools.GUI
                             modContainer.Controls.Add(container);
                             modContainer.RowCount++;
                         }));
-                        
+
                     }
                 }
-                this.Invoke(new MethodInvoker(() => {        
+                this.Invoke(new MethodInvoker(() => {
                     this.BackgroundImage = null;
                     SetStatus("Loaded " + i1 + " elements!");
                     MainWindow.Instance.SetCard(MainWindow.CardControllerTabs.Mods);
@@ -154,11 +155,17 @@ namespace ModdingTools.GUI
                     _timer.Start();
                 }));
             });
-           
+
         }
 
         private void SetStatus(string txt)
         {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(() => SetStatus(txt)));
+                return;
+            }
+
             label1.Text = txt;
             MainWindow.Instance.GuiWorker.SetStatus(txt);
         }
@@ -262,7 +269,24 @@ namespace ModdingTools.GUI
                 foreach (var mod in mods)
                 {
                     SetStatus("Cooking mod: " + mod.Name + " [" + i + "/" + mods.Length + "]");
-                    mod.CookMod(MainWindow.Instance.Runner, false);
+                    mod.UnCookMod();
+
+                    var compileResult = mod.CompileScripts(MainWindow.Instance.Runner, false);
+                    if (compileResult)
+                    {
+                        var cookResult = mod.CookMod(MainWindow.Instance.Runner, false, false);
+                        if (!cookResult)
+                        {
+                            CUMessageBox.Show($"Cooking failed!\nLook at the console output for more info!\n\nMod: {mod.Name} ({mod.GetDirectoryName()})");
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        CUMessageBox.Show($"Script compiler failed!\nLook at the console output for more info!\n\nMod: {mod.Name} ({mod.GetDirectoryName()})");
+                        break;
+                    }
+
                     i++;
                 }
                 SetStatus(null);
