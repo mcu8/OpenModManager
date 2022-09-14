@@ -41,6 +41,8 @@ namespace ModdingTools.Headless
 
             Directory.SetCurrentDirectory(Path.GetDirectoryName(Engine.GameFinder.FindGameDir()));
             Program.Uploader = new ModUploader();
+            Program.SWS = new SteamWorkshopStorage(Path.Combine(Engine.GameFinder.GetModsDir(), "SteamWorkshop.ini"));
+
             var result = CommandLine.Parser.Default.ParseArguments<CommandLineOptions>(args).MapResult(
                 (opts) => RunOptionsAndReturnExitCode(opts), //in case parser sucess
                 (errs) => HandleParseError(errs)); //in  case parser fail
