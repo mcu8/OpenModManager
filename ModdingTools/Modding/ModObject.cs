@@ -235,7 +235,8 @@ namespace ModdingTools.Modding
                 {
                     foreach (var file in Directory.GetFiles(shaders, "*.upk"))
                     {
-                        File.Delete(file);
+                        if (new FileInfo(file).Length > 10485760)
+                            File.Delete(file);
                     }
                 }
             }   
