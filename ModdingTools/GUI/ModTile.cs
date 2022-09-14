@@ -12,6 +12,7 @@ using ModdingTools.Windows;
 using System.Diagnostics;
 using CUFramework.Controls;
 using CUFramework.Dialogs;
+using System.Threading.Tasks;
 
 namespace ModdingTools.GUI
 {
@@ -138,6 +139,7 @@ namespace ModdingTools.GUI
 
         private void cookModToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            Mod.UnCookMod();
             Mod.CookMod(MainWindow.Instance.Runner);
         }
 
@@ -274,6 +276,27 @@ namespace ModdingTools.GUI
         private void panel2_Click(object sender, EventArgs e)
         {
             Process.Start("steam://openurl/http://steamcommunity.com/sharedfiles/filedetails/?id=" + Mod.GetUploadedId());
+        }
+
+        private void compileCookToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Mod.UnCookMod();
+            Task.Factory.StartNew(() =>
+            {
+                var compileResult = Mod.CompileScripts(MainWindow.Instance.Runner, false);
+                if (compileResult)
+                {
+                    var cookResult = Mod.CookMod(MainWindow.Instance.Runner, false, false);
+                    if (!cookResult)
+                    {
+                        CUMessageBox.Show("Cooking the mod was failed! Look at the console output for more info!");
+                    }
+                }
+                else
+                {
+                    CUMessageBox.Show("Compiling scripts was failed! Look at the console output for more info!");
+                }
+            });
         }
     }
 }
