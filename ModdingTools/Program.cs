@@ -139,8 +139,8 @@ namespace ModdingTools
 
                 if (ov.ShowDialog() == DialogResult.OK)
                 {
-                    string dir = Path.GetDirectoryName(ov.FileName);
-                    File.WriteAllText("GameDirPath.cfg", dir);
+                    string dir = Path.Combine(Path.GetDirectoryName(ov.FileName), "Win64");
+                    File.WriteAllText("GameDirPath.dat", dir);
                     if (GameFinder.FindGameDir() == null)
                     {
                         CUMessageBox.Show($"Failed to find the game files in '{dir}'", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);

@@ -1,4 +1,7 @@
-﻿using Microsoft.Win32;
+﻿
+//#define STEAM_NO_REGISTRY_TEST
+
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,23 +10,48 @@ using System.Text;
 
 namespace ModdingTools.Engine
 {
+
     public class GameFinder
     {
         public const string AppID = "253230";
 
+#if STEAM_NO_REGISTRY_TEST
         public static string GetSteamDir()
         {
-            var key = @"HKEY_LOCAL_MACHINE\SOFTWARE\Valve\Steam";
-            if (Environment.Is64BitOperatingSystem)
-            {
-                key = @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Valve\Steam";
-            }
-            return (string)Registry.GetValue(key, "InstallPath", null);
+            return null;
         }
+#else
+        public static string GetSteamDir()
+        {
+            try
+            {
+                var key = @"HKEY_LOCAL_MACHINE\SOFTWARE\Valve\Steam";
+                if (Environment.Is64BitOperatingSystem)
+                {
+                    key = @"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Valve\Steam";
+                }
+                return (string)Registry.GetValue(key, "InstallPath", null);
+            }
+            catch
+            {
+                // if it somehow fails... we don't care lol
+                return null;
+            }
+        }
+#endif
 
         public static string GetWorkshopDir()
         {
-            return Path.Combine(GetSteamDir(), @"steamapps\workshop\content", AppID);
+            var steamDir = GetSteamDir();
+            if (steamDir == null || !Directory.Exists(steamDir))
+            {
+                // fallback to more cheap dir detection... probably using Proton or bad Steam install?
+
+                // the funny
+                var baseDir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(FindGameDir()))));
+                return Path.Combine(baseDir, @"workshop\content", AppID);
+            }
+            return Path.Combine(steamDir, @"steamapps\workshop\content", AppID);
         }
 
         public static string GetModsDir()
@@ -41,8 +69,12 @@ namespace ModdingTools.Engine
             return Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(FindGameDir())), "HatInTimeGame", "EditorCookedPC");
         }
 
+        // Cache that, cuz we changing the working dir - must be absolute!
+        private static string CachedGameDir = null;
         public static string FindGameDir()
         {
+            if (CachedGameDir != null)
+                return CachedGameDir;
 
             if (File.Exists("GameDirPath.dat"))
             {
@@ -54,7 +86,12 @@ namespace ModdingTools.Engine
 
                     if (File.Exists(gamePath) && File.Exists(editorPath))
                     {
+                        CachedGameDir = Path.GetFullPath(testPath);
                         return testPath;
+                    }
+                    else
+                    {
+                        File.Delete("GameDirPath.dat");
                     }
                 }
                 catch (Exception)
@@ -93,6 +130,7 @@ namespace ModdingTools.Engine
 
                     if (File.Exists(gamePath) && File.Exists(editorPath))
                     {
+                        CachedGameDir = Path.GetFullPath(testPath);
                         return testPath;
                     }
                 }

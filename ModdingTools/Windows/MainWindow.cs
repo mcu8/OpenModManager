@@ -238,8 +238,15 @@ namespace ModdingTools.Windows
 
             var autoLoad = Properties.Settings.Default.AutoScanDownloadedMods;
 
-            modListControl1.AddModSource(new ModDirectorySource("Downloaded mods", GameFinder.GetWorkshopDir(), autoLoad, false, true));
-            modListControl1.AddModSource(new ModDirectorySource("Downloaded mods (disabled)", Path.Combine(GameFinder.GetWorkshopDir(), "Disabled"), autoLoad, false, true));
+            try
+            {
+                modListControl1.AddModSource(new ModDirectorySource("Downloaded mods", GameFinder.GetWorkshopDir(), autoLoad, false, true));
+                modListControl1.AddModSource(new ModDirectorySource("Downloaded mods (disabled)", Path.Combine(GameFinder.GetWorkshopDir(), "Disabled"), autoLoad, false, true));
+            }
+            catch (Exception e) 
+            { 
+                // Ignore, cuz that may not work on Proton
+            }
             
             modListControl1.ReloadList(() => {
                 SetCard(CardControllerTabs.Mods);
