@@ -36,6 +36,29 @@ namespace ModdingTools
             return Path.GetDirectoryName(Application.ExecutablePath);
         }
 
+        public static string AssemblyPath
+        {
+            get
+            {
+                string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+                UriBuilder uri = new UriBuilder(codeBase);
+                string path = Uri.UnescapeDataString(uri.Path);
+                return Path.GetFullPath(path);
+            }
+        }
+
+        public static string GetCLIPath()
+        {
+            if (Debugger.IsAttached && !ProgramHeadless.IsHeadlessMode)
+            {
+                return Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(AssemblyPath)))), "ModdingTools.Cli\\bin\\Debug\\ModdingTools.Cli.exe");
+            }
+            else
+            {
+                return Path.Combine(Path.GetDirectoryName(AssemblyPath), "ModdingTools.Cli.exe");
+            }
+        }
+
         [STAThread]
         static void Main(string[] args)
         {
@@ -149,6 +172,8 @@ namespace ModdingTools
 
                 Environment.Exit(1);
             }
+
+            Utils.UpdateAppId(734880);
 
             bool steam = SteamAPI.Init();
             if (!steam)

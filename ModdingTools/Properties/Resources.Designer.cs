@@ -19,7 +19,7 @@ namespace ModdingTools.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -541,6 +541,66 @@ namespace ModdingTools.Properties {
             get {
                 object obj = ResourceManager.GetObject("uploaded", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///	&quot;version&quot;: &quot;2.0.0&quot;,
+        ///	&quot;tasks&quot;: [
+        ///		{
+        ///			&quot;label&quot;: &quot;OMM: Compile&quot;,
+        ///			&quot;type&quot;: &quot;shell&quot;,
+        ///			&quot;command&quot;: &quot;##OMM:OMM_EXE_PATH##&quot;,
+        ///			&quot;args&quot;: [
+        ///				&quot;c&quot;,
+        ///				&quot;${file}&quot;
+        ///			],
+        ///			&quot;problemMatcher&quot;: [],
+        ///			&quot;group&quot;: {
+        ///				&quot;kind&quot;: &quot;build&quot;,
+        ///				&quot;isDefault&quot;: true
+        ///			}
+        ///		},
+        ///		{
+        ///			&quot;label&quot;: &quot;OMM: Compile and Cook&quot;,
+        ///			&quot;type&quot;: &quot;shell&quot;,
+        ///			&quot;command&quot;: &quot;##OMM:OMM_EXE_PATH##&quot;,
+        ///			&quot;args&quot;: [
+        ///				&quot;cc&quot;,
+        ///				&quot;${file}&quot;
+        ///			],
+        ///			&quot;problemMatcher&quot;: [],
+        ///			&quot;group&quot;: &quot;build&quot;
+        ///		},
+        ///        {
+        ///			&quot;label&quot;: &quot;OMM: Comp [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string VSCodeTaskTemplate {
+            get {
+                return ResourceManager.GetString("VSCodeTaskTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///    &quot;folders&quot;: [
+        ///      {
+        ///        // Source code
+        ///        &quot;name&quot;: &quot;Mod source&quot;,
+        ///        &quot;path&quot;: &quot;./&quot;
+        ///      },
+        ///      {
+        ///        // Docs and release notes
+        ///        &quot;name&quot;: &quot;AHiT Source&quot;,
+        ///        &quot;path&quot;: &quot;##AHIT:SRC_ROOT##&quot;
+        ///      }
+        ///    ]
+        ///  }.
+        /// </summary>
+        internal static string VSCodeWorkspaceTemplate {
+            get {
+                return ResourceManager.GetString("VSCodeWorkspaceTemplate", resourceCulture);
             }
         }
     }

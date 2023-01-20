@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Media;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ModdingTools.Engine
@@ -69,11 +70,24 @@ namespace ModdingTools.Engine
             );
         }
 
-        public ExecutableArgumentsPair GetCookMod(ModObject mod)
+        public ExecutableArgumentsPair GetCookMod(ModObject mod, bool fast = false)
         {
             return new ExecutableArgumentsPair(
                 "Cooking mod...",
                 EditorExecutablePath,
+                fast? new string[]
+                {
+                    "CookPackages",
+                    mod.GetDirectoryName(),
+                    "-PROCESSES=" + Environment.ProcessorCount,
+                    "-SKIPMAPS",
+                    "-USERMODE",
+                    "-PLATFORM=PC",
+                    "-NOPAUSEONSUCCESS",
+                    "-FASTCOOK",
+                    "-MULTILANGUAGECOOK=" + (Properties.Settings.Default.MultilangCook ? "INT+CHN+DEU+ESN+FRA+ITA+JPN+KOR+PTB" : "INT"),
+                    "-MODSONLY=" + mod.GetDirectoryName()
+                }:
                 new string[]
                 {
                     "CookPackages",
@@ -88,14 +102,26 @@ namespace ModdingTools.Engine
             );
         }
 
-        public ExecutableArgumentsPair StartMap(string mapName = null)
+        public ExecutableArgumentsPair StartMap(string mapName = null, bool bootNormally = false)
         {
-            return new ExecutableArgumentsPair(
-                "Launching game...",
-                GameExecutablePath,
-                mapName != null ? new string[] { mapName, "-SEEKFREELOADING" } : new string[] { "-SEEKFREELOADING" },
-                Path.GetDirectoryName(GameExecutablePath)
-            );
+            if (bootNormally)
+            {
+                return new ExecutableArgumentsPair(
+                    "Launching game...",
+                    GameExecutablePath,
+                    mapName != null ? new string[] { mapName } : new string[] {},
+                    Path.GetDirectoryName(GameExecutablePath)
+                );
+            }
+            else
+            {
+                return new ExecutableArgumentsPair(
+                    "Launching game...",
+                    GameExecutablePath,
+                    mapName != null ? new string[] { mapName, "-SEEKFREELOADING" } : new string[] { "-SEEKFREELOADING" },
+                    Path.GetDirectoryName(GameExecutablePath)
+                );
+            }
         }
 
         public ExecutableArgumentsPair LaunchEditor(string modName = null)

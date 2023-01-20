@@ -92,6 +92,18 @@ namespace ModdingTools.Engine
                         Directory.Delete(Path.Combine(tmpDir, "Content"), true);
                 }
 
+                if (Directory.Exists(Path.Combine(tmpDir, ".vscode")))
+                    Directory.Delete(Path.Combine(tmpDir, ".vscode"), true);
+
+                if (Directory.Exists(Path.Combine(tmpDir, ".git")))
+                    Directory.Delete(Path.Combine(tmpDir, ".git"), true);
+
+                if (Directory.Exists(Path.Combine(tmpDir, ".github")))
+                    Directory.Delete(Path.Combine(tmpDir, ".github"), true);
+
+                if (File.Exists(Path.Combine(tmpDir, "vsc-modworkspace.code-workspace")))
+                    File.Delete(Path.Combine(tmpDir, "vsc-modworkspace.code-workspace"));
+
                 //var description = mod.GetDescription();
 
                 var modid = mod.GetUploadedId();

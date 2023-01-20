@@ -13,6 +13,7 @@ using System.Diagnostics;
 using CUFramework.Controls;
 using CUFramework.Dialogs;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace ModdingTools.GUI
 {
@@ -297,6 +298,19 @@ namespace ModdingTools.GUI
                     CUMessageBox.Show("Compiling scripts was failed! Look at the console output for more info!");
                 }
             });
+        }
+
+        private void openInVSC_Click(object sender, EventArgs e)
+        {
+            var vsCodePath = Utils.FindVSCodeExecutable();
+            if (vsCodePath != null)
+            {
+                Process.Start(vsCodePath, "\"" + Path.Combine(Path.GetFullPath(Mod.RootPath), "vsc-modworkspace.code-workspace") + "\"");
+            }
+            else
+            {
+                // todo: throw some error message or executable chooser lol
+            }
         }
     }
 }

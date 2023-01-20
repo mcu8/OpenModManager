@@ -378,11 +378,11 @@ namespace ModdingTools.Windows
             this.cuGroupBox2.HeaderFontColor = System.Drawing.Color.Black;
             this.cuGroupBox2.HeaderHeight = 25;
             this.cuGroupBox2.HeaderText = "TAGS";
-            this.cuGroupBox2.Location = new System.Drawing.Point(439, 235);
+            this.cuGroupBox2.Location = new System.Drawing.Point(439, 236);
             this.cuGroupBox2.Margin = new System.Windows.Forms.Padding(0);
             this.cuGroupBox2.Name = "cuGroupBox2";
             this.cuGroupBox2.Padding = new System.Windows.Forms.Padding(1, 26, 1, 1);
-            this.cuGroupBox2.Size = new System.Drawing.Size(269, 238);
+            this.cuGroupBox2.Size = new System.Drawing.Size(269, 237);
             this.cuGroupBox2.TabIndex = 25;
             // 
             // label1
@@ -407,7 +407,7 @@ namespace ModdingTools.Windows
             this.tagsList.HideSelection = false;
             this.tagsList.Location = new System.Drawing.Point(4, 29);
             this.tagsList.Name = "tagsList";
-            this.tagsList.Size = new System.Drawing.Size(261, 141);
+            this.tagsList.Size = new System.Drawing.Size(261, 140);
             this.tagsList.TabIndex = 12;
             this.tagsList.TileSize = new System.Drawing.Size(220, 36);
             this.tagsList.UseCompatibleStateImageBehavior = false;
@@ -466,7 +466,7 @@ namespace ModdingTools.Windows
             this.cuGroupBox5.Margin = new System.Windows.Forms.Padding(0);
             this.cuGroupBox5.Name = "cuGroupBox5";
             this.cuGroupBox5.Padding = new System.Windows.Forms.Padding(1, 26, 1, 1);
-            this.cuGroupBox5.Size = new System.Drawing.Size(269, 235);
+            this.cuGroupBox5.Size = new System.Drawing.Size(269, 236);
             this.cuGroupBox5.TabIndex = 26;
             // 
             // label3
@@ -543,7 +543,7 @@ namespace ModdingTools.Windows
             this.cuGroupBox1.Margin = new System.Windows.Forms.Padding(1);
             this.cuGroupBox1.Name = "cuGroupBox1";
             this.cuGroupBox1.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
-            this.cuGroupBox1.Size = new System.Drawing.Size(437, 233);
+            this.cuGroupBox1.Size = new System.Drawing.Size(437, 234);
             this.cuGroupBox1.TabIndex = 24;
             // 
             // label21
@@ -638,14 +638,14 @@ namespace ModdingTools.Windows
             this.tableLayoutPanel5.Controls.Add(this.cuGroupBox6, 0, 1);
             this.tableLayoutPanel5.Controls.Add(this.panel13, 0, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 235);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 236);
             this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 2;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.72072F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 79.27928F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(439, 238);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(439, 237);
             this.tableLayoutPanel5.TabIndex = 27;
             // 
             // cuGroupBox6
@@ -672,7 +672,7 @@ namespace ModdingTools.Windows
             this.cuGroupBox6.Margin = new System.Windows.Forms.Padding(0);
             this.cuGroupBox6.Name = "cuGroupBox6";
             this.cuGroupBox6.Padding = new System.Windows.Forms.Padding(1, 26, 1, 1);
-            this.cuGroupBox6.Size = new System.Drawing.Size(439, 189);
+            this.cuGroupBox6.Size = new System.Drawing.Size(439, 188);
             this.cuGroupBox6.TabIndex = 27;
             // 
             // label26
@@ -1334,6 +1334,7 @@ namespace ModdingTools.Windows
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(203, 23);
             this.comboBox1.TabIndex = 18;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged_1);
             // 
             // panel2
             // 
@@ -1355,6 +1356,7 @@ namespace ModdingTools.Windows
             this.label6.TabIndex = 21;
             this.label6.Text = "MAP:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // mButton9
             // 

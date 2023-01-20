@@ -37,6 +37,7 @@
             this.cookModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compileScriptsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cookModToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.compileCookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.titleScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spaceshipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,7 +52,7 @@
             this.deleteModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scriptWatcherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scriptWatcherToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.compileCookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openInVSC = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -113,13 +114,14 @@
             this.testModToolStripMenuItem,
             this.toolStripSeparator1,
             this.openDirectoryToolStripMenuItem,
+            this.openInVSC,
             this.moveToToolStripMenuItem,
             this.scriptingToolStripMenuItem,
             this.deleteModToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 164);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(156, 186);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // cookModToolStripMenuItem
@@ -135,16 +137,23 @@
             // compileScriptsToolStripMenuItem
             // 
             this.compileScriptsToolStripMenuItem.Name = "compileScriptsToolStripMenuItem";
-            this.compileScriptsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.compileScriptsToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.compileScriptsToolStripMenuItem.Text = "Compile scripts";
             this.compileScriptsToolStripMenuItem.Click += new System.EventHandler(this.compileScriptsToolStripMenuItem_Click);
             // 
             // cookModToolStripMenuItem1
             // 
             this.cookModToolStripMenuItem1.Name = "cookModToolStripMenuItem1";
-            this.cookModToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.cookModToolStripMenuItem1.Size = new System.Drawing.Size(171, 22);
             this.cookModToolStripMenuItem1.Text = "Cook mod";
             this.cookModToolStripMenuItem1.Click += new System.EventHandler(this.cookModToolStripMenuItem1_Click);
+            // 
+            // compileCookToolStripMenuItem
+            // 
+            this.compileCookToolStripMenuItem.Name = "compileCookToolStripMenuItem";
+            this.compileCookToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.compileCookToolStripMenuItem.Text = "Compile and cook";
+            this.compileCookToolStripMenuItem.Click += new System.EventHandler(this.compileCookToolStripMenuItem_Click);
             // 
             // testModToolStripMenuItem
             // 
@@ -245,12 +254,12 @@
             this.scriptWatcherToolStripMenuItem1.Name = "scriptWatcherToolStripMenuItem1";
             this.scriptWatcherToolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
             // 
-            // compileCookToolStripMenuItem
+            // openInVSC
             // 
-            this.compileCookToolStripMenuItem.Name = "compileCookToolStripMenuItem";
-            this.compileCookToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.compileCookToolStripMenuItem.Text = "Compile and cook";
-            this.compileCookToolStripMenuItem.Click += new System.EventHandler(this.compileCookToolStripMenuItem_Click);
+            this.openInVSC.Name = "openInVSC";
+            this.openInVSC.Size = new System.Drawing.Size(155, 22);
+            this.openInVSC.Text = "Open in VS Code";
+            this.openInVSC.Click += new System.EventHandler(this.openInVSC_Click);
             // 
             // ModTile
             // 
@@ -293,5 +302,6 @@
         private System.Windows.Forms.ToolStripMenuItem hatInTimeEntryToolStripMenuItem;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ToolStripMenuItem compileCookToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openInVSC;
     }
 }

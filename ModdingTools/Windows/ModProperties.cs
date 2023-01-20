@@ -731,7 +731,7 @@ namespace ModdingTools.Windows
             }
         }
 
-        class MapItem
+        public class MapItem
         {
             public string Name;
             public string DisplayName;
@@ -1052,6 +1052,16 @@ namespace ModdingTools.Windows
         private void label26_Click(object sender, EventArgs e)
         {
             UnpickImage(ref panel8, Properties.Resources.noimage_wide);
+        }
+
+        private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

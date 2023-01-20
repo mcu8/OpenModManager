@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using System.Linq.Expressions;
 using System.Drawing;
 using System.IO;
+using Steamworks;
+using ModdingTools.Headless;
 
 namespace ModdingTools.Engine
 {
@@ -25,6 +27,39 @@ namespace ModdingTools.Engine
         public static string ClearWhitespaces(string source, bool keepSingleSpace = true)
         {
             return Regex.Replace(source, @"\s+", keepSingleSpace ? " " : "");
+        }
+
+        public static void UpdateAppId(int appIdT)
+        {
+            Environment.SetEnvironmentVariable("SteamAppId", appIdT.ToString());
+            Environment.SetEnvironmentVariable("SteamOverlayGameId", appIdT.ToString());
+            Environment.SetEnvironmentVariable("SteamGameId", appIdT.ToString());
+            if (ProgramHeadless.IsHeadlessMode)
+            {
+                File.WriteAllText(Path.Combine(Path.GetDirectoryName(Program.GetCLIPath()), "steam_appid.txt"), appIdT.ToString());
+            }
+            else
+            {
+                File.WriteAllText(Path.Combine(Program.GetAppRoot(), "steam_appid.txt"), appIdT.ToString());
+            }
+        }
+
+        public static string FindVSCodeExecutable()
+        {
+            var testPaths = new List<string>()
+            {
+                Path.Combine(Environment.GetEnvironmentVariable("LocalAppData"), "Programs", "Microsoft VS Code", "code.exe"),
+                Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles"), "Microsoft VS Code", "code.exe"),
+                Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles(x86)"), "Microsoft VS Code", "code.exe")
+            };
+
+            foreach(var path in testPaths)
+            {
+                if (File.Exists(path))
+                    return path;
+            }
+
+            return null;
         }
 
         public static bool CollectionContains(string find, string[] haystack, bool caseSensitive)
@@ -80,9 +115,32 @@ namespace ModdingTools.Engine
             }
         }
 
-        public static void KillEditor()
+        public static void KillAllHatStuff(bool async = true)
         {
-            System.Diagnostics.Process.Start("taskkill.exe", "/F /IM HatInTimeEditor.exe");
+            KillEditor(async);
+            KillGame(async);
+        }
+
+        public static void KillEditor(bool async = true)
+        {
+            KillProcessByImageName("HatInTimeEditor.exe", async);
+        }
+
+        public static void KillGame(bool async = true)
+        {
+            KillProcessByImageName("HatInTimeGame.exe", async);
+        }
+
+        public static void KillProcessByImageName(string name, bool async)
+        {
+            var x = new ProcessStartInfo();
+            x.FileName = "taskkill.exe";
+            x.Arguments = "/F /IM \"" + name + "\"";
+            x.UseShellExecute = false;
+            x.CreateNoWindow = true;
+            var proc = Process.Start(x);
+            if (async)
+                proc.WaitForExit();
         }
 
         public static long GetUnixTimestamp(DateTime t)
@@ -119,7 +177,56 @@ namespace ModdingTools.Engine
             return result;
         }
 
+        public static bool DirectoryHasFiles(string path, string[] filters = null)
+        {
+            if (!Directory.Exists(path))
+            {
+                return false;
+            }
+
+            if (filters == null)
+                return Directory.GetFiles(path, "*", SearchOption.AllDirectories).Length > 0;
+
+            foreach (string searchPattern in filters)
+            {
+                if (Directory.GetFiles(path, searchPattern, SearchOption.AllDirectories).Length > 0) 
+                    return true;
+            }
+            return false;
+        }
+
         public static DateTime? YoungestInDir(string PathToFolder, string[] FileFilters)
+        {
+            if (!Directory.Exists(PathToFolder))
+            {
+                return null;
+            }
+            DateTime? result = null;
+            foreach (string searchPattern in FileFilters)
+            {
+                var files = Directory.GetFiles(PathToFolder, searchPattern, SearchOption.AllDirectories);
+                foreach (var file in files)
+                {
+                    var lastWriteTime = File.GetLastWriteTime(file);
+                    if (!result.HasValue || DateTime.Compare(lastWriteTime, result.Value) > 0)
+                    {
+                        result = lastWriteTime;
+                    }
+                }
+            }
+            return result;
+        }
+
+        public static void UpdateFileDates(string path)
+        {
+            var files = Directory.GetFiles(path, "*", SearchOption.AllDirectories);
+            foreach (var file in files)
+            {
+                File.SetLastWriteTime(file, DateTime.Now);
+            }
+        }
+
+        public static DateTime? OldestInDir(string PathToFolder, string[] FileFilters)
         {
             if (!Directory.Exists(PathToFolder))
             {

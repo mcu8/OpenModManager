@@ -4,6 +4,7 @@ using ModdingTools.Engine;
 using ModdingTools.Logging;
 using ModdingTools.Logging.Handlers;
 using ModdingTools.Modding;
+using ModdingTools.Windows;
 using Steamworks;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 
 namespace ModdingTools.Headless
 {
@@ -21,11 +23,35 @@ namespace ModdingTools.Headless
         [STAThread]
         public static void MainHeadless(string[] args)
         {
+            if (!Environment.Is64BitOperatingSystem || !Environment.Is64BitProcess)
+            {
+                Logger.Log(LogLevel.Error, "This app needs 64-bit operating environment and operating system!");
+                Environment.Exit(0);
+            }
+
             IsHeadlessMode = true;
             Program.ProcFactory = new ProcessFactory();
 
+            Directory.SetCurrentDirectory(Path.GetDirectoryName(Engine.GameFinder.FindGameDir()));
+
             Logger.InitializeLogger();
 
+            // if just compile - skip unecessary stuff - we need to work fast :)
+            // hopefully we don't need the SteamAPI to just compile scripts...
+            if (args.Length == 2 && (
+                args[0] == "c" ||
+                args[0] == "cc" ||
+                args[0] == "ce" ||
+                args[0] == "cg" || 
+                args[0] == "cm" ||
+                args[0] == "ci" ||
+                args[0] == "cn") && args[1].ToLower().EndsWith(".uc"))
+            {
+                var compResult = CompileMod(args[1], args[0]);
+                Environment.Exit(compResult);
+            }
+
+            Utils.UpdateAppId(734880);
             bool steam = SteamAPI.Init();
             if (!steam)
             {
@@ -33,13 +59,6 @@ namespace ModdingTools.Headless
                 Environment.Exit(0);
             }
 
-            if (!Environment.Is64BitOperatingSystem || !Environment.Is64BitProcess)
-            {
-                Logger.Log(LogLevel.Error, "This app needs 64-bit operating environment and operating system!");
-                Environment.Exit(0);
-            }
-
-            Directory.SetCurrentDirectory(Path.GetDirectoryName(Engine.GameFinder.FindGameDir()));
             Program.Uploader = new ModUploader();
             Program.SWS = new SteamWorkshopStorage(Path.Combine(Engine.GameFinder.GetModsDir(), "SteamWorkshop.ini"));
 
@@ -179,6 +198,124 @@ namespace ModdingTools.Headless
                 }
             }
             return exitCode;
+        }
+
+        public static int CompileMod(string scriptPath, string command)
+        {
+            Utils.KillAllHatStuff(false);
+            Thread.Sleep(150);
+
+            var gamePath = Program.ProcFactory.GetGamePath();
+            Logger.Log(LogLevel.Info, "Game path: " + gamePath);
+            var ds = new ModDirectorySource("Mods directory", Path.Combine(gamePath, @"HatinTimeGame\Mods"), true);
+            var mod = ds.FindModByScriptPath(scriptPath);
+            if (mod == null)
+            {
+                Logger.Log(LogLevel.Error, "Failed to find mod for current script file!");
+                return -1;
+            }
+            else
+            {
+                var runner = new ConsoleProcessRunner();
+                var cookedStatus = mod.DoesModNeedToBeCooked();
+                var fast = cookedStatus != null && !cookedStatus.Contains("[0x0]") && !cookedStatus.Contains("[0x3]") && !cookedStatus.Contains("[0x4]");
+                var scriptNeedCooking = cookedStatus != null && (cookedStatus.Contains("[0x1]") || cookedStatus.Contains("[0x2]") || cookedStatus.Contains("[0x0]"));
+                if (cookedStatus == null)
+                {
+                    Logger.Log(LogLevel.Info, "Nothing to cook");
+                }
+                else
+                {
+                    Logger.Log(LogLevel.Info, "Starting mod building, reason(s): \n" + cookedStatus);
+                    bool result;
+                    if (scriptNeedCooking)
+                    {
+                        Logger.Log(LogLevel.Info, "Running CompileScripts task...");
+                        result = mod.CompileScripts(runner, false, false);
+                        if (!result)
+                        {
+                            Logger.Log(LogLevel.Error, $"Script building failed!");
+                            return -33;
+                        }
+                        else
+                        {
+                            mod.Refresh();
+                        }
+                    }
+                    else
+                    {
+                        Logger.Log(LogLevel.Info, "Scripts are up to date, skipping...");
+                    }
+
+                    if (command == "cc" || command == "ce" || command == "cg" || command == "cm" || command == "ci" || command == "cn")
+                    {
+                        if (!mod.HasAnyScripts() || mod.HasCompiledScripts())
+                        {
+                            Logger.Log(LogLevel.Info, "Running CookMod task..." + (fast ? " (fast mode, scripts only)" : ""));
+                            result = mod.CookMod(runner, false, false, fast);
+                            if (!result)
+                            {
+                                Logger.Log(LogLevel.Error, $"Cooking failed!");
+                                return -34;
+                            }
+                            Utils.UpdateFileDates(mod.GetCookedDir());
+                        }
+                        else
+                        {
+                            Logger.Log(LogLevel.Error, $"You need to compile scripts first!");
+                            return -35;
+                        }
+                    }
+                }
+
+                if (command == "ce" || command == "cg" || command == "cm" || command == "ci" || command == "cn")
+                {
+                    if (command == "ci" || command == "cn")
+                    {
+                        // spoof to game appid to load workshop mods
+                        Utils.UpdateAppId(253230);
+                    }
+                    else
+                    {
+                        Utils.UpdateAppId(734880);
+                    }
+
+                    bool steam = SteamAPI.Init();
+                    if (!steam)
+                    {
+                        Logger.Log(LogLevel.Error, "SteamAPI initialization failed! (is Steam running/installed?)");
+                        Environment.Exit(0);
+                    }
+
+                    switch (command)
+                    {
+                        case "ce":
+                            runner.RunWithoutWait(Program.ProcFactory.LaunchEditor(mod.GetDirectoryName()));
+                            break;
+                        case "cg":
+                        case "ci":
+                            runner.RunWithoutWait(Program.ProcFactory.StartMap(mod.GetLastMap(), command == "ci"));
+
+                            Thread.Sleep(1000);
+                            // restore appid
+                            Utils.UpdateAppId(734880);
+                            break;
+                        case "cm":
+                        case "cn":
+                            var chooser = new MapChooser(mod);
+                            chooser.ShowDialog();
+                            runner.RunWithoutWait(Program.ProcFactory.StartMap(mod.GetLastMap(), command == "cn"));
+
+                            Thread.Sleep(1000);
+                            // restore appid
+                            Utils.UpdateAppId(734880);
+                            break;
+                        default:
+                            throw new Exception("NOT IMPLEMENTED!!!!1");
+                    }
+                }
+                return 0;
+            }
         }
 
         static int HandleParseError(IEnumerable<Error> errs)

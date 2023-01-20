@@ -269,4 +269,107 @@
   <data name="noimage_wide" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\noimage_wide.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="VSCodeTaskTemplate" xml:space="preserve">
+    <value>{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "OMM: Compile",
+			"type": "shell",
+			"command": "##OMM:OMM_EXE_PATH##",
+			"args": [
+				"c",
+				"${file}"
+			],
+			"problemMatcher": [],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"label": "OMM: Compile and Cook",
+			"type": "shell",
+			"command": "##OMM:OMM_EXE_PATH##",
+			"args": [
+				"cc",
+				"${file}"
+			],
+			"problemMatcher": [],
+			"group": "build"
+		},
+        {
+			"label": "OMM: Compile and Cook and launch editor",
+			"type": "shell",
+			"command": "##OMM:OMM_EXE_PATH##",
+			"args": [
+				"ce",
+				"${file}"
+			],
+			"problemMatcher": [],
+			"group": "build"
+		},
+        {
+			"label": "OMM: Compile and Cook and launch game (only mods folder, last visited map)",
+			"type": "shell",
+			"command": "##OMM:OMM_EXE_PATH##",
+			"args": [
+				"cg",
+				"${file}"
+			],
+			"problemMatcher": [],
+			"group": "build"
+		},
+        {
+			"label": "OMM: Compile and Cook and launch game (only mods folder, choose map)",
+			"type": "shell",
+			"command": "##OMM:OMM_EXE_PATH##",
+			"args": [
+				"cm",
+				"${file}"
+			],
+			"problemMatcher": [],
+			"group": "build"
+		},
+        {
+			"label": "OMM: Compile and Cook and launch game (with workshop mods, last visited map)",
+			"type": "shell",
+			"command": "##OMM:OMM_EXE_PATH##",
+			"args": [
+				"ci",
+				"${file}"
+			],
+			"problemMatcher": [],
+			"group": "build"
+		},
+        {
+			"label": "OMM: Compile and Cook and launch game (with workshop mods, choose map)",
+			"type": "shell",
+			"command": "##OMM:OMM_EXE_PATH##",
+			"args": [
+				"cn",
+				"${file}"
+			],
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}</value>
+  </data>
+  <data name="VSCodeWorkspaceTemplate" xml:space="preserve">
+    <value>{
+    "folders": [
+      {
+        // Source code
+        "name": "Mod source",
+        "path": "./"
+      },
+      {
+        // Docs and release notes
+        "name": "AHiT Source",
+        "path": "##AHIT:SRC_ROOT##"
+      }
+    ]
+  }</value>
+  </data>
 </root>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModdingTools.Logging;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -15,6 +16,23 @@ namespace ModdingTools.Modding
         public bool IsReadOnly         { get; private set; }
         public bool Enabled            { get; set; }
         public bool AutoLoad           { get; set; }
+
+        public ModObject FindModByScriptPath(string scriptPath)
+        {
+            var path = Path.GetFullPath(scriptPath).ToLower();
+            var mods = GetMods();
+            Logger.Log(CUFramework.Shared.LogLevel.Verbose, path);
+            foreach (var mod in mods)
+            {
+                var x = Path.GetFullPath(mod.GetClassesDir()).ToLower();
+                Logger.Log(CUFramework.Shared.LogLevel.Verbose, x);
+
+                // idk I'm skeptical about this method... but for testing it should be enough
+                if (path.StartsWith(x))
+                    return mod;
+            }
+            return null;
+        }
 
         public ModObject[] GetMods(string modName = null)
         {

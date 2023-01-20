@@ -17,6 +17,7 @@ using UELib.Core;
 using UELib.Engine;
 using static ModdingTools.Engine.ModClass;
 using ModdingTools.Windows.Tools;
+using System.Web;
 
 namespace ModdingTools.Modding
 {
@@ -77,6 +78,18 @@ namespace ModdingTools.Modding
         public string RootPath { get; private set; }
         public ModDirectorySource RootSource { get; private set; }
 
+        public void UpdateVSCodeRunTasks()
+        {
+            var vscodepath = Path.Combine(RootPath, ".vscode");
+            if (!Directory.Exists(vscodepath))
+                Directory.CreateDirectory(Path.Combine(RootPath, ".vscode"));
+
+            if (!File.Exists(Path.Combine(RootPath, "vsc-modworkspace.code-workspace")))
+                File.WriteAllText(Path.Combine(RootPath, "vsc-modworkspace.code-workspace"), Properties.Resources.VSCodeWorkspaceTemplate.Replace("##AHIT:SRC_ROOT##", HttpUtility.JavaScriptStringEncode(Engine.GameFinder.GetSrcDir())));
+
+            File.WriteAllText(Path.Combine(vscodepath, "tasks.json"), Properties.Resources.VSCodeTaskTemplate.Replace("##OMM:OMM_EXE_PATH##", HttpUtility.JavaScriptStringEncode(Program.GetCLIPath())));
+        }
+
         public string[] GetIniTags()
         {
             List<string> tmp = new List<string>();
@@ -127,7 +140,6 @@ namespace ModdingTools.Modding
             this.RootPath = Path.Combine(RootSource.Root, newName);
         }
 
-
         public void SetImageResource(string key, string val)
         {
             switch (key)
@@ -174,27 +186,40 @@ namespace ModdingTools.Modding
         // returns null if not
         public string DoesModNeedToBeCooked()
         {
-            var ex = new Dictionary<DateTime?, string>
+            var lines = new StringBuilder();
+ 
+            if (!Utils.DirectoryHasFiles(GetCookedDir(), new[] { "*.umap", "*.upk", "*.u" }))
             {
-                { Utils.YoungestInDir(GetCookedDir(),  new[] { "*.u", "*.umap" }),   "No cook"                       },
-                { Utils.YoungestInDir(GetClassesDir(), new[] { "*.uc"          }),   "Scripts need to be recooked"   },
-                { Utils.YoungestInDir(GetContentDir(), new[] { "*.upk"         }),   "Content needs to be recooked"  },
-                { Utils.YoungestInDir(GetMapsDir(),    new[] { "*.umap"        }),   "Maps need to be recooked"      }
-            };
-
-            foreach (var k in ex)
-            {
-                if (ex.First().Value == k.Value)
-                {
-                    if (!k.Key.HasValue) return k.Value;
-                }
-                else
-                {
-                    if (k.Key.HasValue && DateTime.Compare(ex.First().Key.Value, k.Key.Value) < 0)
-                        return k.Value;
-                }
+                return "- entire mod needs to be recooked! [0x0]";
             }
-            return null;
+
+            var cookedPCData = Utils.OldestInDir(GetCookedDir(), new[] { "*.umap", "*.upk", "*.u" });
+            if (Utils.DirectoryHasFiles(GetClassesDir(), new[] { "*.uc" }))
+            {
+                if (Utils.YoungestInDir(GetClassesDir(), new[] { "*.uc" }) > cookedPCData)
+                    lines.AppendLine("- scripts needs to be recooked [0x1]");
+            }
+
+            if (Utils.DirectoryHasFiles(GetCompiledScriptsDir(), new[] { "*.u" }))
+            {
+                if (Utils.YoungestInDir(GetCompiledScriptsDir(), new[] { "*.u" }) > cookedPCData)
+                    lines.AppendLine("- compiled scripts needs to be recooked [0x2]");
+            }
+
+            if (Utils.DirectoryHasFiles(GetMapsDir(), new[] { "*.umap" }))
+            {
+                if (Utils.YoungestInDir(GetMapsDir(), new[] { "*.umap" }) > cookedPCData)
+                    lines.AppendLine("- maps needs to be recooked [0x3]");
+            }
+
+            if (Utils.DirectoryHasFiles(GetContentDir(), new[] { "*.upk" }))
+            {
+                if (Utils.YoungestInDir(GetContentDir(), new[] { "*.upk" }) > cookedPCData)
+                    lines.AppendLine("- content needs to be recooked [0x4]");
+            }
+
+            // Jessie, we need to cook!
+            return lines.Length > 0 ? lines.ToString() : null;
         }
 
         public void ChangeModSource(ModDirectorySource source)
@@ -331,16 +356,16 @@ namespace ModdingTools.Modding
             return this.GetDirectoryName().ToLower().GetHashCode();
         }
 
-        public bool CookMod(AbstractProcessRunner runner, bool async = true, bool cleanConsole = true)
+        public bool CookMod(AbstractProcessRunner runner, bool async = true, bool cleanConsole = true, bool fast = false)
         {
             if (async)
             {
-                runner.RunAppAsync(Program.ProcFactory.GetCookMod(this));
+                runner.RunAppAsync(Program.ProcFactory.GetCookMod(this, fast));
                 return true; // async task always return true
             }
             else
             {
-                return runner.RunApp(Program.ProcFactory.GetCookMod(this), cleanConsole);
+                return runner.RunApp(Program.ProcFactory.GetCookMod(this, fast), cleanConsole);
             }
         }
 
@@ -416,7 +441,10 @@ namespace ModdingTools.Modding
             this.IntroductionMap = TryGet(i, "IntroductionMap");
 
             if (!this.IsReadOnly)
+            {
                 GetModClasses(true);
+                UpdateVSCodeRunTasks();
+            }    
 
             // ok, let's the fun begin... I hate this
             bool parse = false;
@@ -584,6 +612,18 @@ namespace ModdingTools.Modding
         {
             if (!Directory.Exists(GetCookedDir())) return false;
             return Directory.GetFiles(GetCookedDir(), "*.umap").Length > 0;
+        }
+
+        public string GetLastMap()
+        {
+            var flagFile = Path.Combine(RootPath, ".lastMap");
+            if (File.Exists(flagFile))
+            {
+                var data = File.ReadAllText(flagFile);
+                if (!string.IsNullOrEmpty(data)) 
+                    return data;
+            }
+            return null;
         }
 
         public string[] GetAllMaps()
