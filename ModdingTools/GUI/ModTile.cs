@@ -14,6 +14,7 @@ using CUFramework.Controls;
 using CUFramework.Dialogs;
 using System.Threading.Tasks;
 using System.IO;
+using ModdingTools.Settings;
 
 namespace ModdingTools.GUI
 {
@@ -207,7 +208,7 @@ namespace ModdingTools.GUI
         {
             CleanupTests();
 
-            openInVSC.Visible = Properties.Settings.Default.VSCIntegration;
+            openInVSC.Visible = OMMSettings.Instance.VSCIntegration;
             cookModToolStripMenuItem.Enabled = !Mod.IsReadOnly;
             testModToolStripMenuItem.Enabled = !Mod.IsReadOnly;
             scriptingToolStripMenuItem.Enabled = !Mod.IsReadOnly;
@@ -318,8 +319,8 @@ namespace ModdingTools.GUI
 
                 if (ov.ShowDialog() == DialogResult.OK)
                 {
-                    Properties.Settings.Default.VSCCustomPath = ov.FileName;
-                    Properties.Settings.Default.Save();
+                    OMMSettings.Instance.VSCCustomPath = ov.FileName;
+                    OMMSettings.Instance.Save();
 
                     vsCodePath = Utils.FindVSCodeExecutable();
                     if (vsCodePath != null)
