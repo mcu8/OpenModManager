@@ -124,6 +124,16 @@ namespace ModdingTools.Engine
             }
         }
 
+        public ExecutableArgumentsPair StartMapWithAllMods(string mapName = null)
+        {
+            return new ExecutableArgumentsPair(
+                "Launching game with workshop mods...",
+                Program.GetCLIPath(),
+                mapName != null ? new string[] { "--nologo", $"--testmapall={mapName}" } : new string[] { "--nologo", "--testmapall=titlescreen_final" },
+                Path.GetDirectoryName(GameExecutablePath)
+            );
+        }
+
         public ExecutableArgumentsPair LaunchEditor(string modName = null)
         {
             return new ExecutableArgumentsPair(

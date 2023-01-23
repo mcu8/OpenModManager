@@ -23,10 +23,13 @@ namespace ModdingTools.Headless
         [Option("testmap", HelpText = "Test map", Group = "task")]
         public string TestMap { get; set; }
 
+        [Option("testmapall", HelpText = "Test map (all mods)", Group = "task")]
+        public string TestMapAll { get; set; }
+
         [Option("mod", HelpText = "Mod folder name")]
         public string ModName { get; set; }
 
-        [Option(HelpText = "Hide banner", Default = false)]
+        [Option("nologo", HelpText = "Hide banner", Default = false)]
         public bool NoLogo { get; set; }
     }
 }

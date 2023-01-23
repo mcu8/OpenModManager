@@ -27,11 +27,11 @@ namespace ModdingTools.Engine
         public abstract void FinishAppRun();
         public abstract void PreRunWithoutWait();
 
-        public void RunAppAsync(ExecutableArgumentsPair info)
+        public void RunAppAsync(ExecutableArgumentsPair info, bool cleanConsole = true)
         {
             Debug.WriteLine(info.ToString());
             SetText(info.TaskName);
-            RunAppAsync(info.Executable, info.Arguments, info.WorkingDirectory, info.TaskName, info.OnFinish);
+            RunAppAsync(info.Executable, info.Arguments, info.WorkingDirectory, info.TaskName, info.OnFinish, cleanConsole);
         }
 
         public bool RunApp(ExecutableArgumentsPair info, bool cleanConsole = true)
@@ -40,13 +40,13 @@ namespace ModdingTools.Engine
             return RunApp(info.Executable, info.Arguments, info.WorkingDirectory, info.TaskName, info.OnFinish, cleanConsole);
         }
 
-        public void RunAppAsync(string exe, string[] args, string cwd = ".", string taskName = "", Action o = null)
+        public void RunAppAsync(string exe, string[] args, string cwd = ".", string taskName = "", Action o = null, bool cleanConsole = true)
         {
             Task.Factory.StartNew(() =>
             {
                 try
                 {
-                    RunApp(exe, args, cwd, taskName);
+                    RunApp(exe, args, cwd, taskName, null, cleanConsole);
                     o?.Invoke();
                 }
                 catch (Exception e)

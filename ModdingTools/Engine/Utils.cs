@@ -14,6 +14,7 @@ using System.Drawing;
 using System.IO;
 using Steamworks;
 using ModdingTools.Headless;
+using System.Threading.Tasks;
 
 namespace ModdingTools.Engine
 {
@@ -52,6 +53,11 @@ namespace ModdingTools.Engine
                 Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles"), "Microsoft VS Code", "code.exe"),
                 Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles(x86)"), "Microsoft VS Code", "code.exe")
             };
+
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.VSCCustomPath))
+            {
+                testPaths.Insert(0, Properties.Settings.Default.VSCCustomPath);
+            }
 
             foreach(var path in testPaths)
             {
@@ -123,24 +129,29 @@ namespace ModdingTools.Engine
 
         public static void KillEditor(bool async = true)
         {
-            KillProcessByImageName("HatInTimeEditor.exe", async);
+            KillProcessByImageName("HatInTimeEditor", async);
         }
 
         public static void KillGame(bool async = true)
         {
-            KillProcessByImageName("HatInTimeGame.exe", async);
+            KillProcessByImageName("HatInTimeGame", async);
         }
 
         public static void KillProcessByImageName(string name, bool async)
         {
-            var x = new ProcessStartInfo();
-            x.FileName = "taskkill.exe";
-            x.Arguments = "/F /IM \"" + name + "\"";
-            x.UseShellExecute = false;
-            x.CreateNoWindow = true;
-            var proc = Process.Start(x);
             if (async)
-                proc.WaitForExit();
+            {
+                Task.Factory.StartNew(() =>
+                {
+                    foreach (var x in Process.GetProcessesByName(name))
+                        x.Kill();
+                });
+            }
+            else
+            {
+                foreach(var x in Process.GetProcessesByName(name))
+                    x.Kill();
+            }
         }
 
         public static long GetUnixTimestamp(DateTime t)

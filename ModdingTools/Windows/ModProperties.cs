@@ -14,6 +14,8 @@ using CUFramework.Dialogs;
 using CUFramework.Controls.Tabs;
 using CUFramework.Dialogs.Validators;
 using ModdingTools.Windows.Validators;
+using System.Globalization;
+using CUFramework.Controls;
 
 namespace ModdingTools.Windows
 {
@@ -125,6 +127,7 @@ namespace ModdingTools.Windows
             _saveFeatureHold = true;
             Mod.Refresh();
             contentBrowser1.LoadMod(Mod);
+            comboBox3.SelectedIndex = Math.Min(Math.Max(Properties.Settings.Default.LastAction, 0), comboBox3.Items.Count - 1);
 
             levelType.Items.Clear();
             if (Mod.HasAnyMaps())
@@ -234,12 +237,12 @@ namespace ModdingTools.Windows
             panel2.Enabled = false;
 
 
-            comboBox2.Items.Add(new MapItem(null, "(none)"));
+            comboBox2.Items.Add(new MapItem(null, "(none)", true));
             var maps = Mod.GetAllMaps();
             if (maps != null)
             foreach (var a in maps)
             {
-                comboBox2.Items.Add(new MapItem(a));
+                comboBox2.Items.Add(new MapItem(a, null, true));
                 if (a.Equals(Mod.IntroductionMap, StringComparison.InvariantCultureIgnoreCase))
                 {
                     comboBox2.SelectedIndex = comboBox2.Items.Count - 1;
@@ -250,50 +253,44 @@ namespace ModdingTools.Windows
                 comboBox2.SelectedIndex = 0;
             }
 
-            if (cooked)
+            string lastMap = "";
+            try
             {
-                string lastMap = "";
-                try
-                {
-                    var flagFile = Path.Combine(Mod.RootPath, ".lastMap");
-                    if (File.Exists(flagFile))
-                        lastMap = File.ReadAllText(flagFile);
-                }
-                catch(Exception)
-                {
-                }
-
-                //Mod.TestMod(MainWindow.Instance.Runner, "mafia_town");
-                comboBox1.Items.Add(new MapItem("hub_spaceship", "Spaceship"));
-                comboBox1.Items.Add(new MapItem("mafia_town", "Mafia Town"));
-                comboBox1.Items.Add(new MapItem("hatintimeentry", "HatInTimeEntry"));
-                comboBox1.Items.Add(new MapItem("??menu", "Main Menu"));
-
-                if (Mod.HasAnyCookedMaps())
-                {
-                    foreach (var a in Mod.GetCookedMaps())
-                    {
-                        comboBox1.Items.Add(new MapItem(a));
-                    }
-                }
-
-                bool found = false;
-                foreach (var a in comboBox1.Items)
-                {
-                    var item = (MapItem)a;
-                    if (item.Name == lastMap)
-                    {
-                        comboBox1.SelectedIndex = comboBox1.Items.IndexOf(a);
-                        found = true;
-                        break;
-                    }
-                }
-
-                if (!found) 
-                    comboBox1.SelectedIndex = comboBox1.Items.Count - 1;
-
-                panel2.Enabled = true;
+                var flagFile = Path.Combine(Mod.RootPath, ".lastMap");
+                if (File.Exists(flagFile))
+                    lastMap = File.ReadAllText(flagFile);
             }
+            catch (Exception)
+            {
+            }
+
+            //Mod.TestMod(MainWindow.Instance.Runner, "mafia_town");
+            comboBox1.Items.Add(new MapItem("hub_spaceship", "Spaceship", true));
+            comboBox1.Items.Add(new MapItem("mafia_town", "Mafia Town", true));
+            comboBox1.Items.Add(new MapItem("hatintimeentry", "HatInTimeEntry", true));
+            comboBox1.Items.Add(new MapItem("??menu", "Main Menu", true));
+
+            var mapsA = Mod.GetCookedMaps();
+            foreach (var a in Mod.GetAllMaps())
+            {
+                comboBox1.Items.Add(new MapItem(a, null, mapsA.Contains(a, StringComparer.InvariantCultureIgnoreCase)));
+            }
+
+            bool found = false;
+            foreach (var a in comboBox1.Items)
+            {
+                var item = (MapItem)a;
+                if (item.Name == lastMap)
+                {
+                    comboBox1.SelectedIndex = comboBox1.Items.IndexOf(a);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+                comboBox1.SelectedIndex = comboBox1.Items.Count - 1;
+            panel2.Enabled = true;
 
             Store = ModStore.LoadForMod(Mod);
 
@@ -307,7 +304,10 @@ namespace ModdingTools.Windows
             HasUnsavedChanges = false;
 
             var workshopId = Mod.GetUploadedId();
-            label14.Text = workshopId > 0 ? ("WorkshopId: "  + workshopId) : "";
+            if (workshopId > 0)
+            {
+                this.Text = $"[{workshopId}] {Mod.Name.ToUpper()} (V. {Mod.Version})";
+            }
         }
 
         private void LoadGraphics()
@@ -397,6 +397,7 @@ namespace ModdingTools.Windows
             ModDescriptionEdit.ReadOnly = !v;
             panel2.Enabled = v;
             tabController1.Enabled = v;
+            comboBox1.Enabled = v;
         }
 
         private bool ConditionalReload()
@@ -735,16 +736,18 @@ namespace ModdingTools.Windows
         {
             public string Name;
             public string DisplayName;
+            public bool IsCooked;
 
-            public MapItem(string name, string displayName = null)
+            public MapItem(string name, string displayName = null, bool isCooked = false)
             {
                 Name = name;
                 DisplayName = displayName;
+                IsCooked = isCooked;
             }
 
             public override string ToString()
             {
-                return DisplayName ?? Name;
+                return DisplayName ?? Name + (IsCooked ? "" : " [Uncooked!]");
             }
         }
 
@@ -756,7 +759,7 @@ namespace ModdingTools.Windows
                 File.WriteAllText(Path.Combine(Mod.RootPath, ".lastMap"), item.Name);
             }
             catch (Exception) { }
-            Mod.TestMod(MainWindow.Instance.Runner, item.Name == "??menu" ? null : item.Name);
+            Mod.TestModAllMods(MainWindow.Instance.Runner, item.Name == "??menu" ? null : item.Name);
         }
 
         private void cbOnlineParty_CheckedChanged(object sender, EventArgs e)
@@ -868,29 +871,166 @@ namespace ModdingTools.Windows
         {
             if (!contentBrowser1.HasContentError)
             {
+                if (comboBox3.SelectedIndex > 0)
+                {
+                    var item = (MapItem)comboBox1.SelectedItem;
+                    try
+                    {
+                        File.WriteAllText(Path.Combine(Mod.RootPath, ".lastMap"), item.Name);
+                    }
+                    catch (Exception) { }
+                } 
+
                 if (!ConditionalReload()) return;
                 ToggleUnlock(false);
                 SaveMod();
-                Mod.UnCookMod();
-                Task.Factory.StartNew(() =>
-                {
-                    var compileResult = Mod.CompileScripts(this.processRunner1.Runner, false);
-                    if (compileResult)
-                    {
-                        var cookResult = Mod.CookMod(this.processRunner1.Runner, false, false);
-                        if (!cookResult)
-                        {
-                            CUMessageBox.Show(this, "Cooking the mod was failed! Look at the console output for more info!");
-                        }
-                    }
-                    else
-                    {
-                        CUMessageBox.Show(this, "Compiling scripts was failed! Look at the console output for more info!");
-                    }
 
-                    this.Invoke(new MethodInvoker(() => ToggleUnlock(true)));
-                    this.Invoke(new MethodInvoker(() => Reload()));
-                });
+                this.processRunner1.consoleControl1.Clear();
+
+                if (comboBox3.SelectedIndex > 0)
+                {
+                    if (Properties.Settings.Default.KillEditorBeforeCooking)
+                        Utils.KillEditor();
+                    if (Properties.Settings.Default.KillGameBeforeCooking)
+                        Utils.KillGame();
+                }
+
+                if (!Properties.Settings.Default.FastCook)
+                {
+                    Task.Factory.StartNew(() =>
+                    {
+                        Mod.UnCookMod();
+                        var startTime = DateTime.Now;
+
+                        var cookedStatus = Mod.DoesModNeedToBeCooked();
+                        var scriptNeedCooking = cookedStatus != null && (cookedStatus.Contains("[0x1]") || cookedStatus.Contains("[0x2]") || cookedStatus.Contains("[0x0]"));
+
+                        var compileResult = false;
+
+                        if (scriptNeedCooking)
+                        {
+                            compileResult = Mod.CompileScripts(this.processRunner1.Runner, false, false, false);
+                        }
+                        else
+                        {
+                            this.processRunner1.Runner.Log("Scripts are up-to-date! Cooking...", CUFramework.Shared.LogLevel.Success);
+                            compileResult = true;
+                        }
+                        
+                        if (compileResult)
+                        {
+                            var cookResult = Mod.CookMod(this.processRunner1.Runner, false, false);
+                            if (!cookResult)
+                            {
+                                CUMessageBox.Show(this, "Cooking the mod was failed! Look at the console output for more info!");
+                            }
+                            else
+                            {
+                                Utils.UpdateFileDates(Mod.GetCookedDir());
+                                RunPostCookTask();
+                            }
+                        }
+                        else
+                        {
+                            CUMessageBox.Show(this, "Compiling scripts was failed! Look at the console output for more info!");
+                        }
+
+                        var endTime = DateTime.Now;
+                        var taskTime = Math.Round((endTime - startTime).TotalMilliseconds / 1000, 2).ToString(CultureInfo.InvariantCulture);
+                        this.processRunner1.Log($"Task finished in {taskTime}s", CUFramework.Shared.LogLevel.Verbose);
+
+                        this.Invoke(new MethodInvoker(() => ToggleUnlock(true)));
+                        this.Invoke(new MethodInvoker(() => Reload()));
+                    });
+                }
+                else
+                {
+                    Task.Factory.StartNew(() =>
+                    {
+                        var startTime = DateTime.Now;
+
+                        var cookedStatus = Mod.DoesModNeedToBeCooked();
+                        var fast = cookedStatus != null && !cookedStatus.Contains("[0x0]") && !cookedStatus.Contains("[0x3]") && !cookedStatus.Contains("[0x4]");
+                        var scriptNeedCooking = cookedStatus != null && (cookedStatus.Contains("[0x1]") || cookedStatus.Contains("[0x2]") || cookedStatus.Contains("[0x0]"));
+
+
+                        this.processRunner1.Log("[Experimental] Fast script cooking is enabled! Please report any issues!", CUFramework.Shared.LogLevel.Warn);
+                        this.processRunner1.Log("Current state:", CUFramework.Shared.LogLevel.Info);
+                        this.processRunner1.Log(cookedStatus, CUFramework.Shared.LogLevel.Info);
+                        if (cookedStatus != null)
+                        {
+                            if (scriptNeedCooking)
+                            {
+                                var compileResult = Mod.CompileScripts(this.processRunner1.Runner, false);
+                                if (compileResult)
+                                {
+                                    var cookResult = Mod.CookMod(this.processRunner1.Runner, false, false, fast);
+                                    if (!cookResult)
+                                    {
+                                        CUMessageBox.Show(this, "Cooking the mod was failed! Look at the console output for more info!");
+                                    }
+                                    else
+                                    {
+                                        Utils.UpdateFileDates(Mod.GetCookedDir());
+                                        RunPostCookTask();
+                                    }
+                                }
+                                else
+                                {
+                                    CUMessageBox.Show(this, "Compiling scripts was failed! Look at the console output for more info!");
+                                }
+                            }
+                            else
+                            {
+                                this.processRunner1.Runner.Log("Scripts are up-to-date! Cooking...", CUFramework.Shared.LogLevel.Success);
+                                var cookResult = Mod.CookMod(this.processRunner1.Runner, false, false, fast);
+                                if (!cookResult)
+                                {
+                                    CUMessageBox.Show(this, "Cooking the mod was failed! Look at the console output for more info!");
+                                }
+                                else
+                                {
+                                    Utils.UpdateFileDates(Mod.GetCookedDir());
+                                    RunPostCookTask();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            this.processRunner1.Log("Skipping cooking, everything is up-to-date!", CUFramework.Shared.LogLevel.Success);
+                            RunPostCookTask();
+                        }
+                        var endTime = DateTime.Now;
+                        var taskTime = Math.Round((endTime - startTime).TotalMilliseconds / 1000, 2).ToString(CultureInfo.InvariantCulture);
+                        this.processRunner1.Log($"Task finished in {taskTime}s", CUFramework.Shared.LogLevel.Verbose);
+
+                        this.Invoke(new MethodInvoker(() => ToggleUnlock(true)));
+                        this.Invoke(new MethodInvoker(() => Reload()));
+                    });
+                }
+            }
+        }
+
+        private void RunPostCookTask()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(() => RunPostCookTask()));
+                return;
+            }
+
+            /* [0] DO NOTHING
+               [1] LAUNCH GAME (NO WORKSHOP MODS, SELECTED MAP)
+               [2] LAUNCH GAME (WITH WORKSHOP MODS, SELECTED MAP)
+            */
+            switch (comboBox3.SelectedIndex)
+            {
+                case 1:
+                    cuButton2_Click(null, null);
+                    break;
+                case 2:
+                    mButton9_Click(null, null);
+                    break;
             }
         }
 
@@ -920,10 +1060,15 @@ namespace ModdingTools.Windows
             {
                 if (!ConditionalReload()) return;
                 ToggleUnlock(false);
-
-                Mod.UnCookMod();
                 Task.Factory.StartNew(() =>
                 {
+                    if (Properties.Settings.Default.KillEditorBeforeCooking)
+                        Utils.KillEditor();
+                    if (Properties.Settings.Default.KillGameBeforeCooking)
+                        Utils.KillGame();
+
+                    Mod.UnCookMod();
+
                     if (Mod.CompileScripts(this.processRunner1.Runner, false, false))
                     {
                         this.Invoke(new MethodInvoker(() => {
@@ -1056,12 +1201,34 @@ namespace ModdingTools.Windows
 
         private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-
+            if (comboBox1.SelectedIndex > 0)
+            {
+                var item = (MapItem)comboBox1.SelectedItem;
+                cuButton2.Enabled = item.IsCooked;
+                mButton9.Enabled = item.IsCooked;
+            }
         }
 
         private void label6_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cuButton2_Click(object sender, EventArgs e)
+        {
+            var item = (MapItem)comboBox1.SelectedItem;
+            try
+            {
+                File.WriteAllText(Path.Combine(Mod.RootPath, ".lastMap"), item.Name);
+            }
+            catch (Exception) { }
+            Mod.TestMod(MainWindow.Instance.Runner, item.Name == "??menu" ? null : item.Name);
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.LastAction = comboBox3.SelectedIndex;
+            Properties.Settings.Default.Save();
         }
     }
 }

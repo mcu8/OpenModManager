@@ -51,11 +51,11 @@
             this.mButton9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mButton9.ForeColor = System.Drawing.Color.White;
             this.mButton9.Image = global::ModdingTools.Properties.Resources.play;
-            this.mButton9.Location = new System.Drawing.Point(269, 34);
+            this.mButton9.Location = new System.Drawing.Point(263, 42);
             this.mButton9.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton9.Name = "mButton9";
             this.mButton9.NoFocus = false;
-            this.mButton9.Size = new System.Drawing.Size(58, 55);
+            this.mButton9.Size = new System.Drawing.Size(58, 40);
             this.mButton9.TabIndex = 23;
             this.mButton9.UseVisualStyleBackColor = false;
             this.mButton9.Click += new System.EventHandler(this.mButton9_Click);
@@ -83,7 +83,7 @@
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "MapChooser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MapChooser";
+            this.Text = "CHOOSE THE MAP TO LAUNCH";
             this.TopMost = true;
             this.Controls.SetChildIndex(this.comboBox1, 0);
             this.Controls.SetChildIndex(this.mButton9, 0);

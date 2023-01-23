@@ -97,10 +97,12 @@ namespace ModdingTools.Windows
             this.tab6 = new System.Windows.Forms.TabPage();
             this.ModClass = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.cuButton1 = new CUFramework.Controls.CUButton();
             this.mButton10 = new CUFramework.Controls.CUButton();
             this.mButton6 = new CUFramework.Controls.CUButton();
             this.mButton5 = new CUFramework.Controls.CUButton();
+            this.label27 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.processRunner1 = new ModdingTools.GUI.ProcessRunner();
             this.tab7 = new System.Windows.Forms.TabPage();
@@ -122,6 +124,7 @@ namespace ModdingTools.Windows
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.cuButton2 = new CUFramework.Controls.CUButton();
             this.label6 = new System.Windows.Forms.Label();
             this.mButton9 = new CUFramework.Controls.CUButton();
             this.label7 = new System.Windows.Forms.Label();
@@ -130,7 +133,6 @@ namespace ModdingTools.Windows
             this.mButton3 = new CUFramework.Controls.CUButton();
             this.mButton4 = new CUFramework.Controls.CUButton();
             this.mButton2 = new CUFramework.Controls.CUButton();
-            this.label14 = new System.Windows.Forms.Label();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconView)).BeginInit();
             this.tabControl2.SuspendLayout();
@@ -972,6 +974,7 @@ namespace ModdingTools.Windows
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.comboBox3);
             this.panel1.Controls.Add(this.cuButton1);
             this.panel1.Controls.Add(this.mButton10);
             this.panel1.Controls.Add(this.label4);
@@ -979,10 +982,28 @@ namespace ModdingTools.Windows
             this.panel1.Controls.Add(this.mButton7);
             this.panel1.Controls.Add(this.chapterInfoInput);
             this.panel1.Controls.Add(this.mButton5);
+            this.panel1.Controls.Add(this.label27);
             this.panel1.Location = new System.Drawing.Point(5, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(698, 102);
+            this.panel1.Size = new System.Drawing.Size(698, 117);
             this.panel1.TabIndex = 17;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.IntegralHeight = false;
+            this.comboBox3.ItemHeight = 15;
+            this.comboBox3.Items.AddRange(new object[] {
+            "DO NOTHING",
+            "LAUNCH GAME (NO WORKSHOP MODS, SELECTED MAP)",
+            "LAUNCH GAME (WORKSHOP MODS, SELECTED MAP)"});
+            this.comboBox3.Location = new System.Drawing.Point(238, 87);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(452, 23);
+            this.comboBox3.TabIndex = 22;
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // cuButton1
             // 
@@ -993,11 +1014,11 @@ namespace ModdingTools.Windows
             this.cuButton1.ForeColor = System.Drawing.Color.White;
             this.cuButton1.Image = global::ModdingTools.Properties.Resources.play;
             this.cuButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.cuButton1.Location = new System.Drawing.Point(1, 41);
+            this.cuButton1.Location = new System.Drawing.Point(3, 33);
             this.cuButton1.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.cuButton1.Name = "cuButton1";
             this.cuButton1.NoFocus = false;
-            this.cuButton1.Size = new System.Drawing.Size(185, 57);
+            this.cuButton1.Size = new System.Drawing.Size(173, 77);
             this.cuButton1.TabIndex = 18;
             this.cuButton1.Text = "COMPILE SCRIPTS\r\nAND LAUNCH EDITOR";
             this.cuButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -1013,13 +1034,13 @@ namespace ModdingTools.Windows
             this.mButton10.ForeColor = System.Drawing.Color.White;
             this.mButton10.Image = global::ModdingTools.Properties.Resources.compncook;
             this.mButton10.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.mButton10.Location = new System.Drawing.Point(520, 41);
+            this.mButton10.Location = new System.Drawing.Point(498, 34);
             this.mButton10.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton10.Name = "mButton10";
             this.mButton10.NoFocus = false;
-            this.mButton10.Size = new System.Drawing.Size(175, 57);
+            this.mButton10.Size = new System.Drawing.Size(193, 48);
             this.mButton10.TabIndex = 17;
-            this.mButton10.Text = "COMPILE AND COOK";
+            this.mButton10.Text = "COMPILE, COOK AND DO ACTION...";
             this.mButton10.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.mButton10.UseVisualStyleBackColor = false;
             this.mButton10.Click += new System.EventHandler(this.mButton10_Click);
@@ -1033,11 +1054,11 @@ namespace ModdingTools.Windows
             this.mButton6.ForeColor = System.Drawing.Color.White;
             this.mButton6.Image = global::ModdingTools.Properties.Resources.cook;
             this.mButton6.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.mButton6.Location = new System.Drawing.Point(385, 41);
+            this.mButton6.Location = new System.Drawing.Point(339, 34);
             this.mButton6.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton6.Name = "mButton6";
             this.mButton6.NoFocus = false;
-            this.mButton6.Size = new System.Drawing.Size(133, 57);
+            this.mButton6.Size = new System.Drawing.Size(157, 48);
             this.mButton6.TabIndex = 13;
             this.mButton6.Text = "COOK MOD";
             this.mButton6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -1053,16 +1074,26 @@ namespace ModdingTools.Windows
             this.mButton5.ForeColor = System.Drawing.Color.White;
             this.mButton5.Image = global::ModdingTools.Properties.Resources.compile;
             this.mButton5.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.mButton5.Location = new System.Drawing.Point(188, 41);
+            this.mButton5.Location = new System.Drawing.Point(178, 34);
             this.mButton5.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton5.Name = "mButton5";
             this.mButton5.NoFocus = false;
-            this.mButton5.Size = new System.Drawing.Size(195, 57);
+            this.mButton5.Size = new System.Drawing.Size(159, 48);
             this.mButton5.TabIndex = 12;
             this.mButton5.Text = "COMPILE SCRIPTS";
             this.mButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.mButton5.UseVisualStyleBackColor = false;
             this.mButton5.Click += new System.EventHandler(this.mButton5_Click);
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(186, 92);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(52, 15);
+            this.label27.TabIndex = 23;
+            this.label27.Text = "ACTION:";
+            this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label17
             // 
@@ -1078,10 +1109,10 @@ namespace ModdingTools.Windows
             // 
             this.processRunner1.BackColor = System.Drawing.Color.Black;
             this.processRunner1.Font = new System.Drawing.Font("Segoe UI Semilight", 9F);
-            this.processRunner1.Location = new System.Drawing.Point(5, 113);
+            this.processRunner1.Location = new System.Drawing.Point(5, 122);
             this.processRunner1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.processRunner1.Name = "processRunner1";
-            this.processRunner1.Size = new System.Drawing.Size(698, 326);
+            this.processRunner1.Size = new System.Drawing.Size(698, 317);
             this.processRunner1.TabIndex = 15;
             // 
             // tab7
@@ -1330,27 +1361,46 @@ namespace ModdingTools.Windows
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(51, 7);
+            this.comboBox1.Location = new System.Drawing.Point(3, 21);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(203, 23);
+            this.comboBox1.Size = new System.Drawing.Size(245, 23);
             this.comboBox1.TabIndex = 18;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged_1);
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(0)))), ((int)(((byte)(70)))));
+            this.panel2.Controls.Add(this.cuButton2);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.mButton9);
             this.panel2.Controls.Add(this.comboBox1);
-            this.panel2.Location = new System.Drawing.Point(5, 54);
+            this.panel2.Location = new System.Drawing.Point(12, 43);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(289, 36);
+            this.panel2.Size = new System.Drawing.Size(440, 47);
             this.panel2.TabIndex = 21;
+            // 
+            // cuButton2
+            // 
+            this.cuButton2.BackColor = System.Drawing.SystemColors.Highlight;
+            this.cuButton2.FlatAppearance.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.cuButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cuButton2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cuButton2.ForeColor = System.Drawing.Color.White;
+            this.cuButton2.Image = global::ModdingTools.Properties.Resources.play;
+            this.cuButton2.Location = new System.Drawing.Point(252, 3);
+            this.cuButton2.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
+            this.cuButton2.Name = "cuButton2";
+            this.cuButton2.NoFocus = false;
+            this.cuButton2.Size = new System.Drawing.Size(45, 41);
+            this.cuButton2.TabIndex = 22;
+            this.cuButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.cuButton2.UseVisualStyleBackColor = false;
+            this.cuButton2.Click += new System.EventHandler(this.cuButton2_Click);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(10, 11);
+            this.label6.Location = new System.Drawing.Point(0, 3);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 15);
             this.label6.TabIndex = 21;
@@ -1363,15 +1413,18 @@ namespace ModdingTools.Windows
             this.mButton9.BackColor = System.Drawing.Color.Green;
             this.mButton9.FlatAppearance.BorderColor = System.Drawing.Color.Green;
             this.mButton9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.mButton9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mButton9.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.mButton9.ForeColor = System.Drawing.Color.White;
             this.mButton9.Image = global::ModdingTools.Properties.Resources.play;
-            this.mButton9.Location = new System.Drawing.Point(255, 6);
+            this.mButton9.Location = new System.Drawing.Point(299, 3);
             this.mButton9.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton9.Name = "mButton9";
             this.mButton9.NoFocus = false;
-            this.mButton9.Size = new System.Drawing.Size(29, 25);
+            this.mButton9.Size = new System.Drawing.Size(138, 41);
             this.mButton9.TabIndex = 20;
+            this.mButton9.Text = "WITH WORKSHOP MODS";
+            this.mButton9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mButton9.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.mButton9.UseVisualStyleBackColor = false;
             this.mButton9.Click += new System.EventHandler(this.mButton9_Click);
             // 
@@ -1407,13 +1460,14 @@ namespace ModdingTools.Windows
             this.mButton1.ForeColor = System.Drawing.Color.White;
             this.mButton1.Image = global::ModdingTools.Properties.Resources.steam1;
             this.mButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.mButton1.Location = new System.Drawing.Point(613, 43);
+            this.mButton1.Location = new System.Drawing.Point(649, 43);
             this.mButton1.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton1.Name = "mButton1";
             this.mButton1.NoFocus = false;
-            this.mButton1.Size = new System.Drawing.Size(202, 46);
+            this.mButton1.Size = new System.Drawing.Size(166, 46);
             this.mButton1.TabIndex = 11;
-            this.mButton1.Text = "VIEW IN STEAM WORKSHOP";
+            this.mButton1.Text = "VIEW IN\r\nSTEAM WORKSHOP";
+            this.mButton1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.mButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.mButton1.UseVisualStyleBackColor = false;
             this.mButton1.Click += new System.EventHandler(this.mButton1_Click);
@@ -1425,12 +1479,12 @@ namespace ModdingTools.Windows
             this.mButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton3.ForeColor = System.Drawing.Color.White;
             this.mButton3.Image = global::ModdingTools.Properties.Resources.folder;
-            this.mButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.mButton3.Location = new System.Drawing.Point(480, 43);
+            this.mButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mButton3.Location = new System.Drawing.Point(521, 43);
             this.mButton3.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton3.Name = "mButton3";
             this.mButton3.NoFocus = false;
-            this.mButton3.Size = new System.Drawing.Size(131, 46);
+            this.mButton3.Size = new System.Drawing.Size(126, 46);
             this.mButton3.TabIndex = 12;
             this.mButton3.Text = "BROWSE MOD";
             this.mButton3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -1444,11 +1498,11 @@ namespace ModdingTools.Windows
             this.mButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton4.ForeColor = System.Drawing.Color.White;
             this.mButton4.Image = global::ModdingTools.Properties.Resources.save;
-            this.mButton4.Location = new System.Drawing.Point(419, 43);
+            this.mButton4.Location = new System.Drawing.Point(473, 43);
             this.mButton4.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton4.Name = "mButton4";
             this.mButton4.NoFocus = false;
-            this.mButton4.Size = new System.Drawing.Size(59, 46);
+            this.mButton4.Size = new System.Drawing.Size(46, 46);
             this.mButton4.TabIndex = 13;
             this.mButton4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.mButton4.UseVisualStyleBackColor = false;
@@ -1474,21 +1528,11 @@ namespace ModdingTools.Windows
             this.mButton2.UseVisualStyleBackColor = false;
             this.mButton2.Click += new System.EventHandler(this.mButton2_Click);
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(8, 37);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(44, 15);
-            this.label14.TabIndex = 24;
-            this.label14.Text = "label14";
-            // 
             // ModProperties
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(0)))), ((int)(((byte)(49)))));
             this.ClientSize = new System.Drawing.Size(824, 573);
-            this.Controls.Add(this.label14);
             this.Controls.Add(this.tabController1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.panel2);
@@ -1517,7 +1561,6 @@ namespace ModdingTools.Windows
             this.Controls.SetChildIndex(this.panel2, 0);
             this.Controls.SetChildIndex(this.label7, 0);
             this.Controls.SetChildIndex(this.tabController1, 0);
-            this.Controls.SetChildIndex(this.label14, 0);
             this.panel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.iconView)).EndInit();
             this.tabControl2.ResumeLayout(false);
@@ -1636,7 +1679,6 @@ namespace ModdingTools.Windows
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox IconViewGif;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label14;
         private CUButton cuButton1;
         private CUGroupBox cuGroupBox5;
         private CUGroupBox cuGroupBox6;
@@ -1662,5 +1704,8 @@ namespace ModdingTools.Windows
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.Label label27;
+        private CUButton cuButton2;
     }
 }

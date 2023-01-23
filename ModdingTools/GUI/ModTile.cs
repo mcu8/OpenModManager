@@ -116,7 +116,6 @@ namespace ModdingTools.GUI
                         props.ToCenterParent = this.ParentForm;
                         props.Show();
                     }
-                    //prop.Show();
                 }
             }
         }
@@ -208,6 +207,7 @@ namespace ModdingTools.GUI
         {
             CleanupTests();
 
+            openInVSC.Visible = Properties.Settings.Default.VSCIntegration;
             cookModToolStripMenuItem.Enabled = !Mod.IsReadOnly;
             testModToolStripMenuItem.Enabled = !Mod.IsReadOnly;
             scriptingToolStripMenuItem.Enabled = !Mod.IsReadOnly;
@@ -305,11 +305,28 @@ namespace ModdingTools.GUI
             var vsCodePath = Utils.FindVSCodeExecutable();
             if (vsCodePath != null)
             {
+                Mod.UpdateVSCodeRunTasks();
                 Process.Start(vsCodePath, "\"" + Path.Combine(Path.GetFullPath(Mod.RootPath), "vsc-modworkspace.code-workspace") + "\"");
             }
             else
             {
-                // todo: throw some error message or executable chooser lol
+                CUMessageBox.Show("Failed to find the VS:Code installation directory! Please specify the path to the code.exe manually!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                OpenFileDialog ov = new OpenFileDialog();
+                ov.CheckFileExists = true;
+                ov.FileName = "code.exe";
+                ov.Filter = "code.exe|code.exe";
+
+                if (ov.ShowDialog() == DialogResult.OK)
+                {
+                    Properties.Settings.Default.VSCCustomPath = ov.FileName;
+                    Properties.Settings.Default.Save();
+
+                    vsCodePath = Utils.FindVSCodeExecutable();
+                    if (vsCodePath != null)
+                    {
+                        Process.Start(vsCodePath, "\"" + Path.Combine(Path.GetFullPath(Mod.RootPath), "vsc-modworkspace.code-workspace") + "\"");
+                    }
+                }
             }
         }
     }

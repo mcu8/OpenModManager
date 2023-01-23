@@ -82,8 +82,8 @@ namespace ModdingTools.Windows
 
         private void MainWindow_TitlebarColorChanged(object sender, EventArgs e)
         {
-            mButton6.BackColor = mButton5.BackColor = mButton2.BackColor = VisibleTitlebarColor;
-            mButton6.FlatAppearance.BorderColor = mButton5.FlatAppearance.BorderColor = mButton2.FlatAppearance.BorderColor = VisibleTitlebarColor;
+            mButton6.BackColor = cuButton1.BackColor = mButton5.BackColor = mButton2.BackColor = VisibleTitlebarColor;
+            mButton6.FlatAppearance.BorderColor = cuButton1.FlatAppearance.BorderColor = mButton5.FlatAppearance.BorderColor = mButton2.FlatAppearance.BorderColor = VisibleTitlebarColor;
         }
 
         public ModDirectorySource[] GetModSources()
@@ -121,6 +121,10 @@ namespace ModdingTools.Windows
         {
             Runner.KillAllWorkers();
             Utils.KillEditor();
+            if (Properties.Settings.Default.MafiaPunchGameToo)
+            {
+                Utils.KillGame();
+            }
             Meme.StopElevatorMusic();
             if (!Program.Uploader.IsUploaderRunning)
                 ToggleConsole(false);

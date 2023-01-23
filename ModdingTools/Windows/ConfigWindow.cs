@@ -1,4 +1,5 @@
 ﻿using CUFramework.Windows;
+using ModdingTools.Engine;
 using ModdingTools.GUI;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,11 @@ namespace ModdingTools.Windows
             checkBox4.Checked = Properties.Settings.Default.MultilangCook;
             checkBox3.Checked = Properties.Settings.Default.RmShaderOnCook;
             checkBox5.Checked = Properties.Settings.Default.UpdateCheck;
+            checkBox6.Checked = Properties.Settings.Default.FastCook;
+            checkBox7.Checked = Properties.Settings.Default.VSCIntegration;
+            checkBox8.Checked = Properties.Settings.Default.KillGameBeforeCooking;
+            checkBox9.Checked = Properties.Settings.Default.KillEditorBeforeCooking;
+            checkBox10.Checked = Properties.Settings.Default.MafiaPunchGameToo;
         }
 
         private void SaveSettings()
@@ -38,6 +44,11 @@ namespace ModdingTools.Windows
             Properties.Settings.Default.MultilangCook = checkBox4.Checked;
             Properties.Settings.Default.RmShaderOnCook = checkBox3.Checked;
             Properties.Settings.Default.UpdateCheck = checkBox5.Checked;
+            Properties.Settings.Default.FastCook = checkBox6.Checked;
+            Properties.Settings.Default.VSCIntegration = checkBox7.Checked;
+            Properties.Settings.Default.KillGameBeforeCooking = checkBox8.Checked;
+            Properties.Settings.Default.KillEditorBeforeCooking = checkBox9.Checked;
+            Properties.Settings.Default.MafiaPunchGameToo = checkBox10.Checked;
             Properties.Settings.Default.Save();
         }
 
@@ -50,6 +61,11 @@ namespace ModdingTools.Windows
         {
             SaveSettings();
             this.Close();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            Utils.StartInDefaultBrowser("https://marketplace.visualstudio.com/items?itemName=EliotVU.uc");
         }
     }
 }

@@ -44,16 +44,16 @@ namespace ModdingTools.Windows
             {
             }
 
-            comboBox1.Items.Add(new MapItem("hub_spaceship", "Spaceship"));
-            comboBox1.Items.Add(new MapItem("mafia_town", "Mafia Town"));
-            comboBox1.Items.Add(new MapItem("hatintimeentry", "HatInTimeEntry"));
-            comboBox1.Items.Add(new MapItem("??menu", "Main Menu"));
+            comboBox1.Items.Add(new MapItem("hub_spaceship", "Spaceship", true));
+            comboBox1.Items.Add(new MapItem("mafia_town", "Mafia Town", true));
+            comboBox1.Items.Add(new MapItem("hatintimeentry", "HatInTimeEntry", true));
+            comboBox1.Items.Add(new MapItem("??menu", "Main Menu", true));
   
             var maps = Mod.GetCookedMaps();
             if (maps != null)
                 foreach (var a in maps)
                 {
-                    comboBox1.Items.Add(new MapItem(a));
+                    comboBox1.Items.Add(new MapItem(a, null, true));
                     if (a.Equals(Mod.IntroductionMap, StringComparison.InvariantCultureIgnoreCase))
                     {
                         comboBox1.SelectedIndex = comboBox1.Items.Count - 1;

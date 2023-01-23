@@ -51,13 +51,6 @@ namespace ModdingTools.Headless
                 Environment.Exit(compResult);
             }
 
-            Utils.UpdateAppId(734880);
-            bool steam = SteamAPI.Init();
-            if (!steam)
-            {
-                Logger.Log(LogLevel.Error, "SteamAPI initialization failed! (is Steam running/installed?)");
-                Environment.Exit(0);
-            }
 
             Program.Uploader = new ModUploader();
             Program.SWS = new SteamWorkshopStorage(Path.Combine(Engine.GameFinder.GetModsDir(), "SteamWorkshop.ini"));
@@ -127,15 +120,31 @@ namespace ModdingTools.Headless
             }
             else
             {
+                if (o.TestMapAll != null)
+                {
+                    RunSteamAPI(true);
+                    var runner = new ConsoleProcessRunner();
+                    runner.RunWithoutWait(Program.ProcFactory.StartMap(o.TestMapAll, true));
+                    Thread.Sleep(100);
+                    // restore appid
+                    Utils.UpdateAppId(734880);
+                    return 0;
+                }
+
                 if (o.TestMap != null)
                 {
+                    RunSteamAPI(false);
                     var runner = new ConsoleProcessRunner();
                     runner.RunWithoutWait(Program.ProcFactory.StartMap(o.TestMap));
+                    Thread.Sleep(100);
+                    // restore appid
+                    Utils.UpdateAppId(734880);
                     return 0;
                 }
                 
                 if (o.Editor && o.ModName == null)
                 {
+                    RunSteamAPI(false);
                     var runner = new ConsoleProcessRunner();
                     runner.RunWithoutWait(Program.ProcFactory.LaunchEditor());
                     return 0;
@@ -200,10 +209,35 @@ namespace ModdingTools.Headless
             return exitCode;
         }
 
+        private static void RunSteamAPI(bool useAltSteamId)
+        {
+            Utils.UpdateAppId(useAltSteamId ? 253230 : 734880);
+            bool steam = SteamAPI.Init();
+            if (!steam)
+            {
+                Logger.Log(LogLevel.Error, "SteamAPI initialization failed! (is Steam running/installed?)");
+                Environment.Exit(0);
+            }
+        }
+
         public static int CompileMod(string scriptPath, string command)
         {
-            Utils.KillAllHatStuff(false);
-            Thread.Sleep(150);
+            Properties.Settings.Default.Reload();
+            Console.WriteLine(Properties.Settings.Default.KillGameBeforeCooking);
+            //Properties.Settings.Default.KillGameBeforeCooking = false;
+            //Properties.Settings.Default.Save();
+           Console.ReadKey();
+            return 0;
+
+
+            if (command == "ce" || command == "cg" || command == "cm" || command == "ci" || command == "cn")
+            {
+                if (Properties.Settings.Default.KillEditorBeforeCooking)
+                    Utils.KillEditor();
+                if (Properties.Settings.Default.KillGameBeforeCooking)
+                    Utils.KillGame();
+                Thread.Sleep(150);
+            }
 
             var gamePath = Program.ProcFactory.GetGamePath();
             Logger.Log(LogLevel.Info, "Game path: " + gamePath);
@@ -218,7 +252,7 @@ namespace ModdingTools.Headless
             {
                 var runner = new ConsoleProcessRunner();
                 var cookedStatus = mod.DoesModNeedToBeCooked();
-                var fast = cookedStatus != null && !cookedStatus.Contains("[0x0]") && !cookedStatus.Contains("[0x3]") && !cookedStatus.Contains("[0x4]");
+                var fast = Properties.Settings.Default.FastCook && cookedStatus != null && !cookedStatus.Contains("[0x0]") && !cookedStatus.Contains("[0x3]") && !cookedStatus.Contains("[0x4]");
                 var scriptNeedCooking = cookedStatus != null && (cookedStatus.Contains("[0x1]") || cookedStatus.Contains("[0x2]") || cookedStatus.Contains("[0x0]"));
                 if (cookedStatus == null)
                 {
@@ -251,7 +285,7 @@ namespace ModdingTools.Headless
                     {
                         if (!mod.HasAnyScripts() || mod.HasCompiledScripts())
                         {
-                            Logger.Log(LogLevel.Info, "Running CookMod task..." + (fast ? " (fast mode, scripts only)" : ""));
+                            Logger.Log(LogLevel.Info, "Running CookMod task..." + (fast ? " (fast script cooking mode)" : ""));
                             result = mod.CookMod(runner, false, false, fast);
                             if (!result)
                             {

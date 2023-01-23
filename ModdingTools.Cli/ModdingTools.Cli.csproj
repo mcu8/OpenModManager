@@ -48,6 +48,7 @@
     <ProjectReference Include="..\ModdingTools\ModdingTools.csproj">
       <Project>{0569be64-ba84-4c53-9296-ee830f5a002f}</Project>
       <Name>ModdingTools</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

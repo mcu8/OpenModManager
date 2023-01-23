@@ -80,13 +80,14 @@ namespace ModdingTools.Modding
 
         public void UpdateVSCodeRunTasks()
         {
+            if (!Properties.Settings.Default.VSCIntegration) return;
+
             var vscodepath = Path.Combine(RootPath, ".vscode");
             if (!Directory.Exists(vscodepath))
                 Directory.CreateDirectory(Path.Combine(RootPath, ".vscode"));
 
-            if (!File.Exists(Path.Combine(RootPath, "vsc-modworkspace.code-workspace")))
-                File.WriteAllText(Path.Combine(RootPath, "vsc-modworkspace.code-workspace"), Properties.Resources.VSCodeWorkspaceTemplate.Replace("##AHIT:SRC_ROOT##", HttpUtility.JavaScriptStringEncode(Engine.GameFinder.GetSrcDir())));
-
+            // OMM path may change... so better just update workspace file every time
+            File.WriteAllText(Path.Combine(RootPath, "vsc-modworkspace.code-workspace"), Properties.Resources.VSCodeWorkspaceTemplate.Replace("##AHIT:SRC_ROOT##", HttpUtility.JavaScriptStringEncode(Engine.GameFinder.GetSrcDir())));
             File.WriteAllText(Path.Combine(vscodepath, "tasks.json"), Properties.Resources.VSCodeTaskTemplate.Replace("##OMM:OMM_EXE_PATH##", HttpUtility.JavaScriptStringEncode(Program.GetCLIPath())));
         }
 
@@ -188,7 +189,7 @@ namespace ModdingTools.Modding
         {
             var lines = new StringBuilder();
  
-            if (!Utils.DirectoryHasFiles(GetCookedDir(), new[] { "*.umap", "*.upk", "*.u" }))
+            if (!Utils.DirectoryHasFiles(GetCookedDir(), new[] { "*.umap", "*.u" }))
             {
                 return "- entire mod needs to be recooked! [0x0]";
             }
@@ -196,18 +197,27 @@ namespace ModdingTools.Modding
             var cookedPCData = Utils.OldestInDir(GetCookedDir(), new[] { "*.umap", "*.upk", "*.u" });
             if (Utils.DirectoryHasFiles(GetClassesDir(), new[] { "*.uc" }))
             {
+                if (!Utils.DirectoryHasFiles(GetCookedDir(), new[] { "*.u" }))
+                    lines.AppendLine("- scripts needs to be recooked [0x1]");
+
                 if (Utils.YoungestInDir(GetClassesDir(), new[] { "*.uc" }) > cookedPCData)
                     lines.AppendLine("- scripts needs to be recooked [0x1]");
             }
 
             if (Utils.DirectoryHasFiles(GetCompiledScriptsDir(), new[] { "*.u" }))
             {
+                if (!Utils.DirectoryHasFiles(GetCookedDir(), new[] { "*.u" }))
+                    lines.AppendLine("- compiled scripts needs to be recooked [0x1]");
+
                 if (Utils.YoungestInDir(GetCompiledScriptsDir(), new[] { "*.u" }) > cookedPCData)
                     lines.AppendLine("- compiled scripts needs to be recooked [0x2]");
             }
 
             if (Utils.DirectoryHasFiles(GetMapsDir(), new[] { "*.umap" }))
             {
+                if (!Utils.DirectoryHasFiles(GetCookedDir(), new[] { "*.umap" }))
+                    lines.AppendLine("- maps needs to be recooked [0x3]");
+
                 if (Utils.YoungestInDir(GetMapsDir(), new[] { "*.umap" }) > cookedPCData)
                     lines.AppendLine("- maps needs to be recooked [0x3]");
             }
@@ -374,16 +384,21 @@ namespace ModdingTools.Modding
             runner.RunWithoutWait(Program.ProcFactory.StartMap(mapName));
         }
 
-        public bool CompileScripts(AbstractProcessRunner runner, bool async = true, bool watcher = false)
+        public void TestModAllMods(AbstractProcessRunner runner, string mapName = null)
+        {
+            runner.RunWithoutWait(Program.ProcFactory.StartMapWithAllMods(mapName));
+        }
+
+        public bool CompileScripts(AbstractProcessRunner runner, bool async = true, bool watcher = false, bool cleanConsole = false)
         {
             if (async)
             {
-                runner.RunAppAsync(Program.ProcFactory.GetCompileScript(this, watcher));
+                runner.RunAppAsync(Program.ProcFactory.GetCompileScript(this, watcher), cleanConsole);
                 return true; // async task always return true
             }
             else
             {
-                return runner.RunApp(Program.ProcFactory.GetCompileScript(this, watcher));
+                return runner.RunApp(Program.ProcFactory.GetCompileScript(this, watcher), cleanConsole);
             }
         }
 
