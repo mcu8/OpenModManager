@@ -18,6 +18,7 @@ using UELib.Engine;
 using static ModdingTools.Engine.ModClass;
 using ModdingTools.Windows.Tools;
 using System.Web;
+using ModdingTools.Settings;
 
 namespace ModdingTools.Modding
 {
@@ -80,7 +81,7 @@ namespace ModdingTools.Modding
 
         public void UpdateVSCodeRunTasks()
         {
-            if (!Properties.Settings.Default.VSCIntegration) return;
+            if (!OMMSettings.Instance.VSCIntegration) return;
 
             var vscodepath = Path.Combine(RootPath, ".vscode");
             if (!Directory.Exists(vscodepath))
@@ -263,7 +264,7 @@ namespace ModdingTools.Modding
                 }
             }
 
-            if (Properties.Settings.Default.RmShaderOnCook)
+            if (OMMSettings.Instance.RmShaderOnCook)
             {
                 var shaders = GetShaderCacheDir();
                 if (Directory.Exists(shaders))

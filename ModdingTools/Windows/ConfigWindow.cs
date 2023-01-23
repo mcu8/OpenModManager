@@ -1,6 +1,7 @@
 ﻿using CUFramework.Windows;
 using ModdingTools.Engine;
 using ModdingTools.GUI;
+using ModdingTools.Settings;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,31 +26,31 @@ namespace ModdingTools.Windows
 
         private void LoadSettings()
         {
-            checkBox1.Checked = !Properties.Settings.Default.AutoScanDownloadedMods;
-            checkBox2.Checked = Properties.Settings.Default.Memes;
-            checkBox4.Checked = Properties.Settings.Default.MultilangCook;
-            checkBox3.Checked = Properties.Settings.Default.RmShaderOnCook;
-            checkBox5.Checked = Properties.Settings.Default.UpdateCheck;
-            checkBox6.Checked = Properties.Settings.Default.FastCook;
-            checkBox7.Checked = Properties.Settings.Default.VSCIntegration;
-            checkBox8.Checked = Properties.Settings.Default.KillGameBeforeCooking;
-            checkBox9.Checked = Properties.Settings.Default.KillEditorBeforeCooking;
-            checkBox10.Checked = Properties.Settings.Default.MafiaPunchGameToo;
+            checkBox1.Checked = !OMMSettings.Instance.AutoScanDownloadedMods;
+            checkBox2.Checked = OMMSettings.Instance.Memes;
+            checkBox4.Checked = OMMSettings.Instance.MultilangCook;
+            checkBox3.Checked = OMMSettings.Instance.RmShaderOnCook;
+            checkBox5.Checked = OMMSettings.Instance.UpdateCheck;
+            checkBox6.Checked = OMMSettings.Instance.FastCook;
+            checkBox7.Checked = OMMSettings.Instance.VSCIntegration;
+            checkBox8.Checked = OMMSettings.Instance.KillGameBeforeCooking;
+            checkBox9.Checked = OMMSettings.Instance.KillEditorBeforeCooking;
+            checkBox10.Checked = OMMSettings.Instance.MafiaPunchGameToo;
         }
 
         private void SaveSettings()
         {
-            Properties.Settings.Default.AutoScanDownloadedMods = !checkBox1.Checked;
-            Properties.Settings.Default.Memes = checkBox2.Checked;
-            Properties.Settings.Default.MultilangCook = checkBox4.Checked;
-            Properties.Settings.Default.RmShaderOnCook = checkBox3.Checked;
-            Properties.Settings.Default.UpdateCheck = checkBox5.Checked;
-            Properties.Settings.Default.FastCook = checkBox6.Checked;
-            Properties.Settings.Default.VSCIntegration = checkBox7.Checked;
-            Properties.Settings.Default.KillGameBeforeCooking = checkBox8.Checked;
-            Properties.Settings.Default.KillEditorBeforeCooking = checkBox9.Checked;
-            Properties.Settings.Default.MafiaPunchGameToo = checkBox10.Checked;
-            Properties.Settings.Default.Save();
+            OMMSettings.Instance.AutoScanDownloadedMods = !checkBox1.Checked;
+            OMMSettings.Instance.Memes = checkBox2.Checked;
+            OMMSettings.Instance.MultilangCook = checkBox4.Checked;
+            OMMSettings.Instance.RmShaderOnCook = checkBox3.Checked;
+            OMMSettings.Instance.UpdateCheck = checkBox5.Checked;
+            OMMSettings.Instance.FastCook = checkBox6.Checked;
+            OMMSettings.Instance.VSCIntegration = checkBox7.Checked;
+            OMMSettings.Instance.KillGameBeforeCooking = checkBox8.Checked;
+            OMMSettings.Instance.KillEditorBeforeCooking = checkBox9.Checked;
+            OMMSettings.Instance.MafiaPunchGameToo = checkBox10.Checked;
+            OMMSettings.Instance.Save();
         }
 
         private void mButton3_Click(object sender, EventArgs e)

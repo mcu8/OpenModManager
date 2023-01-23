@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModdingTools.Settings;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -19,7 +20,7 @@ namespace ModdingTools.Engine
         public static void PlayElevatorMusic()
         {
             if (IsPlaying) return; // prevent the ear-rape
-            if (!Properties.Settings.Default.Memes) return;
+            if (!OMMSettings.Instance.Memes) return;
             var ph = Path.Combine(Program.GetAppRoot(), @"lol.wav");
             if (!File.Exists(ph)) return;
             Debug.WriteLine("MemeStart()");
@@ -47,7 +48,7 @@ namespace ModdingTools.Engine
 
         public static void StopElevatorMusic()
         {
-            if (!Properties.Settings.Default.Memes) return;
+            if (!OMMSettings.Instance.Memes) return;
             Debug.WriteLine("MemeStop()");
             IsPlaying = false;
         }

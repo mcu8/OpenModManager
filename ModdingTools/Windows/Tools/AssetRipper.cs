@@ -2,6 +2,7 @@
 using CUFramework.Windows;
 using ModdingTools.Engine;
 using ModdingTools.GUI;
+using ModdingTools.Settings;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,7 +20,7 @@ namespace ModdingTools.Windows.Tools
         public AssetRipper()
         {
             InitializeComponent();
-            checkBox1.Checked = Properties.Settings.Default.Exporter_ForcePNG;
+            checkBox1.Checked = OMMSettings.Instance.Exporter_ForcePNG;
         }
 
         struct ExportTask
@@ -207,8 +208,8 @@ namespace ModdingTools.Windows.Tools
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Exporter_ForcePNG = checkBox1.Checked;
-            Properties.Settings.Default.Save();
+            OMMSettings.Instance.Exporter_ForcePNG = checkBox1.Checked;
+            OMMSettings.Instance.Save();
         }
     }
 }

@@ -167,6 +167,7 @@
     <Compile Include="Logging\Handlers\DebuggerLogger.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Settings\OMMSettings.cs" />
     <Compile Include="Windows\ArrayInputWindow.cs">
       <SubType>Form</SubType>
     </Compile>

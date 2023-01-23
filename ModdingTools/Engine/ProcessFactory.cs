@@ -1,4 +1,5 @@
 ﻿using ModdingTools.Modding;
+using ModdingTools.Settings;
 using Steamworks;
 using System;
 using System.Diagnostics;
@@ -85,7 +86,7 @@ namespace ModdingTools.Engine
                     "-PLATFORM=PC",
                     "-NOPAUSEONSUCCESS",
                     "-FASTCOOK",
-                    "-MULTILANGUAGECOOK=" + (Properties.Settings.Default.MultilangCook ? "INT+CHN+DEU+ESN+FRA+ITA+JPN+KOR+PTB" : "INT"),
+                    "-MULTILANGUAGECOOK=" + (OMMSettings.Instance.MultilangCook ? "INT+CHN+DEU+ESN+FRA+ITA+JPN+KOR+PTB" : "INT"),
                     "-MODSONLY=" + mod.GetDirectoryName()
                 }:
                 new string[]
@@ -95,7 +96,7 @@ namespace ModdingTools.Engine
                     "-NOPAUSEONSUCCESS",
                     "-FULL",
                     "-FASTCOOK",
-                    "-MULTILANGUAGECOOK=" + (Properties.Settings.Default.MultilangCook ? "INT+CHN+DEU+ESN+FRA+ITA+JPN+KOR+PTB" : "INT"),
+                    "-MULTILANGUAGECOOK=" + (OMMSettings.Instance.MultilangCook ? "INT+CHN+DEU+ESN+FRA+ITA+JPN+KOR+PTB" : "INT"),
                     "-MODSONLY=" + mod.GetDirectoryName()
                 },
                 Path.GetDirectoryName(EditorExecutablePath)

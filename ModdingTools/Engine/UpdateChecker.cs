@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModdingTools.Settings;
+using System;
 using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace ModdingTools.Engine
 
         public void CheckForUpdatesAsync()
         {
-            if (!Properties.Settings.Default.UpdateCheck)
+            if (!OMMSettings.Instance.UpdateCheck)
             {
                 Debug.WriteLine("Updates disabled");
                 return;

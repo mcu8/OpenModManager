@@ -3,6 +3,7 @@ using CUFramework.Windows;
 using LibAPNG;
 using ModdingTools.Engine;
 using ModdingTools.GUI;
+using ModdingTools.Settings;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,7 +31,7 @@ namespace ModdingTools.Windows.Tools
             {
                 if ((InterpolationMode)i == InterpolationMode.Invalid) continue;
                 comboBox1.Items.Add(i);
-                if (Properties.Settings.Default.Flipbook_LastIntrpValue == ((InterpolationMode)i).ToString())
+                if (OMMSettings.Instance.Flipbook_LastIntrpValue == ((InterpolationMode)i).ToString())
                 {
                     comboBox1.SelectedItem = i;
                     loadedConfig = true;
@@ -41,12 +42,12 @@ namespace ModdingTools.Windows.Tools
                 comboBox1.SelectedItem = InterpolationMode.HighQualityBicubic;
             }
 
-            panel1.BackColor = Color.FromArgb(Properties.Settings.Default.Flipbook_LastColorValue);
+            panel1.BackColor = Color.FromArgb(OMMSettings.Instance.Flipbook_LastColorValue);
 
-            comboBox2.Text = "" + Properties.Settings.Default.Flipbook_LastSize;
+            comboBox2.Text = "" + OMMSettings.Instance.Flipbook_LastSize;
 
             pictureBox1.Image = Properties.Resources.editorcrashedhueh4;
-            checkBox1.Checked = Properties.Settings.Default.Flipbook_TrueTransparency;
+            checkBox1.Checked = OMMSettings.Instance.Flipbook_TrueTransparency;
         }
 
         public List<Image> GetFramesFromAnimatedGIF(Image img)
@@ -143,8 +144,8 @@ namespace ModdingTools.Windows.Tools
             try
             {
                 MaxTextureSize = int.Parse("" + comboBox2.SelectedItem);
-                Properties.Settings.Default.Flipbook_LastSize = MaxTextureSize;
-                Properties.Settings.Default.Save();
+                OMMSettings.Instance.Flipbook_LastSize = MaxTextureSize;
+                OMMSettings.Instance.Save();
 
                 var entryPoint = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
                 OpenFileDialog dlg = new OpenFileDialog();
@@ -271,21 +272,21 @@ namespace ModdingTools.Windows.Tools
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 panel1.BackColor = dlg.Color;
-                Properties.Settings.Default.Flipbook_LastColorValue = dlg.Color.ToArgb();
-                Properties.Settings.Default.Save();
+                OMMSettings.Instance.Flipbook_LastColorValue = dlg.Color.ToArgb();
+                OMMSettings.Instance.Save();
             }
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Flipbook_TrueTransparency = checkBox1.Checked;
-            Properties.Settings.Default.Save();
+            OMMSettings.Instance.Flipbook_TrueTransparency = checkBox1.Checked;
+            OMMSettings.Instance.Save();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Flipbook_LastIntrpValue = comboBox1.SelectedItem.ToString();
-            Properties.Settings.Default.Save();
+            OMMSettings.Instance.Flipbook_LastIntrpValue = comboBox1.SelectedItem.ToString();
+            OMMSettings.Instance.Save();
         }
     }
 }

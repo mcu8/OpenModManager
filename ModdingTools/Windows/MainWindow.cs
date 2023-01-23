@@ -15,6 +15,7 @@ using CUFramework.Dialogs;
 using CUFramework.Controls;
 using ModdingTools.Windows.Validators;
 using Steamworks;
+using ModdingTools.Settings;
 
 namespace ModdingTools.Windows
 {
@@ -54,6 +55,9 @@ namespace ModdingTools.Windows
         {
             if (!DesignMode)
                 Utils.CleanUpTrash(GameFinder.FindGameDir());
+
+            if (!DesignMode)
+                OMMSettings.Instance.Migrate();
 
             Instance = this;
             InitializeComponent();
@@ -121,7 +125,7 @@ namespace ModdingTools.Windows
         {
             Runner.KillAllWorkers();
             Utils.KillEditor();
-            if (Properties.Settings.Default.MafiaPunchGameToo)
+            if (OMMSettings.Instance.MafiaPunchGameToo)
             {
                 Utils.KillGame();
             }
@@ -240,7 +244,7 @@ namespace ModdingTools.Windows
             modListControl1.AddModSource(new ModDirectorySource("Mods directory", Path.Combine(Program.ProcFactory.GetGamePath(), @"HatinTimeGame\Mods"), true));
             modListControl1.AddModSource(new ModDirectorySource("Mods directory (disabled)", Path.Combine(Program.ProcFactory.GetGamePath(), @"HatinTimeGame\Mods\Disabled"), true, true, true));
 
-            var autoLoad = Properties.Settings.Default.AutoScanDownloadedMods;
+            var autoLoad = OMMSettings.Instance.AutoScanDownloadedMods;
 
             try
             {

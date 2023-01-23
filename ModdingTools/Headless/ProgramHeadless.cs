@@ -4,6 +4,7 @@ using ModdingTools.Engine;
 using ModdingTools.Logging;
 using ModdingTools.Logging.Handlers;
 using ModdingTools.Modding;
+using ModdingTools.Settings;
 using ModdingTools.Windows;
 using Steamworks;
 using System;
@@ -222,19 +223,18 @@ namespace ModdingTools.Headless
 
         public static int CompileMod(string scriptPath, string command)
         {
-            Properties.Settings.Default.Reload();
-            Console.WriteLine(Properties.Settings.Default.KillGameBeforeCooking);
-            //Properties.Settings.Default.KillGameBeforeCooking = false;
-            //Properties.Settings.Default.Save();
+            Console.WriteLine(OMMSettings.Instance.KillGameBeforeCooking);
+            //OMMSettings.Instance.KillGameBeforeCooking = false;
+            //OMMSettings.Instance.Save();
            Console.ReadKey();
             return 0;
 
 
             if (command == "ce" || command == "cg" || command == "cm" || command == "ci" || command == "cn")
             {
-                if (Properties.Settings.Default.KillEditorBeforeCooking)
+                if (OMMSettings.Instance.KillEditorBeforeCooking)
                     Utils.KillEditor();
-                if (Properties.Settings.Default.KillGameBeforeCooking)
+                if (OMMSettings.Instance.KillGameBeforeCooking)
                     Utils.KillGame();
                 Thread.Sleep(150);
             }
@@ -252,7 +252,7 @@ namespace ModdingTools.Headless
             {
                 var runner = new ConsoleProcessRunner();
                 var cookedStatus = mod.DoesModNeedToBeCooked();
-                var fast = Properties.Settings.Default.FastCook && cookedStatus != null && !cookedStatus.Contains("[0x0]") && !cookedStatus.Contains("[0x3]") && !cookedStatus.Contains("[0x4]");
+                var fast = OMMSettings.Instance.FastCook && cookedStatus != null && !cookedStatus.Contains("[0x0]") && !cookedStatus.Contains("[0x3]") && !cookedStatus.Contains("[0x4]");
                 var scriptNeedCooking = cookedStatus != null && (cookedStatus.Contains("[0x1]") || cookedStatus.Contains("[0x2]") || cookedStatus.Contains("[0x0]"));
                 if (cookedStatus == null)
                 {

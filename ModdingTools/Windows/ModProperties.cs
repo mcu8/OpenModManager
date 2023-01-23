@@ -16,6 +16,7 @@ using CUFramework.Dialogs.Validators;
 using ModdingTools.Windows.Validators;
 using System.Globalization;
 using CUFramework.Controls;
+using ModdingTools.Settings;
 
 namespace ModdingTools.Windows
 {
@@ -127,7 +128,7 @@ namespace ModdingTools.Windows
             _saveFeatureHold = true;
             Mod.Refresh();
             contentBrowser1.LoadMod(Mod);
-            comboBox3.SelectedIndex = Math.Min(Math.Max(Properties.Settings.Default.LastAction, 0), comboBox3.Items.Count - 1);
+            comboBox3.SelectedIndex = Math.Min(Math.Max(OMMSettings.Instance.LastAction, 0), comboBox3.Items.Count - 1);
 
             levelType.Items.Clear();
             if (Mod.HasAnyMaps())
@@ -889,13 +890,13 @@ namespace ModdingTools.Windows
 
                 if (comboBox3.SelectedIndex > 0)
                 {
-                    if (Properties.Settings.Default.KillEditorBeforeCooking)
+                    if (OMMSettings.Instance.KillEditorBeforeCooking)
                         Utils.KillEditor();
-                    if (Properties.Settings.Default.KillGameBeforeCooking)
+                    if (OMMSettings.Instance.KillGameBeforeCooking)
                         Utils.KillGame();
                 }
 
-                if (!Properties.Settings.Default.FastCook)
+                if (!OMMSettings.Instance.FastCook)
                 {
                     Task.Factory.StartNew(() =>
                     {
@@ -1062,9 +1063,9 @@ namespace ModdingTools.Windows
                 ToggleUnlock(false);
                 Task.Factory.StartNew(() =>
                 {
-                    if (Properties.Settings.Default.KillEditorBeforeCooking)
+                    if (OMMSettings.Instance.KillEditorBeforeCooking)
                         Utils.KillEditor();
-                    if (Properties.Settings.Default.KillGameBeforeCooking)
+                    if (OMMSettings.Instance.KillGameBeforeCooking)
                         Utils.KillGame();
 
                     Mod.UnCookMod();
@@ -1227,8 +1228,8 @@ namespace ModdingTools.Windows
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.LastAction = comboBox3.SelectedIndex;
-            Properties.Settings.Default.Save();
+            OMMSettings.Instance.LastAction = comboBox3.SelectedIndex;
+            OMMSettings.Instance.Save();
         }
     }
 }

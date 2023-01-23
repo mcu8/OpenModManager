@@ -15,6 +15,7 @@ using System.IO;
 using Steamworks;
 using ModdingTools.Headless;
 using System.Threading.Tasks;
+using ModdingTools.Settings;
 
 namespace ModdingTools.Engine
 {
@@ -54,9 +55,9 @@ namespace ModdingTools.Engine
                 Path.Combine(Environment.GetEnvironmentVariable("ProgramFiles(x86)"), "Microsoft VS Code", "code.exe")
             };
 
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.VSCCustomPath))
+            if (!string.IsNullOrEmpty(OMMSettings.Instance.VSCCustomPath))
             {
-                testPaths.Insert(0, Properties.Settings.Default.VSCCustomPath);
+                testPaths.Insert(0, OMMSettings.Instance.VSCCustomPath);
             }
 
             foreach(var path in testPaths)

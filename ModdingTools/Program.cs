@@ -4,6 +4,7 @@ using CUFramework.Shared;
 using ModdingTools.Engine;
 using ModdingTools.Headless;
 using ModdingTools.Logging;
+using ModdingTools.Settings;
 using ModdingTools.Windows;
 using ModdingTools.Windows.Tools;
 using Steamworks;
