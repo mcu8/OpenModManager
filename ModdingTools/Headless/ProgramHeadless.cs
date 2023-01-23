@@ -223,13 +223,6 @@ namespace ModdingTools.Headless
 
         public static int CompileMod(string scriptPath, string command)
         {
-            Console.WriteLine(OMMSettings.Instance.KillGameBeforeCooking);
-            //OMMSettings.Instance.KillGameBeforeCooking = false;
-            //OMMSettings.Instance.Save();
-           Console.ReadKey();
-            return 0;
-
-
             if (command == "ce" || command == "cg" || command == "cm" || command == "ci" || command == "cn")
             {
                 if (OMMSettings.Instance.KillEditorBeforeCooking)
