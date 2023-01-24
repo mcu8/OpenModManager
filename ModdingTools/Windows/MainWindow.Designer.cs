@@ -41,13 +41,13 @@ namespace ModdingTools.Windows
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.assetExporterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flipbookGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wORKSHOPBLOCKERToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mButton6 = new CUFramework.Controls.CUButton();
             this.mButton5 = new CUFramework.Controls.CUButton();
             this.mButton2 = new CUFramework.Controls.CUButton();
             this.cardController1 = new CUFramework.Controls.Tabs.CUCardController();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cuButton1 = new CUFramework.Controls.CUButton();
-            this.wORKSHOPBLOCKERToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -136,7 +136,7 @@ namespace ModdingTools.Windows
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(171, 92);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(171, 70);
             this.contextMenuStrip1.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.contextMenuStrip1_Closed);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
@@ -157,6 +157,14 @@ namespace ModdingTools.Windows
             this.flipbookGeneratorToolStripMenuItem.Text = "FLIPBOOK GENERATOR";
             this.flipbookGeneratorToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.flipbookGeneratorToolStripMenuItem.Click += new System.EventHandler(this.flipbookGeneratorToolStripMenuItem_Click);
+            // 
+            // wORKSHOPBLOCKERToolStripMenuItem
+            // 
+            this.wORKSHOPBLOCKERToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.wORKSHOPBLOCKERToolStripMenuItem.Name = "wORKSHOPBLOCKERToolStripMenuItem";
+            this.wORKSHOPBLOCKERToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.wORKSHOPBLOCKERToolStripMenuItem.Text = "WORKSHOP BLOCKER";
+            this.wORKSHOPBLOCKERToolStripMenuItem.Click += new System.EventHandler(this.wORKSHOPBLOCKERToolStripMenuItem_Click);
             // 
             // mButton6
             // 
@@ -252,14 +260,6 @@ namespace ModdingTools.Windows
             this.cuButton1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cuButton1.UseVisualStyleBackColor = false;
             this.cuButton1.Click += new System.EventHandler(this.cuButton1_Click);
-            // 
-            // wORKSHOPBLOCKERToolStripMenuItem
-            // 
-            this.wORKSHOPBLOCKERToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.wORKSHOPBLOCKERToolStripMenuItem.Name = "wORKSHOPBLOCKERToolStripMenuItem";
-            this.wORKSHOPBLOCKERToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
-            this.wORKSHOPBLOCKERToolStripMenuItem.Text = "WORKSHOP BLOCKER";
-            this.wORKSHOPBLOCKERToolStripMenuItem.Click += new System.EventHandler(this.wORKSHOPBLOCKERToolStripMenuItem_Click);
             // 
             // MainWindow
             // 

@@ -274,7 +274,7 @@ namespace ModdingTools.Windows
             var mapsA = Mod.GetCookedMaps();
             foreach (var a in Mod.GetAllMaps())
             {
-                comboBox1.Items.Add(new MapItem(a, null, mapsA.Contains(a, StringComparer.InvariantCultureIgnoreCase)));
+                comboBox1.Items.Add(new MapItem(a, null, mapsA == null ? false : mapsA.Contains(a, StringComparer.InvariantCultureIgnoreCase)));
             }
 
             bool found = false;
