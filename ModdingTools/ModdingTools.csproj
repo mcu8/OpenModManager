@@ -274,6 +274,12 @@
     <Compile Include="Engine\ScriptWatcher.cs" />
     <Compile Include="Engine\Utils.cs" />
     <Compile Include="Windows\Validators\ModdingValidators.cs" />
+    <Compile Include="Windows\WorkshopLocker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\WorkshopLocker.Designer.cs">
+      <DependentUpon>WorkshopLocker.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="GUI\ConfigItem.resx">
       <DependentUpon>ConfigItem.cs</DependentUpon>
     </EmbeddedResource>
@@ -347,6 +353,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Windows\WorkshopLocker.resx">
+      <DependentUpon>WorkshopLocker.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

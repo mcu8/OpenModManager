@@ -334,5 +334,12 @@ namespace ModdingTools.Windows
             w.StartPosition = FormStartPosition.CenterParent;
             w.ShowDialog(this);
         }
+
+        private void wORKSHOPBLOCKERToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var w = new WorkshopLocker();
+            w.StartPosition = FormStartPosition.CenterParent;
+            w.ShowDialog(this);
+        }
     }
 }

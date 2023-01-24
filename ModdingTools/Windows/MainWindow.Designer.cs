@@ -47,6 +47,7 @@ namespace ModdingTools.Windows
             this.cardController1 = new CUFramework.Controls.Tabs.CUCardController();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cuButton1 = new CUFramework.Controls.CUButton();
+            this.wORKSHOPBLOCKERToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -130,11 +131,12 @@ namespace ModdingTools.Windows
             this.contextMenuStrip1.DropShadowEnabled = false;
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.assetExporterToolStripMenuItem,
-            this.flipbookGeneratorToolStripMenuItem});
+            this.flipbookGeneratorToolStripMenuItem,
+            this.wORKSHOPBLOCKERToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(171, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(171, 92);
             this.contextMenuStrip1.Closed += new System.Windows.Forms.ToolStripDropDownClosedEventHandler(this.contextMenuStrip1_Closed);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
@@ -251,6 +253,14 @@ namespace ModdingTools.Windows
             this.cuButton1.UseVisualStyleBackColor = false;
             this.cuButton1.Click += new System.EventHandler(this.cuButton1_Click);
             // 
+            // wORKSHOPBLOCKERToolStripMenuItem
+            // 
+            this.wORKSHOPBLOCKERToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.wORKSHOPBLOCKERToolStripMenuItem.Name = "wORKSHOPBLOCKERToolStripMenuItem";
+            this.wORKSHOPBLOCKERToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.wORKSHOPBLOCKERToolStripMenuItem.Text = "WORKSHOP BLOCKER";
+            this.wORKSHOPBLOCKERToolStripMenuItem.Click += new System.EventHandler(this.wORKSHOPBLOCKERToolStripMenuItem_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -300,6 +310,7 @@ namespace ModdingTools.Windows
         private CUCardController cardController1;
         private System.Windows.Forms.Panel panel1;
         private CUButton cuButton1;
+        private System.Windows.Forms.ToolStripMenuItem wORKSHOPBLOCKERToolStripMenuItem;
     }
 }
 
