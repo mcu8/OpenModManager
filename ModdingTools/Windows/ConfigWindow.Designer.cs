@@ -46,6 +46,7 @@ namespace ModdingTools.Windows
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.checkBox9 = new System.Windows.Forms.CheckBox();
             this.checkBox10 = new System.Windows.Forms.CheckBox();
+            this.cuButton1 = new CUFramework.Controls.CUButton();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -130,9 +131,9 @@ namespace ModdingTools.Windows
             // 
             // checkBox5
             // 
-            this.checkBox5.Location = new System.Drawing.Point(10, 299);
+            this.checkBox5.Location = new System.Drawing.Point(10, 276);
             this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(217, 34);
+            this.checkBox5.Size = new System.Drawing.Size(168, 26);
             this.checkBox5.TabIndex = 11;
             this.checkBox5.Text = "Enable update checker";
             this.checkBox5.UseVisualStyleBackColor = true;
@@ -215,12 +216,31 @@ namespace ModdingTools.Windows
             this.checkBox10.Text = "Make the Mafia Punch (tm) button also kill game instances";
             this.checkBox10.UseVisualStyleBackColor = true;
             // 
+            // cuButton1
+            // 
+            this.cuButton1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cuButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.cuButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.cuButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cuButton1.ForeColor = System.Drawing.Color.White;
+            this.cuButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.cuButton1.Location = new System.Drawing.Point(202, 273);
+            this.cuButton1.Name = "cuButton1";
+            this.cuButton1.NoFocus = false;
+            this.cuButton1.Size = new System.Drawing.Size(134, 30);
+            this.cuButton1.TabIndex = 20;
+            this.cuButton1.Text = "UPDATE NOW";
+            this.cuButton1.UseVisualStyleBackColor = false;
+            this.cuButton1.Click += new System.EventHandler(this.cuButton1_Click);
+            // 
             // ConfigWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(683, 389);
             this.ControlBoxVisible = false;
+            this.Controls.Add(this.cuButton1);
             this.Controls.Add(this.checkBox10);
             this.Controls.Add(this.checkBox9);
             this.Controls.Add(this.checkBox8);
@@ -253,6 +273,7 @@ namespace ModdingTools.Windows
             this.Controls.SetChildIndex(this.checkBox8, 0);
             this.Controls.SetChildIndex(this.checkBox9, 0);
             this.Controls.SetChildIndex(this.checkBox10, 0);
+            this.Controls.SetChildIndex(this.cuButton1, 0);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -275,5 +296,6 @@ namespace ModdingTools.Windows
         private System.Windows.Forms.CheckBox checkBox8;
         private System.Windows.Forms.CheckBox checkBox9;
         private System.Windows.Forms.CheckBox checkBox10;
+        private CUButton cuButton1;
     }
 }

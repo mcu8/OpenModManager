@@ -6,7 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -67,6 +69,13 @@ namespace ModdingTools.Windows
         private void label1_Click(object sender, EventArgs e)
         {
             Utils.StartInDefaultBrowser("https://marketplace.visualstudio.com/items?itemName=EliotVU.uc");
+        }
+
+        private void cuButton1_Click(object sender, EventArgs e)
+        {
+            Utils.KillUpdater();
+            Process.Start(Path.Combine(Program.GetAppRoot(), "ModdingTools.Updater.exe"));
+            Program.CloseApp(0);
         }
     }
 }

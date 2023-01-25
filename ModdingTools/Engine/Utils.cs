@@ -133,6 +133,12 @@ namespace ModdingTools.Engine
             KillProcessByImageName("HatInTimeEditor", async);
         }
 
+        public static void KillUpdater()
+        {
+            KillProcessByImageName("ModdingTools.Updater", false);
+            KillProcessByImageName("ModdingTools.Updater.New", false);
+        }
+
         public static void KillGame(bool async = true)
         {
             KillProcessByImageName("HatInTimeGame", async);

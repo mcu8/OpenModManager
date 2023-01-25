@@ -223,6 +223,7 @@ namespace ModdingTools.Windows
                     var dialog = new ChangelogWindow();
                     if (dialog.ShowDialog() == DialogResult.Yes)
                     {
+                        Utils.KillUpdater();
                         Process.Start(Path.Combine(Program.GetAppRoot(), "ModdingTools.Updater.exe"));
                         Program.CloseApp(0);
                     }

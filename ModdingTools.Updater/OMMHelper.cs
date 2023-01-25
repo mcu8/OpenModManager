@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ModdingTools.Updater
@@ -89,6 +90,29 @@ namespace ModdingTools.Updater
 
             // well, probably an error
             throw new Exception("Unable to find download URL... [2]");
+        }
+
+        public static void KillOMM()
+        {
+            KillProcessByImageName("ModdingTools", false);
+            KillProcessByImageName("ModdingTools.Cli", false);
+        }
+
+        public static void KillProcessByImageName(string name, bool async)
+        {
+            if (async)
+            {
+                Task.Factory.StartNew(() =>
+                {
+                    foreach (var x in Process.GetProcessesByName(name))
+                        x.Kill();
+                });
+            }
+            else
+            {
+                foreach (var x in Process.GetProcessesByName(name))
+                    x.Kill();
+            }
         }
 
         public static void ExtractZIP(string zipFilePath, string targetFolderPath)

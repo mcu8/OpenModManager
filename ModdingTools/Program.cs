@@ -69,6 +69,8 @@ namespace ModdingTools
 
         public static bool FixUpdater()
         {
+            Utils.KillUpdater(); 
+
             var updaterFileA = Path.Combine(GetAppRoot(), "ModdingTools.Updater.exe");
             var updaterFilePdbA = Path.Combine(GetAppRoot(), "ModdingTools.Updater.pdb");
 
@@ -78,10 +80,11 @@ namespace ModdingTools
             bool result = false;
             if (File.Exists(updaterFileB))
             {
-                File.Move(updaterFileB, updaterFileA);
-                if (File.Exists(updaterFilePdbB))
-                    File.Move(updaterFilePdbB, updaterFilePdbA);
+                if (File.Exists(updaterFileA)) File.Delete(updaterFileA);
+                if (File.Exists(updaterFilePdbA)) File.Delete(updaterFilePdbA);
 
+                File.Move(updaterFileB, updaterFileA);
+                File.Move(updaterFilePdbB, updaterFilePdbA);
                 result = true;
             }
             return result;

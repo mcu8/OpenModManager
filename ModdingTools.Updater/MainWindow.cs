@@ -43,6 +43,9 @@ namespace ModdingTools.Updater
 
         public void RunUpdaterTasks()
         {
+            CurrentStatus = "Killing OMM instances...";
+            OMMHelper.KillOMM();
+
             CurrentStatus = "Downloading update data...";
             var data = OMMHelper.GetUpdateData();
 
