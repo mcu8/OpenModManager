@@ -1,11 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29926.136
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModdingTools", "ModdingTools\ModdingTools.csproj", "{0569BE64-BA84-4C53-9296-EE830F5A002F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModdingTools.Cli", "ModdingTools.Cli\ModdingTools.Cli.csproj", "{23733746-7020-4E5B-958F-E3AA34E9E60F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModdingTools.Updater", "ModdingTools.Updater\ModdingTools.Updater.csproj", "{25AAAE0C-404D-4877-AF19-F6245EB17F0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E8DC7A4E-EEAB-4932-8AE6-3281C6BC6A69}"
+	ProjectSection(SolutionItems) = preProject
+		Create-Release-Files.bat = Create-Release-Files.bat
+		Create-Release-Files.ps1 = Create-Release-Files.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +29,10 @@ Global
 		{23733746-7020-4E5B-958F-E3AA34E9E60F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23733746-7020-4E5B-958F-E3AA34E9E60F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23733746-7020-4E5B-958F-E3AA34E9E60F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25AAAE0C-404D-4877-AF19-F6245EB17F0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25AAAE0C-404D-4877-AF19-F6245EB17F0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25AAAE0C-404D-4877-AF19-F6245EB17F0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25AAAE0C-404D-4877-AF19-F6245EB17F0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

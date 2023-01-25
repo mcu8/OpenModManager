@@ -60,7 +60,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(521, 23);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Open the download page?";
+            this.label2.Text = "Do you want to download this update now?";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel1

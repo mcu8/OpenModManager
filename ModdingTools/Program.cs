@@ -67,6 +67,26 @@ namespace ModdingTools
             MainGUI(args);
         }
 
+        public static bool FixUpdater()
+        {
+            var updaterFileA = Path.Combine(GetAppRoot(), "ModdingTools.Updater.exe");
+            var updaterFilePdbA = Path.Combine(GetAppRoot(), "ModdingTools.Updater.pdb");
+
+            var updaterFileB = Path.Combine(GetAppRoot(), "ModdingTools.Updater.New.exe");
+            var updaterFilePdbB = Path.Combine(GetAppRoot(), "ModdingTools.Updater.New.pdb");
+
+            bool result = false;
+            if (File.Exists(updaterFileB))
+            {
+                File.Move(updaterFileB, updaterFileA);
+                if (File.Exists(updaterFilePdbB))
+                    File.Move(updaterFilePdbB, updaterFilePdbA);
+
+                result = true;
+            }
+            return result;
+        }
+
         private static void AttachBugTracker()
         {
             if (!Debugger.IsAttached)

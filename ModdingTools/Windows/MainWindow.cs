@@ -196,21 +196,24 @@ namespace ModdingTools.Windows
 
         private void MainWindow_ResizeBegin(object sender, EventArgs e)
         {
-           // modListControl1.SuspendLayout();
         }
 
         private void MainWindow_ResizeEnd(object sender, EventArgs e)
         {
-            
-            //modListControl1.ResumeLayout();
         }
 
         private void MainWindow_Load(object z, EventArgs x)
         {
             GuiWorker.SetTextOrHideOnNull("Loading...");
-            CallWorker();//SetCard(CardControllerTabs.Worker);
-
-            //SetCard(CardControllerTabs.Worker);
+            CallWorker();
+            try
+            {
+                if (Program.FixUpdater()) CUMessageBox.Show("OpenModManager has been successfully updated!");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message + "\n" + e.ToString());
+            }
 
             Debug.WriteLine("Setup update checker...");
 
@@ -220,7 +223,8 @@ namespace ModdingTools.Windows
                     var dialog = new ChangelogWindow();
                     if (dialog.ShowDialog() == DialogResult.Yes)
                     {
-                        Process.Start(BuildData.ReleasesPage);
+                        Process.Start(Path.Combine(Program.GetAppRoot(), "ModdingTools.Updater.exe"));
+                        Program.CloseApp(0);
                     }
                 }));
             }));
