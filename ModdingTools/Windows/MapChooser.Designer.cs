@@ -31,6 +31,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.mButton9 = new CUFramework.Controls.CUButton();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cuButton1 = new CUFramework.Controls.CUButton();
             this.SuspendLayout();
             // 
             // label6
@@ -51,11 +52,11 @@
             this.mButton9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mButton9.ForeColor = System.Drawing.Color.White;
             this.mButton9.Image = global::ModdingTools.Properties.Resources.play;
-            this.mButton9.Location = new System.Drawing.Point(263, 42);
+            this.mButton9.Location = new System.Drawing.Point(280, 48);
             this.mButton9.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.mButton9.Name = "mButton9";
             this.mButton9.NoFocus = false;
-            this.mButton9.Size = new System.Drawing.Size(58, 40);
+            this.mButton9.Size = new System.Drawing.Size(34, 29);
             this.mButton9.TabIndex = 23;
             this.mButton9.UseVisualStyleBackColor = false;
             this.mButton9.Click += new System.EventHandler(this.mButton9_Click);
@@ -67,15 +68,33 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(54, 52);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(203, 21);
+            this.comboBox1.Size = new System.Drawing.Size(217, 21);
             this.comboBox1.TabIndex = 22;
+            // 
+            // cuButton1
+            // 
+            this.cuButton1.BackColor = System.Drawing.Color.Red;
+            this.cuButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
+            this.cuButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cuButton1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cuButton1.ForeColor = System.Drawing.Color.White;
+            this.cuButton1.Location = new System.Drawing.Point(116, 80);
+            this.cuButton1.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
+            this.cuButton1.Name = "cuButton1";
+            this.cuButton1.NoFocus = false;
+            this.cuButton1.Size = new System.Drawing.Size(96, 26);
+            this.cuButton1.TabIndex = 25;
+            this.cuButton1.Text = "Cancel";
+            this.cuButton1.UseVisualStyleBackColor = false;
+            this.cuButton1.Click += new System.EventHandler(this.cuButton1_Click);
             // 
             // MapChooser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(329, 92);
+            this.ClientSize = new System.Drawing.Size(329, 114);
             this.ControlBoxVisible = false;
+            this.Controls.Add(this.cuButton1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.mButton9);
             this.Controls.Add(this.comboBox1);
@@ -88,6 +107,7 @@
             this.Controls.SetChildIndex(this.comboBox1, 0);
             this.Controls.SetChildIndex(this.mButton9, 0);
             this.Controls.SetChildIndex(this.label6, 0);
+            this.Controls.SetChildIndex(this.cuButton1, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -98,5 +118,6 @@
         private System.Windows.Forms.Label label6;
         private CUFramework.Controls.CUButton mButton9;
         private System.Windows.Forms.ComboBox comboBox1;
+        private CUFramework.Controls.CUButton cuButton1;
     }
 }

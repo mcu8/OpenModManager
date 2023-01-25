@@ -97,5 +97,10 @@ namespace ModdingTools.Windows
             catch (Exception) { }
             this.DialogResult = DialogResult.OK;
         }
+
+        private void cuButton1_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+        }
     }
 }

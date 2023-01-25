@@ -331,8 +331,10 @@ namespace ModdingTools.Headless
                         case "cn":
                             var chooser = new MapChooser(mod);
                             chooser.ShowDialog();
-                            runner.RunWithoutWait(Program.ProcFactory.StartMap(mod.GetLastMap(), command == "cn"));
-
+                            if (chooser.DialogResult == System.Windows.Forms.DialogResult.OK)
+                            {
+                                runner.RunWithoutWait(Program.ProcFactory.StartMap(mod.GetLastMap(), command == "cn"));
+                            }
                             Thread.Sleep(1000);
                             // restore appid
                             Utils.UpdateAppId(734880);
