@@ -278,14 +278,18 @@ namespace ModdingTools.Headless
                     {
                         if (!mod.HasAnyScripts() || mod.HasCompiledScripts())
                         {
-                            Logger.Log(LogLevel.Info, "Running CookMod task..." + (fast ? " (fast script cooking mode)" : ""));
-                            result = mod.CookMod(runner, false, false, fast);
-                            if (!result)
+                            // editor doesn't need recooking lol
+                            if (command != "ce")
                             {
-                                Logger.Log(LogLevel.Error, $"Cooking failed!");
-                                return -34;
+                                Logger.Log(LogLevel.Info, "Running CookMod task..." + (fast ? " (fast script cooking mode)" : ""));
+                                result = mod.CookMod(runner, false, false, fast);
+                                if (!result)
+                                {
+                                    Logger.Log(LogLevel.Error, $"Cooking failed!");
+                                    return -34;
+                                }
+                                Utils.UpdateFileDates(mod.GetCookedDir());
                             }
-                            Utils.UpdateFileDates(mod.GetCookedDir());
                         }
                         else
                         {

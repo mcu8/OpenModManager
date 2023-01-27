@@ -299,7 +299,7 @@
 			"group": "build"
 		},
         {
-			"label": "OMM: Compile and Cook and launch editor",
+			"label": "OMM: Compile and launch editor",
 			"type": "shell",
 			"command": "##OMM:OMM_EXE_PATH##",
 			"args": [
