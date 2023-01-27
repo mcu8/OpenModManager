@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
@@ -38,7 +39,24 @@ namespace ModdingTools.Updater
 
         private void MainWindow_Shown(object sender, EventArgs e)
         {
-            Task.Factory.StartNew(RunUpdaterTasks);
+            Task.Factory.StartNew(() =>
+            {
+                if (!Debugger.IsAttached)
+                {
+                    try
+                    {
+                        RunUpdaterTasks();
+                    }
+                    catch (Exception ex)
+                    {
+                        Program.FatalExceptionObject(ex);
+                    }
+                }
+                else
+                {
+                    RunUpdaterTasks();
+                } 
+            });
         }
 
         public void RunUpdaterTasks()
@@ -100,9 +118,7 @@ namespace ModdingTools.Updater
                 {
                     throw new Exception("Checksum verify failed!");
                 }
-            }
-
-                
+            } 
         }
 
         private void Wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)

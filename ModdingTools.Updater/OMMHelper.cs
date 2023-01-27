@@ -117,10 +117,16 @@ namespace ModdingTools.Updater
 
         public static void ExtractZIP(string zipFilePath, string targetFolderPath)
         {
-            Type fso = Type.GetTypeFromProgID("Shell.Application");
-            dynamic fsoi = Activator.CreateInstance(fso);
-            dynamic files = fsoi.NameSpace(Path.GetFullPath(zipFilePath)).items;
-            fsoi.NameSpace(Path.GetFullPath(targetFolderPath)).CopyHere(files, 16 | 4 | 8);
+            var zip = GetShell32Folder(zipFilePath).Items();
+            GetShell32Folder(targetFolderPath).CopyHere(zip, 16 | 4 | 8);
+        }
+
+        private static Shell32.Folder GetShell32Folder(string folderPath)
+        {
+            Type shellAppType = Type.GetTypeFromProgID("Shell.Application");
+            Object shell = Activator.CreateInstance(shellAppType);
+            return (Shell32.Folder)shellAppType.InvokeMember("NameSpace",
+            System.Reflection.BindingFlags.InvokeMethod, null, shell, new object[] { folderPath });
         }
     }
 }
