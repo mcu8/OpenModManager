@@ -45,6 +45,7 @@
             this.hatInTimeEntryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.openDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openInVSC = new System.Windows.Forms.ToolStripMenuItem();
             this.moveToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scriptingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,7 +53,12 @@
             this.deleteModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scriptWatcherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scriptWatcherToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.openInVSC = new System.Windows.Forms.ToolStripMenuItem();
+            this.compileLaunchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compileAndCookAndToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.launchGameSteamModsLastMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.launchGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.launchGameNoWorkshopModsSpecifyMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.launchGameWorkshopModsSpecifyMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -127,9 +133,11 @@
             // cookModToolStripMenuItem
             // 
             this.cookModToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.compileLaunchToolStripMenuItem,
             this.compileScriptsToolStripMenuItem,
             this.cookModToolStripMenuItem1,
-            this.compileCookToolStripMenuItem});
+            this.compileCookToolStripMenuItem,
+            this.compileAndCookAndToolStripMenuItem});
             this.cookModToolStripMenuItem.Name = "cookModToolStripMenuItem";
             this.cookModToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.cookModToolStripMenuItem.Text = "Build";
@@ -137,21 +145,21 @@
             // compileScriptsToolStripMenuItem
             // 
             this.compileScriptsToolStripMenuItem.Name = "compileScriptsToolStripMenuItem";
-            this.compileScriptsToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.compileScriptsToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
             this.compileScriptsToolStripMenuItem.Text = "Compile scripts";
             this.compileScriptsToolStripMenuItem.Click += new System.EventHandler(this.compileScriptsToolStripMenuItem_Click);
             // 
             // cookModToolStripMenuItem1
             // 
             this.cookModToolStripMenuItem1.Name = "cookModToolStripMenuItem1";
-            this.cookModToolStripMenuItem1.Size = new System.Drawing.Size(171, 22);
+            this.cookModToolStripMenuItem1.Size = new System.Drawing.Size(252, 22);
             this.cookModToolStripMenuItem1.Text = "Cook mod";
             this.cookModToolStripMenuItem1.Click += new System.EventHandler(this.cookModToolStripMenuItem1_Click);
             // 
             // compileCookToolStripMenuItem
             // 
             this.compileCookToolStripMenuItem.Name = "compileCookToolStripMenuItem";
-            this.compileCookToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.compileCookToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
             this.compileCookToolStripMenuItem.Text = "Compile and cook";
             this.compileCookToolStripMenuItem.Click += new System.EventHandler(this.compileCookToolStripMenuItem_Click);
             // 
@@ -206,6 +214,13 @@
             this.openDirectoryToolStripMenuItem.Text = "Open directory";
             this.openDirectoryToolStripMenuItem.Click += new System.EventHandler(this.openDirectoryToolStripMenuItem_Click);
             // 
+            // openInVSC
+            // 
+            this.openInVSC.Name = "openInVSC";
+            this.openInVSC.Size = new System.Drawing.Size(155, 22);
+            this.openInVSC.Text = "Open in VS Code";
+            this.openInVSC.Click += new System.EventHandler(this.openInVSC_Click);
+            // 
             // moveToToolStripMenuItem
             // 
             this.moveToToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -254,12 +269,51 @@
             this.scriptWatcherToolStripMenuItem1.Name = "scriptWatcherToolStripMenuItem1";
             this.scriptWatcherToolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
             // 
-            // openInVSC
+            // compileLaunchToolStripMenuItem
             // 
-            this.openInVSC.Name = "openInVSC";
-            this.openInVSC.Size = new System.Drawing.Size(155, 22);
-            this.openInVSC.Text = "Open in VS Code";
-            this.openInVSC.Click += new System.EventHandler(this.openInVSC_Click);
+            this.compileLaunchToolStripMenuItem.Name = "compileLaunchToolStripMenuItem";
+            this.compileLaunchToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
+            this.compileLaunchToolStripMenuItem.Text = "Compile scripts and launch editor";
+            this.compileLaunchToolStripMenuItem.Click += new System.EventHandler(this.compileLaunchToolStripMenuItem_Click);
+            // 
+            // compileAndCookAndToolStripMenuItem
+            // 
+            this.compileAndCookAndToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.launchGameSteamModsLastMapToolStripMenuItem,
+            this.launchGameToolStripMenuItem,
+            this.launchGameNoWorkshopModsSpecifyMapToolStripMenuItem,
+            this.launchGameWorkshopModsSpecifyMapToolStripMenuItem});
+            this.compileAndCookAndToolStripMenuItem.Name = "compileAndCookAndToolStripMenuItem";
+            this.compileAndCookAndToolStripMenuItem.Size = new System.Drawing.Size(252, 22);
+            this.compileAndCookAndToolStripMenuItem.Text = "Compile and cook and...";
+            // 
+            // launchGameSteamModsLastMapToolStripMenuItem
+            // 
+            this.launchGameSteamModsLastMapToolStripMenuItem.Name = "launchGameSteamModsLastMapToolStripMenuItem";
+            this.launchGameSteamModsLastMapToolStripMenuItem.Size = new System.Drawing.Size(350, 22);
+            this.launchGameSteamModsLastMapToolStripMenuItem.Text = "Launch game (No workshop mods, last played map)";
+            this.launchGameSteamModsLastMapToolStripMenuItem.Click += new System.EventHandler(this.launchGameSteamModsLastMapToolStripMenuItem_Click);
+            // 
+            // launchGameToolStripMenuItem
+            // 
+            this.launchGameToolStripMenuItem.Name = "launchGameToolStripMenuItem";
+            this.launchGameToolStripMenuItem.Size = new System.Drawing.Size(350, 22);
+            this.launchGameToolStripMenuItem.Text = "Launch game (Workshop mods, last played map)";
+            this.launchGameToolStripMenuItem.Click += new System.EventHandler(this.launchGameToolStripMenuItem_Click);
+            // 
+            // launchGameNoWorkshopModsSpecifyMapToolStripMenuItem
+            // 
+            this.launchGameNoWorkshopModsSpecifyMapToolStripMenuItem.Name = "launchGameNoWorkshopModsSpecifyMapToolStripMenuItem";
+            this.launchGameNoWorkshopModsSpecifyMapToolStripMenuItem.Size = new System.Drawing.Size(350, 22);
+            this.launchGameNoWorkshopModsSpecifyMapToolStripMenuItem.Text = "Launch game (No workshop mods, specify map...)";
+            this.launchGameNoWorkshopModsSpecifyMapToolStripMenuItem.Click += new System.EventHandler(this.launchGameNoWorkshopModsSpecifyMapToolStripMenuItem_Click);
+            // 
+            // launchGameWorkshopModsSpecifyMapToolStripMenuItem
+            // 
+            this.launchGameWorkshopModsSpecifyMapToolStripMenuItem.Name = "launchGameWorkshopModsSpecifyMapToolStripMenuItem";
+            this.launchGameWorkshopModsSpecifyMapToolStripMenuItem.Size = new System.Drawing.Size(350, 22);
+            this.launchGameWorkshopModsSpecifyMapToolStripMenuItem.Text = "Launch game (Workshop mods, specify map...)";
+            this.launchGameWorkshopModsSpecifyMapToolStripMenuItem.Click += new System.EventHandler(this.launchGameWorkshopModsSpecifyMapToolStripMenuItem_Click);
             // 
             // ModTile
             // 
@@ -303,5 +357,11 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ToolStripMenuItem compileCookToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openInVSC;
+        private System.Windows.Forms.ToolStripMenuItem compileLaunchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compileAndCookAndToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem launchGameSteamModsLastMapToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem launchGameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem launchGameNoWorkshopModsSpecifyMapToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem launchGameWorkshopModsSpecifyMapToolStripMenuItem;
     }
 }

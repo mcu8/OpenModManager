@@ -15,6 +15,9 @@ using CUFramework.Dialogs;
 using System.Threading.Tasks;
 using System.IO;
 using ModdingTools.Settings;
+using System.Globalization;
+using static ModdingTools.Windows.ModProperties;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ModdingTools.GUI
 {
@@ -282,10 +285,97 @@ namespace ModdingTools.GUI
 
         private void compileCookToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Mod.UnCookMod();
-            Task.Factory.StartNew(() =>
+            CompileAndCookWithAction(false, false, false);
+        }
+
+        private void CompileAndCookWithAction(bool launchGame, bool withWorkshopMods, bool lastMap)
+        {
+            if (OMMSettings.Instance.KillEditorBeforeCooking)
+                Utils.KillEditor();
+            if (OMMSettings.Instance.KillGameBeforeCooking)
+                Utils.KillGame();
+
+            if (OMMSettings.Instance.FastCook)
             {
-                var compileResult = Mod.CompileScripts(MainWindow.Instance.Runner, false);
+                Task.Factory.StartNew(() =>
+                {
+                    var startTime = DateTime.Now;
+
+                    var cookedStatus = Mod.DoesModNeedToBeCooked();
+                    var fast = cookedStatus != null && !cookedStatus.Contains("[0x0]") && !cookedStatus.Contains("[0x3]") && !cookedStatus.Contains("[0x4]");
+                    var scriptNeedCooking = cookedStatus != null && (cookedStatus.Contains("[0x1]") || cookedStatus.Contains("[0x2]") || cookedStatus.Contains("[0x0]"));
+
+                    MainWindow.Instance.Runner.Log("[Experimental] Fast script cooking is enabled! Please report any issues!", CUFramework.Shared.LogLevel.Warn);
+                    MainWindow.Instance.Runner.Log("Current state:", CUFramework.Shared.LogLevel.Info);
+                    MainWindow.Instance.Runner.Log(cookedStatus, CUFramework.Shared.LogLevel.Info);
+                    if (cookedStatus != null)
+                    {
+                        if (scriptNeedCooking)
+                        {
+                            var compileResult = Mod.CompileScripts(MainWindow.Instance.Runner, false);
+                            if (compileResult)
+                            {
+                                var cookResult = Mod.CookMod(MainWindow.Instance.Runner, false, false, fast);
+                                if (!cookResult)
+                                {
+                                    CUMessageBox.Show("Cooking failed! Look at the console output for more info!");
+                                }
+                                else
+                                {
+                                    Utils.UpdateFileDates(Mod.GetCookedDir());
+                                    RunPostCookTask(launchGame, withWorkshopMods, lastMap);
+                                }
+                            }
+                            else
+                            {
+                                CUMessageBox.Show("Script compile failed! Look at the console output for more info!");
+                            }
+                        }
+                        else
+                        {
+                            MainWindow.Instance.Runner.Log("Scripts are up-to-date! Cooking...", CUFramework.Shared.LogLevel.Success);
+                            var cookResult = Mod.CookMod(MainWindow.Instance.Runner, false, false, fast);
+                            if (!cookResult)
+                            {
+                                CUMessageBox.Show("Cooking the mod was failed! Look at the console output for more info!");
+                            }
+                            else
+                            {
+                                Utils.UpdateFileDates(Mod.GetCookedDir());
+                                RunPostCookTask(launchGame, withWorkshopMods, lastMap);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MainWindow.Instance.Runner.Log("Skipping cooking, everything is up-to-date!", CUFramework.Shared.LogLevel.Success);
+                        RunPostCookTask(launchGame, withWorkshopMods, lastMap);
+                    }
+                    var endTime = DateTime.Now;
+                    var taskTime = Math.Round((endTime - startTime).TotalMilliseconds / 1000, 2).ToString(CultureInfo.InvariantCulture);
+                    MainWindow.Instance.Runner.Log($"Task finished in {taskTime}s", CUFramework.Shared.LogLevel.Verbose);
+                });
+            }
+            else
+            {
+                Mod.UnCookMod();
+                var startTime = DateTime.Now;
+
+                var cookedStatus = Mod.DoesModNeedToBeCooked();
+                var scriptNeedCooking = cookedStatus != null && (cookedStatus.Contains("[0x1]") || cookedStatus.Contains("[0x2]") || cookedStatus.Contains("[0x0]"));
+
+                var compileResult = false;
+
+                if (scriptNeedCooking)
+                {
+                    compileResult = Mod.CompileScripts(MainWindow.Instance.Runner, false, false, false);
+                }
+                else
+                {
+                    MainWindow.Instance.Runner.Log("Scripts are up-to-date! Cooking...", CUFramework.Shared.LogLevel.Success);
+                    compileResult = true;
+                }
+
                 if (compileResult)
                 {
                     var cookResult = Mod.CookMod(MainWindow.Instance.Runner, false, false);
@@ -293,12 +383,68 @@ namespace ModdingTools.GUI
                     {
                         CUMessageBox.Show("Cooking the mod was failed! Look at the console output for more info!");
                     }
+                    else
+                    {
+                        Utils.UpdateFileDates(Mod.GetCookedDir());
+                        RunPostCookTask(launchGame, withWorkshopMods, lastMap);
+                    }
                 }
                 else
                 {
                     CUMessageBox.Show("Compiling scripts was failed! Look at the console output for more info!");
                 }
-            });
+
+                var endTime = DateTime.Now;
+                var taskTime = Math.Round((endTime - startTime).TotalMilliseconds / 1000, 2).ToString(CultureInfo.InvariantCulture);
+                MainWindow.Instance.Runner.Log($"Task finished in {taskTime}s", CUFramework.Shared.LogLevel.Verbose);
+            }
+        }
+
+        private void RunPostCookTask(bool launchGame, bool withWorkshopMods, bool useLastMap)
+        {
+
+            if (!launchGame)
+                return;
+
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(() => {
+                    RunPostCookTask(launchGame, withWorkshopMods, useLastMap);
+                }));
+                return;
+            }
+
+            string mapName;
+            if (useLastMap)
+            {
+                var lastMap = File.Exists(Path.Combine(Mod.RootPath, ".lastMap")) ? File.ReadAllText(Path.Combine(Mod.RootPath, ".lastMap")) : null;
+                if (!Mod.GetCookedMaps().Contains(lastMap, StringComparer.InvariantCultureIgnoreCase))
+                {
+                    var mapChooser = new MapChooser(Mod);
+                    var result = mapChooser.ShowDialog();
+                    if (result == DialogResult.OK)
+                    {
+                        mapName = mapChooser.GetSelectedMap();
+                    }
+                    else return;
+                }
+                else mapName = lastMap;
+            }
+            else
+            {
+                var mapChooser = new MapChooser(Mod);
+                var result = mapChooser.ShowDialog(this.ParentForm);
+                if (result == DialogResult.OK)
+                {
+                    mapName = mapChooser.GetSelectedMap();
+                }
+                else return;
+            }
+            
+            if (withWorkshopMods)
+                Mod.TestModAllMods(MainWindow.Instance.Runner, mapName == "??menu" ? null : mapName);
+            else
+                Mod.TestMod(MainWindow.Instance.Runner, mapName == "??menu" ? null : mapName);
         }
 
         private void openInVSC_Click(object sender, EventArgs e)
@@ -329,6 +475,50 @@ namespace ModdingTools.GUI
                     }
                 }
             }
+        }
+
+        private void compileLaunchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                if (OMMSettings.Instance.KillEditorBeforeCooking)
+                    Utils.KillEditor();
+                if (OMMSettings.Instance.KillGameBeforeCooking)
+                    Utils.KillGame();
+
+                Mod.UnCookMod();
+
+                if (Mod.CompileScripts(MainWindow.Instance.Runner, false, false))
+                {
+                    this.Invoke(new MethodInvoker(() => {
+                        MainWindow.Instance.Runner.RunWithoutWait(Program.ProcFactory.LaunchEditor(Mod.GetDirectoryName()));
+                    }));
+                }
+            });
+        }
+
+        private void launchGameSteamModsLastMapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //(bool launchGame, bool withWorkshopMods, bool lastMap)
+            CompileAndCookWithAction(true, false, true);
+        }
+
+        private void launchGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //(bool launchGame, bool withWorkshopMods, bool lastMap)
+            CompileAndCookWithAction(true, true, true);
+        }
+
+        private void launchGameNoWorkshopModsSpecifyMapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //(bool launchGame, bool withWorkshopMods, bool lastMap)
+            CompileAndCookWithAction(true, false, false);
+        }
+
+        private void launchGameWorkshopModsSpecifyMapToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //(bool launchGame, bool withWorkshopMods, bool lastMap)
+            CompileAndCookWithAction(true, true, false);
         }
     }
 }

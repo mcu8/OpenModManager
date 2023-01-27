@@ -888,13 +888,10 @@ namespace ModdingTools.Windows
 
                 this.processRunner1.consoleControl1.Clear();
 
-                if (comboBox3.SelectedIndex > 0)
-                {
-                    if (OMMSettings.Instance.KillEditorBeforeCooking)
-                        Utils.KillEditor();
-                    if (OMMSettings.Instance.KillGameBeforeCooking)
-                        Utils.KillGame();
-                }
+                if (OMMSettings.Instance.KillEditorBeforeCooking)
+                    Utils.KillEditor();
+                if (OMMSettings.Instance.KillGameBeforeCooking)
+                    Utils.KillGame();
 
                 if (!OMMSettings.Instance.FastCook)
                 {
