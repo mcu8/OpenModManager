@@ -942,7 +942,7 @@ namespace ModdingTools.Modding
             bool autoEquip = false;
             bool hasModClass = false;
             bool hasSkin = false;
-            foreach (var c in GetModClasses())
+            foreach (var c in GetModClasses(true))
             {
                 if (!c.IsIniAccessible)
                 {
