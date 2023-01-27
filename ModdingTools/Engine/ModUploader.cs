@@ -3,10 +3,13 @@ using ModdingTools.Modding;
 using ModdingTools.Windows;
 using Steamworks;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.UI.WebControls.WebParts;
 using System.Windows.Forms;
 
 // partially based on https://github.com/Doreamonsky/workshop-uploader
@@ -23,21 +26,20 @@ namespace ModdingTools.Engine
 
         public bool IsUploaderRunning { get; protected set; } = false;
 
-        public void UploadModAsync(ModObject mod, string changelog, string[] tags, bool keepCooked, bool keepScripts, int visibility, string description, string iconPath)
+        public void UploadModAsync(ModObject mod, string changelog, string[] tags, bool keepCooked, bool keepScripts, int visibility, string description, string iconPath, List<string> ignoredFiles)
         {
             Task.Factory.StartNew(() =>
             {
                 MainWindow.Instance.Invoke(new MethodInvoker(() => {
                     ModProperties.TemporaryHideAllPropertiesWindows();
                 }));
-                UploadMod(mod, changelog, tags, keepCooked, keepScripts, visibility, description, iconPath);
+                UploadMod(mod, changelog, tags, keepCooked, keepScripts, visibility, description, iconPath, ignoredFiles);
                 MainWindow.Instance.Invoke(new MethodInvoker(() => {
                     ModProperties.RestoreTemporaryHiddenPropertiesWindows();
                 }));
             });
         }
 
-        // I'm a fuckin idiot...
         public void ResetUploader()
         {
             publishID = 0;
@@ -47,7 +49,7 @@ namespace ModdingTools.Engine
             ugcUpdateHandle = UGCUpdateHandle_t.Invalid;
         }
 
-        public void UploadMod(ModObject mod, string changelog, string[] tags, bool keepUnCooked, bool keepScripts, int visibility, string description, string iconPath)
+        public void UploadMod(ModObject mod, string changelog, string[] tags, bool keepUnCooked, bool keepScripts, int visibility, string description, string iconPath, List<string> ignoredFiles)
         {
             if (IsUploaderRunning)
             {
@@ -104,7 +106,79 @@ namespace ModdingTools.Engine
                 if (File.Exists(Path.Combine(tmpDir, "vsc-modworkspace.code-workspace")))
                     File.Delete(Path.Combine(tmpDir, "vsc-modworkspace.code-workspace"));
 
-                //var description = mod.GetDescription();
+                if (ignoredFiles != null)
+                {
+                    foreach (var c in ignoredFiles)
+                    {
+                        SetStatus($"Checking results for pattern '{c}'...");
+
+                        var x = c.Replace("/", "\\").Trim();
+                        var parts = x.Split('\\');
+                        var mask = parts[parts.Length - 1];
+
+                        var matches = new List<string>();
+                        var matchesDir = new List<string>();
+
+                        if (parts.Length == 1)
+                        {
+                            var ext = mask.Split('*');
+                            var suffix = "";
+                            
+                            if (ext.Length > 0)
+                            {
+                                suffix = ext.Last();
+                            }
+
+                            var d = Directory.GetDirectories(tmpDir + "\\", mask, SearchOption.AllDirectories)
+                                .Where(xy => string.IsNullOrEmpty(suffix) ? true : xy.EndsWith(suffix));
+                            var f = Directory.GetFiles(tmpDir + "\\", mask, SearchOption.AllDirectories)
+                                .Where(xy => string.IsNullOrEmpty(suffix) ? true : xy.EndsWith(suffix));
+
+                            matchesDir.AddRange(d);
+                            matches.AddRange(f);
+                        }
+                        else
+                        {
+                            var newPath = new string[parts.Length - 1];
+                            for (var y = 0; y != parts.Length - 1; y++)
+                                newPath[y] = parts[y];
+
+                            var ph = Path.Combine(tmpDir, string.Join("\\", newPath));
+                            var d = Directory.GetDirectories(ph, mask, SearchOption.TopDirectoryOnly);
+                            var f = Directory.GetFiles(ph, mask, SearchOption.TopDirectoryOnly);
+
+                            matchesDir.AddRange(d);
+                            matches.AddRange(f);
+                        }
+                        
+                        foreach(var r in matches)
+                        {
+                            SetStatus($"Ignoring file '{r.Split(new[] { tmpDir }, StringSplitOptions.None).Last()}'...");
+                            File.Delete(r);
+                        }
+
+                        foreach (var r in matchesDir)
+                        {
+                            SetStatus($"Ignoring directory '{r.Split(new[] { tmpDir }, StringSplitOptions.None).Last()}'...");
+                            Directory.Delete(r, true);
+                        }
+                    }
+                }
+                
+                foreach (var x in Directory.GetDirectories(tmpDir))
+                {
+                    if (Utils.IsDirectoryEmpty(x))
+                    {
+                        try
+                        {
+                            SetStatus($"Removing empty directory {Path.GetFileName(x)}...");
+                            Directory.Delete(x, false);
+                        }
+                        catch (IOException)
+                        {
+                        }
+                    }
+                }
 
                 var modid = mod.GetUploadedId();
 
@@ -141,8 +215,6 @@ namespace ModdingTools.Engine
                 {
                     SetStatus("Updating the mod " + mod.Name + " with WorkshopID: " + publishID);
                 }
-
-                //throw new Exception("FUCK YOU WOKRSHOPID!!!!!!!!!!\nBtw, id: " + publishID);
 
                 var publishFileID_t = new PublishedFileId_t(publishID);
 

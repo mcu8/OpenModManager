@@ -235,6 +235,11 @@ namespace ModdingTools.Engine
             return result;
         }
 
+        public static bool IsDirectoryEmpty(string path)
+        {
+            return !Directory.EnumerateFileSystemEntries(path).Any();
+        }
+
         public static void UpdateFileDates(string path)
         {
             var files = Directory.GetFiles(path, "*", SearchOption.AllDirectories);

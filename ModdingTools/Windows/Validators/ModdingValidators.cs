@@ -54,6 +54,35 @@ namespace ModdingTools.Windows.Validators
         }
     }
 
+    public class WildcardValidator : IValidator
+    {
+        public string Validate(string inputText)
+        {
+            var e = inputText.Trim().Replace("/", "\\");
+            if (e.StartsWith("\\") || e.StartsWith(".\\"))
+                return "Use only relative file paths here!";
+
+            if (e.Contains(".."))
+                return "No, you can't use .. here...";
+
+            if (e.Contains("<") || e.Contains(">") || e.Contains("]") || e.Contains("|") || e.Contains("?") || e.Contains("\"") || e.Contains(":"))
+                return "No, you can't use []|?<>\": characters here...";
+
+            if (e.EndsWith("\\"))
+                return "Don't add \\ character at the end... If you want to exclude directory contents, type 'DirectoryName\\*' instead!";
+
+            var exploded = e.Split('\\');
+            if (exploded.Length > 1)
+            {
+                for (var x = 0; x != exploded.Length - 2; x++)
+                    if (exploded[x].Contains("*"))
+                        return "No, you can't use wildcards in the top directory names!";
+            }
+
+            return null;
+        }
+    }
+
     public class SplitListValidator : IValidator
     {
         char SplitChar;

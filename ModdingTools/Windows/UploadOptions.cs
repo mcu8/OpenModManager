@@ -19,6 +19,7 @@ using CUFramework.Windows;
 using CUFramework.Dialogs;
 using CUFramework.Dialogs.Validators;
 using ModdingTools.Windows.Tools;
+using ModdingTools.Windows.Validators;
 
 namespace ModdingTools.Windows
 {
@@ -45,6 +46,8 @@ namespace ModdingTools.Windows
                 checkBox2.Checked = store.UploadScripts;
                 checkBox13.Checked = store.ForceNoTags;
                 checkBox12.Checked = store.IsLanguagePack;
+
+                listBox1.Items.AddRange(store.IgnoredFiles.ToArray());
 
                 checkBox13_CheckedChanged(null, null);
 
@@ -169,6 +172,13 @@ namespace ModdingTools.Windows
             store.Changelog = textBox1.Text;
             store.ForceNoTags = checkBox13.Checked;
             store.IsLanguagePack = checkBox12.Checked;
+
+            store.IgnoredFiles = new List<string>();
+            foreach (var x in listBox1.Items)
+            {
+                store.IgnoredFiles.Add((string)x);
+            }
+
             store.SaveForMod(mod);
 
             var iconPath = Path.Combine(mod.RootPath, mod.Icon);
@@ -186,7 +196,7 @@ namespace ModdingTools.Windows
                 }
             }
 
-            Program.Uploader.UploadModAsync(mod, textBox1.Text, store.Tags, checkBox1.Checked, checkBox2.Checked, comboBox3.SelectedIndex, store.UseSeparateDescriptionForSteam ? store.GetDescription() : mod.GetDescription(), iconPath);
+            Program.Uploader.UploadModAsync(mod, textBox1.Text, store.Tags, checkBox1.Checked, checkBox2.Checked, comboBox3.SelectedIndex, store.UseSeparateDescriptionForSteam ? store.GetDescription() : mod.GetDescription(), iconPath, store.IgnoredFiles);
             this.Close();
         }
 
@@ -255,6 +265,21 @@ namespace ModdingTools.Windows
             mButton4.Visible = true;
             cuButton1.Visible = false;
         }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+            while(listBox1.SelectedItems.Count > 0)
+            {
+                listBox1.Items.Remove(listBox1.SelectedItems[0]);
+            }
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+            var modName = CUInputWindow.Ask(this, "New mod", "Please enter a file name (or wildcard) to exclude while uploading\nExamples: `CompiledScripts\\*.u` `icon.pdn` `OtherStuff\\*.*`", new WildcardValidator());
+            if (string.IsNullOrEmpty(modName)) return;
+            listBox1.Items.Add(modName.Replace("/", "\\").Trim());
+        }
     }
 
     public class ModStore
@@ -269,6 +294,7 @@ namespace ModdingTools.Windows
         public string Description = "";
         public string AnimatedIconFileName = "";
         public bool IsLanguagePack = false;
+        public List<string> IgnoredFiles = new List<string>();
 
         public void SetDescription(string desc)
         {
