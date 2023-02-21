@@ -37,6 +37,7 @@ namespace ModdingTools.Windows.Tools
             public string AssetName;
             public string Extension;
             public string FileName;
+            public string Group;
             public UModelFacade.ExportType ExportType;
         }
 
@@ -100,9 +101,23 @@ namespace ModdingTools.Windows.Tools
                             {
                                 if (o.Name.Equals(sub.Spl.Last(), StringComparison.InvariantCultureIgnoreCase) && o.Class.Name.Equals(sub.Type.ToString(), StringComparison.InvariantCultureIgnoreCase))
                                 {
-                                    if (sub.Spl.Count() == 3)
+                                    if (sub.Spl.Count() >= 3)
                                     {
-                                        if (!o.Outer.Name.Equals(sub.Spl[1], StringComparison.InvariantCultureIgnoreCase))
+                                        var x = sub.Spl.Skip(1).Reverse();
+                                        var curr = o;
+                                        var shouldContinue = true;
+                                        foreach (var y in x)
+                                        {
+                                            if (curr != null && y.Equals(curr.Name))
+                                            {
+                                                shouldContinue = true;
+                                                curr = curr.Outer;
+                                                continue;
+                                            }
+                                            shouldContinue = false;
+                                            break;
+                                        }
+                                        if (!shouldContinue)
                                         {
                                             Debug.WriteLine(o.Outer.Name + " >> Outer invalid");
                                             continue;
@@ -124,7 +139,8 @@ namespace ModdingTools.Windows.Tools
                                         AssetName = sub.Spl.Last(),
                                         ExportType = sub.Type,
                                         FileName = sub.Name,
-                                        Extension = ext
+                                        Extension = ext,
+                                        Group = string.Join(".", sub.Spl.Skip(1).Take(sub.Spl.Length - 2))
                                     });
                                 }
                             }
@@ -160,7 +176,7 @@ namespace ModdingTools.Windows.Tools
                                         cuProgressBar1.Text = t.FileName;
                                         cuProgressBar1.Invalidate();
                                     }));
-                                    var res = facade.Export(t.Root, t.Package, t.AssetName, t.ExportType, Path.Combine(work, t.FileName + t.Extension), checkBox1.Checked);
+                                    var res = facade.Export(t.Root, t.Package, t.AssetName, t.Group, t.ExportType, Path.Combine(work, t.FileName + t.Extension), checkBox1.Checked);
                                     if (!res)
                                     {
                                         this.Invoke(new MethodInvoker(() =>
