@@ -250,7 +250,7 @@ namespace ModdingTools.Engine
                             {
                                 ClassName = result[1].Split(' ')[0].Trim();
                                 var ext = Utils.Split(contentA, " extends ");
-                                if (ext.Length > 0)
+                                if (ext.Length > 1)
                                 {
                                     ExtendsClass = ext[1].Split(';')[0].Trim().Split(' ')[0];
                                 }
