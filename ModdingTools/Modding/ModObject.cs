@@ -369,14 +369,38 @@ namespace ModdingTools.Modding
 
         public bool CookMod(AbstractProcessRunner runner, bool async = true, bool cleanConsole = true, bool fast = false)
         {
+            if (OMMSettings.Instance.AlwaysloadedWorkaround)
+            {
+                Debug.WriteLine("AlwaysloadedWorkaround called");
+                if (!Directory.Exists(this.GetMapsDir()))
+                    Directory.CreateDirectory(this.GetMapsDir());
+                var csc = Path.Combine(this.GetCompiledScriptsDir(), this.GetDirectoryName() + ".u");
+                if (File.Exists(csc))
+                    File.Move(csc, Path.Combine(this.GetMapsDir(), this.GetDirectoryName() + ".umap"));
+            }
+
             if (async)
             {
-                runner.RunAppAsync(Program.ProcFactory.GetCookMod(this, fast));
+                runner.RunAppAsync(Program.ProcFactory.GetCookMod(this, fast), cleanConsole, OnCookingFinish);
                 return true; // async task always return true
             }
             else
             {
-                return runner.RunApp(Program.ProcFactory.GetCookMod(this, fast), cleanConsole);
+                return runner.RunApp(Program.ProcFactory.GetCookMod(this, fast, OnCookingFinish), cleanConsole);
+            }
+        }
+
+        private void OnCookingFinish()
+        {
+            if (OMMSettings.Instance.AlwaysloadedWorkaround)
+            {
+                Debug.WriteLine("OnCookingFinish called");
+                var scr = Path.Combine(this.GetMapsDir(), this.GetDirectoryName() + ".umap");
+                if (File.Exists(scr))
+                    File.Move(scr, Path.Combine(this.GetCompiledScriptsDir(), this.GetDirectoryName() + ".u"));
+                var cooked = Path.Combine(this.GetCookedDir(), this.GetDirectoryName() + ".umap");
+                if (File.Exists(cooked))
+                    File.Move(cooked, Path.Combine(this.GetCookedDir(), this.GetDirectoryName() + ".u"));
             }
         }
 

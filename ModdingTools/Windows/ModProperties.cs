@@ -893,6 +893,12 @@ namespace ModdingTools.Windows
                 if (OMMSettings.Instance.KillGameBeforeCooking)
                     Utils.KillGame();
 
+                if (ModifierKeys == Keys.Shift)
+                {
+                    this.processRunner1.Runner.Log("Shift key is pressed - forcing recook", CUFramework.Shared.LogLevel.Success);
+                    Mod.UnCookMod();
+                }
+
                 if (!OMMSettings.Instance.FastCook)
                 {
                     Task.Factory.StartNew(() =>

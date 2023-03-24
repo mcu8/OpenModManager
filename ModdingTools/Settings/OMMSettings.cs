@@ -30,6 +30,7 @@ namespace ModdingTools.Settings
         public bool KillGameBeforeCooking { get; set; } = false;
         public bool KillEditorBeforeCooking { get; set; } = false;
         public bool MafiaPunchGameToo { get; set; } = false;
+        public bool AlwaysloadedWorkaround { get; set; } = false;
 
         // ToDo: remove after few months lol
         public void Migrate()

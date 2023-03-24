@@ -71,7 +71,7 @@ namespace ModdingTools.Engine
             );
         }
 
-        public ExecutableArgumentsPair GetCookMod(ModObject mod, bool fast = false)
+        public ExecutableArgumentsPair GetCookMod(ModObject mod, bool fast = false, Action onFinish = null)
         {
             return new ExecutableArgumentsPair(
                 "Cooking mod...",
@@ -99,7 +99,8 @@ namespace ModdingTools.Engine
                     "-MULTILANGUAGECOOK=" + (OMMSettings.Instance.MultilangCook ? "INT+CHN+DEU+ESN+FRA+ITA+JPN+KOR+PTB" : "INT"),
                     "-MODSONLY=" + mod.GetDirectoryName()
                 },
-                Path.GetDirectoryName(EditorExecutablePath)
+                Path.GetDirectoryName(EditorExecutablePath),
+                onFinish
             );
         }
 

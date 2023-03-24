@@ -47,6 +47,7 @@ namespace ModdingTools.Windows
             this.checkBox9 = new System.Windows.Forms.CheckBox();
             this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.cuButton1 = new CUFramework.Controls.CUButton();
+            this.checkBox11 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -234,12 +235,22 @@ namespace ModdingTools.Windows
             this.cuButton1.UseVisualStyleBackColor = false;
             this.cuButton1.Click += new System.EventHandler(this.cuButton1_Click);
             // 
+            // checkBox11
+            // 
+            this.checkBox11.Location = new System.Drawing.Point(353, 297);
+            this.checkBox11.Name = "checkBox11";
+            this.checkBox11.Size = new System.Drawing.Size(325, 34);
+            this.checkBox11.TabIndex = 21;
+            this.checkBox11.Text = "[experimental] AlwaysLoaded workaround";
+            this.checkBox11.UseVisualStyleBackColor = true;
+            // 
             // ConfigWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(683, 389);
             this.ControlBoxVisible = false;
+            this.Controls.Add(this.checkBox11);
             this.Controls.Add(this.cuButton1);
             this.Controls.Add(this.checkBox10);
             this.Controls.Add(this.checkBox9);
@@ -274,6 +285,7 @@ namespace ModdingTools.Windows
             this.Controls.SetChildIndex(this.checkBox9, 0);
             this.Controls.SetChildIndex(this.checkBox10, 0);
             this.Controls.SetChildIndex(this.cuButton1, 0);
+            this.Controls.SetChildIndex(this.checkBox11, 0);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -297,5 +309,6 @@ namespace ModdingTools.Windows
         private System.Windows.Forms.CheckBox checkBox9;
         private System.Windows.Forms.CheckBox checkBox10;
         private CUButton cuButton1;
+        private System.Windows.Forms.CheckBox checkBox11;
     }
 }
