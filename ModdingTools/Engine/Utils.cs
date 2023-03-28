@@ -151,13 +151,21 @@ namespace ModdingTools.Engine
                 Task.Factory.StartNew(() =>
                 {
                     foreach (var x in Process.GetProcessesByName(name))
-                        x.Kill();
+                        try
+                        {
+                            x.Kill();
+                        }
+                        catch (Win32Exception) { }
                 });
             }
             else
             {
                 foreach(var x in Process.GetProcessesByName(name))
-                    x.Kill();
+                    try
+                    {
+                        x.Kill();
+                    }
+                    catch (Win32Exception) { }
             }
         }
 

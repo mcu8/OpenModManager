@@ -1,4 +1,5 @@
-﻿using CUFramework.Windows;
+﻿using CUFramework.Dialogs;
+using CUFramework.Windows;
 using ModdingTools.Engine;
 using ModdingTools.GUI;
 using ModdingTools.Settings;
@@ -64,6 +65,12 @@ namespace ModdingTools.Windows
 
         private void mButton2_Click(object sender, EventArgs e)
         {
+            if (checkBox11.Checked && checkBox6.Checked)
+            {
+                CUMessageBox.Show("Fast script cooking and alwaysloaded workaround cannot be enabled at the same time!");
+                return;
+            }
+
             SaveSettings();
             this.Close();
         }
