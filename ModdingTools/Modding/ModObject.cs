@@ -19,6 +19,7 @@ using static ModdingTools.Engine.ModClass;
 using ModdingTools.Windows.Tools;
 using System.Web;
 using ModdingTools.Settings;
+using System.Net;
 
 namespace ModdingTools.Modding
 {
@@ -376,7 +377,12 @@ namespace ModdingTools.Modding
                     Directory.CreateDirectory(this.GetMapsDir());
                 var csc = Path.Combine(this.GetCompiledScriptsDir(), this.GetDirectoryName() + ".u");
                 if (File.Exists(csc))
-                    File.Move(csc, Path.Combine(this.GetMapsDir(), this.GetDirectoryName() + ".umap"));
+                {
+                    var target = Path.Combine(this.GetMapsDir(), this.GetDirectoryName() + ".umap");
+                    if (File.Exists(target))
+                        File.Delete(target);
+                    File.Move(csc, target);
+                }
             }
 
             if (async)
