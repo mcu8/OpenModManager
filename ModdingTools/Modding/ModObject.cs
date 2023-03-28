@@ -397,10 +397,20 @@ namespace ModdingTools.Modding
                 Debug.WriteLine("OnCookingFinish called");
                 var scr = Path.Combine(this.GetMapsDir(), this.GetDirectoryName() + ".umap");
                 if (File.Exists(scr))
-                    File.Move(scr, Path.Combine(this.GetCompiledScriptsDir(), this.GetDirectoryName() + ".u"));
+                {
+                    var target = Path.Combine(this.GetCompiledScriptsDir(), this.GetDirectoryName() + ".u");
+                    if (File.Exists(target))
+                        File.Delete(target);
+                    File.Move(scr, target);
+                }
                 var cooked = Path.Combine(this.GetCookedDir(), this.GetDirectoryName() + ".umap");
                 if (File.Exists(cooked))
-                    File.Move(cooked, Path.Combine(this.GetCookedDir(), this.GetDirectoryName() + ".u"));
+                {
+                    var target = Path.Combine(this.GetCookedDir(), this.GetDirectoryName() + ".u");
+                    if (File.Exists(target))
+                        File.Delete(target);
+                    File.Move(cooked, target);
+                }
             }
         }
 
