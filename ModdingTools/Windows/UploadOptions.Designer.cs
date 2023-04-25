@@ -51,6 +51,9 @@ namespace ModdingTools.Windows
             this.borderPanel2 = new ModdingTools.GUI.BorderPanel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.borderPanel1 = new ModdingTools.GUI.BorderPanel();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.checkBox16 = new System.Windows.Forms.CheckBox();
             this.checkBox15 = new System.Windows.Forms.CheckBox();
             this.checkBox14 = new System.Windows.Forms.CheckBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
@@ -69,9 +72,7 @@ namespace ModdingTools.Windows
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.borderPanel3 = new ModdingTools.GUI.BorderPanel();
-            this.checkBox16 = new System.Windows.Forms.CheckBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.checkBox17 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.borderPanel2.SuspendLayout();
             this.borderPanel1.SuspendLayout();
@@ -340,6 +341,7 @@ namespace ModdingTools.Windows
             // 
             this.borderPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.borderPanel1.BorderThickness = 2;
+            this.borderPanel1.Controls.Add(this.checkBox17);
             this.borderPanel1.Controls.Add(this.comboBox4);
             this.borderPanel1.Controls.Add(this.label10);
             this.borderPanel1.Controls.Add(this.checkBox16);
@@ -366,11 +368,48 @@ namespace ModdingTools.Windows
             this.borderPanel1.Size = new System.Drawing.Size(344, 314);
             this.borderPanel1.TabIndex = 12;
             // 
+            // comboBox4
+            // 
+            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "< none specified >",
+            "Winter",
+            "Spring",
+            "Summer",
+            "Fall"});
+            this.comboBox4.Location = new System.Drawing.Point(8, 280);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(326, 21);
+            this.comboBox4.TabIndex = 32;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.ForeColor = System.Drawing.Color.DarkGray;
+            this.label10.Location = new System.Drawing.Point(5, 264);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(45, 13);
+            this.label10.TabIndex = 31;
+            this.label10.Text = "THEME";
+            // 
+            // checkBox16
+            // 
+            this.checkBox16.AutoSize = true;
+            this.checkBox16.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.checkBox16.Location = new System.Drawing.Point(167, 197);
+            this.checkBox16.Name = "checkBox16";
+            this.checkBox16.Size = new System.Drawing.Size(144, 17);
+            this.checkBox16.TabIndex = 30;
+            this.checkBox16.Text = "Titlescreen Replacement";
+            this.checkBox16.UseVisualStyleBackColor = true;
+            // 
             // checkBox15
             // 
             this.checkBox15.AutoSize = true;
             this.checkBox15.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox15.Location = new System.Drawing.Point(181, 180);
+            this.checkBox15.Location = new System.Drawing.Point(8, 243);
             this.checkBox15.Name = "checkBox15";
             this.checkBox15.Size = new System.Drawing.Size(82, 17);
             this.checkBox15.TabIndex = 29;
@@ -381,7 +420,7 @@ namespace ModdingTools.Windows
             // 
             this.checkBox14.AutoSize = true;
             this.checkBox14.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox14.Location = new System.Drawing.Point(8, 180);
+            this.checkBox14.Location = new System.Drawing.Point(8, 174);
             this.checkBox14.Name = "checkBox14";
             this.checkBox14.Size = new System.Drawing.Size(102, 17);
             this.checkBox14.TabIndex = 28;
@@ -407,7 +446,7 @@ namespace ModdingTools.Windows
             // 
             this.checkBox12.AutoSize = true;
             this.checkBox12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox12.Location = new System.Drawing.Point(181, 203);
+            this.checkBox12.Location = new System.Drawing.Point(167, 174);
             this.checkBox12.Name = "checkBox12";
             this.checkBox12.Size = new System.Drawing.Size(115, 17);
             this.checkBox12.TabIndex = 26;
@@ -419,7 +458,7 @@ namespace ModdingTools.Windows
             // 
             this.checkBox11.AutoSize = true;
             this.checkBox11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox11.Location = new System.Drawing.Point(8, 203);
+            this.checkBox11.Location = new System.Drawing.Point(8, 197);
             this.checkBox11.Name = "checkBox11";
             this.checkBox11.Size = new System.Drawing.Size(118, 17);
             this.checkBox11.TabIndex = 25;
@@ -431,7 +470,7 @@ namespace ModdingTools.Windows
             // 
             this.checkBox10.AutoSize = true;
             this.checkBox10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox10.Location = new System.Drawing.Point(8, 226);
+            this.checkBox10.Location = new System.Drawing.Point(8, 220);
             this.checkBox10.Name = "checkBox10";
             this.checkBox10.Size = new System.Drawing.Size(83, 17);
             this.checkBox10.TabIndex = 24;
@@ -573,42 +612,16 @@ namespace ModdingTools.Windows
             this.borderPanel3.Size = new System.Drawing.Size(229, 126);
             this.borderPanel3.TabIndex = 30;
             // 
-            // checkBox16
+            // checkBox17
             // 
-            this.checkBox16.AutoSize = true;
-            this.checkBox16.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox16.Location = new System.Drawing.Point(181, 226);
-            this.checkBox16.Name = "checkBox16";
-            this.checkBox16.Size = new System.Drawing.Size(144, 17);
-            this.checkBox16.TabIndex = 30;
-            this.checkBox16.Text = "Titlescreen Replacement";
-            this.checkBox16.UseVisualStyleBackColor = true;
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
-            "< none specified >",
-            "Winter",
-            "Spring",
-            "Summer",
-            "Fall"});
-            this.comboBox4.Location = new System.Drawing.Point(8, 273);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(326, 21);
-            this.comboBox4.TabIndex = 32;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.Transparent;
-            this.label10.ForeColor = System.Drawing.Color.DarkGray;
-            this.label10.Location = new System.Drawing.Point(5, 257);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(45, 13);
-            this.label10.TabIndex = 31;
-            this.label10.Text = "THEME";
+            this.checkBox17.AutoSize = true;
+            this.checkBox17.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.checkBox17.Location = new System.Drawing.Point(167, 220);
+            this.checkBox17.Name = "checkBox17";
+            this.checkBox17.Size = new System.Drawing.Size(93, 17);
+            this.checkBox17.TabIndex = 33;
+            this.checkBox17.Text = "No Showcase";
+            this.checkBox17.UseVisualStyleBackColor = true;
             // 
             // UploadOptions
             // 
@@ -710,5 +723,6 @@ namespace ModdingTools.Windows
         private System.Windows.Forms.ComboBox comboBox4;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox checkBox16;
+        private System.Windows.Forms.CheckBox checkBox17;
     }
 }
