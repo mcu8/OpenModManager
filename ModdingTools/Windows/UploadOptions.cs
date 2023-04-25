@@ -37,6 +37,7 @@ namespace ModdingTools.Windows
                 comboBox1.SelectedIndex = 0;
                 comboBox2.SelectedIndex = 0;
                 comboBox3.SelectedIndex = 0;
+                comboBox4.SelectedIndex = 0;
                 this.mod = mod;
                 this.store = ModStore.LoadForMod(mod);
                 LoadGUITags((store.Tags != null && store.Tags.Count() > 0) ? store.Tags : null);

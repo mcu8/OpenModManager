@@ -69,6 +69,9 @@ namespace ModdingTools.Windows
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.borderPanel3 = new ModdingTools.GUI.BorderPanel();
+            this.checkBox16 = new System.Windows.Forms.CheckBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.borderPanel2.SuspendLayout();
             this.borderPanel1.SuspendLayout();
@@ -84,10 +87,10 @@ namespace ModdingTools.Windows
             this.mButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.mButton3.ForeColor = System.Drawing.Color.Black;
             this.mButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.mButton3.Location = new System.Drawing.Point(251, 3);
+            this.mButton3.Location = new System.Drawing.Point(303, 3);
             this.mButton3.Name = "mButton3";
             this.mButton3.NoFocus = false;
-            this.mButton3.Size = new System.Drawing.Size(242, 31);
+            this.mButton3.Size = new System.Drawing.Size(295, 31);
             this.mButton3.TabIndex = 8;
             this.mButton3.Text = "CANCEL";
             this.mButton3.UseVisualStyleBackColor = false;
@@ -105,7 +108,7 @@ namespace ModdingTools.Windows
             this.mButton2.Location = new System.Drawing.Point(3, 3);
             this.mButton2.Name = "mButton2";
             this.mButton2.NoFocus = false;
-            this.mButton2.Size = new System.Drawing.Size(242, 31);
+            this.mButton2.Size = new System.Drawing.Size(294, 31);
             this.mButton2.TabIndex = 7;
             this.mButton2.Text = "UPLOAD/UPDATE MOD";
             this.mButton2.UseVisualStyleBackColor = false;
@@ -123,7 +126,7 @@ namespace ModdingTools.Windows
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(496, 37);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(601, 37);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
             // checkBox1
@@ -204,7 +207,7 @@ namespace ModdingTools.Windows
             this.mButton1.Location = new System.Drawing.Point(253, -214);
             this.mButton1.Name = "mButton1";
             this.mButton1.NoFocus = false;
-            this.mButton1.Size = new System.Drawing.Size(0, 27);
+            this.mButton1.Size = new System.Drawing.Size(105, 27);
             this.mButton1.TabIndex = 31;
             this.mButton1.Text = "AUTOFILL";
             this.mButton1.UseVisualStyleBackColor = false;
@@ -222,7 +225,7 @@ namespace ModdingTools.Windows
             this.mButton4.Location = new System.Drawing.Point(11, 42);
             this.mButton4.Name = "mButton4";
             this.mButton4.NoFocus = false;
-            this.mButton4.Size = new System.Drawing.Size(236, 42);
+            this.mButton4.Size = new System.Drawing.Size(230, 42);
             this.mButton4.TabIndex = 32;
             this.mButton4.Text = "ALREADY RELEASED?\r\nCLICK HERE!";
             this.mButton4.UseVisualStyleBackColor = false;
@@ -252,7 +255,7 @@ namespace ModdingTools.Windows
             this.cuButton1.Location = new System.Drawing.Point(11, 63);
             this.cuButton1.Name = "cuButton1";
             this.cuButton1.NoFocus = false;
-            this.cuButton1.Size = new System.Drawing.Size(236, 21);
+            this.cuButton1.Size = new System.Drawing.Size(230, 21);
             this.cuButton1.TabIndex = 34;
             this.cuButton1.Text = "REMOVE WORKSHOPID";
             this.cuButton1.UseVisualStyleBackColor = false;
@@ -317,7 +320,7 @@ namespace ModdingTools.Windows
             this.borderPanel2.Location = new System.Drawing.Point(11, 378);
             this.borderPanel2.Name = "borderPanel2";
             this.borderPanel2.Padding = new System.Windows.Forms.Padding(5);
-            this.borderPanel2.Size = new System.Drawing.Size(482, 128);
+            this.borderPanel2.Size = new System.Drawing.Size(585, 128);
             this.borderPanel2.TabIndex = 28;
             // 
             // textBox1
@@ -330,13 +333,16 @@ namespace ModdingTools.Windows
             this.textBox1.Margin = new System.Windows.Forms.Padding(5);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(472, 118);
+            this.textBox1.Size = new System.Drawing.Size(575, 118);
             this.textBox1.TabIndex = 28;
             // 
             // borderPanel1
             // 
             this.borderPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.borderPanel1.BorderThickness = 2;
+            this.borderPanel1.Controls.Add(this.comboBox4);
+            this.borderPanel1.Controls.Add(this.label10);
+            this.borderPanel1.Controls.Add(this.checkBox16);
             this.borderPanel1.Controls.Add(this.checkBox15);
             this.borderPanel1.Controls.Add(this.checkBox14);
             this.borderPanel1.Controls.Add(this.comboBox2);
@@ -357,14 +363,14 @@ namespace ModdingTools.Windows
             this.borderPanel1.ForeColor = System.Drawing.Color.White;
             this.borderPanel1.Location = new System.Drawing.Point(253, 41);
             this.borderPanel1.Name = "borderPanel1";
-            this.borderPanel1.Size = new System.Drawing.Size(240, 314);
+            this.borderPanel1.Size = new System.Drawing.Size(344, 314);
             this.borderPanel1.TabIndex = 12;
             // 
             // checkBox15
             // 
             this.checkBox15.AutoSize = true;
             this.checkBox15.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox15.Location = new System.Drawing.Point(6, 283);
+            this.checkBox15.Location = new System.Drawing.Point(181, 180);
             this.checkBox15.Name = "checkBox15";
             this.checkBox15.Size = new System.Drawing.Size(82, 17);
             this.checkBox15.TabIndex = 29;
@@ -375,7 +381,7 @@ namespace ModdingTools.Windows
             // 
             this.checkBox14.AutoSize = true;
             this.checkBox14.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox14.Location = new System.Drawing.Point(6, 260);
+            this.checkBox14.Location = new System.Drawing.Point(8, 180);
             this.checkBox14.Name = "checkBox14";
             this.checkBox14.Size = new System.Drawing.Size(102, 17);
             this.checkBox14.TabIndex = 28;
@@ -391,9 +397,9 @@ namespace ModdingTools.Windows
             "Available Instantly",
             "Found In Time Rift Roulette",
             "Found In Levels"});
-            this.comboBox2.Location = new System.Drawing.Point(6, 164);
+            this.comboBox2.Location = new System.Drawing.Point(6, 143);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(223, 21);
+            this.comboBox2.Size = new System.Drawing.Size(328, 21);
             this.comboBox2.TabIndex = 27;
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
@@ -401,7 +407,7 @@ namespace ModdingTools.Windows
             // 
             this.checkBox12.AutoSize = true;
             this.checkBox12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox12.Location = new System.Drawing.Point(6, 237);
+            this.checkBox12.Location = new System.Drawing.Point(181, 203);
             this.checkBox12.Name = "checkBox12";
             this.checkBox12.Size = new System.Drawing.Size(115, 17);
             this.checkBox12.TabIndex = 26;
@@ -413,7 +419,7 @@ namespace ModdingTools.Windows
             // 
             this.checkBox11.AutoSize = true;
             this.checkBox11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox11.Location = new System.Drawing.Point(6, 214);
+            this.checkBox11.Location = new System.Drawing.Point(8, 203);
             this.checkBox11.Name = "checkBox11";
             this.checkBox11.Size = new System.Drawing.Size(118, 17);
             this.checkBox11.TabIndex = 25;
@@ -425,7 +431,7 @@ namespace ModdingTools.Windows
             // 
             this.checkBox10.AutoSize = true;
             this.checkBox10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox10.Location = new System.Drawing.Point(6, 191);
+            this.checkBox10.Location = new System.Drawing.Point(8, 226);
             this.checkBox10.Name = "checkBox10";
             this.checkBox10.Size = new System.Drawing.Size(83, 17);
             this.checkBox10.TabIndex = 24;
@@ -438,7 +444,7 @@ namespace ModdingTools.Windows
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.ForeColor = System.Drawing.Color.DarkGray;
-            this.label3.Location = new System.Drawing.Point(3, 148);
+            this.label3.Location = new System.Drawing.Point(3, 127);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 13);
             this.label3.TabIndex = 23;
@@ -455,7 +461,7 @@ namespace ModdingTools.Windows
             "Multi TimePiece Level"});
             this.comboBox1.Location = new System.Drawing.Point(6, 21);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(223, 21);
+            this.comboBox1.Size = new System.Drawing.Size(328, 21);
             this.comboBox1.TabIndex = 22;
             // 
             // label2
@@ -484,7 +490,7 @@ namespace ModdingTools.Windows
             // 
             this.checkBox9.AutoSize = true;
             this.checkBox9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox9.Location = new System.Drawing.Point(6, 117);
+            this.checkBox9.Location = new System.Drawing.Point(217, 71);
             this.checkBox9.Name = "checkBox9";
             this.checkBox9.Size = new System.Drawing.Size(65, 17);
             this.checkBox9.TabIndex = 19;
@@ -567,11 +573,48 @@ namespace ModdingTools.Windows
             this.borderPanel3.Size = new System.Drawing.Size(229, 126);
             this.borderPanel3.TabIndex = 30;
             // 
+            // checkBox16
+            // 
+            this.checkBox16.AutoSize = true;
+            this.checkBox16.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.checkBox16.Location = new System.Drawing.Point(181, 226);
+            this.checkBox16.Name = "checkBox16";
+            this.checkBox16.Size = new System.Drawing.Size(144, 17);
+            this.checkBox16.TabIndex = 30;
+            this.checkBox16.Text = "Titlescreen Replacement";
+            this.checkBox16.UseVisualStyleBackColor = true;
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "< none specified >",
+            "Winter",
+            "Spring",
+            "Summer",
+            "Fall"});
+            this.comboBox4.Location = new System.Drawing.Point(8, 273);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(326, 21);
+            this.comboBox4.TabIndex = 32;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.ForeColor = System.Drawing.Color.DarkGray;
+            this.label10.Location = new System.Drawing.Point(5, 257);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(45, 13);
+            this.label10.TabIndex = 31;
+            this.label10.Text = "THEME";
+            // 
             // UploadOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 550);
+            this.ClientSize = new System.Drawing.Size(605, 550);
             this.ControlBoxVisible = false;
             this.Controls.Add(this.borderPanel3);
             this.Controls.Add(this.label9);
@@ -592,8 +635,8 @@ namespace ModdingTools.Windows
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Location = new System.Drawing.Point(0, 0);
-            this.MaximumSize = new System.Drawing.Size(500, 550);
-            this.MinimumSize = new System.Drawing.Size(500, 550);
+            this.MaximumSize = new System.Drawing.Size(605, 550);
+            this.MinimumSize = new System.Drawing.Size(605, 550);
             this.Name = "UploadOptions";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "UPLOAD OPTIONS";
@@ -664,5 +707,8 @@ namespace ModdingTools.Windows
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private GUI.BorderPanel borderPanel3;
+        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.CheckBox checkBox16;
     }
 }
