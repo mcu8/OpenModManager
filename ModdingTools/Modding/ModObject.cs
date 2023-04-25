@@ -370,9 +370,14 @@ namespace ModdingTools.Modding
 
         public bool CookMod(AbstractProcessRunner runner, bool async = true, bool cleanConsole = true, bool fast = false)
         {
+            if (OMMSettings.Instance.AlwaysloadedWorkaround && OMMSettings.Instance.FastCook)
+            {
+                throw new Exception("Idk how do you enabled FastCooking and AlwaysLoadedWorkaround at the same time, but please, choose only one lol");
+            }
+
             if (OMMSettings.Instance.AlwaysloadedWorkaround)
             {
-                Debug.WriteLine("AlwaysloadedWorkaround called");
+                runner.Log("[Experimental] Alwaysloaded workaround is enabled! Please report any issues!", CUFramework.Shared.LogLevel.Warn);
                 if (!Directory.Exists(this.GetMapsDir()))
                     Directory.CreateDirectory(this.GetMapsDir());
                 var csc = Path.Combine(this.GetCompiledScriptsDir(), this.GetDirectoryName() + ".u");
