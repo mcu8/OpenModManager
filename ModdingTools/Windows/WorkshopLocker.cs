@@ -1,17 +1,11 @@
-﻿using CUFramework.Windows;
+﻿using CUFramework.Dialogs;
+using CUFramework.Windows;
 using ModdingTools.Engine;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Security;
 using System.Security.AccessControl;
 using System.Security.Principal;
-using System.Text;
-using System.Windows.Forms;
 
 namespace ModdingTools.Windows
 {
@@ -31,7 +25,9 @@ namespace ModdingTools.Windows
             DirectoryInfo dInfo = new DirectoryInfo(wsDir);
             try
             {
-                dInfo.GetFiles();
+                var testFile = Path.Combine(wsDir, ".test");
+                File.WriteAllText(testFile, "test");
+                File.Delete(testFile);
                 label1.Text = "UNLOCKED";
                 label1.ForeColor = Color.Green;
             }
@@ -45,24 +41,59 @@ namespace ModdingTools.Windows
 
         public void ChangeLockState(string path, bool unlocked)
         {
+            try
+            {
+                RemoveOldProtection(path);
+                var x = path + ".disabled";
+                if (unlocked && Directory.Exists(x))
+                {
+                    ApplyProtection(path, false);
+                    Directory.Delete(path, false);
+                    Directory.Move(x, path);
+                }
+                else if (!unlocked && !Directory.Exists(x))
+                {
+                    Directory.Move(path, x);
+                    Directory.CreateDirectory(path);
+                    ApplyProtection(path, true);
+                }
+            }
+            catch (Exception e)
+            {
+                CUMessageBox.Show(e.Message);
+            }
+            UpdateState();
+        }
+
+        public void RemoveOldProtection(string path)
+        {
+            // for compatibilty with old algo
             DirectoryInfo dInfo = new DirectoryInfo(path);
             DirectorySecurity dSecurity = dInfo.GetAccessControl();
-
             var rule = new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.WorldSid, null),
-                FileSystemRights.Write | FileSystemRights.ReadAndExecute | FileSystemRights.ListDirectory, InheritanceFlags.None,
-                PropagationFlags.NoPropagateInherit, AccessControlType.Deny);
+            FileSystemRights.Write | FileSystemRights.ReadAndExecute | FileSystemRights.ListDirectory, InheritanceFlags.None,
+            PropagationFlags.NoPropagateInherit, AccessControlType.Deny);
+            dSecurity.RemoveAccessRule(rule);
+            dInfo.SetAccessControl(dSecurity);
+        }
 
-            if (unlocked)
-            {
-                dSecurity.RemoveAccessRule(rule);
-            }
-            else
+
+        public void ApplyProtection(string path, bool v)
+        {
+            DirectoryInfo dInfo = new DirectoryInfo(path);
+            DirectorySecurity dSecurity = dInfo.GetAccessControl();
+            var rule = new FileSystemAccessRule(new SecurityIdentifier(WellKnownSidType.WorldSid, null),
+            FileSystemRights.Write, InheritanceFlags.None,
+            PropagationFlags.NoPropagateInherit, AccessControlType.Deny);
+            if(v)
             {
                 dSecurity.AddAccessRule(rule);
             }
+            else
+            {
+                dSecurity.RemoveAccessRule(rule);
+            }
             dInfo.SetAccessControl(dSecurity);
-
-            UpdateState();
         }
 
         private void mButton2_Click(object sender, EventArgs e)
