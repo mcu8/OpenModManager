@@ -234,6 +234,7 @@ namespace ModdingTools.Windows
 
             comboBox1.Items.Clear();
             comboBox2.Items.Clear();
+            comboBox4.Items.Clear();
 
             panel2.Enabled = false;
 
@@ -252,6 +253,22 @@ namespace ModdingTools.Windows
             if (comboBox2.SelectedIndex < 0)
             {
                 comboBox2.SelectedIndex = 0;
+            }
+
+
+            comboBox4.Items.Add(new MapItem(null, "(none)", true));
+            if (maps != null)
+                foreach (var a in maps)
+                {
+                    comboBox4.Items.Add(new MapItem(a, null, true));
+                    if (a.Equals(Mod.Map, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        comboBox4.SelectedIndex = comboBox4.Items.Count - 1;
+                    }
+                }
+            if (comboBox4.SelectedIndex < 0)
+            {
+                comboBox4.SelectedIndex = 0;
             }
 
             string lastMap = "";
@@ -586,6 +603,7 @@ namespace ModdingTools.Windows
 
 
                 Mod.IntroductionMap = ((MapItem)comboBox2.SelectedItem).Name;
+                Mod.Map = ((MapItem)comboBox4.SelectedItem).Name;
 
                 Mod.Save();
 

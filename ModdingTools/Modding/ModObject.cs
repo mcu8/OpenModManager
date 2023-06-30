@@ -33,6 +33,7 @@ namespace ModdingTools.Modding
         public bool   IsCheat           { get; set; }
         public string Icon              { get; set; }
         public string ChapterInfoName   { get; set; }
+        public string Map               { get; set; }
 
         public int CuratedSteamId       { get; set; }
         public int PlayableSteamId      { get; set; }
@@ -474,6 +475,7 @@ namespace ModdingTools.Modding
             this.Author = TryGet(i, "author", "Me").Split(';');
             this.Description = TryGet(i, "description", "Hello this is my all new mod!");
             this.Version = TryGet(i, "version", "1.0.0");
+            this.Map = TryGet(i, "Map");
 
             this.IsCheat = bool.Parse(TryGet(i, "is_cheat", "false"));
             this.Icon = TryGet(i, "icon");
@@ -963,15 +965,17 @@ namespace ModdingTools.Modding
             AppendIni(i, "icon", this.Icon);
             AppendIni(i, "ChapterInfoName", this.ChapterInfoName);
 
+            AppendIni(i, "Map", this.Map);
+
             ApplyTag(info, "isLanguagePack", DetectIsLanguagePack() ? "1" : "");
 
             if (HasAnyMaps())
             {
-                ApplyTag(info, "MapType", MapType);
+                ApplyTag(info, "MapType", this.MapType);
             }
 
-            ApplyTag(info, "OnlineParty", IsOnlineParty ? "1" : "");
-            ApplyTag(info, "Coop", Coop);
+            ApplyTag(info, "OnlineParty", this.IsOnlineParty ? "1" : "");
+            ApplyTag(info, "Coop", this.Coop);
 
 
             if (this.SpecialThanks != null && this.SpecialThanks.Length > 0)

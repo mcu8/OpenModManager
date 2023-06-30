@@ -61,6 +61,7 @@ namespace ModdingTools.Windows
             this.label12 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cuGroupBox1 = new CUFramework.Controls.CUGroupBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -133,6 +134,7 @@ namespace ModdingTools.Windows
             this.mButton3 = new CUFramework.Controls.CUButton();
             this.mButton4 = new CUFramework.Controls.CUButton();
             this.mButton2 = new CUFramework.Controls.CUButton();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconView)).BeginInit();
             this.tabControl2.SuspendLayout();
@@ -214,7 +216,7 @@ namespace ModdingTools.Windows
             this.modName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.modName.Cursor = System.Windows.Forms.Cursors.Hand;
             this.modName.Font = new System.Drawing.Font("Segoe UI", 11.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.modName.Location = new System.Drawing.Point(158, 47);
+            this.modName.Location = new System.Drawing.Point(158, 33);
             this.modName.Name = "modName";
             this.modName.Size = new System.Drawing.Size(225, 24);
             this.modName.TabIndex = 13;
@@ -227,7 +229,7 @@ namespace ModdingTools.Windows
             this.modFolderName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.modFolderName.Cursor = System.Windows.Forms.Cursors.Hand;
             this.modFolderName.Font = new System.Drawing.Font("Segoe UI", 11.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.modFolderName.Location = new System.Drawing.Point(158, 84);
+            this.modFolderName.Location = new System.Drawing.Point(158, 66);
             this.modFolderName.Name = "modFolderName";
             this.modFolderName.Size = new System.Drawing.Size(225, 24);
             this.modFolderName.TabIndex = 14;
@@ -526,6 +528,8 @@ namespace ModdingTools.Windows
             // cuGroupBox1
             // 
             this.cuGroupBox1.BorderSize = 0;
+            this.cuGroupBox1.Controls.Add(this.comboBox4);
+            this.cuGroupBox1.Controls.Add(this.label14);
             this.cuGroupBox1.Controls.Add(this.label21);
             this.cuGroupBox1.Controls.Add(this.label8);
             this.cuGroupBox1.Controls.Add(this.label13);
@@ -548,9 +552,18 @@ namespace ModdingTools.Windows
             this.cuGroupBox1.Size = new System.Drawing.Size(437, 234);
             this.cuGroupBox1.TabIndex = 24;
             // 
+            // label14
+            // 
+            this.label14.Location = new System.Drawing.Point(18, 200);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(134, 25);
+            this.label14.TabIndex = 36;
+            this.label14.Text = "MAP:";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // label21
             // 
-            this.label21.Location = new System.Drawing.Point(18, 197);
+            this.label21.Location = new System.Drawing.Point(18, 167);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(134, 25);
             this.label21.TabIndex = 34;
@@ -559,7 +572,7 @@ namespace ModdingTools.Windows
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(18, 47);
+            this.label8.Location = new System.Drawing.Point(18, 33);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(134, 24);
             this.label8.TabIndex = 18;
@@ -568,7 +581,7 @@ namespace ModdingTools.Windows
             // 
             // label13
             // 
-            this.label13.Location = new System.Drawing.Point(18, 121);
+            this.label13.Location = new System.Drawing.Point(18, 99);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(134, 24);
             this.label13.TabIndex = 23;
@@ -580,7 +593,7 @@ namespace ModdingTools.Windows
             this.label20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label20.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label20.Font = new System.Drawing.Font("Segoe UI", 11.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label20.Location = new System.Drawing.Point(158, 197);
+            this.label20.Location = new System.Drawing.Point(158, 167);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(225, 24);
             this.label20.TabIndex = 33;
@@ -590,7 +603,7 @@ namespace ModdingTools.Windows
             // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(18, 84);
+            this.label9.Location = new System.Drawing.Point(18, 66);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(134, 24);
             this.label9.TabIndex = 19;
@@ -602,7 +615,7 @@ namespace ModdingTools.Windows
             this.lblAuthor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblAuthor.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblAuthor.Font = new System.Drawing.Font("Segoe UI", 11.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.lblAuthor.Location = new System.Drawing.Point(158, 121);
+            this.lblAuthor.Location = new System.Drawing.Point(158, 99);
             this.lblAuthor.Name = "lblAuthor";
             this.lblAuthor.Size = new System.Drawing.Size(225, 24);
             this.lblAuthor.TabIndex = 22;
@@ -612,7 +625,7 @@ namespace ModdingTools.Windows
             // 
             // label11
             // 
-            this.label11.Location = new System.Drawing.Point(18, 158);
+            this.label11.Location = new System.Drawing.Point(18, 132);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(134, 24);
             this.label11.TabIndex = 20;
@@ -624,7 +637,7 @@ namespace ModdingTools.Windows
             this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 11.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this.label5.Location = new System.Drawing.Point(158, 158);
+            this.label5.Location = new System.Drawing.Point(158, 132);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(225, 24);
             this.label5.TabIndex = 17;
@@ -1528,6 +1541,16 @@ namespace ModdingTools.Windows
             this.mButton2.UseVisualStyleBackColor = false;
             this.mButton2.Click += new System.EventHandler(this.mButton2_Click);
             // 
+            // comboBox4
+            // 
+            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Location = new System.Drawing.Point(158, 202);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(224, 23);
+            this.comboBox4.TabIndex = 37;
+            // 
             // ModProperties
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1707,5 +1730,7 @@ namespace ModdingTools.Windows
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Label label27;
         private CUButton cuButton2;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox comboBox4;
     }
 }
