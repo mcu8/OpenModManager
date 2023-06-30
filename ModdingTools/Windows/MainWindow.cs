@@ -16,6 +16,7 @@ using CUFramework.Controls;
 using ModdingTools.Windows.Validators;
 using Steamworks;
 using ModdingTools.Settings;
+using System.Reflection;
 
 namespace ModdingTools.Windows
 {
@@ -342,9 +343,28 @@ namespace ModdingTools.Windows
 
         private void wORKSHOPBLOCKERToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var w = new WorkshopLocker();
-            w.StartPosition = FormStartPosition.CenterParent;
-            w.ShowDialog(this);
+            if (Utils.RunningAsAdmin())
+            {
+                var w = new WorkshopLocker();
+                w.StartPosition = FormStartPosition.CenterParent;
+                w.ShowDialog(this);
+            }
+            else
+            {
+                ProcessStartInfo proc = new ProcessStartInfo();
+                proc.UseShellExecute = true;
+                proc.WorkingDirectory = Environment.CurrentDirectory;
+                proc.FileName = Assembly.GetEntryAssembly().CodeBase;
+                proc.Arguments = "WorkshopLocker";
+                proc.Verb = "runas";
+                try
+                {
+                    Process.Start(proc);
+                }
+                catch (Exception ex)
+                {
+                }
+            }
         }
     }
 }

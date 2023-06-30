@@ -16,6 +16,7 @@ using Steamworks;
 using ModdingTools.Headless;
 using System.Threading.Tasks;
 using ModdingTools.Settings;
+using System.Security.Principal;
 
 namespace ModdingTools.Engine
 {
@@ -332,6 +333,14 @@ namespace ModdingTools.Engine
                 {
                 }
             }
+        }
+
+        public static bool RunningAsAdmin()
+        {
+            WindowsIdentity id = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new WindowsPrincipal(id);
+
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
         // https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-copy-directories

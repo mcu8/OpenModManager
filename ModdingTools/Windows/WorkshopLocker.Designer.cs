@@ -93,8 +93,8 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(444, 52);
             this.label2.TabIndex = 24;
-            this.label2.Text = "Use this tool if you wanteżt to temporarily prevent the game and/or editor from l" +
-    "oading mods from the Workshop folder.";
+            this.label2.Text = "Use this tool if you want to temporarily prevent the game and/or editor from load" +
+    "ing mods from the Workshop folder.";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cuGroupBox1

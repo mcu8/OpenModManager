@@ -172,6 +172,8 @@ namespace ModdingTools
 
         static void MainGUI(string[] args)
         {
+            var workshopLockerMode = args.Length > 0 && args[0] == "WorkshopLocker";
+
             // Window border looks like shit on Windows 11.. so change the color to something else
             ThemeConstants.BorderColor = System.Drawing.Color.FromArgb(64, 64, 64);
 
@@ -226,9 +228,17 @@ namespace ModdingTools
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainWindow());
 
-            SetRPData();
+            if (workshopLockerMode)
+            {
+                Application.Run(new WorkshopLocker());
+            }
+            else
+            {
+                Application.Run(new MainWindow());
+                SetRPData();
+            }
+            
         }
 
         private static void SetRPData()
