@@ -343,8 +343,17 @@ namespace ModdingTools.Engine
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
+        private static bool IsPathIgnored(string path, List<string> ignoreList)
+        {
+            foreach (var i in ignoreList)
+            {
+                if (Path.GetFullPath(i).TrimEnd(new[] { '\\', '/' }).Equals(Path.GetFullPath(path).TrimEnd(new[] { '\\', '/' }), StringComparison.InvariantCultureIgnoreCase)) return true;
+            }
+            return false;
+        }
+
         // https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-copy-directories
-        public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+        public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs, List<string> ignoreFiles = null, List<string> ignoreFolders = null)
         {
             // Get the subdirectories for the specified directory.
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
@@ -367,6 +376,11 @@ namespace ModdingTools.Engine
             FileInfo[] files = dir.GetFiles();
             foreach (FileInfo file in files)
             {
+                if (ignoreFiles != null && IsPathIgnored(file.FullName, ignoreFiles))
+                {
+                    Debug.WriteLine("Ignoring file path: " + file.FullName);
+                    continue;
+                }
                 string temppath = Path.Combine(destDirName, file.Name);
                 file.CopyTo(temppath, false);
             }
@@ -376,6 +390,18 @@ namespace ModdingTools.Engine
             {
                 foreach (DirectoryInfo subdir in dirs)
                 {
+                    if (ignoreFolders != null && IsPathIgnored(subdir.FullName, ignoreFolders))
+                    {
+                        Debug.WriteLine("Ignoring directory path: " + subdir.FullName);
+                        continue;
+                    }
+
+                    if (IsDirectoryEmpty(subdir.FullName))
+                    {
+                        Debug.WriteLine("Ignoring empty path: " + subdir.FullName);
+                        continue;
+                    }
+
                     string temppath = Path.Combine(destDirName, subdir.Name);
                     DirectoryCopy(subdir.FullName, temppath, copySubDirs);
                 }

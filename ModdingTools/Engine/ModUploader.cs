@@ -77,34 +77,27 @@ namespace ModdingTools.Engine
                     Directory.Delete(tmpDir, true);
                 Directory.CreateDirectory(tmpDir);
 
-                Utils.DirectoryCopy(mod.RootPath, tmpDir, true);
+                var ignorePathsDir = new List<string>();
+                var ignorePathsFile = new List<string>();
+
+                
                 if (!keepScripts)
                 {
-                    if (Directory.Exists(Path.Combine(tmpDir, "CompiledScripts")))
-                        Directory.Delete(Path.Combine(tmpDir, "CompiledScripts"), true);
-                    if (Directory.Exists(Path.Combine(tmpDir, "Classes")))
-                        Directory.Delete(Path.Combine(tmpDir, "Classes"), true);
+                    ignorePathsDir.Add(Path.Combine(mod.RootPath, "CompiledScripts"));
+                    ignorePathsDir.Add(Path.Combine(mod.RootPath, "Classes"));
                 }
 
                 if (!keepUnCooked)
                 {
-                    if (Directory.Exists(Path.Combine(tmpDir, "Maps")))
-                        Directory.Delete(Path.Combine(tmpDir, "Maps"), true);
-                    if (Directory.Exists(Path.Combine(tmpDir, "Content")))
-                        Directory.Delete(Path.Combine(tmpDir, "Content"), true);
+                    ignorePathsDir.Add(Path.Combine(mod.RootPath, "Maps"));
+                    ignorePathsDir.Add(Path.Combine(mod.RootPath, "Content"));
                 }
 
-                if (Directory.Exists(Path.Combine(tmpDir, ".vscode")))
-                    Directory.Delete(Path.Combine(tmpDir, ".vscode"), true);
+                ignorePathsDir.Add(Path.Combine(mod.RootPath, ".vscode"));
+                ignorePathsDir.Add(Path.Combine(mod.RootPath, ".git"));
+                ignorePathsDir.Add(Path.Combine(mod.RootPath, ".github"));
 
-                if (Directory.Exists(Path.Combine(tmpDir, ".git")))
-                    Directory.Delete(Path.Combine(tmpDir, ".git"), true);
-
-                if (Directory.Exists(Path.Combine(tmpDir, ".github")))
-                    Directory.Delete(Path.Combine(tmpDir, ".github"), true);
-
-                if (File.Exists(Path.Combine(tmpDir, "vsc-modworkspace.code-workspace")))
-                    File.Delete(Path.Combine(tmpDir, "vsc-modworkspace.code-workspace"));
+                ignorePathsFile.Add(Path.Combine(mod.RootPath, "vsc-modworkspace.code-workspace"));
 
                 if (ignoredFiles != null)
                 {
@@ -129,9 +122,9 @@ namespace ModdingTools.Engine
                                 suffix = ext.Last();
                             }
 
-                            var d = Directory.GetDirectories(tmpDir + "\\", mask, SearchOption.AllDirectories)
+                            var d = Directory.GetDirectories(mod.RootPath + "\\", mask, SearchOption.AllDirectories)
                                 .Where(xy => string.IsNullOrEmpty(suffix) ? true : xy.EndsWith(suffix));
-                            var f = Directory.GetFiles(tmpDir + "\\", mask, SearchOption.AllDirectories)
+                            var f = Directory.GetFiles(mod.RootPath + "\\", mask, SearchOption.AllDirectories)
                                 .Where(xy => string.IsNullOrEmpty(suffix) ? true : xy.EndsWith(suffix));
 
                             matchesDir.AddRange(d);
@@ -153,32 +146,19 @@ namespace ModdingTools.Engine
                         
                         foreach(var r in matches)
                         {
-                            SetStatus($"Ignoring file '{r.Split(new[] { tmpDir }, StringSplitOptions.None).Last()}'...");
-                            File.Delete(r);
+                            SetStatus($"Adding ignore rule for file '{r.Split(new[] { tmpDir }, StringSplitOptions.None).Last()}'...");
+                            ignorePathsFile.Add(r);
                         }
 
                         foreach (var r in matchesDir)
                         {
-                            SetStatus($"Ignoring directory '{r.Split(new[] { tmpDir }, StringSplitOptions.None).Last()}'...");
-                            Directory.Delete(r, true);
+                            SetStatus($"Adding ignore rule for directory '{r.Split(new[] { tmpDir }, StringSplitOptions.None).Last()}'...");
+                            ignorePathsDir.Add(r);
                         }
                     }
                 }
-                
-                foreach (var x in Directory.GetDirectories(tmpDir))
-                {
-                    if (Utils.IsDirectoryEmpty(x))
-                    {
-                        try
-                        {
-                            SetStatus($"Removing empty directory {Path.GetFileName(x)}...");
-                            Directory.Delete(x, false);
-                        }
-                        catch (IOException)
-                        {
-                        }
-                    }
-                }
+
+                Utils.DirectoryCopy(mod.RootPath, tmpDir, true, ignorePathsFile, ignorePathsDir);
 
                 var modid = mod.GetUploadedId();
 
