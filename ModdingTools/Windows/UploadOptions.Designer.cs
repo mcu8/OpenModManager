@@ -51,6 +51,7 @@ namespace ModdingTools.Windows
             this.borderPanel2 = new ModdingTools.GUI.BorderPanel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.borderPanel1 = new ModdingTools.GUI.BorderPanel();
+            this.checkBox17 = new System.Windows.Forms.CheckBox();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.checkBox16 = new System.Windows.Forms.CheckBox();
@@ -72,7 +73,7 @@ namespace ModdingTools.Windows
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.borderPanel3 = new ModdingTools.GUI.BorderPanel();
-            this.checkBox17 = new System.Windows.Forms.CheckBox();
+            this.checkBox18 = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.borderPanel2.SuspendLayout();
             this.borderPanel1.SuspendLayout();
@@ -341,6 +342,7 @@ namespace ModdingTools.Windows
             // 
             this.borderPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.borderPanel1.BorderThickness = 2;
+            this.borderPanel1.Controls.Add(this.checkBox18);
             this.borderPanel1.Controls.Add(this.checkBox17);
             this.borderPanel1.Controls.Add(this.comboBox4);
             this.borderPanel1.Controls.Add(this.label10);
@@ -367,6 +369,17 @@ namespace ModdingTools.Windows
             this.borderPanel1.Name = "borderPanel1";
             this.borderPanel1.Size = new System.Drawing.Size(344, 314);
             this.borderPanel1.TabIndex = 12;
+            // 
+            // checkBox17
+            // 
+            this.checkBox17.AutoSize = true;
+            this.checkBox17.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.checkBox17.Location = new System.Drawing.Point(167, 220);
+            this.checkBox17.Name = "checkBox17";
+            this.checkBox17.Size = new System.Drawing.Size(93, 17);
+            this.checkBox17.TabIndex = 33;
+            this.checkBox17.Text = "No Showcase";
+            this.checkBox17.UseVisualStyleBackColor = true;
             // 
             // comboBox4
             // 
@@ -612,16 +625,16 @@ namespace ModdingTools.Windows
             this.borderPanel3.Size = new System.Drawing.Size(229, 126);
             this.borderPanel3.TabIndex = 30;
             // 
-            // checkBox17
+            // checkBox18
             // 
-            this.checkBox17.AutoSize = true;
-            this.checkBox17.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.checkBox17.Location = new System.Drawing.Point(167, 220);
-            this.checkBox17.Name = "checkBox17";
-            this.checkBox17.Size = new System.Drawing.Size(93, 17);
-            this.checkBox17.TabIndex = 33;
-            this.checkBox17.Text = "No Showcase";
-            this.checkBox17.UseVisualStyleBackColor = true;
+            this.checkBox18.AutoSize = true;
+            this.checkBox18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.checkBox18.Location = new System.Drawing.Point(167, 243);
+            this.checkBox18.Name = "checkBox18";
+            this.checkBox18.Size = new System.Drawing.Size(104, 17);
+            this.checkBox18.TabIndex = 34;
+            this.checkBox18.Text = "User Experience";
+            this.checkBox18.UseVisualStyleBackColor = true;
             // 
             // UploadOptions
             // 
@@ -724,5 +737,6 @@ namespace ModdingTools.Windows
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox checkBox16;
         private System.Windows.Forms.CheckBox checkBox17;
+        private System.Windows.Forms.CheckBox checkBox18;
     }
 }
