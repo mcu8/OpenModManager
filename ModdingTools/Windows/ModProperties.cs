@@ -105,7 +105,17 @@ namespace ModdingTools.Windows
             this.arList1.OnUpdate += ConfigList1_OnUpdate;
             this.TitlebarColorChanged += ModProperties_FocusChanged;
 
+            panel14.BackColor = Color.Green;
+            Program.EditorWatchdog.EditorStateChanged += EditorWatchdog_EditorStateChanged;
+
             Reload();
+        }
+
+        private void EditorWatchdog_EditorStateChanged(object sender, EventArgs e)
+        {
+            this.Invoke(new MethodInvoker(() => {
+                panel14.BackColor = Program.EditorWatchdog.IsEditorRunning ? Color.Orange : Color.Green;
+            }));
         }
 
         private void ModProperties_FocusChanged(object sender, EventArgs e)

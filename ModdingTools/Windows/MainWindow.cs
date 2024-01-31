@@ -78,6 +78,16 @@ namespace ModdingTools.Windows
 
             this.TitlebarColorChanged += MainWindow_TitlebarColorChanged;
             this.Shown += MainWindow_Shown;
+
+            panel2.BackColor = Color.Green;
+            Program.EditorWatchdog.EditorStateChanged += EditorWatchdog_EditorStateChanged;
+        }
+
+        private void EditorWatchdog_EditorStateChanged(object sender, EventArgs e)
+        {
+            this.Invoke(new MethodInvoker(() => {
+                panel2.BackColor = Program.EditorWatchdog.IsEditorRunning ? Color.Orange : Color.Green;
+            }));
         }
 
         private void MainWindow_Shown(object sender, EventArgs e)

@@ -48,6 +48,7 @@ namespace ModdingTools.Windows
             this.cardController1 = new CUFramework.Controls.Tabs.CUCardController();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cuButton1 = new CUFramework.Controls.CUButton();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -119,7 +120,7 @@ namespace ModdingTools.Windows
             this.mButton1.Location = new System.Drawing.Point(666, 3);
             this.mButton1.Name = "mButton1";
             this.mButton1.NoFocus = false;
-            this.mButton1.Size = new System.Drawing.Size(145, 30);
+            this.mButton1.Size = new System.Drawing.Size(145, 28);
             this.mButton1.TabIndex = 4;
             this.mButton1.Text = "LAUNCH EDITOR";
             this.mButton1.UseVisualStyleBackColor = false;
@@ -261,11 +262,20 @@ namespace ModdingTools.Windows
             this.cuButton1.UseVisualStyleBackColor = false;
             this.cuButton1.Click += new System.EventHandler(this.cuButton1_Click);
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.panel2.Location = new System.Drawing.Point(666, 31);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(145, 3);
+            this.panel2.TabIndex = 39;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(958, 515);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.cuButton1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.cardController1);
@@ -288,6 +298,7 @@ namespace ModdingTools.Windows
             this.Controls.SetChildIndex(this.cardController1, 0);
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.cuButton1, 0);
+            this.Controls.SetChildIndex(this.panel2, 0);
             this.contextMenuStrip1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -311,6 +322,7 @@ namespace ModdingTools.Windows
         private System.Windows.Forms.Panel panel1;
         private CUButton cuButton1;
         private System.Windows.Forms.ToolStripMenuItem wORKSHOPBLOCKERToolStripMenuItem;
+        private System.Windows.Forms.Panel panel2;
     }
 }
 

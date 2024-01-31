@@ -61,6 +61,7 @@ namespace ModdingTools.Windows
             this.label12 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cuGroupBox1 = new CUFramework.Controls.CUGroupBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -134,7 +135,7 @@ namespace ModdingTools.Windows
             this.mButton3 = new CUFramework.Controls.CUButton();
             this.mButton4 = new CUFramework.Controls.CUButton();
             this.mButton2 = new CUFramework.Controls.CUButton();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.panel14 = new System.Windows.Forms.Panel();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconView)).BeginInit();
             this.tabControl2.SuspendLayout();
@@ -182,7 +183,7 @@ namespace ModdingTools.Windows
             this.btnEditor.Margin = new System.Windows.Forms.Padding(1, 0, 1, 1);
             this.btnEditor.Name = "btnEditor";
             this.btnEditor.NoFocus = false;
-            this.btnEditor.Size = new System.Drawing.Size(142, 31);
+            this.btnEditor.Size = new System.Drawing.Size(142, 28);
             this.btnEditor.TabIndex = 14;
             this.btnEditor.Text = "LAUNCH EDITOR";
             this.btnEditor.UseVisualStyleBackColor = false;
@@ -551,6 +552,16 @@ namespace ModdingTools.Windows
             this.cuGroupBox1.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
             this.cuGroupBox1.Size = new System.Drawing.Size(437, 234);
             this.cuGroupBox1.TabIndex = 24;
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Location = new System.Drawing.Point(158, 202);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(224, 23);
+            this.comboBox4.TabIndex = 37;
             // 
             // label14
             // 
@@ -1541,21 +1552,20 @@ namespace ModdingTools.Windows
             this.mButton2.UseVisualStyleBackColor = false;
             this.mButton2.Click += new System.EventHandler(this.mButton2_Click);
             // 
-            // comboBox4
+            // panel14
             // 
-            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(158, 202);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(224, 23);
-            this.comboBox4.TabIndex = 37;
+            this.panel14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.panel14.Location = new System.Drawing.Point(583, 31);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(142, 3);
+            this.panel14.TabIndex = 40;
             // 
             // ModProperties
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(0)))), ((int)(((byte)(49)))));
             this.ClientSize = new System.Drawing.Size(824, 573);
+            this.Controls.Add(this.panel14);
             this.Controls.Add(this.tabController1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.panel2);
@@ -1584,6 +1594,7 @@ namespace ModdingTools.Windows
             this.Controls.SetChildIndex(this.panel2, 0);
             this.Controls.SetChildIndex(this.label7, 0);
             this.Controls.SetChildIndex(this.tabController1, 0);
+            this.Controls.SetChildIndex(this.panel14, 0);
             this.panel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.iconView)).EndInit();
             this.tabControl2.ResumeLayout(false);
@@ -1732,5 +1743,6 @@ namespace ModdingTools.Windows
         private CUButton cuButton2;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.Panel panel14;
     }
 }

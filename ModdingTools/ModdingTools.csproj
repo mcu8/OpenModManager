@@ -102,6 +102,7 @@
   <ItemGroup>
     <Compile Include="BuildData.cs" />
     <Compile Include="Engine\AbstractProcessRunner.cs" />
+    <Compile Include="Engine\EditorProcessStateWatchdog.cs" />
     <Compile Include="Engine\SteamWorkshopStorage.cs" />
     <Compile Include="Engine\TGA\TargaImage.cs" />
     <Compile Include="GUI\GUIProcessRunner.cs" />

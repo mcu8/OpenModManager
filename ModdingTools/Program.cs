@@ -31,7 +31,9 @@ namespace ModdingTools
         public static ProcessFactory ProcFactory;
         public static ModUploader Uploader { get; set; }
         public static Benchmark Benchmark { get; set; } = null;
- 
+        public static EditorProcessStateWatchdog EditorWatchdog { get; set; }
+
+
         public static string GetAppRoot()
         {
             return Path.GetDirectoryName(Application.ExecutablePath);
@@ -235,6 +237,7 @@ namespace ModdingTools
             }
             else
             {
+                EditorWatchdog = new EditorProcessStateWatchdog();
                 Application.Run(new MainWindow());
                 SetRPData();
             }
