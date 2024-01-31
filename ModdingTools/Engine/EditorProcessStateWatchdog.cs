@@ -34,10 +34,6 @@ namespace ModdingTools.Engine
                         // trigger state change
                         EditorStateChanged?.Invoke(this, EventArgs.Empty);
                     }
-                    else
-                    {
-                        IsEditorRunning = isRunning;
-                    }
                 }
                 catch (Exception e) { } // nah
                 Thread.Sleep(5000);
