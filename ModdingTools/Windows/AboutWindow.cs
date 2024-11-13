@@ -37,7 +37,7 @@ namespace ModdingTools.Windows
 
         private void cuButton4_Click(object sender, EventArgs e)
         {
-            Utils.StartInDefaultBrowser("https://twitter.com/mcu82");
+            Utils.StartInDefaultBrowser("https://bsky.app/profile/m-cu.be");
         }
 
         private void cuButton5_Click(object sender, EventArgs e)
