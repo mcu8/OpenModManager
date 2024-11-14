@@ -51,7 +51,7 @@
             this.cuButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cuButton1.ForeColor = System.Drawing.Color.White;
             this.cuButton1.Location = new System.Drawing.Point(100, 358);
-            this.cuButton1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cuButton1.Margin = new System.Windows.Forms.Padding(4);
             this.cuButton1.Name = "cuButton1";
             this.cuButton1.NoFocus = false;
             this.cuButton1.Size = new System.Drawing.Size(509, 39);
@@ -170,7 +170,7 @@
             this.tableLayoutPanel1.Controls.Add(this.cuButton5, 4, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 423);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -216,15 +216,14 @@
             this.panel1.BackgroundImage = global::ModdingTools.Properties.Resources.heeh_1b;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel1.Location = new System.Drawing.Point(3, 43);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(704, 145);
             this.panel1.TabIndex = 4;
             // 
             // AboutWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.ClientSize = new System.Drawing.Size(709, 474);
             this.ControlBoxVisible = false;
             this.Controls.Add(this.tableLayoutPanel1);
@@ -240,7 +239,7 @@
             this.IsMinimizeButtonEnabled = false;
             this.IsResizable = false;
             this.Location = new System.Drawing.Point(0, 0);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximumSize = new System.Drawing.Size(2560, 1268);
             this.Name = "AboutWindow";
             this.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);

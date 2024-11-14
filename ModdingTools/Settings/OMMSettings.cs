@@ -36,14 +36,24 @@ namespace ModdingTools.Settings
 
         public enum ArgsDefaultsKeys
         {
-            CompileScript,
-            CookMod,
-            CookModFast,
-            StartMap,
-            StartMapSeekFree,
-            LaunchEditor,
-            LaunchEditorWithSelectedMap
+            COMP_CompileScript,
+            COMP_CookMod,
+            COMP_CookModWithFastCookOptionEnabled,
+            GAME_StartMap,
+            GAME_StartMapWithoutWorkshopMods,
+            ED_LaunchEditor,
+            ED_LaunchEditorWithSelectedMap
         }
+
+        public static readonly Dictionary<ArgsDefaultsKeys, string> ArgsDefaults = new Dictionary<ArgsDefaultsKeys, string>() {
+            { ArgsDefaultsKeys.COMP_CompileScript, "make -FULL -SHORTPATHS -NOPAUSEONSUCCESS -MODSONLY=${ModFolderName}" },
+            { ArgsDefaultsKeys.COMP_CookModWithFastCookOptionEnabled, "CookPackages ${ModFolderName} -PROCESSES=${CpuCount} -SKIPMAPS -USERMODE -PLATFORM=PC -NOPAUSEONSUCCESS -FASTCOOK -MULTILANGUAGECOOK=${MlCOptions} -MODSONLY=${ModFolderName}" },
+            { ArgsDefaultsKeys.COMP_CookMod, "CookPackages -PLATFORM=PC -NOPAUSEONSUCCESS -FULL -FASTCOOK -MULTILANGUAGECOOK=${MlCOptions} -MODSONLY=${ModFolderName}" },
+            { ArgsDefaultsKeys.GAME_StartMap,  "${MapName}" },
+            { ArgsDefaultsKeys.GAME_StartMapWithoutWorkshopMods, "${MapName} -SEEKFREELOADING" },
+            { ArgsDefaultsKeys.ED_LaunchEditor, "editor -NoGADWarning" },
+            { ArgsDefaultsKeys.ED_LaunchEditorWithSelectedMap, "editor -TARGETMOD=${ModFolderName} -NoGADWarning" }
+        };
 
         public class ArgumentsItem
         {
@@ -59,35 +69,37 @@ namespace ModdingTools.Settings
             public ArgumentsItem() { }
         }
 
-        private static readonly Dictionary<ArgsDefaultsKeys, string> ArgsDefaults = new Dictionary<ArgsDefaultsKeys, string>() {
-            { ArgsDefaultsKeys.CompileScript, "make -FULL -SHORTPATHS -NOPAUSEONSUCCESS -MODSONLY=${ModFolderName}" },
-            { ArgsDefaultsKeys.CookMod, "CookPackages ${ModFolderName} -PROCESSES=${CpuCount} -SKIPMAPS -USERMODE -PLATFORM=PC -NOPAUSEONSUCCESS -FASTCOOK -MULTILANGUAGECOOK=${MlCOptions} -MODSONLY=${ModFolderName}" },
-            { ArgsDefaultsKeys.CookModFast, "CookPackages -PLATFORM=PC -NOPAUSEONSUCCESS -FULL -FASTCOOK -MULTILANGUAGECOOK=${MlCOptions} -MODSONLY=${ModFolderName}" },
-            { ArgsDefaultsKeys.StartMap,  "${MapName}" },
-            { ArgsDefaultsKeys.StartMapSeekFree, "${MapName} -SEEKFREELOADING" },
-            { ArgsDefaultsKeys.LaunchEditor, "editor -NoGADWarning" },
-            { ArgsDefaultsKeys.LaunchEditorWithSelectedMap, "editor -TARGETMOD=${ModFolderName} -NoGADWarning" }
-        };
-
-        public List<ArgumentsItem> CmdLineArguments = new List<ArgumentsItem>() {
-            new ArgumentsItem(ArgsDefaultsKeys.CompileScript, ArgsDefaults[ArgsDefaultsKeys.CompileScript]),
-            new ArgumentsItem(ArgsDefaultsKeys.CookMod, ArgsDefaults[ArgsDefaultsKeys.CookMod]),
-            new ArgumentsItem(ArgsDefaultsKeys.CookModFast, ArgsDefaults[ArgsDefaultsKeys.CookModFast]),
-            new ArgumentsItem(ArgsDefaultsKeys.StartMap, ArgsDefaults[ArgsDefaultsKeys.StartMap]),
-            new ArgumentsItem(ArgsDefaultsKeys.StartMapSeekFree, ArgsDefaults[ArgsDefaultsKeys.StartMapSeekFree]),
-            new ArgumentsItem(ArgsDefaultsKeys.LaunchEditor, ArgsDefaults[ArgsDefaultsKeys.LaunchEditor]),
-            new ArgumentsItem(ArgsDefaultsKeys.LaunchEditorWithSelectedMap, ArgsDefaults[ArgsDefaultsKeys.LaunchEditorWithSelectedMap])
-        };
+        public List<ArgumentsItem> CmdLineArguments { get; set; } = new List<ArgumentsItem>();
 
         public void ResetArguments(ArgsDefaultsKeys key)
         {
-            CmdLineArguments.Where(x => x.Key == key).First().Value = ArgsDefaults[key];
+            var result = CmdLineArguments.Where(x => x.Key == key);
+            if (result.Any()) CmdLineArguments.Remove(result.First());
         }
 
         public string GetArgumentsFor(ArgsDefaultsKeys key)
         {
-            var result = CmdLineArguments.Where(x => x.Key == key).FirstOrDefault(null);
-            return result != null ? result.Value : ArgsDefaults[key];
+            var result = CmdLineArguments.Where(x => x.Key == key);
+            return result.Any() ? result.First().Value : ArgsDefaults[key];
+        }
+
+        public void ChangeArgument(ArgsDefaultsKeys key, string value)
+        {
+            var result = CmdLineArguments.Where(x => x.Key == key);
+            if (result.Any())
+            {
+                result.First().Value = value;
+            }
+            else
+            {
+                CmdLineArguments.Add(new ArgumentsItem(key, value));
+            }
+        }
+
+        public string GetLocalizedArgKeyName(ArgsDefaultsKeys key)
+        {
+            // ToDo
+            return key.ToString();
         }
 
         public void ResetAllArguments()
@@ -153,11 +165,13 @@ namespace ModdingTools.Settings
 
             XmlSerializer serializer = new XmlSerializer(typeof(OMMSettings));
             XmlWriterSettings settings = new XmlWriterSettings { Indent = true, Encoding = Encoding.Unicode };
-            //Stream fs = new FileStream(, FileMode.Create);
-            using (XmlWriter writer = XmlWriter.Create(appCfgPath, settings))
+            using (Stream fs = new FileStream(appCfgPath, FileMode.Create))
             {
-                serializer.Serialize(writer, this);
-                writer.Close();
+                using (XmlWriter writer = XmlWriter.Create(fs, settings))
+                {
+                    serializer.Serialize(writer, this);
+                    writer.Close();
+                }
             }
         }
     }

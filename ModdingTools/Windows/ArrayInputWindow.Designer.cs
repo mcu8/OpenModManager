@@ -29,7 +29,7 @@ namespace ModdingTools.Windows
         /// </summary>
         private void InitializeComponent()
         {
-            this.cuTextBox1 = new CUFramework.Controls.CUTextBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ArrayInputWindow));
             this.cuButton1 = new CUFramework.Controls.CUButton();
             this.cuButton2 = new CUFramework.Controls.CUButton();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -38,25 +38,14 @@ namespace ModdingTools.Windows
             this.cuButton4 = new CUFramework.Controls.CUButton();
             this.cuButton5 = new CUFramework.Controls.CUButton();
             this.cuButton6 = new CUFramework.Controls.CUButton();
+            this.borderPanel2 = new ModdingTools.GUI.BorderPanel();
+            this.cuTextBox1 = new CUFramework.Controls.CUTextBox();
             this.borderPanel1 = new ModdingTools.GUI.BorderPanel();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.borderPanel2 = new ModdingTools.GUI.BorderPanel();
             this.tableLayoutPanel1.SuspendLayout();
-            this.borderPanel1.SuspendLayout();
             this.borderPanel2.SuspendLayout();
+            this.borderPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // cuTextBox1
-            // 
-            this.cuTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.cuTextBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
-            this.cuTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.cuTextBox1.ForeColor = System.Drawing.Color.White;
-            this.cuTextBox1.Location = new System.Drawing.Point(4, 9);
-            this.cuTextBox1.Name = "cuTextBox1";
-            this.cuTextBox1.Size = new System.Drawing.Size(276, 13);
-            this.cuTextBox1.TabIndex = 1;
-            this.cuTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cuTextBox1_KeyDown);
             // 
             // cuButton1
             // 
@@ -65,10 +54,11 @@ namespace ModdingTools.Windows
             this.cuButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.cuButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cuButton1.ForeColor = System.Drawing.Color.Black;
-            this.cuButton1.Location = new System.Drawing.Point(176, 3);
+            this.cuButton1.Location = new System.Drawing.Point(234, 4);
+            this.cuButton1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cuButton1.Name = "cuButton1";
             this.cuButton1.NoFocus = false;
-            this.cuButton1.Size = new System.Drawing.Size(167, 32);
+            this.cuButton1.Size = new System.Drawing.Size(223, 39);
             this.cuButton1.TabIndex = 2;
             this.cuButton1.Text = "SAVE";
             this.cuButton1.UseVisualStyleBackColor = false;
@@ -81,10 +71,11 @@ namespace ModdingTools.Windows
             this.cuButton2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
             this.cuButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cuButton2.ForeColor = System.Drawing.Color.White;
-            this.cuButton2.Location = new System.Drawing.Point(3, 3);
+            this.cuButton2.Location = new System.Drawing.Point(4, 4);
+            this.cuButton2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cuButton2.Name = "cuButton2";
             this.cuButton2.NoFocus = false;
-            this.cuButton2.Size = new System.Drawing.Size(167, 32);
+            this.cuButton2.Size = new System.Drawing.Size(222, 39);
             this.cuButton2.TabIndex = 3;
             this.cuButton2.Text = "CANCEL";
             this.cuButton2.UseVisualStyleBackColor = false;
@@ -98,19 +89,21 @@ namespace ModdingTools.Windows
             this.tableLayoutPanel1.Controls.Add(this.cuButton2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.cuButton1, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 446);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 549);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(346, 38);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(461, 47);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(15, 45);
+            this.label1.Location = new System.Drawing.Point(20, 55);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(321, 95);
+            this.label1.Size = new System.Drawing.Size(428, 117);
             this.label1.TabIndex = 5;
             this.label1.Text = "Title T";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -123,10 +116,11 @@ namespace ModdingTools.Windows
             this.cuButton3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cuButton3.ForeColor = System.Drawing.Color.White;
             this.cuButton3.Image = global::ModdingTools.Properties.Resources.icon_073;
-            this.cuButton3.Location = new System.Drawing.Point(301, 143);
+            this.cuButton3.Location = new System.Drawing.Point(401, 176);
+            this.cuButton3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cuButton3.Name = "cuButton3";
             this.cuButton3.NoFocus = false;
-            this.cuButton3.Size = new System.Drawing.Size(35, 35);
+            this.cuButton3.Size = new System.Drawing.Size(47, 43);
             this.cuButton3.TabIndex = 8;
             this.cuButton3.Text = "+";
             this.cuButton3.UseVisualStyleBackColor = false;
@@ -140,10 +134,11 @@ namespace ModdingTools.Windows
             this.cuButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cuButton4.ForeColor = System.Drawing.Color.White;
             this.cuButton4.Image = global::ModdingTools.Properties.Resources.delete;
-            this.cuButton4.Location = new System.Drawing.Point(302, 226);
+            this.cuButton4.Location = new System.Drawing.Point(403, 278);
+            this.cuButton4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cuButton4.Name = "cuButton4";
             this.cuButton4.NoFocus = false;
-            this.cuButton4.Size = new System.Drawing.Size(35, 159);
+            this.cuButton4.Size = new System.Drawing.Size(47, 196);
             this.cuButton4.TabIndex = 9;
             this.cuButton4.UseVisualStyleBackColor = false;
             this.cuButton4.Click += new System.EventHandler(this.cuButton4_Click);
@@ -156,10 +151,11 @@ namespace ModdingTools.Windows
             this.cuButton5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cuButton5.ForeColor = System.Drawing.Color.White;
             this.cuButton5.Image = global::ModdingTools.Properties.Resources.icon_044;
-            this.cuButton5.Location = new System.Drawing.Point(302, 182);
+            this.cuButton5.Location = new System.Drawing.Point(403, 224);
+            this.cuButton5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cuButton5.Name = "cuButton5";
             this.cuButton5.NoFocus = false;
-            this.cuButton5.Size = new System.Drawing.Size(35, 39);
+            this.cuButton5.Size = new System.Drawing.Size(47, 48);
             this.cuButton5.TabIndex = 10;
             this.cuButton5.UseVisualStyleBackColor = false;
             this.cuButton5.Click += new System.EventHandler(this.cuButton5_Click);
@@ -172,13 +168,39 @@ namespace ModdingTools.Windows
             this.cuButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cuButton6.ForeColor = System.Drawing.Color.White;
             this.cuButton6.Image = global::ModdingTools.Properties.Resources.icon_043;
-            this.cuButton6.Location = new System.Drawing.Point(302, 390);
+            this.cuButton6.Location = new System.Drawing.Point(403, 480);
+            this.cuButton6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cuButton6.Name = "cuButton6";
             this.cuButton6.NoFocus = false;
-            this.cuButton6.Size = new System.Drawing.Size(35, 40);
+            this.cuButton6.Size = new System.Drawing.Size(47, 49);
             this.cuButton6.TabIndex = 11;
             this.cuButton6.UseVisualStyleBackColor = false;
             this.cuButton6.Click += new System.EventHandler(this.cuButton6_Click);
+            // 
+            // borderPanel2
+            // 
+            this.borderPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.borderPanel2.BorderThickness = 2;
+            this.borderPanel2.Controls.Add(this.cuTextBox1);
+            this.borderPanel2.ForeColor = System.Drawing.Color.White;
+            this.borderPanel2.Location = new System.Drawing.Point(20, 176);
+            this.borderPanel2.Margin = new System.Windows.Forms.Padding(4);
+            this.borderPanel2.Name = "borderPanel2";
+            this.borderPanel2.Size = new System.Drawing.Size(379, 41);
+            this.borderPanel2.TabIndex = 12;
+            // 
+            // cuTextBox1
+            // 
+            this.cuTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.cuTextBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
+            this.cuTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.cuTextBox1.ForeColor = System.Drawing.Color.White;
+            this.cuTextBox1.Location = new System.Drawing.Point(5, 11);
+            this.cuTextBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.cuTextBox1.Name = "cuTextBox1";
+            this.cuTextBox1.Size = new System.Drawing.Size(368, 15);
+            this.cuTextBox1.TabIndex = 1;
+            this.cuTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cuTextBox1_KeyDown);
             // 
             // borderPanel1
             // 
@@ -186,10 +208,11 @@ namespace ModdingTools.Windows
             this.borderPanel1.BorderThickness = 2;
             this.borderPanel1.Controls.Add(this.listBox1);
             this.borderPanel1.ForeColor = System.Drawing.Color.White;
-            this.borderPanel1.Location = new System.Drawing.Point(15, 182);
+            this.borderPanel1.Location = new System.Drawing.Point(20, 224);
+            this.borderPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.borderPanel1.Name = "borderPanel1";
-            this.borderPanel1.Padding = new System.Windows.Forms.Padding(1, 1, 3, 3);
-            this.borderPanel1.Size = new System.Drawing.Size(283, 248);
+            this.borderPanel1.Padding = new System.Windows.Forms.Padding(1, 1, 4, 4);
+            this.borderPanel1.Size = new System.Drawing.Size(377, 305);
             this.borderPanel1.TabIndex = 7;
             // 
             // listBox1
@@ -200,28 +223,18 @@ namespace ModdingTools.Windows
             this.listBox1.ForeColor = System.Drawing.Color.White;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.IntegralHeight = false;
-            this.listBox1.Location = new System.Drawing.Point(4, 1);
+            this.listBox1.ItemHeight = 16;
+            this.listBox1.Location = new System.Drawing.Point(5, 1);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(4);
             this.listBox1.Name = "listBox1";
             this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBox1.Size = new System.Drawing.Size(276, 244);
+            this.listBox1.Size = new System.Drawing.Size(368, 300);
             this.listBox1.TabIndex = 6;
-            // 
-            // borderPanel2
-            // 
-            this.borderPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.borderPanel2.BorderThickness = 2;
-            this.borderPanel2.Controls.Add(this.cuTextBox1);
-            this.borderPanel2.ForeColor = System.Drawing.Color.White;
-            this.borderPanel2.Location = new System.Drawing.Point(15, 143);
-            this.borderPanel2.Name = "borderPanel2";
-            this.borderPanel2.Size = new System.Drawing.Size(284, 33);
-            this.borderPanel2.TabIndex = 12;
             // 
             // ArrayInputWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 486);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.ClientSize = new System.Drawing.Size(467, 598);
             this.ControlBoxVisible = false;
             this.Controls.Add(this.borderPanel2);
             this.Controls.Add(this.cuButton6);
@@ -231,9 +244,13 @@ namespace ModdingTools.Windows
             this.Controls.Add(this.borderPanel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsResizable = false;
             this.Location = new System.Drawing.Point(0, 0);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MaximumSize = new System.Drawing.Size(2560, 1268);
             this.Name = "ArrayInputWindow";
+            this.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Text = "ArrayInputWindow";
             this.Controls.SetChildIndex(this.tableLayoutPanel1, 0);
             this.Controls.SetChildIndex(this.label1, 0);
@@ -244,9 +261,9 @@ namespace ModdingTools.Windows
             this.Controls.SetChildIndex(this.cuButton6, 0);
             this.Controls.SetChildIndex(this.borderPanel2, 0);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.borderPanel1.ResumeLayout(false);
             this.borderPanel2.ResumeLayout(false);
             this.borderPanel2.PerformLayout();
+            this.borderPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

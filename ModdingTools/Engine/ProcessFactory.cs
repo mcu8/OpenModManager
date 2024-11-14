@@ -60,7 +60,7 @@ namespace ModdingTools.Engine
             return new ExecutableArgumentsPair(
                 !watcher ? "Compiling scripts..." : "Changes in filesystem detected... Recompiling scripts...",
                 EditorExecutablePath,
-                OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.CompileScript)
+                OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.COMP_CompileScript)
                     .Replace("${ModFolderName}", mod.GetDirectoryName()),
                 Path.GetDirectoryName(EditorExecutablePath)
             );
@@ -69,8 +69,8 @@ namespace ModdingTools.Engine
         public ExecutableArgumentsPair GetCookMod(ModObject mod, bool fast = false, Action onFinish = null)
         {
             var args = fast ?
-                OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.CookMod) :
-                OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.CookModFast);
+                OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.COMP_CookMod) :
+                OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.COMP_CookModWithFastCookOptionEnabled);
                 
             args = args
                 .Replace("${ModFolderName}", mod.GetDirectoryName())
@@ -89,8 +89,8 @@ namespace ModdingTools.Engine
         public ExecutableArgumentsPair StartMap(string mapName = null, bool bootNormally = false)
         {
             var args = bootNormally ?
-                OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.StartMap) :
-                OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.StartMapSeekFree);
+                OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.GAME_StartMap) :
+                OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.GAME_StartMapWithoutWorkshopMods);
 
             if (string.IsNullOrWhiteSpace(mapName))
             {
@@ -126,8 +126,8 @@ namespace ModdingTools.Engine
         public ExecutableArgumentsPair LaunchEditor(string modName = null)
         {
             var args = modName == null ?
-                OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.LaunchEditor) :
-                OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.LaunchEditorWithSelectedMap).Replace("${ModFolderName}", modName);
+                OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.ED_LaunchEditor) :
+                OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.ED_LaunchEditorWithSelectedMap).Replace("${ModFolderName}", modName);
 
             return new ExecutableArgumentsPair(
                 "Launching editor...",

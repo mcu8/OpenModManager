@@ -53,7 +53,7 @@ namespace ModdingTools.Engine
             { ModClassType.Hat,         Properties.Resources.hat        },
             { ModClassType.Remix,       Properties.Resources.remix      },
             { ModClassType.Sticker,     Properties.Resources.sticker    },
-            { ModClassType.Weapon,      Properties.Resources.generic    }, // TODO: add umbrella icon
+            { ModClassType.Weapon,      Properties.Resources.weapon     },
             { ModClassType.Generic,     Properties.Resources.generic    },
             { ModClassType.Skin,        Properties.Resources.dye        },
             { ModClassType.GameMod,     Properties.Resources.generic    },

@@ -44,10 +44,11 @@
             this.cuButton1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(128)))));
             this.cuButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cuButton1.ForeColor = System.Drawing.Color.White;
-            this.cuButton1.Location = new System.Drawing.Point(266, 3);
+            this.cuButton1.Location = new System.Drawing.Point(354, 4);
+            this.cuButton1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cuButton1.Name = "cuButton1";
             this.cuButton1.NoFocus = false;
-            this.cuButton1.Size = new System.Drawing.Size(257, 34);
+            this.cuButton1.Size = new System.Drawing.Size(343, 41);
             this.cuButton1.TabIndex = 1;
             this.cuButton1.Text = "YES";
             this.cuButton1.UseVisualStyleBackColor = false;
@@ -56,9 +57,10 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(4, 317);
+            this.label2.Location = new System.Drawing.Point(5, 390);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(521, 23);
+            this.label2.Size = new System.Drawing.Size(695, 28);
             this.label2.TabIndex = 3;
             this.label2.Text = "Do you want to download this update now?";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -73,11 +75,12 @@
             this.tableLayoutPanel1.Controls.Add(this.cuButton2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.cuButton1, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 343);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 423);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(526, 40);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(701, 49);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
             // cuButton2
@@ -87,10 +90,11 @@
             this.cuButton2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
             this.cuButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cuButton2.ForeColor = System.Drawing.Color.White;
-            this.cuButton2.Location = new System.Drawing.Point(3, 3);
+            this.cuButton2.Location = new System.Drawing.Point(4, 4);
+            this.cuButton2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cuButton2.Name = "cuButton2";
             this.cuButton2.NoFocus = false;
-            this.cuButton2.Size = new System.Drawing.Size(257, 34);
+            this.cuButton2.Size = new System.Drawing.Size(342, 41);
             this.cuButton2.TabIndex = 2;
             this.cuButton2.Text = "NO";
             this.cuButton2.UseVisualStyleBackColor = false;
@@ -98,18 +102,17 @@
             // 
             // webBrowser1
             // 
-            this.webBrowser1.Location = new System.Drawing.Point(2, 34);
+            this.webBrowser1.Location = new System.Drawing.Point(3, 42);
             this.webBrowser1.Margin = new System.Windows.Forms.Padding(0);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(27, 25);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(526, 280);
+            this.webBrowser1.Size = new System.Drawing.Size(701, 345);
             this.webBrowser1.TabIndex = 11;
             // 
             // ChangelogWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(530, 385);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.ClientSize = new System.Drawing.Size(707, 474);
             this.ControlBoxVisible = false;
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -120,7 +123,10 @@
             this.IsMinimizeButtonEnabled = false;
             this.IsResizable = false;
             this.Location = new System.Drawing.Point(0, 0);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MaximumSize = new System.Drawing.Size(2560, 1268);
             this.Name = "ChangelogWindow";
+            this.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Text = "A NEWER VERSION OF OMM IS NOW AVAILABLE!";
             this.TitlebarColor = System.Drawing.Color.Black;
             this.Controls.SetChildIndex(this.label2, 0);

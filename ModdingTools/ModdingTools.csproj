@@ -105,6 +105,12 @@
     <Compile Include="Engine\EditorProcessStateWatchdog.cs" />
     <Compile Include="Engine\SteamWorkshopStorage.cs" />
     <Compile Include="Engine\TGA\TargaImage.cs" />
+    <Compile Include="GUI\ArgEditorItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\ArgEditorItem.Designer.cs">
+      <DependentUpon>ArgEditorItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\GUIProcessRunner.cs" />
     <Compile Include="Headless\CommandLineOptions.cs" />
     <Compile Include="Engine\APNG\APNG.cs" />
@@ -169,6 +175,12 @@
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Settings\OMMSettings.cs" />
+    <Compile Include="Windows\ArgEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\ArgEditor.Designer.cs">
+      <DependentUpon>ArgEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ArrayInputWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -281,6 +293,9 @@
     <Compile Include="Windows\WorkshopLocker.Designer.cs">
       <DependentUpon>WorkshopLocker.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="GUI\ArgEditorItem.resx">
+      <DependentUpon>ArgEditorItem.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\ConfigItem.resx">
       <DependentUpon>ConfigItem.cs</DependentUpon>
     </EmbeddedResource>
@@ -298,6 +313,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\GUIWorker.resx">
       <DependentUpon>GUIWorker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\ArgEditor.resx">
+      <DependentUpon>ArgEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\ArrayInputWindow.resx">
       <DependentUpon>ArrayInputWindow.cs</DependentUpon>

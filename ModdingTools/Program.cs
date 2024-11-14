@@ -98,7 +98,7 @@ namespace ModdingTools
             {
                 // Add the event handler for handling UI thread exceptions to the event.
                 Application.ThreadException += (sender, e)
-                    => FatalExceptionObject(e);
+                    => FatalExceptionObject(e.Exception);
 
                 // Set the unhandled exception mode to force all Windows Forms errors to go through our handler.
                 Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);

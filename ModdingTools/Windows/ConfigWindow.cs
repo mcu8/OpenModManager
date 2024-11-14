@@ -86,5 +86,12 @@ namespace ModdingTools.Windows
             Process.Start(Path.Combine(Program.GetAppRoot(), "ModdingTools.Updater.exe"));
             Program.CloseApp(0);
         }
+
+        private void cuButton2_Click(object sender, EventArgs e)
+        {
+            var conf = new ArgEditor();
+            conf.StartPosition = FormStartPosition.CenterParent;
+            conf.ShowDialog();
+        }
     }
 }

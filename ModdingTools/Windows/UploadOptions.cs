@@ -357,13 +357,16 @@ namespace ModdingTools.Windows
             var path = Path.Combine(mod.RootPath, "uploader.xml");
             XmlSerializer serializer =
                 new XmlSerializer(typeof(ModStore));
-            Stream fs = new FileStream(path, FileMode.Create);
-            XmlWriter writer =
-                new XmlTextWriter(fs, Encoding.Unicode);
-            // Serialize using the XmlTextWriter.
-            serializer.Serialize(writer, this);
-            writer.Close();
+            XmlWriterSettings settings = new XmlWriterSettings { Indent = true, Encoding = Encoding.Unicode };
+            using (Stream fs = new FileStream(path, FileMode.Create))
+            {
+                using(XmlWriter writer = XmlWriter.Create(fs, settings))
+                {
+                    // Serialize using the XmlTextWriter.
+                    serializer.Serialize(writer, this);
+                    writer.Close();
+                }        
+            }
         }
     }
-
 }
