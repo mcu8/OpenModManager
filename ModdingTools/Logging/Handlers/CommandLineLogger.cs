@@ -1,5 +1,6 @@
 ﻿using CUFramework.Shared;
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace ModdingTools.Logging.Handlers
@@ -8,7 +9,13 @@ namespace ModdingTools.Logging.Handlers
     {
         public void Init()
         {
-            Console.Title = "OMM";
+            try
+            {
+                Console.Title = "OMM";
+            } catch (IOException e)
+            {
+                // just ignore for now
+            }
         }
 
         public static void PrintBanner()

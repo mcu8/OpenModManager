@@ -57,9 +57,6 @@ namespace ModdingTools.Windows
             if (!DesignMode)
                 Utils.CleanUpTrash(GameFinder.FindGameDir());
 
-            if (!DesignMode)
-                OMMSettings.Instance.Migrate();
-
             Instance = this;
             InitializeComponent();
 

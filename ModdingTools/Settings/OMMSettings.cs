@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using System.Xml;
 using System.Xml.Serialization;
+using static ModdingTools.Settings.OMMSettings;
 
 namespace ModdingTools.Settings
 {
@@ -32,34 +34,67 @@ namespace ModdingTools.Settings
         public bool MafiaPunchGameToo { get; set; } = false;
         public bool AlwaysloadedWorkaround { get; set; } = false;
 
-        // ToDo: remove after few months lol
-        public void Migrate()
+        public enum ArgsDefaultsKeys
         {
-            var oldConfigPath = Path.Combine(Environment.GetEnvironmentVariable("LocalAppData"), "m_cu8_m_cube");
-            if (Directory.Exists(oldConfigPath))
+            CompileScript,
+            CookMod,
+            CookModFast,
+            StartMap,
+            StartMapSeekFree,
+            LaunchEditor,
+            LaunchEditorWithSelectedMap
+        }
+
+        public class ArgumentsItem
+        {
+            public ArgsDefaultsKeys Key { get; set; }
+            public string Value { get; set; }
+
+            public ArgumentsItem(ArgsDefaultsKeys key, string value)
             {
-                AutoScanDownloadedMods = Properties.Settings.Default.AutoScanDownloadedMods;
-                Memes = Properties.Settings.Default.Memes;
-                MultilangCook = Properties.Settings.Default.MultilangCook;
-                UpdateCheck = Properties.Settings.Default.UpdateCheck;
-                Exporter_ForcePNG = Properties.Settings.Default.Exporter_ForcePNG;
-                Flipbook_TrueTransparency = Properties.Settings.Default.Flipbook_TrueTransparency;
-                Flipbook_LastIntrpValue = Properties.Settings.Default.Flipbook_LastIntrpValue;
-                Flipbook_LastColorValue = Properties.Settings.Default.Flipbook_LastColorValue;
-                Flipbook_LastSize = Properties.Settings.Default.Flipbook_LastSize;
-                RmShaderOnCook = Properties.Settings.Default.RmShaderOnCook;
-                VSCIntegration = Properties.Settings.Default.VSCIntegration;
-                FastCook = Properties.Settings.Default.FastCook;
-                LastAction = Properties.Settings.Default.LastAction;
-                VSCCustomPath = Properties.Settings.Default.VSCCustomPath;
-                KillGameBeforeCooking = Properties.Settings.Default.KillGameBeforeCooking;
-                KillEditorBeforeCooking = Properties.Settings.Default.KillEditorBeforeCooking;
-                MafiaPunchGameToo = Properties.Settings.Default.MafiaPunchGameToo;
+                Key = key;
+                Value = value;
+            }
 
-                Save();
-                Directory.Delete(oldConfigPath, true);
+            public ArgumentsItem() { }
+        }
 
-                CUMessageBox.Show("Configuration migrated successfully!");
+        private static readonly Dictionary<ArgsDefaultsKeys, string> ArgsDefaults = new Dictionary<ArgsDefaultsKeys, string>() {
+            { ArgsDefaultsKeys.CompileScript, "make -FULL -SHORTPATHS -NOPAUSEONSUCCESS -MODSONLY=${ModFolderName}" },
+            { ArgsDefaultsKeys.CookMod, "CookPackages ${ModFolderName} -PROCESSES=${CpuCount} -SKIPMAPS -USERMODE -PLATFORM=PC -NOPAUSEONSUCCESS -FASTCOOK -MULTILANGUAGECOOK=${MlCOptions} -MODSONLY=${ModFolderName}" },
+            { ArgsDefaultsKeys.CookModFast, "CookPackages -PLATFORM=PC -NOPAUSEONSUCCESS -FULL -FASTCOOK -MULTILANGUAGECOOK=${MlCOptions} -MODSONLY=${ModFolderName}" },
+            { ArgsDefaultsKeys.StartMap,  "${MapName}" },
+            { ArgsDefaultsKeys.StartMapSeekFree, "${MapName} -SEEKFREELOADING" },
+            { ArgsDefaultsKeys.LaunchEditor, "editor -NoGADWarning" },
+            { ArgsDefaultsKeys.LaunchEditorWithSelectedMap, "editor -TARGETMOD=${ModFolderName} -NoGADWarning" }
+        };
+
+        public List<ArgumentsItem> CmdLineArguments = new List<ArgumentsItem>() {
+            new ArgumentsItem(ArgsDefaultsKeys.CompileScript, ArgsDefaults[ArgsDefaultsKeys.CompileScript]),
+            new ArgumentsItem(ArgsDefaultsKeys.CookMod, ArgsDefaults[ArgsDefaultsKeys.CookMod]),
+            new ArgumentsItem(ArgsDefaultsKeys.CookModFast, ArgsDefaults[ArgsDefaultsKeys.CookModFast]),
+            new ArgumentsItem(ArgsDefaultsKeys.StartMap, ArgsDefaults[ArgsDefaultsKeys.StartMap]),
+            new ArgumentsItem(ArgsDefaultsKeys.StartMapSeekFree, ArgsDefaults[ArgsDefaultsKeys.StartMapSeekFree]),
+            new ArgumentsItem(ArgsDefaultsKeys.LaunchEditor, ArgsDefaults[ArgsDefaultsKeys.LaunchEditor]),
+            new ArgumentsItem(ArgsDefaultsKeys.LaunchEditorWithSelectedMap, ArgsDefaults[ArgsDefaultsKeys.LaunchEditorWithSelectedMap])
+        };
+
+        public void ResetArguments(ArgsDefaultsKeys key)
+        {
+            CmdLineArguments.Where(x => x.Key == key).First().Value = ArgsDefaults[key];
+        }
+
+        public string GetArgumentsFor(ArgsDefaultsKeys key)
+        {
+            var result = CmdLineArguments.Where(x => x.Key == key).FirstOrDefault(null);
+            return result != null ? result.Value : ArgsDefaults[key];
+        }
+
+        public void ResetAllArguments()
+        {
+            foreach (var x in CmdLineArguments)
+            {
+                x.Value = ArgsDefaults[x.Key];
             }
         }
 
@@ -117,12 +152,13 @@ namespace ModdingTools.Settings
                 Directory.CreateDirectory(cfgRoot);
 
             XmlSerializer serializer = new XmlSerializer(typeof(OMMSettings));
-            Stream fs = new FileStream(appCfgPath, FileMode.Create);
-            using (XmlWriter writer = new XmlTextWriter(fs, Encoding.Unicode))
+            XmlWriterSettings settings = new XmlWriterSettings { Indent = true, Encoding = Encoding.Unicode };
+            //Stream fs = new FileStream(, FileMode.Create);
+            using (XmlWriter writer = XmlWriter.Create(appCfgPath, settings))
             {
                 serializer.Serialize(writer, this);
                 writer.Close();
-            }   
+            }
         }
     }
 }

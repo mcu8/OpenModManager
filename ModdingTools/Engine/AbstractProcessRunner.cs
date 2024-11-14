@@ -40,7 +40,7 @@ namespace ModdingTools.Engine
             return RunApp(info.Executable, info.Arguments, info.WorkingDirectory, info.TaskName, info.OnFinish, cleanConsole);
         }
 
-        public void RunAppAsync(string exe, string[] args, string cwd = ".", string taskName = "", Action o = null, bool cleanConsole = true, Action onSuccess = null)
+        public void RunAppAsync(string exe, string args, string cwd = ".", string taskName = "", Action o = null, bool cleanConsole = true, Action onSuccess = null)
         {
             Task.Factory.StartNew(() =>
             {
@@ -63,14 +63,14 @@ namespace ModdingTools.Engine
         }
 
 
-        protected void RunWithoutWait(string exe, string[] args, string cwd = ".")
+        protected void RunWithoutWait(string exe, string args, string cwd = ".")
         {
             bool poggersMode = false;
             if (!ProgramHeadless.IsHeadlessMode)
                 poggersMode = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
             if (poggersMode)
             {
-                if (args.Length > 0 && args[0] == "editor")
+                if (args.Length > 0 && args.StartsWith("editor"))
                 {
                     PreRunWithoutWait();      
                 }
@@ -121,7 +121,7 @@ namespace ModdingTools.Engine
         }
 
         protected List<Process> runningProcesses = new List<Process>();
-        protected bool RunApp(string exe, string[] args, string cwd = ".", string taskName = "", Action o = null, bool cleanConsole = true)
+        protected bool RunApp(string exe, string args, string cwd = ".", string taskName = "", Action o = null, bool cleanConsole = true)
         {
             PreAppRun(cleanConsole, taskName);
 
@@ -134,7 +134,7 @@ namespace ModdingTools.Engine
 
             Process process = new Process();
             process.StartInfo.FileName = exe;
-            process.StartInfo.Arguments = string.Join(" ", args);
+            process.StartInfo.Arguments = args;
             process.StartInfo.WorkingDirectory = cwd;
             process.StartInfo.UseShellExecute = false;
             process.StartInfo.CreateNoWindow = true;
