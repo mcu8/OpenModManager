@@ -68,7 +68,7 @@ namespace ModdingTools.Engine
         
         public ExecutableArgumentsPair GetCookMod(ModObject mod, bool fast = false, Action onFinish = null)
         {
-            var args = fast ?
+            var args = !fast ?
                 OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.COMP_CookMod) :
                 OMMSettings.Instance.GetArgumentsFor(OMMSettings.ArgsDefaultsKeys.COMP_CookModWithFastCookOptionEnabled);
                 
