@@ -1,14 +1,15 @@
-﻿using System;
+﻿using CUFramework.Dialogs.Validators;
+using ModdingTools.Modding;
+using ModdingTools.Windows;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using ModdingTools.Windows;
-using ModdingTools.Modding;
-using CUFramework.Dialogs.Validators;
+using static ModdingTools.Modding.ModObject;
 
 namespace ModdingTools.GUI
 {
@@ -90,9 +91,10 @@ namespace ModdingTools.GUI
             if (!firstRun)
             {
                 Conf.Options.Clear();   
-                foreach (var item in listBox1.Items)
+                foreach (var _item in listBox1.Items)
                 {
-                    Conf.Options.Add(i, (string)item);
+                    var item = (ModConfigItem_Indexed)_item;
+                    Conf.Options.Add(i, item);
                     i++;
                 }
             }
@@ -102,20 +104,8 @@ namespace ModdingTools.GUI
                 {
                     listBox1.Items.Add(conf.Value);
                 }
+                listBox1.Update();
             }
-
-            comboBox1.Items.Clear();
-            i = 0;
-            foreach (var item in listBox1.Items)
-            {
-                comboBox1.Items.Add((string)item);
-                /*if (i == Conf.DefaultIndex)
-                {
-                    comboBox1.SelectedIndex = i;
-                }*/
-                i++;
-            }
-
         }
 
         private void mButtonBorderless3_Click(object sender, EventArgs e)
@@ -123,9 +113,33 @@ namespace ModdingTools.GUI
             var a = CUInputWindow.Ask(this, "Config Editor", "Please, enter a new value name", new NonEmptyValidator());
             if (a != null)
             {
-                listBox1.Items.Add(a);
+                listBox1.Items.Add(new ModConfigItem_Indexed(FindLowestAvailableConfigId(), a));
                 RepopulateOptionsDict();
                 CallUpdateEvent();
+            }
+        }
+
+        private int FindLowestAvailableConfigId()
+        {
+            int i = 0;
+            while (true)
+            {
+                bool found = false;
+                foreach (var _item in listBox1.Items)
+                {
+                    var item = (ModConfigItem_Indexed)_item;
+                    if (item.Id == i)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found)
+                {
+                    i++;
+                    continue;
+                }
+                return i;
             }
         }
 

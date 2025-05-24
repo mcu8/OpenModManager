@@ -40,8 +40,6 @@ namespace ModdingTools.GUI
             this.label7 = new System.Windows.Forms.Label();
             this.mButtonBorderless2 = new CUFramework.Controls.CUButtonBorderless();
             this.mButtonBorderless3 = new CUFramework.Controls.CUButtonBorderless();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
@@ -183,31 +181,6 @@ namespace ModdingTools.GUI
             this.mButtonBorderless3.UseVisualStyleBackColor = false;
             this.mButtonBorderless3.Click += new System.EventHandler(this.mButtonBorderless3_Click);
             // 
-            // comboBox1
-            // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(89, 183);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(246, 21);
-            this.comboBox1.TabIndex = 11;
-            this.comboBox1.Visible = false;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(3, 186);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(69, 13);
-            this.label8.TabIndex = 12;
-            this.label8.Text = "DEF. VALUE";
-            this.label8.Visible = false;
-            // 
             // listBox1
             // 
             this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -225,8 +198,6 @@ namespace ModdingTools.GUI
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.mButtonBorderless3);
             this.Controls.Add(this.mButtonBorderless2);
             this.Controls.Add(this.label7);
@@ -256,8 +227,6 @@ namespace ModdingTools.GUI
         private System.Windows.Forms.Label label7;
         private CUButtonBorderless mButtonBorderless2;
         private CUButtonBorderless mButtonBorderless3;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ListBox listBox1;
     }
 }
