@@ -264,7 +264,7 @@ namespace ModdingTools.Windows
                 modListControl1.AddModSource(new ModDirectorySource("Downloaded mods", GameFinder.GetWorkshopDir(), autoLoad, false, true));
                 modListControl1.AddModSource(new ModDirectorySource("Downloaded mods (disabled)", Path.Combine(GameFinder.GetWorkshopDir(), "Disabled"), autoLoad, false, true));
             }
-            catch (Exception e) 
+            catch (Exception) 
             { 
                 // Ignore, cuz that may not work on Proton
             }
@@ -368,7 +368,7 @@ namespace ModdingTools.Windows
                 {
                     Process.Start(proc);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                 }
             }

@@ -35,7 +35,7 @@ namespace ModdingTools.Engine
                         EditorStateChanged?.Invoke(this, EventArgs.Empty);
                     }
                 }
-                catch (Exception e) { } // nah
+                catch (Exception) { } // nah
                 Thread.Sleep(5000);
             }
         }

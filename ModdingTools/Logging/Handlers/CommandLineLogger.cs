@@ -12,7 +12,7 @@ namespace ModdingTools.Logging.Handlers
             try
             {
                 Console.Title = "OMM";
-            } catch (IOException e)
+            } catch (IOException)
             {
                 // just ignore for now
             }

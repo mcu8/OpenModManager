@@ -545,7 +545,7 @@ namespace ModdingTools.Windows
                 {
                     if (x.Key.Tag != null)
                     {
-                        if (x.Key.Tag != RemovalFlag)
+                        if (x.Key.Tag != (object)RemovalFlag)
                         {
                             var iconE = ((string)x.Key.Tag).Split('.');
                             var iconExt = iconE[iconE.Length - 1].ToLower();
@@ -579,7 +579,7 @@ namespace ModdingTools.Windows
 
                 if (IconViewGif.Tag != null)
                 {
-                    if (IconViewGif.Tag != RemovalFlag)
+                    if (IconViewGif.Tag != (object)RemovalFlag)
                     {
                         var iconE = ((string)IconViewGif.Tag).Split('.');
                         var iconExt = iconE[iconE.Length - 1].ToLower();

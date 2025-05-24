@@ -286,7 +286,7 @@ namespace ModdingTools.Engine
                 double num = Math.Round(bytes / Math.Pow(1024, place), 1);
                 return (Math.Sign((long)byteCount) * num).ToString() + suf[place];
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return byteCount + "B";
             }
