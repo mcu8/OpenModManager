@@ -25,7 +25,7 @@ You can find a ready to run version on the [Releases](https://github.com/mcu8/Op
 ---
 Now supports mod uploading via Steamworks API (no more int32 issue)!
 Works only with the Steam release of the game and 64-bit operating systems (cuz the game is 64-bit anyway).
-Requires .NET Framework v4.0 (you probably have it already installed if you are used official Modding Tools before)
+Requires [.NET Framework v4.8](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net48)
 
 Installation
 ---
