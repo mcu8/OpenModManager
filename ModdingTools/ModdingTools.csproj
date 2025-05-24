@@ -72,6 +72,9 @@
     <Reference Include="CUFramework, Version=0.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CUFramework.0.0.1\lib\net40\CUFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Eliot.UELib, Version=1.10.0.0, Culture=neutral, PublicKeyToken=d0d22cacd90fdb4a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Eliot.UELib.1.10.0\lib\net48\Eliot.UELib.dll</HintPath>
+    </Reference>
     <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
       <HintPath>..\packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
     </Reference>
