@@ -1,40 +1,59 @@
-## OPEN MOD MANAGER
-For A Hat in Time
+## Open Mod Manager
+**For *A Hat in Time***
 
 ![Screenshot](https://hat.ovh/omm.png)
 
-What is this? Flying boat?
 ---
-That's the Mod Manager but fully rewritten from scratch with the new features:
- - Resizable window
- - Embedded console
- - "Mafia Punch:tm:" button (for killing editor when it not respond)
- - Batch-building more than one mod at once
- - Fully dark themed
- - Better Asset Replacements editor
- - Mod configuration editor
- - Clipbook generator (from gif)
- - Asset exporter (works with SoundNodeWaves and Texture2D)
- - Custom workshop uploader with advanced features
- - Search bar
- - Script watcher (it auto compile scripts when you modify something in it) - disabled by default
- - Mod list context menu
- ... and more!
 
-You can find a ready to run version on the [Releases](https://github.com/mcu8/OpenModManager/releases/latest) tab
----
-Now supports mod uploading via Steamworks API (no more int32 issue)!
-Works only with the Steam release of the game and 64-bit operating systems (cuz the game is 64-bit anyway).
-Requires [.NET Framework v4.8](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net48)
+### What is this? Flying boat?
 
-Installation
----
-Download latest release from the [Releases](https://github.com/mcu8/OpenModManager/releases/latest) tab, extract it to some folder and run the "ModdingTools.exe" executable.
+Nope — it's the **Mod Manager**, fully rewritten from scratch with new features:
 
-Building
----
-Clone the repository and open it in the Visual Studio 2019 (or newer).
+- Resizable window  
+- Embedded console  
+- "Mafia Punch™" button (for killing the editor when it stops responding)  
+- Batch-building multiple mods at once  
+- Fully dark-themed interface  
+- Improved Asset Replacements editor  
+- Mod configuration editor  
+- Clipbook generator (from GIFs)  
+- Asset exporter (supports `SoundNodeWave` and `Texture2D`)  
+- Custom workshop uploader with advanced features  
+- Search bar  
+- Script watcher (automatically compiles scripts when modified — disabled by default)  
+- Mod list context menu  
+- Customizable command line arguments
+- Headless mode
+- VS Code integration
+- ...and more!
 
-Disclaimer
+You can find a ready-to-run version on the [Releases](https://github.com/mcu8/OpenModManager/releases/latest) page.
+
 ---
-This tool is an unofficial tool and is not associated with Gears for Breakfast
+
+### Now with Steam Workshop Upload Support!
+
+Supports mod uploading via the **Steamworks API** (no more `Int32` issue)!  
+⚠️ Works only with the **Steam version** of the game and **64-bit operating systems** (since the game is 64-bit anyway).  
+🛠 Requires [.NET Framework v4.8](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net48).
+
+---
+
+### Installation
+
+1. Download the latest release from the [Releases](https://github.com/mcu8/OpenModManager/releases/latest) page.  
+2. Extract it to any folder.  
+3. Run the `ModdingTools.exe` executable.
+
+---
+
+### Building from Source
+
+1. Clone the repository.  
+2. Open the solution in **Visual Studio 2022** or newer.  
+
+---
+
+### Disclaimer
+
+This is an unofficial tool and is not affiliated with **Gears for Breakfast**.
