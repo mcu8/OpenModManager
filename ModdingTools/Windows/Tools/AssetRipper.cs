@@ -99,7 +99,7 @@ namespace ModdingTools.Windows.Tools
                         {
                             foreach (var sub in task.Value)
                             {
-                                if (o.Name.Name.Equals(sub.Spl.Last(), StringComparison.InvariantCultureIgnoreCase) && o.Class.Name.Name.Equals(sub.Type.ToString(), StringComparison.InvariantCultureIgnoreCase))
+                                if (o.Name.ToString().Equals(sub.Spl.Last(), StringComparison.InvariantCultureIgnoreCase) && o.Class.Name.ToString().Equals(sub.Type.ToString(), StringComparison.InvariantCultureIgnoreCase))
                                 {
                                     if (sub.Spl.Count() >= 3)
                                     {
