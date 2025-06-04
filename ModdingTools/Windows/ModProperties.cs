@@ -161,12 +161,12 @@ namespace ModdingTools.Windows
                 label1.Visible = false;
             }
 
-            var imageList = new ImageList();
-            imageList.ImageSize = new Size(36, 36);
+            imageList2.Images.Clear();
+            imageList2.ImageSize = new Size(36, 36);
 
             foreach (var img in Engine.ModClass.ClassToIconMapping)
             {
-                imageList.Images.Add(img.Key.ToString(), img.Value);
+                imageList2.Images.Add(img.Key.ToString(), img.Value);
             }
 
             this.Text = $"{Mod.Name.ToUpper()} (V. {Mod.Version})";
@@ -187,7 +187,7 @@ namespace ModdingTools.Windows
             var tags = ModObject.CombineTags(Mod.GetModClasses());
 
             this.tagsList.Clear();
-            this.tagsList.LargeImageList = imageList;
+            this.tagsList.LargeImageList = imageList2;
 
             this.ModClass.Text = Mod.ModClass;
 
